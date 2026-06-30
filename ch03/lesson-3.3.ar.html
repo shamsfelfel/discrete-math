@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>٣.٣ تعقيد الخوارزميات — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٣</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٣.٣</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-3.3.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "3.3",
+  "chapter": "3",
+  "title": "تعقيد الخوارزميات",
+  "lede": "يقيس تعقيد الخوارزمية الموارد — وأهمّها الزمن معدودًا بالعمليات الأساسية — التي تحتاجها الخوارزمية كدالّة في حجم المدخل، مُعبّرًا عنها بـ <span class=\"sym\">O</span> و<span class=\"sym\">Θ</span> الكبيرتين.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "التعقيد الزمني وكيف نعدّه",
+      "body": [
+        {
+          "type": "p",
+          "text": "لتعقيد الخوارزمية وجهان: التعقيد الزمني (كم تستغرق) والتعقيد المكاني (كم تستهلك من ذاكرة). يقيس هذا القسم التعقيد الزمني بعدّ العمليات الأساسية — المقارنات والجمع والضرب — كدالّة في حجم المدخل <span class=\"sym\">n</span>."
+        },
+        {
+          "type": "def",
+          "text": "نُعبّر عن العدّ بـ <span class=\"sym\">O</span> أو <span class=\"sym\">Θ</span> الكبيرتين بدلالة <span class=\"sym\">n</span>. وتُتجاهل العوامل الثابتة وسرعة الجهاز عمدًا، فيصلح التحليل نفسه عبر الأجهزة."
+        },
+        {
+          "type": "p",
+          "text": "إيجاد القيمة العظمى لـ <span class=\"sym\">n</span> عنصرًا (الخوارزمية ١ في §٣.١) يجري مقارنة <span class=\"sym\">i ≤ n</span> لفحص الحلقة ومقارنة <span class=\"sym\">max &lt; ai</span> في كلّ دورة: نحو <span class=\"sym\">2n − 1</span> مقارنة، وهي <span class=\"sym\">Θ(n)</span> — خطية."
+        }
+      ],
+      "examples": [
+        {
+          "label": "عدّ إيجاد العظمى",
+          "body": "<span class=\"sym\">2(n − 1) + 1 = 2n − 1</span> مقارنة؛ و<span class=\"sym\">2n − 1</span> هي <span class=\"sym\">Θ(n)</span>، فإيجاد العظمى خوارزمية خطية الزمن."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "تحليل الحالة الأسوأ والحالة المتوسّطة",
+      "body": [
+        {
+          "type": "p",
+          "text": "لأنّ عدد العمليات قد يعتمد على المدخل البعينه، نبلّغه بطرق قياسية. تعقيد الحالة الأسوأ هو أكبر عدد عبر جميع مدخلات الحجم <span class=\"sym\">n</span> — ضمان بأنّ الخوارزمية لن تكون أبطأ من ذلك."
+        },
+        {
+          "type": "p",
+          "text": "تعقيد الحالة المتوسّطة يتوسّط العدّ عبر جميع المدخلات من الحجم <span class=\"sym\">n</span>، وهو أصعب حسابًا لأنّه يحتاج فرضيات حول توزّع المدخلات."
+        },
+        {
+          "type": "p",
+          "text": "البحث الخطي (الخوارزمية ٢) يقارن <span class=\"sym\">x</span> بكلّ حدّ. في الحالة الأسوأ — <span class=\"sym\">x</span> غائب أو أخير — يستخدم <span class=\"sym\">2n + 2</span> مقارنة، وهي <span class=\"sym\">Θ(n)</span>. وحالته المتوسّطة أيضًا <span class=\"sym\">Θ(n)</span>."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "الحالة الأسوأ: أقصى عدد عمليات عبر كلّ المدخلات من الحجم <span class=\"sym\">n</span>.",
+            "الحالة المتوسّطة: متوسّط العمليات عبر كلّ المدخلات من الحجم <span class=\"sym\">n</span>.",
+            "تحليل الحالة الأسوأ هو الأشيع — لأنّه يحدّ الأداء بيقين."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "البحث الخطي، الحالة الأسوأ",
+          "body": "<span class=\"sym\">2n + 2</span> مقارنة عندما لا يكون <span class=\"sym\">x</span> في القائمة (اثنتان لكلّ حدّ زائد فحص الحلقة الأخير)، و<span class=\"sym\">2n + 2</span> هي <span class=\"sym\">Θ(n)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "تعقيد البحث والترتيب",
+      "body": [
+        {
+          "type": "p",
+          "text": "خوارزميات البحث والترتيب القياسية من §٣.١ لها تعقيدات الحالة الأسوأ التالية، مقيسةً بالمقارنات:"
+        },
+        {
+          "type": "truthTable",
+          "headers": [
+            "الخوارزمية",
+            "مقارنات الحالة الأسوأ",
+            "الرتبة"
+          ],
+          "rows": [
+            [
+              "البحث الخطي",
+              "<span class=\"sym\">2n + 2</span>",
+              "<span class=\"sym\">Θ(n)</span>"
+            ],
+            [
+              "البحث الثنائي",
+              "<span class=\"sym\">2⌈log n⌉ + 2</span>",
+              "<span class=\"sym\">Θ(log n)</span>"
+            ],
+            [
+              "ترتيب الفقاعات",
+              "<span class=\"sym\">n(n − 1)/2</span>",
+              "<span class=\"sym\">Θ(n²)</span>"
+            ],
+            [
+              "ترتيب الإدراج",
+              "<span class=\"sym\">n(n − 1)/2</span>",
+              "<span class=\"sym\">Θ(n²)</span>"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "البحث الثنائي أسرع بكثير من الخطي على قائمة مرتّبة لأنّه ينصّف فضاء البحث في كلّ خطوة، فيعطي <span class=\"sym\">Θ(log n)</span> بدلاً من <span class=\"sym\">Θ(n)</span>. وترتيبا الفقاعات والإدراج كلاهما <span class=\"sym\">Θ(n²)</span> في الحالة الأسوأ."
+        }
+      ],
+      "examples": [
+        {
+          "label": "عدّ البحث الثنائي",
+          "body": "على الأكثر <span class=\"sym\">2k + 2 = 2⌈log n⌉ + 2</span> مقارنة (بـ <span class=\"sym\">k = ⌈log n⌉</span> تنصيفًا)، و<span class=\"sym\">2⌈log n⌉ + 2</span> هي <span class=\"sym\">Θ(log n)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "ضرب المصفوفات",
+      "body": [
+        {
+          "type": "p",
+          "text": "ضرب مصفوفتين <span class=\"sym\">n × n</span> بالتعريف (الخوارزمية ١) يحسب كلّ مدخل من مدخلات الجداء <span class=\"sym\">n²</span> كمجموع <span class=\"sym\">n</span> جداءً."
+        },
+        {
+          "type": "def",
+          "text": "كلّ مدخل يحتاج <span class=\"sym\">n</span> عملية ضرب و<span class=\"sym\">n − 1</span> عملية جمع. وعبر كلّ المدخلات <span class=\"sym\">n²</span>: <span class=\"sym\">n³</span> عملية ضرب و<span class=\"sym\">n²(n − 1)</span> عملية جمع — فالطريقة المباشرة <span class=\"sym\">Θ(n³)</span>."
+        },
+        {
+          "type": "p",
+          "text": "وبشكل مدهش، توجد خوارزميات أسرع لضرب المصفوفات تتجاوز <span class=\"sym\">n³</span>. وترتيب ضرب سلسلة من المصفوفات يهمّ كثيرًا: لـ <span class=\"sym\">A1, A2, A3</span> متوافقة، قد يكلّف <span class=\"sym\">A1(A2 A3)</span> ـ <span class=\"sym\">14000</span> عملية ضرب بينما يكلّف <span class=\"sym\">(A1 A2)A3</span> ـ <span class=\"sym\">36000</span> — النتيجة نفسها وعمل مختلف جدًا."
+        }
+      ],
+      "examples": [
+        {
+          "label": "عدّ العمليات",
+          "body": "الضرب المباشر <span class=\"sym\">n × n</span>: <span class=\"sym\">n³</span> عملية ضرب و<span class=\"sym\">n²(n − 1)</span> عملية جمع، بإجمالي <span class=\"sym\">Θ(n³)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "مصطلحات التعقيد",
+      "body": [
+        {
+          "type": "p",
+          "text": "لفئات النمو الشائعة أسماء قياسية (الجدول ١). وهي تتيح وصف قابلية توسّع الخوارزمية بلمحة."
+        },
+        {
+          "type": "truthTable",
+          "headers": [
+            "التعقيد",
+            "المصطلح"
+          ],
+          "rows": [
+            [
+              "<span class=\"sym\">Θ(1)</span>",
+              "ثابت"
+            ],
+            [
+              "<span class=\"sym\">Θ(log n)</span>",
+              "لوغاريتمي"
+            ],
+            [
+              "<span class=\"sym\">Θ(n)</span>",
+              "خطي"
+            ],
+            [
+              "<span class=\"sym\">Θ(n log n)</span>",
+              "خطي-لوغاريتمي"
+            ],
+            [
+              "<span class=\"sym\">Θ(nᵇ)</span>",
+              "كثير الحدود"
+            ],
+            [
+              "<span class=\"sym\">Θ(bⁿ), b &gt; 1</span>",
+              "أسي"
+            ],
+            [
+              "<span class=\"sym\">Θ(n!)</span>",
+              "عاملي"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "ترتيب الدمج (الفصل ٤) يحقّق <span class=\"sym\">Θ(n log n)</span> — خطي-لوغاريتمي — أفضل من <span class=\"sym\">Θ(n²)</span> لترتيبي الفقاعات والإدراج. وكلمة «خطي-لوغاريتمي» تمزج الخطي واللوغاريتمي."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "القابل وغير القابل للحل، و<span class=\"sym\">P</span> مقابل <span class=\"sym\">NP</span>",
+      "body": [
+        {
+          "type": "p",
+          "text": "تُصنّف المسائل بحسب أفضل خوارزمية معروفة لحلّها."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "قابل للحل (Tractable): يُحلّ بتعقيد زمني كثير-حدود في الحالة الأسوأ (<span class=\"sym\">Θ(nᵇ)</span>). ينتمي للصنف <span class=\"sym\">P</span>.",
+            "غير قابل للحل عمليًا (Intractable): لا تُعرف له خوارزمية كثيرة-حدود؛ والحالة الأسوأ تحتاج عادةً زمنًا أسيًا.",
+            "غير قابل للحل (Unsolvable): لا توجد خوارزمية أصلاً (مثل مسألة التوقّف)."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "الصنف <span class=\"sym\">NP</span> (الزمن كثير-الحدود غير الحتمي) يضمّ المسائل التي يمكن التحقّق من حلولها المقترحة في زمن كثير-حدود. ومسألة هل <span class=\"sym\">P = NP</span> — أي هل كلّ مسألة سريعة التحقّق سريعة الحلّ — أشهر مسألة مفتوحة في علوم الحاسوب النظرية، وإحدى مسائل جائزة الألفية السبع (<span class=\"sym\">$1</span> مليون)."
+        },
+        {
+          "type": "def",
+          "text": "المسألة <span class=\"sym\">NP</span>-الكاملة هي مسألة في <span class=\"sym\">NP</span> بحيث لو وُجدت لها خوارزمية كثيرة-حدود، لوجدت لكلّ مسائل <span class=\"sym\">NP</span>. مسألة الإشباع <span class=\"sym\">NP</span>-كاملة — مبرهنة كوك–ليفين."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "عند قياس التعقيد الزمني لخوارزمية، ماذا نعدّ؟",
+      "options": [
+        "العمليات الأساسية (مثل المقارنات) كدالّة في حجم المدخل",
+        "الثواني على حاسوب معيّن",
+        "أسطر الشيفرة المصدرية",
+        "بايتات الذاكرة المستخدمة"
+      ],
+      "answer": 0,
+      "explanation": "يعدّ التعقيد الزمني العمليات الأساسية كدالّة في <span class=\"sym\">n</span>، بمعزل عن سرعة الجهاز."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "تعقيد الحالة الأسوأ يعطي أكبر عدد عمليات عبر جميع المدخلات من حجم معيّن.",
+      "answer": true,
+      "explanation": "هذا هو التعريف تمامًا — وهو يحدّ الأداء بيقين."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "ما تعقيد الحالة الأسوأ للبحث الثنائي على قائمة مرتّبة من <span class=\"sym\">n</span> عنصرًا؟",
+      "options": [
+        "<span class=\"sym\">Θ(log n)</span>",
+        "<span class=\"sym\">Θ(n)</span>",
+        "<span class=\"sym\">Θ(n²)</span>",
+        "<span class=\"sym\">Θ(1)</span>"
+      ],
+      "answer": 0,
+      "explanation": "ينصّف البحث الثنائي القائمة في كلّ خطوة، مستخدمًا <span class=\"sym\">2⌈log n⌉ + 2</span> مقارنة = <span class=\"sym\">Θ(log n)</span>."
+    },
+    {
+      "id": "q4",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "تعقيد عمليات البحث والترتيب القياسية.",
+      "template": "للبحث الخطي تعقيد حالة أسوأ <span class=\"sym\">Θ(</span>[[1]]<span class=\"sym\">)</span>، بينما يحقّق البحث الثنائي <span class=\"sym\">Θ(</span>[[2]]<span class=\"sym\">)</span>. وترتيبا الفقاعات والإدراج كلاهما <span class=\"sym\">Θ(</span>[[3]]<span class=\"sym\">)</span> في الحالة الأسوأ.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "n",
+          "acceptable": [
+            "n"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "log n",
+          "acceptable": [
+            "log n",
+            "logn",
+            "log(n)",
+            "lg n"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "n^2",
+          "acceptable": [
+            "n^2",
+            "n²",
+            "n**2"
+          ]
+        }
+      ],
+      "explanation": "البحث الخطي <span class=\"sym\">Θ(n)</span>؛ البحث الثنائي <span class=\"sym\">Θ(log n)</span>؛ ترتيبا الفقاعات والإدراج <span class=\"sym\">Θ(n²)</span>."
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "level": 2,
+      "prompt": "الضرب المباشر لمصفوفتين <span class=\"sym\">n × n</span>: كم عملية ضرب وجمع، وما رتبته؟",
+      "canonical": "كلّ مدخل من الـ n² يحتاج n ضرب و n−1 جمع، فيكون المجموع n³ ضرب و n²(n−1) جمع — أي Θ(n³).",
+      "acceptable": [
+        "n^3 ضرب",
+        "n تكعيب",
+        "n^3 و n^2(n-1)",
+        "Theta(n^3)",
+        "Θ(n^3)"
+      ],
+      "explanation": "n³ عملية ضرب و n²(n−1) جمع؛ الخوارزمية المباشرة <span class=\"sym\">Θ(n³)</span>."
+    },
+    {
+      "id": "q6",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب فئات التعقيد من الأكثر كفاءة (أعلى) إلى الأقلّ كفاءة (أسفل) لـ <span class=\"sym\">n</span> الكبيرة.",
+      "items": [
+        "<span class=\"sym\">Θ(1)</span>",
+        "<span class=\"sym\">Θ(log n)</span>",
+        "<span class=\"sym\">Θ(n)</span>",
+        "<span class=\"sym\">Θ(n log n)</span>",
+        "<span class=\"sym\">Θ(n²)</span>",
+        "<span class=\"sym\">Θ(2ⁿ)</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "explanation": "ثابت &lt; لوغاريتمي &lt; خطي &lt; خطي-لوغاريتمي &lt; تربيعي &lt; أسي."
+    },
+    {
+      "id": "q7",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "المسألة التي تُحلّ بخوارزمية ذات تعقيد زمني كثير-حدود في الحالة الأسوأ تُسمّى:",
+      "options": [
+        "قابلة للحل",
+        "غير قابلة للحل عمليًا",
+        "غير قابلة للحل",
+        "<span class=\"sym\">NP</span>-كاملة"
+      ],
+      "answer": 0,
+      "explanation": "زمن كثير-حدود في الحالة الأسوأ = قابلة للحل؛ وهي تشكّل الصنف <span class=\"sym\">P</span>."
+    },
+    {
+      "id": "q8",
+      "type": "tf",
+      "level": 2,
+      "prompt": "يُسمّى التعقيد <span class=\"sym\">Θ(n log n)</span> تعقيدًا خطيًا-لوغاريتميًا.",
+      "answer": true,
+      "explanation": "«خطي-لوغاريتمي» يمزج الخطي واللوغاريتمي؛ وترتيب الدمج <span class=\"sym\">Θ(n log n)</span>."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "ما الذي يميّز المسألة <span class=\"sym\">NP</span>-الكاملة؟",
+      "options": [
+        "إن وُجدت لها خوارزمية كثيرة-حدود حُلّت كلّ مسائل <span class=\"sym\">NP</span>",
+        "لا يمكن حلّها بأيّ خوارزمية أبدًا",
+        "تُحلّ دائمًا في زمن خطي",
+        "لا يمكن التحقّق من حلولها"
+      ],
+      "answer": 0,
+      "explanation": "مسألة <span class=\"sym\">NP</span>-كاملة تُحلّ في زمن كثير-حدود تضع كلّ <span class=\"sym\">NP</span> في <span class=\"sym\">P</span>؛ والإشباع المثال الكلاسيكي (كوك–ليفين)."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "ميّز بين المسائل القابلة للحل وغير القابلة للحل عمليًا وغير القابلة للحل.",
+      "canonical": "القابلة للحل لها خوارزمية كثيرة-حدود في الحالة الأسوأ (الصنف P). غير القابلة عمليًا لا تُعرف لها خوارزمية كثيرة-حدود وتحتاج عادةً زمنًا أسيًا. غير القابلة للحل لا توجد لها خوارزمية أصلاً، مثل مسألة التوقّف.",
+      "acceptable": [
+        "القابلة كثيرة-حدود، غير القابلة أسية، غير القابلة للحل لا خوارزمية",
+        "P قابلة للحل",
+        "مسألة التوقّف غير قابلة للحل"
+      ],
+      "explanation": "قابلة = كثيرة-حدود (P)؛ غير قابلة عمليًا = لا خوارزمية كثيرة-حدود معروفة؛ غير قابلة للحل = لا خوارزمية (مسألة التوقّف)."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "أصناف التعقيد والمسائل المفتوحة.",
+      "template": "المسائل التي يمكن التحقّق من حلولها في زمن كثير-حدود تشكّل الصنف [[1]]. ومسألة هل يساوي هذا الصنف <span class=\"sym\">P</span> هي مسألة <span class=\"sym\">P</span> مقابل <span class=\"sym\">NP</span> الشهيرة، إحدى مسائل جائزة [[2]]. والمسألة التي لا خوارزمية لها أصلاً، مثل مسألة [[3]]، تُسمّى غير قابلة للحل.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "NP",
+          "acceptable": [
+            "NP",
+            "np"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "الألفية",
+          "options": [
+            "الألفية",
+            "نوبل",
+            "تورنغ"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "التوقّف",
+          "acceptable": [
+            "التوقّف",
+            "التوقف",
+            "مسألة التوقّف"
+          ]
+        }
+      ],
+      "explanation": "قابلة للتحقّق في زمن كثير-حدود = <span class=\"sym\">NP</span>؛ و<span class=\"sym\">P</span> مقابل <span class=\"sym\">NP</span> من مسائل جائزة الألفية؛ ومسألة التوقّف غير قابلة للحل."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

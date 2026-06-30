@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.5 Cardinality of Sets — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 2</a> &nbsp;›&nbsp;
+    <span id="crumb-current">2.5</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.5.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "conceptsSub": "Read each card, then attempt the questions below.",
+  "practiceSub": "Answers are hidden — submit each, then reveal feedback.",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fill": "Fill in Blank",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": {
+    "basic": "Basic",
+    "applied": "Applied",
+    "challenge": "Challenge"
+  },
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "2.5",
+  "title": "Cardinality of Sets",
+  "subtitle": "Measuring the size of infinite sets through one-to-one correspondences — countable, uncountable, and the surprises in between.",
+  "cards": [
+    {
+      "title": "Same cardinality",
+      "blocks": [
+        {
+          "def": {
+            "term": "Same cardinality",
+            "text": "Sets A and B have the same cardinality if and only if there is a one-to-one correspondence (a bijection) from A to B. We then write |A| = |B|."
+          }
+        },
+        {
+          "def": {
+            "term": "Smaller or equal cardinality",
+            "text": "If there is a one-to-one function from A to B, we write |A| ≤ |B|. If also A and B differ in cardinality, we write |A| &lt; |B|."
+          }
+        },
+        {
+          "p": "For infinite sets, cardinality is a <span class=\"sym\">relative</span> measure — it compares two sets rather than counting one. A bijection, not a count, is the right tool when sets are infinite."
+        }
+      ]
+    },
+    {
+      "title": "Countable sets",
+      "blocks": [
+        {
+          "def": {
+            "term": "Countable / uncountable",
+            "text": "A set is countable if it is finite or has the same cardinality as the set of positive integers Z⁺. A set that is not countable is uncountable."
+          }
+        },
+        {
+          "p": "When an infinite set <span class=\"sym\">S</span> is countable we write <span class=\"sym\">|S| = ℵ₀</span> (read “aleph-null”), the first transfinite cardinal."
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "An infinite set is countable exactly when its elements can be listed in a sequence a₁, a₂, a₃, … indexed by the positive integers."
+          }
+        },
+        {
+          "example": {
+            "title": "Odd positive integers",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">f(n) = 2n − 1</span> is a bijection from <span class=\"sym\">Z⁺</span> to the odd positive integers (injective since <span class=\"sym\">2n−1 = 2m−1 ⇒ n = m</span>, and onto since any odd <span class=\"sym\">t = 2k − 1 = f(k)</span>). So they are countable."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "The integers and rationals are countable",
+      "blocks": [
+        {
+          "p": "The set of <span class=\"sym\">all integers Z</span> is countable: list them as <span class=\"sym\">0, 1, −1, 2, −2, 3, −3, …</span>, alternating signs to cover every integer exactly once."
+        },
+        {
+          "p": "Surprisingly, the <span class=\"sym\">positive rationals Q⁺</span> are also countable. Arrange fractions <span class=\"sym\">p/q</span> in a grid by numerator and denominator, then traverse the diagonals, skipping repeats — every fraction is eventually reached. So <span class=\"sym\">|Q⁺| = ℵ₀</span>."
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "Hilbert&#x27;s Grand Hotel: a full hotel with countably many rooms can still take a new guest by shifting each guest from room n to room n+1 — impossible for finite hotels."
+          }
+        }
+      ]
+    },
+    {
+      "title": "The reals are uncountable (Cantor)",
+      "blocks": [
+        {
+          "def": {
+            "term": "Cantor diagonalization",
+            "text": "A proof by contradiction: assume the reals in (0,1) can be listed r₁, r₂, r₃, …, then build a number differing from rᵢ in its i-th decimal digit, so it is on no row — contradiction."
+          }
+        },
+        {
+          "p": "Construct <span class=\"sym\">r = 0.d₁d₂d₃…</span> where <span class=\"sym\">dᵢ = 4</span> if the i-th digit of <span class=\"sym\">rᵢ</span> isn&#x27;t 4, else <span class=\"sym\">dᵢ = 5</span>. Then <span class=\"sym\">r</span> differs from every <span class=\"sym\">rᵢ</span> in place <span class=\"sym\">i</span>, so it was never listed. Hence <span class=\"sym\">(0,1)</span> — and therefore <span class=\"sym\">R</span> — is uncountable."
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "Not all infinite sets are the same size: |Z| = |Q| = ℵ₀ but |R| is strictly larger, written c (the cardinality of the continuum)."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Results about cardinality",
+      "blocks": [
+        {
+          "def": {
+            "term": "Theorem 1",
+            "text": "If A and B are countable sets, then A ∪ B is countable."
+          }
+        },
+        {
+          "p": "Proof idea: assume <span class=\"sym\">A, B</span> disjoint (else replace <span class=\"sym\">B</span> by <span class=\"sym\">B − A</span>). If both are countably infinite, interleave their lists <span class=\"sym\">a₁, b₁, a₂, b₂, a₃, b₃, …</span>; the finite cases are even easier. A union of countably many countable sets is still countable."
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "Any subset of a countable set is countable; any set with an uncountable subset is uncountable."
+          }
+        }
+      ]
+    },
+    {
+      "title": "The Schröder–Bernstein theorem",
+      "blocks": [
+        {
+          "def": {
+            "term": "Schröder–Bernstein (Theorem 2)",
+            "text": "If |A| ≤ |B| and |B| ≤ |A|, then |A| = |B|. Equivalently: if there are one-to-one functions f : A → B and g : B → A, there is a bijection between A and B."
+          }
+        },
+        {
+          "p": "This is the workhorse for proving two sets have equal cardinality: build an injection each way instead of constructing one bijection directly. The theorem looks obvious but its proof is genuinely subtle."
+        },
+        {
+          "example": {
+            "title": "Use",
+            "blocks": [
+              {
+                "p": "To show <span class=\"sym\">|(0,1)| = |[0,1]|</span>, give injections both directions (e.g. inclusion one way, a shrinking map the other) and invoke Schröder–Bernstein."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "Two sets <span class=\"sym\">A</span> and <span class=\"sym\">B</span> have the same cardinality if and only if there exists between them a:",
+      "options": [
+        "one-to-one function only",
+        "onto function only",
+        "one-to-one correspondence (bijection)",
+        "recurrence relation"
+      ],
+      "answer": 2,
+      "explain": "Equal cardinality means a bijection — both one-to-one and onto."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "Every finite set is countable.",
+      "answer": true,
+      "explain": "Countable means finite OR the same cardinality as <span class=\"sym\">Z⁺</span>; finite sets qualify."
+    },
+    {
+      "type": "fill",
+      "level": "basic",
+      "q": "The cardinality of a countably infinite set is denoted [[1]].",
+      "blanks": [
+        [
+          "ℵ₀",
+          "aleph-null",
+          "aleph null",
+          "aleph-naught"
+        ]
+      ],
+      "explain": "<span class=\"sym\">ℵ₀</span> (“aleph-null”) is the cardinality of any countably infinite set."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "Which set is uncountable?",
+      "options": [
+        "the integers <span class=\"sym\">Z</span>",
+        "the rationals <span class=\"sym\">Q</span>",
+        "the reals <span class=\"sym\">R</span>",
+        "the odd positive integers"
+      ],
+      "answer": 2,
+      "explain": "Cantor&#x27;s diagonal argument shows <span class=\"sym\">R</span> is uncountable; the others are countable."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "Give a bijection showing the odd positive integers are countable.",
+      "answer": "<span class=\"sym\">f(n) = 2n − 1</span> from <span class=\"sym\">Z⁺</span>: it is one-to-one (<span class=\"sym\">2n−1=2m−1⇒n=m</span>) and onto (any odd <span class=\"sym\">t = 2k−1 = f(k)</span>).",
+      "explain": "Exhibiting a one-to-one correspondence with <span class=\"sym\">Z⁺</span> proves countability."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "The set of rational numbers is uncountable.",
+      "answer": false,
+      "explain": "<span class=\"sym\">Q</span> is countable — its elements can be listed by traversing a grid of fractions diagonally."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "The proof that <span class=\"sym\">R</span> is uncountable is called the Cantor [[1]] argument.",
+      "blanks": [
+        [
+          "diagonalization",
+          "diagonal",
+          "diagonalisation"
+        ]
+      ],
+      "explain": "Cantor&#x27;s diagonalization builds a real differing from every listed one."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "If <span class=\"sym\">A</span> and <span class=\"sym\">B</span> are both countable, then <span class=\"sym\">A ∪ B</span> is:",
+      "options": [
+        "always uncountable",
+        "countable (Theorem 1)",
+        "finite",
+        "of cardinality <span class=\"sym\">c</span>"
+      ],
+      "answer": 1,
+      "explain": "By Theorem 1 the union of two countable sets is countable, e.g. by interleaving the lists."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "State the Schröder–Bernstein theorem and why it is useful.",
+      "answer": "If <span class=\"sym\">|A| ≤ |B|</span> and <span class=\"sym\">|B| ≤ |A|</span> then <span class=\"sym\">|A| = |B|</span>. It lets you prove equal cardinality by building an injection each direction instead of one explicit bijection.",
+      "explain": "Two injections (one each way) suffice to conclude a bijection exists."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "Order the steps of Cantor&#x27;s proof that <span class=\"sym\">(0,1)</span> is uncountable.",
+      "items": [
+        "Assume the reals in <span class=\"sym\">(0,1)</span> can be listed <span class=\"sym\">r₁, r₂, r₃, …</span>.",
+        "Build <span class=\"sym\">r</span> whose i-th digit differs from the i-th digit of <span class=\"sym\">rᵢ</span>.",
+        "Conclude <span class=\"sym\">r</span> is on no row, contradicting the listing."
+      ],
+      "explain": "Assume a list, diagonalize to escape it, reach a contradiction."
+    }
+  ],
+  "lang": "en"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

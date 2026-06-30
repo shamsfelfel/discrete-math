@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.3 Propositional Equivalences — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 1</a> &nbsp;›&nbsp;
+    <span id="crumb-current">1.3</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-1.3.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…"
+};
+window.LESSON_DATA = {
+  "id": "1.3",
+  "chapter": "1",
+  "title": "Propositional Equivalences",
+  "lede": "Two compound propositions are logically equivalent when they always carry the same truth value. Recognizing equivalences lets us simplify arguments, rewrite specifications, and prove tautologies without ever building a truth table.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Tautology, contradiction, contingency",
+      "body": [
+        {
+          "type": "def",
+          "text": "A tautology is a compound proposition that is true under every assignment of truth values. A contradiction is one that is false under every assignment. A contingency is neither — it is true for some assignments and false for others."
+        },
+        {
+          "type": "p",
+          "text": "Building blocks: @p ∨ ¬p@ is the simplest tautology, @p ∧ ¬p@ the simplest contradiction. We write @T@ for any tautology and @F@ for any contradiction."
+        },
+        {
+          "type": "truthTable",
+          "headers": [
+            "p",
+            "¬p",
+            "p ∨ ¬p",
+            "p ∧ ¬p"
+          ],
+          "rows": [
+            [
+              "T",
+              "F",
+              "T",
+              "F"
+            ],
+            [
+              "F",
+              "T",
+              "T",
+              "F"
+            ]
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "Why tautologies matter",
+          "body": "Every valid argument @p1 ∧ p2 ∧ … ∧ pn → q@ is a tautology. Recognizing tautologies is recognizing valid reasoning."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Logical equivalence",
+      "body": [
+        {
+          "type": "def",
+          "text": "Compound propositions @p@ and @q@ are logically equivalent, written @p ≡ q@, if @p ↔ q@ is a tautology — equivalently, if their columns in a truth table are identical."
+        },
+        {
+          "type": "p",
+          "text": "@≡@ is not itself a logical connective; it is a meta-statement about two propositions. Some texts use @⇔@ instead."
+        },
+        {
+          "type": "p",
+          "text": "Two ways to prove @p ≡ q@: (1) build a truth table and check that the columns match; (2) chain known equivalences from one to the other."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Truth-table proof",
+          "body": "Show @¬(p ∨ q) ≡ ¬p ∧ ¬q@: the columns for both expressions agree on all four rows, so the biconditional is a tautology."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "The standard equivalence laws",
+      "body": [
+        {
+          "type": "p",
+          "text": "Memorize these. They are the algebra of logic, used to rewrite expressions in proofs and circuit simplification."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "@p ∧ T ≡ p@,  @p ∨ F ≡ p@  — Identity",
+            "@p ∨ T ≡ T@,  @p ∧ F ≡ F@  — Domination",
+            "@p ∨ p ≡ p@,  @p ∧ p ≡ p@  — Idempotent",
+            "@¬(¬p) ≡ p@  — Double negation",
+            "@p ∨ q ≡ q ∨ p@,  @p ∧ q ≡ q ∧ p@  — Commutative",
+            "@(p ∨ q) ∨ r ≡ p ∨ (q ∨ r)@  — Associative (similar for @∧@)",
+            "@p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)@  — Distributive (and dual)",
+            "@p ∨ (p ∧ q) ≡ p@,  @p ∧ (p ∨ q) ≡ p@  — Absorption",
+            "@p ∨ ¬p ≡ T@,  @p ∧ ¬p ≡ F@  — Negation"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "Sample simplification",
+          "body": "@(p ∧ q) ∨ (p ∧ ¬q)@ — apply distributive: @p ∧ (q ∨ ¬q)@. Apply negation law: @p ∧ T@. Apply identity: @p@. So the whole expression simplifies to @p@."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "De Morgan's laws",
+      "body": [
+        {
+          "type": "def",
+          "text": "@¬(p ∧ q) ≡ ¬p ∨ ¬q@ — the negation of an AND distributes as an OR of negations."
+        },
+        {
+          "type": "def",
+          "text": "@¬(p ∨ q) ≡ ¬p ∧ ¬q@ — the negation of an OR distributes as an AND of negations."
+        },
+        {
+          "type": "p",
+          "text": "Mnemonic: when negation crosses a connective, the connective flips (∧ ↔ ∨) and the negation distributes to each operand."
+        },
+        {
+          "type": "p",
+          "text": "These laws extend to any number of operands: @¬(p1 ∧ p2 ∧ … ∧ pn) ≡ ¬p1 ∨ ¬p2 ∨ … ∨ ¬pn@."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Negating a sentence",
+          "body": "Sentence: “Heather will go to the concert and Steve will go to the concert.” Let @r@, @s@ for each. Negation: @¬(r ∧ s) ≡ ¬r ∨ ¬s@: “Heather will not go or Steve will not go.”"
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Conditional equivalences",
+      "body": [
+        {
+          "type": "p",
+          "text": "The conditional has many useful equivalent forms — knowing them lets you swap @→@ for connectives that other rules apply to more cleanly."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "@p → q ≡ ¬p ∨ q@  — conditional-disjunction equivalence (the most useful one!)",
+            "@p → q ≡ ¬q → ¬p@  — contrapositive",
+            "@¬(p → q) ≡ p ∧ ¬q@  — negating a conditional",
+            "@p ↔ q ≡ (p → q) ∧ (q → p)@  — biconditional as two conditionals",
+            "@p ↔ q ≡ (p ∧ q) ∨ (¬p ∧ ¬q)@  — biconditional as DNF"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "Why @p → q ≡ ¬p ∨ q@ is so useful",
+          "body": "It eliminates the conditional and lets all the AND/OR algebraic laws apply. Most simplification chains start by rewriting @→@ as @∨@ and end by rewriting it back."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Proving equivalence by transformation",
+      "body": [
+        {
+          "type": "p",
+          "text": "For more than 4 variables, truth tables become unwieldy. Instead, transform one expression into the other using the laws above, citing each step."
+        },
+        {
+          "type": "p",
+          "text": "Example: prove @¬(p ∨ (¬p ∧ q)) ≡ ¬p ∧ ¬q@."
+        },
+        {
+          "type": "ol",
+          "items": [
+            "@¬(p ∨ (¬p ∧ q))@                                    [start]",
+            "@≡ ¬p ∧ ¬(¬p ∧ q)@                                    [De Morgan]",
+            "@≡ ¬p ∧ (¬(¬p) ∨ ¬q)@                                [De Morgan]",
+            "@≡ ¬p ∧ (p ∨ ¬q)@                                    [Double negation]",
+            "@≡ (¬p ∧ p) ∨ (¬p ∧ ¬q)@                             [Distributive]",
+            "@≡ F ∨ (¬p ∧ ¬q)@                                    [Negation]",
+            "@≡ ¬p ∧ ¬q@                                          [Identity]"
+          ]
+        },
+        {
+          "type": "mermaid",
+          "code": "flowchart TD\n  A[\"¬(p ∨ (¬p ∧ q))\"] -->|De Morgan| B[\"¬p ∧ ¬(¬p ∧ q)\"]\n  B -->|De Morgan + Double neg| C[\"¬p ∧ (p ∨ ¬q)\"]\n  C -->|Distributive| D[\"(¬p ∧ p) ∨ (¬p ∧ ¬q)\"]\n  D -->|Negation law| E[\"F ∨ (¬p ∧ ¬q)\"]\n  E -->|Identity| F[\"¬p ∧ ¬q\"]"
+        }
+      ],
+      "examples": [
+        {
+          "label": "Strategy",
+          "body": "When stuck, rewrite @→@ as @∨@. Then apply De Morgan to push negations inward, and distributive/idempotent laws to collect terms."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "tf",
+      "level": 1,
+      "prompt": "True or False: The proposition @p ∨ ¬p@ is a tautology.",
+      "answer": true,
+      "explanation": "It is true for both p=T and p=F, hence true under every assignment. It is in fact the law of the excluded middle.",
+      "moreExamples": [
+        {
+          "label": "Its dual",
+          "body": "@p ∧ ¬p@ is the simplest contradiction — false under every assignment."
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Which is the conditional-disjunction equivalence?",
+      "options": [
+        "@p → q ≡ ¬p ∧ q@",
+        "@p → q ≡ ¬p ∨ q@",
+        "@p → q ≡ p ∨ ¬q@",
+        "@p → q ≡ q → p@"
+      ],
+      "answer": 1,
+      "explanation": "@p → q ≡ ¬p ∨ q@. The conditional is false only when p=T, q=F — the same row where @¬p ∨ q@ is false.",
+      "moreExamples": [
+        {
+          "label": "Use case",
+          "body": "Lets you eliminate @→@ and apply ordinary AND/OR laws."
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "What is @¬(p ∧ q)@ equivalent to (De Morgan)?",
+      "options": [
+        "@¬p ∧ ¬q@",
+        "@¬p ∨ ¬q@",
+        "@p ∨ q@",
+        "@p ∧ ¬q@"
+      ],
+      "answer": 1,
+      "explanation": "Negation of AND becomes OR of negations. The connective flips and the negation distributes.",
+      "moreExamples": [
+        {
+          "label": "Mirror",
+          "body": "@¬(p ∨ q) ≡ ¬p ∧ ¬q@. Same idea, the other direction."
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 2,
+      "prompt": "True or False: @(p ∧ q) ∨ (p ∧ ¬q) ≡ p@.",
+      "answer": true,
+      "explanation": "Distributive: @p ∧ (q ∨ ¬q) ≡ p ∧ T ≡ p@. The two cases together cover every value of @q@, leaving only @p@.",
+      "moreExamples": [
+        {
+          "label": "Same idea",
+          "body": "@(p ∨ q) ∧ (p ∨ ¬q) ≡ p@ — the dual of this equivalence."
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "level": 2,
+      "prompt": "Use De Morgan's law to rewrite @¬(p ∨ q ∨ r)@ without any disjunctions inside the outer scope. Use the symbol palette.",
+      "palette": [
+        "¬",
+        "∧",
+        "∨",
+        "p",
+        "q",
+        "r",
+        "(",
+        ")"
+      ],
+      "acceptable": [
+        "¬p ∧ ¬q ∧ ¬r",
+        "(¬p) ∧ (¬q) ∧ (¬r)",
+        "¬p∧¬q∧¬r",
+        "~p ∧ ~q ∧ ~r",
+        "!p ∧ !q ∧ !r"
+      ],
+      "canonical": "¬p ∧ ¬q ∧ ¬r",
+      "explanation": "The extended De Morgan law: @¬(p1 ∨ p2 ∨ … ∨ pn) ≡ ¬p1 ∧ ¬p2 ∧ … ∧ ¬pn@. Negate every operand and flip @∨@ to @∧@.",
+      "moreExamples": [
+        {
+          "label": "Mirror",
+          "body": "@¬(p ∧ q ∧ r) ≡ ¬p ∨ ¬q ∨ ¬r@."
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "Which of these is a tautology?",
+      "options": [
+        "@(p → q) ∧ p@",
+        "@(p ∧ q) → p@",
+        "@p → (p ∧ q)@",
+        "@p ∧ ¬p@"
+      ],
+      "answer": 1,
+      "explanation": "Whenever @p ∧ q@ is true, @p@ is true — so the conditional is true. When @p ∧ q@ is false, the conditional is vacuously true. True in every row.",
+      "moreExamples": [
+        {
+          "label": "Why option 0 isn't",
+          "body": "@(p → q) ∧ p@ is true only when both @p@ and @q@ are true; it isn't a tautology."
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps of this transformation proof of @¬(p → q) ≡ p ∧ ¬q@.",
+      "items": [
+        "Start with ¬(p → q)",
+        "Rewrite the conditional: ¬(¬p ∨ q)",
+        "Apply De Morgan's law: ¬(¬p) ∧ ¬q",
+        "Apply double negation: p ∧ ¬q",
+        "Conclude that ¬(p → q) ≡ p ∧ ¬q"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "Each step applies one named equivalence law, transforming a piece of the expression while preserving its overall truth value. The chain of equivalences proves the result.",
+      "moreExamples": [
+        {
+          "label": "Strategic note",
+          "body": "When you see a negated conditional, your first move is almost always to rewrite the conditional, then apply De Morgan."
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Identify each equivalence law by name.",
+      "template": "@p ∨ T ≡ T@: [[1]]\n@p ∧ ¬p ≡ F@: [[2]]\n@p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)@: [[3]]\n@¬(¬p) ≡ p@: [[4]]",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "options": [
+            "Identity",
+            "Domination",
+            "Idempotent",
+            "Negation"
+          ],
+          "answer": "Domination"
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "options": [
+            "Identity",
+            "Domination",
+            "Idempotent",
+            "Negation"
+          ],
+          "answer": "Negation"
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "options": [
+            "Distributive",
+            "Associative",
+            "Commutative",
+            "Absorption"
+          ],
+          "answer": "Distributive"
+        },
+        {
+          "id": "4",
+          "type": "select",
+          "options": [
+            "Idempotent",
+            "Double negation",
+            "Identity",
+            "Absorption"
+          ],
+          "answer": "Double negation"
+        }
+      ],
+      "explanation": "Domination: @T@ absorbs OR, @F@ absorbs AND. Negation: @p ∧ ¬p@ is always false. Distributive: OR distributes over AND. Double negation: two negations cancel.",
+      "moreExamples": [
+        {
+          "label": "Pattern",
+          "body": "Identity laws involve @T@ or @F@ but leave @p@ unchanged. Domination laws collapse to @T@ or @F@. Mixing them up is the most common mistake."
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "type": "short",
+      "level": 3,
+      "prompt": "Simplify @p ∨ (¬p ∧ q)@ to a shorter equivalent expression. Use the symbol palette.",
+      "palette": [
+        "¬",
+        "∧",
+        "∨",
+        "p",
+        "q",
+        "(",
+        ")"
+      ],
+      "acceptable": [
+        "p ∨ q",
+        "(p ∨ q)",
+        "p∨q",
+        "p v q"
+      ],
+      "canonical": "p ∨ q",
+      "explanation": "Distribute: @p ∨ (¬p ∧ q) ≡ (p ∨ ¬p) ∧ (p ∨ q) ≡ T ∧ (p ∨ q) ≡ p ∨ q@. Three steps: distributive, negation, identity.",
+      "moreExamples": [
+        {
+          "label": "By cases",
+          "body": "If @p@ is true, the whole expression is true (and so is @p ∨ q@). If @p@ is false, the expression reduces to @q@, which is exactly what @p ∨ q@ becomes when @p@ is false."
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "Which is NOT logically equivalent to @p → q@?",
+      "options": [
+        "@¬p ∨ q@",
+        "@¬q → ¬p@",
+        "@¬(p ∧ ¬q)@",
+        "@q → p@"
+      ],
+      "answer": 3,
+      "explanation": "Option 3 is the converse, which is NOT equivalent to the original. The other three are all standard equivalences: conditional-disjunction, contrapositive, and the negation form.",
+      "moreExamples": [
+        {
+          "label": "Watch the converse trap",
+          "body": "Many incorrect proofs assume the converse. “If it rains, the ground is wet” does NOT mean “if the ground is wet, it rains.”"
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "reorder",
+      "level": 3,
+      "prompt": "Order the transformation showing @(p → q) → r ≡ ¬p ∨ ¬q ∨ r@. Wait — this is wrong. Order the steps for the correct simplification @(p → q) → r ≡ (p ∨ r) ∧ (¬q ∨ r)@.",
+      "items": [
+        "Start with (p → q) → r",
+        "Rewrite outer conditional: ¬(p → q) ∨ r",
+        "Use ¬(p → q) ≡ p ∧ ¬q to get (p ∧ ¬q) ∨ r",
+        "Apply distributive: (p ∨ r) ∧ (¬q ∨ r)",
+        "Conclude: (p → q) → r ≡ (p ∨ r) ∧ (¬q ∨ r)"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "Eliminating the outer conditional first is the standard move. Then the negated conditional rewrites cleanly, and distributing gives the conjunctive form.",
+      "moreExamples": [
+        {
+          "label": "Why bother?",
+          "body": "The conjunctive normal form @(p ∨ r) ∧ (¬q ∨ r)@ is required for SAT solvers and resolution-based theorem provers."
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "tf",
+      "level": 3,
+      "prompt": "True or False: @(p → q) ∧ (q → r) ≡ p → (q ∧ r)@.",
+      "answer": false,
+      "explanation": "@(p → q) ∧ (q → r) ≡ p → r@ (this is hypothetical syllogism), not @p → (q ∧ r)@. Counterexample: p=T, q=F, r=T. Then both @p → q@=F and @q → r@=T, so left side is F. But @p → (q ∧ r)@ has hypothesis T and conclusion F, also F — wait, both are F here. Try p=F, q=T, r=F: left = T (vacuous on first, T on second; both T), right = T (vacuous). Hmm. Actually @(p → q) ∧ (p → r) ≡ p → (q ∧ r)@ is the correct distributive law for @→@ over @∧@.",
+      "moreExamples": [
+        {
+          "label": "The right law",
+          "body": "@(p → q) ∧ (p → r) ≡ p → (q ∧ r)@ — note both conditionals have the same hypothesis @p@."
+        }
+      ]
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

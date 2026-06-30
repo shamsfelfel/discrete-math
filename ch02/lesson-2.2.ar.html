@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.2 عمليات المجموعات — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٢</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٢٫٢</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.2.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "conceptsSub": "اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.",
+  "practiceSub": "الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fill": "إكمال الفراغ",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": {
+    "basic": "أساسي",
+    "applied": "تطبيقي",
+    "challenge": "تحدٍّ"
+  },
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولًا.",
+  "typeFirst": "اكتب إجابة أولًا.",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "2.2",
+  "title": "عمليات المجموعات",
+  "subtitle": "الاتحاد والتقاطع والفرق والمتمّم — وجبر متطابقات المجموعات.",
+  "cards": [
+    {
+      "title": "الاتحاد والتقاطع والمجموعتان المنفصلتان",
+      "blocks": [
+        {
+          "def": {
+            "term": "الاتحاد",
+            "text": "A ∪ B = {x | x ∈ A ∨ x ∈ B} — مجموعة العناصر في A أو في B أو في كليهما."
+          }
+        },
+        {
+          "def": {
+            "term": "التقاطع",
+            "text": "A ∩ B = {x | x ∈ A ∧ x ∈ B} — مجموعة العناصر في A وB معًا."
+          }
+        },
+        {
+          "p": "تكون المجموعتان <span class=\"sym\">منفصلتين</span> حين <span class=\"sym\">A ∩ B = ∅</span>: لا تشتركان في أيّ عنصر. وتُحاكي العمليتان المنطق تمامًا — <span class=\"sym\">∪</span> يقابل <span class=\"sym\">∨</span> و <span class=\"sym\">∩</span> يقابل <span class=\"sym\">∧</span>."
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "مع <span class=\"sym\">A = {1, 3, 5}</span> و <span class=\"sym\">B = {1, 2, 3}</span>: <span class=\"sym\">A ∪ B = {1, 2, 3, 5}</span> و <span class=\"sym\">A ∩ B = {1, 3}</span>."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "الفرق والمتمّم",
+      "blocks": [
+        {
+          "def": {
+            "term": "الفرق",
+            "text": "A − B = {x | x ∈ A ∧ x ∉ B} — العناصر في A وليست في B (ويُكتب أيضًا A \\ B)."
+          }
+        },
+        {
+          "def": {
+            "term": "المتمّم",
+            "text": "بالنسبة إلى مجموعة شاملة U، متمّم A هو Ā = U − A = {x ∈ U | x ∉ A}."
+          }
+        },
+        {
+          "p": "يعتمد المتمّم دائمًا على <span class=\"sym\">U</span> المختارة. ولاحظ أن <span class=\"sym\">A − B = A ∩ B̄</span> — فالفرق تقاطعٌ مع متمّم."
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "غالبًا <span class=\"sym\">A − B</span> يختلف عن <span class=\"sym\">B − A</span>؛ فالفرق ليس إبداليًّا."
+          }
+        }
+      ]
+    },
+    {
+      "title": "عدّ الاتحاد: الاحتواء–الاستبعاد",
+      "blocks": [
+        {
+          "p": "جمع <span class=\"sym\">|A|</span> و <span class=\"sym\">|B|</span> يَعُدّ التداخل مرّتين، فنطرحه مرّة واحدة:"
+        },
+        {
+          "def": {
+            "term": "الاحتواء–الاستبعاد (مجموعتان)",
+            "text": "|A ∪ B| = |A| + |B| − |A ∩ B|."
+          }
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "من 30 طالبًا، 18 يدرسون الفرنسية و14 الألمانية و6 الاثنتين. إذن <span class=\"sym\">|F ∪ G| = 18 + 14 − 6 = 26</span> يدرسون لغةً واحدة على الأقل."
+              }
+            ]
+          }
+        },
+        {
+          "p": "إذا كانت <span class=\"sym\">A</span> و <span class=\"sym\">B</span> منفصلتين، فإن <span class=\"sym\">|A ∩ B| = 0</span> وتختزل الصيغة إلى <span class=\"sym\">|A ∪ B| = |A| + |B|</span>."
+        }
+      ]
+    },
+    {
+      "title": "متطابقات المجموعات",
+      "blocks": [
+        {
+          "p": "جبر المجموعات يوازي منطق العبارات. وأهمّ القوانين (روزن، الجدول 1):"
+        },
+        {
+          "table": {
+            "head": [
+              "المتطابقة",
+              "الاسم"
+            ],
+            "rows": [
+              [
+                "<span class=\"sym\">A ∪ ∅ = A</span>,  <span class=\"sym\">A ∩ U = A</span>",
+                "قانونا المحايد"
+              ],
+              [
+                "<span class=\"sym\">A ∪ U = U</span>,  <span class=\"sym\">A ∩ ∅ = ∅</span>",
+                "قانونا السيطرة"
+              ],
+              [
+                "<span class=\"sym\">A ∪ A = A</span>,  <span class=\"sym\">A ∩ A = A</span>",
+                "قانونا التساوي الذاتي"
+              ],
+              [
+                "<span class=\"sym\">(Ā)¯ = A</span>",
+                "قانون المتمّم المزدوج"
+              ],
+              [
+                "<span class=\"sym\">A ∪ B = B ∪ A</span>",
+                "القانون الإبداليّ"
+              ],
+              [
+                "<span class=\"sym\">A ∪ (B ∪ C) = (A ∪ B) ∪ C</span>",
+                "القانون التجميعيّ"
+              ],
+              [
+                "<span class=\"sym\">A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</span>",
+                "القانون التوزيعيّ"
+              ],
+              [
+                "<span class=\"sym\">A ∪ B¯ = Ā ∩ B̄</span>,  <span class=\"sym\">A ∩ B¯ = Ā ∪ B̄</span>",
+                "قانونا دي مورغان"
+              ],
+              [
+                "<span class=\"sym\">A ∪ (A ∩ B) = A</span>",
+                "قانون الامتصاص"
+              ],
+              [
+                "<span class=\"sym\">A ∪ Ā = U</span>,  <span class=\"sym\">A ∩ Ā = ∅</span>",
+                "قانونا المتمّم"
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "إثبات المتطابقات",
+      "blocks": [
+        {
+          "p": "ثلاث طرائق قياسية لإثبات متطابقة مجموعات:"
+        },
+        {
+          "ol": [
+            "إظهار أن كل طرف جزئيٌّ من الآخر (الاحتواء المزدوج).",
+            "استخدام صياغة البناء والتكافؤات المنطقية المعروفة.",
+            "بناء جدول انتماء — صفّ لكل منطقة وأعمدة من 1/0 للانتماء."
+          ]
+        },
+        {
+          "example": {
+            "title": "جدول انتماء لدي مورغان <span class=\"sym\">A ∪ B¯ = Ā ∩ B̄</span>",
+            "blocks": [
+              {
+                "table": {
+                  "head": [
+                    "<span class=\"sym\">A</span>",
+                    "<span class=\"sym\">B</span>",
+                    "<span class=\"sym\">A ∪ B</span>",
+                    "<span class=\"sym\">A ∪ B¯</span>",
+                    "<span class=\"sym\">Ā</span>",
+                    "<span class=\"sym\">B̄</span>",
+                    "<span class=\"sym\">Ā ∩ B̄</span>"
+                  ],
+                  "rows": [
+                    [
+                      "1",
+                      "1",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "1",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    [
+                      "0",
+                      "1",
+                      "1",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "1",
+                      "1",
+                      "1"
+                    ]
+                  ]
+                }
+              },
+              {
+                "p": "العمودان النهائيّان متطابقان في كل صفّ، فتصحّ المتطابقة."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "العمليات المعمّمة وسلاسل البِتّات",
+      "blocks": [
+        {
+          "p": "يمتدّ الاتحاد والتقاطع إلى أيّ تجميعٍ من المجموعات:"
+        },
+        {
+          "def": {
+            "term": "الاتحاد/التقاطع المعمّم",
+            "text": "⋃ᵢ₌₁ⁿ Aᵢ = A₁ ∪ … ∪ Aₙ يحوي x إذا كان في مجموعةٍ واحدة على الأقل؛ و⋂ᵢ₌₁ⁿ Aᵢ يحوي x إذا كان في كل Aᵢ."
+          }
+        },
+        {
+          "p": "يمكن تخزين مجموعة جزئية من مجموعة شاملة <span class=\"sym\">U = {a₁, …, aₙ}</span> كـ <span class=\"sym\">سلسلة بِتّات</span> طولها <span class=\"sym\">n</span>: الموضع <span class=\"sym\">i</span> يساوي <span class=\"sym\">1</span> إذا وفقط إذا كان <span class=\"sym\">aᵢ</span> في المجموعة الجزئية. عندئذٍ <span class=\"sym\">∪</span> هي OR-بِتّيّة، و <span class=\"sym\">∩</span> هي AND-بِتّيّة، والمتمّم NOT-بِتّيّة."
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "فوق <span class=\"sym\">U = {1, 2, 3, 4, 5}</span>، المجموعة <span class=\"sym\">{1, 3, 5}</span> هي <span class=\"sym\">10101</span> و <span class=\"sym\">{2, 3}</span> هي <span class=\"sym\">01100</span>. اتحادهما <span class=\"sym\">11101 = {1, 2, 3, 5}</span> (OR-بِتّيّة)."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "أيّ تعبير يُعرّف <span class=\"sym\">A ∩ B</span>؟",
+      "options": [
+        "<span class=\"sym\">{x | x ∈ A ∨ x ∈ B}</span>",
+        "<span class=\"sym\">{x | x ∈ A ∧ x ∈ B}</span>",
+        "<span class=\"sym\">{x | x ∈ A ∧ x ∉ B}</span>",
+        "<span class=\"sym\">{x | x ∉ A}</span>"
+      ],
+      "answer": 1,
+      "explain": "يستخدم التقاطع <span class=\"sym\">∧</span> (و): العناصر في المجموعتين معًا."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "<span class=\"sym\">A − B</span> يساوي دائمًا <span class=\"sym\">B − A</span>.",
+      "answer": false,
+      "explain": "الفرق ليس إبداليًّا. مثلًا <span class=\"sym\">{1,2}−{2} = {1}</span> بينما <span class=\"sym\">{2}−{1,2} = ∅</span>."
+    },
+    {
+      "type": "fill",
+      "level": "basic",
+      "q": "تُسمّى المجموعتان اللتان <span class=\"sym\">A ∩ B = ∅</span> [[1]].",
+      "blanks": [
+        [
+          "منفصلتين",
+          "منفصلتان"
+        ]
+      ],
+      "explain": "المجموعتان المنفصلتان لا تشتركان في أيّ عنصر."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "إذا كان <span class=\"sym\">|A| = 12</span> و <span class=\"sym\">|B| = 18</span> و <span class=\"sym\">|A ∩ B| = 5</span> فإن <span class=\"sym\">|A ∪ B|</span>:",
+      "options": [
+        "30",
+        "25",
+        "35",
+        "23"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">|A ∪ B| = 12 + 18 − 5 = 25</span> بالاحتواء–الاستبعاد."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "أعد كتابة <span class=\"sym\">A − B</span> باستخدام المتمّم والتقاطع.",
+      "answer": "<span class=\"sym\">A − B = A ∩ B̄</span> — عناصر <span class=\"sym\">A</span> الواقعة خارج <span class=\"sym\">B</span>.",
+      "explain": "أن تكون في <span class=\"sym\">A</span> وليس في <span class=\"sym\">B</span> يكافئ تمامًا أن تكون في <span class=\"sym\">A ∩ B̄</span>."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "يعطي قانون دي مورغان <span class=\"sym\">A ∩ B¯ = Ā ∪ B̄</span>.",
+      "answer": true,
+      "explain": "متمّم التقاطع هو اتحاد المتمّمين."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "فوق <span class=\"sym\">U = {1,2,3,4}</span> سلسلة بِتّات المجموعة <span class=\"sym\">{2,4}</span> هي [[1]].",
+      "blanks": [
+        "0101"
+      ],
+      "explain": "الموضعان 2 و4 يساويان 1، والموضعان 1 و3 يساويان 0، من اليسار إلى اليمين."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "العملية البِتّيّة التي تحسب <span class=\"sym\">A ∪ B</span> على تمثيل سلاسل البِتّات هي:",
+      "options": [
+        "AND",
+        "OR",
+        "XOR",
+        "NOT"
+      ],
+      "answer": 1,
+      "explain": "يقابل الاتحاد OR-بِتّيّة (الانتماء إلى واحدة على الأقل)."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "باستخدام صياغة البناء والمنطق، برّر القانون التوزيعيّ <span class=\"sym\">A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</span>.",
+      "answer": "<span class=\"sym\">x ∈ A ∩ (B ∪ C)</span> ⇔ <span class=\"sym\">x ∈ A ∧ (x ∈ B ∨ x ∈ C)</span> ⇔ <span class=\"sym\">(x∈A ∧ x∈B) ∨ (x∈A ∧ x∈C)</span> ⇔ <span class=\"sym\">x ∈ (A∩B) ∪ (A∩C)</span>، باستخدام التوزيع المنطقيّ.",
+      "explain": "ترث متطابقات المجموعات مباشرةً من التكافؤات المنطقية المناظرة."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "رتّب خطوات إثبات متطابقة بجدول الانتماء.",
+      "items": [
+        "اسرد كل توليفات الانتماء (1/0) للمجموعات الأساسية كصفوف.",
+        "احسب عمودًا من قيم 1/0 لكل طرف من المتطابقة.",
+        "تأكّد أن العمودين النهائيّين متطابقان في كل صفّ."
+      ],
+      "explain": "تطابق أعمدة الانتماء في كل الصفوف يثبت المتطابقة."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "أيّ تعبير يُختزل إلى <span class=\"sym\">A</span> بقانون الامتصاص؟",
+      "options": [
+        "<span class=\"sym\">A ∩ (A ∪ B)</span>",
+        "<span class=\"sym\">A ∪ Ā</span>",
+        "<span class=\"sym\">A ∩ ∅</span>",
+        "<span class=\"sym\">A ∪ U</span>"
+      ],
+      "answer": 0,
+      "explain": "الامتصاص: <span class=\"sym\">A ∩ (A ∪ B) = A</span> (وبالمثل <span class=\"sym\">A ∪ (A ∩ B) = A</span>)."
+    }
+  ],
+  "lang": "ar"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

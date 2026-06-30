@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.4 Sequences and Summations — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 2</a> &nbsp;›&nbsp;
+    <span id="crumb-current">2.4</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.4.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "conceptsSub": "Read each card, then attempt the questions below.",
+  "practiceSub": "Answers are hidden — submit each, then reveal feedback.",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fill": "Fill in Blank",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": {
+    "basic": "Basic",
+    "applied": "Applied",
+    "challenge": "Challenge"
+  },
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "2.4",
+  "title": "Sequences and Summations",
+  "subtitle": "Ordered lists indexed by integers — progressions, recurrence relations, and the summation formulas you reuse everywhere.",
+  "cards": [
+    {
+      "title": "Sequences",
+      "blocks": [
+        {
+          "def": {
+            "term": "Sequence",
+            "text": "A sequence is a function from a subset of the integers (usually {0, 1, 2, …} or {1, 2, 3, …}) to a set S. We write aₙ for the image of n — a term of the sequence — and {aₙ} for the whole sequence."
+          }
+        },
+        {
+          "p": "A sequence can be finite or infinite. For example <span class=\"sym\">1, 2, 3, 5, 8</span> is a finite sequence, while <span class=\"sym\">1, 3, 9, 27, … , 3ⁿ, …</span> is infinite. Don&#x27;t confuse the notation <span class=\"sym\">{aₙ}</span> for a sequence with set notation — order and repetition matter here."
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "A finite sequence a₁, a₂, …, aₙ is also called a string, written a₁a₂…aₙ. The empty string λ has length zero."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Geometric and arithmetic progressions",
+      "blocks": [
+        {
+          "def": {
+            "term": "Geometric progression",
+            "text": "A sequence of the form a, ar, ar², … , arⁿ, … with initial term a and common ratio r (both real). It is the discrete analogue of f(x) = a·rˣ."
+          }
+        },
+        {
+          "def": {
+            "term": "Arithmetic progression",
+            "text": "A sequence of the form a, a + d, a + 2d, … , a + nd, … with initial term a and common difference d. It is the discrete analogue of f(x) = dx + a."
+          }
+        },
+        {
+          "example": {
+            "title": "Examples",
+            "blocks": [
+              {
+                "p": "Geometric with <span class=\"sym\">a = 2, r = 5</span>: <span class=\"sym\">2, 10, 50, 250, 1250, …</span> (here <span class=\"sym\">cₙ = 2·5ⁿ</span>)."
+              },
+              {
+                "p": "Arithmetic with <span class=\"sym\">a = −1, d = 4</span>: <span class=\"sym\">−1, 3, 7, 11, …</span> (here <span class=\"sym\">sₙ = −1 + 4n</span>)."
+              }
+            ]
+          }
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "Ratio of consecutive terms constant ⇒ geometric. Difference of consecutive terms constant ⇒ arithmetic."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Recurrence relations",
+      "blocks": [
+        {
+          "def": {
+            "term": "Recurrence relation",
+            "text": "An equation expressing aₙ in terms of one or more previous terms a₀, a₁, …, aₙ₋₁, valid for all n ≥ n₀. A sequence satisfying it is a solution."
+          }
+        },
+        {
+          "p": "Initial conditions pin down the terms before the recurrence takes effect. A recurrence together with its initial conditions determines a <span class=\"sym\">unique</span> solution."
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "If <span class=\"sym\">aₙ = aₙ₋₁ + 3</span> with <span class=\"sym\">a₀ = 2</span>, then <span class=\"sym\">a₁ = 5</span>, <span class=\"sym\">a₂ = 8</span>, <span class=\"sym\">a₃ = 11</span> — an arithmetic progression in disguise."
+              }
+            ]
+          }
+        },
+        {
+          "def": {
+            "term": "Fibonacci sequence",
+            "text": "Defined by f₀ = 0, f₁ = 1, and fₙ = fₙ₋₁ + fₙ₋₂ for n ≥ 2, giving 0, 1, 1, 2, 3, 5, 8, 13, …"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Summation notation",
+      "blocks": [
+        {
+          "def": {
+            "term": "Summation",
+            "text": "The sum aₘ + aₘ₊₁ + ⋯ + aₙ is written Σⱼ₌ₘⁿ aⱼ. Here j is the index of summation (any letter works), m is the lower limit, n the upper limit."
+          }
+        },
+        {
+          "p": "You can also sum over a set: <span class=\"sym\">Σ_{s∈S} f(s)</span> adds <span class=\"sym\">f(s)</span> over all members of <span class=\"sym\">S</span>. For example <span class=\"sym\">Σ_{s∈{0,2,4}} s = 0 + 2 + 4 = 6</span>."
+        },
+        {
+          "def": {
+            "term": "Double summation",
+            "text": "A nested sum like Σᵢ₌₁⁴ Σⱼ₌₁³ ij: expand the inner sum first, then the outer. It models nested loops in programs."
+          }
+        }
+      ]
+    },
+    {
+      "title": "The geometric series formula",
+      "blocks": [
+        {
+          "def": {
+            "term": "Geometric series (Theorem 1)",
+            "text": "For r ≠ 0: Σⱼ₌₀ⁿ arʲ = (arⁿ⁺¹ − a)/(r − 1) when r ≠ 1, and (n + 1)a when r = 1."
+          }
+        },
+        {
+          "p": "The proof multiplies the sum <span class=\"sym\">Sₙ</span> by <span class=\"sym\">r</span>, shifts the index, and subtracts — telescoping down to <span class=\"sym\">rSₙ = Sₙ + (arⁿ⁺¹ − a)</span>, which solves for <span class=\"sym\">Sₙ</span>."
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">Σⱼ₌₀ⁿ 2·3ʲ = (2·3ⁿ⁺¹ − 2)/(3 − 1) = 3ⁿ⁺¹ − 1</span>."
+              }
+            ]
+          }
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "The closed form needs r ≠ 1. When r = 1 every term equals a, so the sum is simply (n + 1)a."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Useful summation formulas",
+      "blocks": [
+        {
+          "p": "These recur constantly; memorize the first three. Each can be proved by induction (Section 5.1)."
+        },
+        {
+          "table": {
+            "head": [
+              "Sum",
+              "Closed form"
+            ],
+            "rows": [
+              [
+                "<span class=\"sym\">Σ_{k=0}ⁿ arᵏ</span> (<span class=\"sym\">r ≠ 1</span>)",
+                "<span class=\"sym\">(arⁿ⁺¹ − a)/(r − 1)</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=1}ⁿ k</span>",
+                "<span class=\"sym\">n(n + 1)/2</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=1}ⁿ k²</span>",
+                "<span class=\"sym\">n(n + 1)(2n + 1)/6</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=1}ⁿ k³</span>",
+                "<span class=\"sym\">n²(n + 1)²/4</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=0}^∞ xᵏ</span> (<span class=\"sym\">|x| &lt; 1</span>)",
+                "<span class=\"sym\">1/(1 − x)</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=1}^∞ k·xᵏ⁻¹</span> (<span class=\"sym\">|x| &lt; 1</span>)",
+                "<span class=\"sym\">1/(1 − x)²</span>"
+              ]
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "Splitting a range",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">Σ_{k=50}^{100} k² = Σ_{k=1}^{100} k² − Σ_{k=1}^{49} k² = 338350 − 40425 = 297925</span>."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "Formally, a sequence is a function from a subset of the integers to a set S. The notation <span class=\"sym\">aₙ</span> denotes the:",
+      "options": [
+        "index of summation",
+        "term of the sequence (image of n)",
+        "common ratio",
+        "limit"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">aₙ</span> is the image of the integer <span class=\"sym\">n</span> — a single term of the sequence <span class=\"sym\">{aₙ}</span>."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "In a geometric progression, consecutive terms have a constant difference.",
+      "answer": false,
+      "explain": "Geometric progressions have a constant ratio; constant difference describes an arithmetic progression."
+    },
+    {
+      "type": "fill",
+      "level": "basic",
+      "q": "The sum <span class=\"sym\">a₂ + a₃ + a₄</span> is written <span class=\"sym\">Σ_{j=2}^{4} aⱼ</span>, where <span class=\"sym\">j</span> is the [[1]] of summation.",
+      "blanks": [
+        [
+          "index",
+          "Index"
+        ]
+      ],
+      "explain": "The letter under the sigma is the index of summation; its choice is arbitrary."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "What kind of progression is <span class=\"sym\">3, 7, 11, 15, …</span>?",
+      "options": [
+        "geometric, ratio 4",
+        "arithmetic, difference 4",
+        "geometric, ratio 7/3",
+        "Fibonacci"
+      ],
+      "answer": 1,
+      "explain": "Each term exceeds the previous by 4 — arithmetic with <span class=\"sym\">a = 3, d = 4</span>."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "A sequence satisfies <span class=\"sym\">aₙ = aₙ₋₁ − aₙ₋₂</span> with <span class=\"sym\">a₀ = 3</span> and <span class=\"sym\">a₁ = 5</span>. Find <span class=\"sym\">a₂</span> and <span class=\"sym\">a₃</span>.",
+      "answer": "<span class=\"sym\">a₂ = a₁ − a₀ = 5 − 3 = 2</span> and <span class=\"sym\">a₃ = a₂ − a₁ = 2 − 5 = −3</span>.",
+      "explain": "Apply the recurrence step by step using the two initial conditions."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "Use the geometric series formula to evaluate <span class=\"sym\">Σ_{j=0}^{n} 2·3ʲ</span>.",
+      "answer": "<span class=\"sym\">(2·3ⁿ⁺¹ − 2)/(3 − 1) = 3ⁿ⁺¹ − 1</span>, using <span class=\"sym\">a = 2, r = 3</span>.",
+      "explain": "Plug <span class=\"sym\">a = 2</span>, <span class=\"sym\">r = 3</span> into <span class=\"sym\">(arⁿ⁺¹ − a)/(r − 1)</span>."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "By Table 2, <span class=\"sym\">Σ_{k=1}^{n} k = n(n + 1)/[[1]]</span>.",
+      "blanks": [
+        [
+          "2",
+          "two"
+        ]
+      ],
+      "explain": "The sum of the first <span class=\"sym\">n</span> positive integers is <span class=\"sym\">n(n + 1)/2</span>."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "To evaluate a double sum <span class=\"sym\">Σᵢ Σⱼ</span>, you expand the inner summation first, then the outer one.",
+      "answer": true,
+      "explain": "Inner-first is the standard evaluation order, mirroring nested loops."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "The geometric series closed form <span class=\"sym\">(arⁿ⁺¹ − a)/(r − 1)</span> requires which condition?",
+      "options": [
+        "<span class=\"sym\">r &gt; 0</span>",
+        "<span class=\"sym\">r ≠ 1</span>",
+        "<span class=\"sym\">a ≠ 0</span>",
+        "<span class=\"sym\">n</span> even"
+      ],
+      "answer": 1,
+      "explain": "Division by <span class=\"sym\">r − 1</span> fails when <span class=\"sym\">r = 1</span>; in that case the sum is <span class=\"sym\">(n + 1)a</span>."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "Compute <span class=\"sym\">Σ_{k=1}^{10} k²</span> using a closed form.",
+      "answer": "<span class=\"sym\">n(n + 1)(2n + 1)/6</span> with <span class=\"sym\">n = 10</span>: <span class=\"sym\">10·11·21/6 = 2310/6 = 385</span>.",
+      "explain": "Apply the sum-of-squares formula directly."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "Order the steps proving <span class=\"sym\">Σⱼ₌₀ⁿ arʲ = (arⁿ⁺¹ − a)/(r − 1)</span> for <span class=\"sym\">r ≠ 1</span>.",
+      "items": [
+        "Let <span class=\"sym\">Sₙ = Σⱼ₌₀ⁿ arʲ</span>.",
+        "Multiply by <span class=\"sym\">r</span> and shift the index to get <span class=\"sym\">rSₙ = Sₙ + (arⁿ⁺¹ − a)</span>.",
+        "Solve for <span class=\"sym\">Sₙ</span>, dividing by <span class=\"sym\">r − 1</span>."
+      ],
+      "explain": "Multiply-shift-subtract telescopes the sum, then isolate <span class=\"sym\">Sₙ</span>."
+    }
+  ],
+  "lang": "en"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

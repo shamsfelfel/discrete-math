@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.6 Matrices — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 2</a> &nbsp;›&nbsp;
+    <span id="crumb-current">2.6</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.6.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "conceptsSub": "Read each card, then attempt the questions below.",
+  "practiceSub": "Answers are hidden — submit each, then reveal feedback.",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fill": "Fill in Blank",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": {
+    "basic": "Basic",
+    "applied": "Applied",
+    "challenge": "Challenge"
+  },
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "2.6",
+  "title": "Matrices",
+  "subtitle": "Rectangular arrays of numbers — addition, multiplication, transposes, and the Boolean arithmetic of zero–one matrices.",
+  "cards": [
+    {
+      "title": "Matrices: rows, columns, entries",
+      "blocks": [
+        {
+          "def": {
+            "term": "Matrix",
+            "text": "A matrix is a rectangular array of numbers. A matrix with m rows and n columns is an m × n matrix. If the number of rows equals the number of columns it is square."
+          }
+        },
+        {
+          "p": "We write <span class=\"sym\">A = [aᵢⱼ]</span>, where <span class=\"sym\">aᵢⱼ</span> — the <span class=\"sym\">(i, j)th entry</span> — is the number in row <span class=\"sym\">i</span>, column <span class=\"sym\">j</span>. Two matrices are <span class=\"sym\">equal</span> when they have the same size and equal corresponding entries."
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">[[1, 1], [0, 2], [1, 3]]</span> is a <span class=\"sym\">3 × 2</span> matrix: 3 rows, 2 columns."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Matrix addition",
+      "blocks": [
+        {
+          "def": {
+            "term": "Sum",
+            "text": "For m × n matrices A = [aᵢⱼ] and B = [bᵢⱼ], the sum A + B is the m × n matrix with (i, j)th entry aᵢⱼ + bᵢⱼ — add corresponding positions."
+          }
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "Matrices of different sizes cannot be added: some positions would have an entry in one matrix but not the other."
+          }
+        },
+        {
+          "p": "Addition is <span class=\"sym\">commutative</span> and <span class=\"sym\">associative</span>, inherited entrywise from the numbers."
+        }
+      ]
+    },
+    {
+      "title": "Matrix multiplication",
+      "blocks": [
+        {
+          "def": {
+            "term": "Product",
+            "text": "If A is m × k and B is k × n, the product AB is the m × n matrix whose (i, j)th entry is aᵢ₁b₁ⱼ + aᵢ₂b₂ⱼ + ⋯ + aᵢₖbₖⱼ — the dot product of row i of A with column j of B."
+          }
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "AB is defined only when the inner dimensions match: columns of A = rows of B. The result has the outer dimensions m × n."
+          }
+        },
+        {
+          "p": "Matrix multiplication is <span class=\"sym\">associative</span> but <span class=\"sym\">not commutative</span>: in general <span class=\"sym\">AB ≠ BA</span>, and one product may be defined while the other isn&#x27;t."
+        }
+      ]
+    },
+    {
+      "title": "Identity matrix and powers",
+      "blocks": [
+        {
+          "def": {
+            "term": "Identity matrix",
+            "text": "The identity matrix of order n, Iₙ = [δᵢⱼ], has δᵢⱼ = 1 when i = j and 0 otherwise (the Kronecker delta) — ones on the main diagonal, zeros elsewhere."
+          }
+        },
+        {
+          "p": "Multiplying by an identity of the right size leaves a matrix unchanged: <span class=\"sym\">AIₙ = IₘA = A</span> for an <span class=\"sym\">m × n</span> matrix <span class=\"sym\">A</span>."
+        },
+        {
+          "p": "Because multiplication is associative, <span class=\"sym\">powers</span> of a square matrix are defined: <span class=\"sym\">A⁰ = Iₙ</span> and <span class=\"sym\">Aʳ = A·A⋯A</span> (<span class=\"sym\">r</span> times)."
+        }
+      ]
+    },
+    {
+      "title": "Transpose and symmetric matrices",
+      "blocks": [
+        {
+          "def": {
+            "term": "Transpose",
+            "text": "The transpose Aᵗ of an m × n matrix A is the n × m matrix obtained by swapping rows and columns: if Aᵗ = [bᵢⱼ], then bᵢⱼ = aⱼᵢ."
+          }
+        },
+        {
+          "def": {
+            "term": "Symmetric",
+            "text": "A square matrix A is symmetric if A = Aᵗ, i.e. aᵢⱼ = aⱼᵢ for all i, j — it mirrors across the main diagonal."
+          }
+        },
+        {
+          "example": {
+            "title": "Transpose",
+            "blocks": [
+              {
+                "p": "The transpose of <span class=\"sym\">[[1, 2, 3], [4, 5, 6]]</span> (2 × 3) is <span class=\"sym\">[[1, 4], [2, 5], [3, 6]]</span> (3 × 2)."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Zero–one matrices: join, meet, Boolean product",
+      "blocks": [
+        {
+          "def": {
+            "term": "Zero–one matrix",
+            "text": "A matrix whose entries are all 0 or 1. Their arithmetic uses the Boolean operations ∨ (OR) and ∧ (AND) on bits."
+          }
+        },
+        {
+          "p": "<span class=\"sym\">Join</span> <span class=\"sym\">A ∨ B</span> has <span class=\"sym\">(i,j)</span> entry <span class=\"sym\">aᵢⱼ ∨ bᵢⱼ</span>; <span class=\"sym\">meet</span> <span class=\"sym\">A ∧ B</span> has entry <span class=\"sym\">aᵢⱼ ∧ bᵢⱼ</span> (both need equal sizes)."
+        },
+        {
+          "def": {
+            "term": "Boolean product",
+            "text": "For A (m × k) and B (k × n), A ⊙ B has (i, j)th entry (aᵢ₁ ∧ b₁ⱼ) ∨ (aᵢ₂ ∧ b₂ⱼ) ∨ ⋯ ∨ (aᵢₖ ∧ bₖⱼ) — like ordinary product with + → ∨ and · → ∧."
+          }
+        },
+        {
+          "mermaid": "graph TD\n  Z[\"Zero–one matrices\"] --> J[\"Join ∨ (entrywise OR)\"]\n  Z --> M[\"Meet ∧ (entrywise AND)\"]\n  Z --> B[\"Boolean product ⊙ (∧ then ∨)\"]"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "A matrix with the same number of rows as columns is called:",
+      "options": [
+        "symmetric",
+        "square",
+        "identity",
+        "zero–one"
+      ],
+      "answer": 1,
+      "explain": "Equal row and column counts ⇒ square; symmetry is a stronger, separate condition."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "Two matrices of different sizes can still be added entrywise.",
+      "answer": false,
+      "explain": "Addition needs matching dimensions so every position lines up."
+    },
+    {
+      "type": "fill",
+      "level": "basic",
+      "q": "In <span class=\"sym\">A = [aᵢⱼ]</span>, the symbol <span class=\"sym\">aᵢⱼ</span> is the entry in row <span class=\"sym\">i</span> and column [[1]].",
+      "blanks": [
+        [
+          "j",
+          "<span class=\"sym\">j</span>"
+        ]
+      ],
+      "explain": "<span class=\"sym\">aᵢⱼ</span> sits in row <span class=\"sym\">i</span>, column <span class=\"sym\">j</span> — the <span class=\"sym\">(i, j)</span>th entry."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "If <span class=\"sym\">A</span> is <span class=\"sym\">2 × 3</span> and <span class=\"sym\">B</span> is <span class=\"sym\">3 × 4</span>, the product <span class=\"sym\">AB</span> has size:",
+      "options": [
+        "<span class=\"sym\">3 × 3</span>",
+        "<span class=\"sym\">2 × 4</span>",
+        "<span class=\"sym\">2 × 3</span>",
+        "undefined"
+      ],
+      "answer": 1,
+      "explain": "Inner dims (3 = 3) match; the result takes the outer dims <span class=\"sym\">2 × 4</span>."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "Compute the transpose of <span class=\"sym\">[[2, 0, 1], [3, 4, 5]]</span>.",
+      "answer": "<span class=\"sym\">[[2, 3], [0, 4], [1, 5]]</span> — a <span class=\"sym\">3 × 2</span> matrix; rows become columns.",
+      "explain": "<span class=\"sym\">bᵢⱼ = aⱼᵢ</span>: row 1 <span class=\"sym\">(2,0,1)</span> becomes column 1."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "Matrix multiplication is commutative: <span class=\"sym\">AB = BA</span> for all conformable matrices.",
+      "answer": false,
+      "explain": "In general <span class=\"sym\">AB ≠ BA</span>; one product may even be defined while the other is not."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "A square matrix with <span class=\"sym\">A = Aᵗ</span> is called [[1]].",
+      "blanks": [
+        [
+          "symmetric",
+          "Symmetric"
+        ]
+      ],
+      "explain": "Symmetric means it equals its own transpose: <span class=\"sym\">aᵢⱼ = aⱼᵢ</span>."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "The Boolean product <span class=\"sym\">A ⊙ B</span> replaces ordinary <span class=\"sym\">+</span> and <span class=\"sym\">·</span> with:",
+      "options": [
+        "<span class=\"sym\">∧</span> and <span class=\"sym\">∨</span>",
+        "<span class=\"sym\">∨</span> and <span class=\"sym\">∧</span>",
+        "<span class=\"sym\">¬</span> and <span class=\"sym\">∨</span>",
+        "<span class=\"sym\">⊕</span> and <span class=\"sym\">∧</span>"
+      ],
+      "answer": 1,
+      "explain": "Addition becomes <span class=\"sym\">∨</span> (OR) and multiplication becomes <span class=\"sym\">∧</span> (AND)."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "Find the meet <span class=\"sym\">A ∧ B</span> of <span class=\"sym\">A = [[1, 0, 1], [0, 1, 0]]</span> and <span class=\"sym\">B = [[0, 1, 0], [1, 1, 0]]</span>.",
+      "answer": "Entrywise AND: <span class=\"sym\">[[1∧0, 0∧1, 1∧0], [0∧1, 1∧1, 0∧0]] = [[0, 0, 0], [0, 1, 0]]</span>.",
+      "explain": "Meet is the entrywise <span class=\"sym\">∧</span>; only positions where both are 1 stay 1."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "Order the steps to compute the <span class=\"sym\">(i, j)</span> entry of an ordinary product <span class=\"sym\">AB</span>.",
+      "items": [
+        "Check columns of <span class=\"sym\">A</span> equal rows of <span class=\"sym\">B</span>.",
+        "Take row <span class=\"sym\">i</span> of <span class=\"sym\">A</span> and column <span class=\"sym\">j</span> of <span class=\"sym\">B</span>.",
+        "Sum the products of matched pairs: <span class=\"sym\">aᵢ₁b₁ⱼ + ⋯ + aᵢₖbₖⱼ</span>."
+      ],
+      "explain": "Confirm conformability, pair a row with a column, then dot them."
+    }
+  ],
+  "lang": "en"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

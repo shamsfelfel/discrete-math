@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.2 Applications of Propositional Logic — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 1</a> &nbsp;›&nbsp;
+    <span id="crumb-current">1.2</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-1.2.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…"
+};
+window.LESSON_DATA = {
+  "id": "1.2",
+  "chapter": "1",
+  "title": "Applications of Propositional Logic",
+  "lede": "Logic is the language we reach for whenever ambiguity must be removed: software specifications, search queries, knights-and-knaves puzzles, and the gates inside every digital circuit. This lesson translates English into logic and puts that translation to work.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Translating English into logic",
+      "body": [
+        {
+          "type": "p",
+          "text": "Most English sentences carry hidden ambiguity. Translating them into propositional logic forces every connective and every direction to be made explicit. The general procedure: pick propositional variables for each atomic claim, identify the connectives signaled by English words, and assemble the compound proposition."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "@and@, @but@, @yet@, @however@ → conjunction @∧@",
+            "@or@ (inclusive), @and/or@ → disjunction @∨@",
+            "@not@, @it is not the case that@, @no@ → negation @¬@",
+            "@if … then@, @whenever@, @implies@ → conditional @→@",
+            "@only if@ — note: @A@ only if @B@ means @A → B@",
+            "@if and only if@, @iff@, @exactly when@ → biconditional @↔@"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "Walk-through",
+          "body": "Sentence: “You can access the Internet from campus only if you are a computer science major or you are not a freshman.” Let @a@ = access, @c@ = CS major, @f@ = freshman. The translation: @a → (c ∨ ¬f)@."
+        },
+        {
+          "label": "Watch the direction",
+          "body": "“You cannot ride the roller coaster if you are under 4 feet tall, unless you are over 16.” → @(r ∧ ¬s) → ¬q@ where @r@ = under 4 ft, @s@ = over 16, @q@ = can ride."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "System specifications",
+      "body": [
+        {
+          "type": "p",
+          "text": "Hardware and software requirements must be precise. Engineers translate English requirements into propositional logic so that contradictions can be detected mechanically before code is written."
+        },
+        {
+          "type": "def",
+          "text": "A set of system specifications is consistent if there exists at least one assignment of truth values that makes all of them true simultaneously. If no such assignment exists, the specs are inconsistent — no system can satisfy them all."
+        },
+        {
+          "type": "p",
+          "text": "Test for consistency: write each spec as a compound proposition, then either build a truth table over all variables or search for an assignment that makes every spec true."
+        }
+      ],
+      "examples": [
+        {
+          "label": "A consistent set",
+          "body": "Specs: “The diagnostic message is stored in the buffer or it is retransmitted,” “The diagnostic message is not stored in the buffer,” “If stored in the buffer, then retransmitted.” With @p@ = stored, @q@ = retransmitted: @p ∨ q@, @¬p@, @p → q@. The assignment p=F, q=T satisfies all three — the specs are consistent."
+        },
+        {
+          "label": "Adding inconsistency",
+          "body": "If we add “The diagnostic message is not retransmitted” (@¬q@) to the above, we now require q=T (from earlier) and q=F (from the new spec). No assignment can satisfy both — the specs are inconsistent."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Boolean (logical) searches",
+      "body": [
+        {
+          "type": "p",
+          "text": "Search engines apply the same logic operators to filter pages. Knowing the operator semantics lets you build queries that find exactly what you want."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "@AND@ — page must contain both terms (intersection)",
+            "@OR@ — page must contain at least one term (union)",
+            "@NOT@ (or @-@ in Google) — exclude pages with this term",
+            "Quotation marks force exact phrase matching"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Operator precedence in most search engines: @AND@ binds tighter than @OR@. Use parentheses to control grouping."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Universities in NM or AZ",
+          "body": "Query: @(NEW AND MEXICO OR ARIZONA) AND UNIVERSITIES@. The @AND@ binds tighter, so this finds pages with “universities” and either both “new + mexico” or “arizona.”"
+        },
+        {
+          "label": "Mexico but not New Mexico",
+          "body": "Query: @(MEXICO AND UNIVERSITIES) NOT NEW@ — pages mentioning Mexico and universities, excluding any that also mention “new.” In Google: @MEXICO UNIVERSITIES -NEW@."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Logic puzzles: knights and knaves",
+      "body": [
+        {
+          "type": "p",
+          "text": "On Smullyan's island, knights always tell the truth and knaves always lie. Each inhabitant is one or the other. Solving these puzzles trains you to model statements as propositions and reason about consistency."
+        },
+        {
+          "type": "p",
+          "text": "Strategy: let @p@ = “A is a knight,” @q@ = “B is a knight,” etc. If A is a knight, then A's statement must be true; if A is a knave, A's statement must be false. Test each combination of truth values for consistency."
+        }
+      ],
+      "examples": [
+        {
+          "label": "The classic puzzle",
+          "body": "A says: “B is a knight.” B says: “The two of us are opposite types.” Assume A is a knight (@p@ true): then A is telling the truth, so @q@ true. Then B is a knight, so B's claim @(p ∧ ¬q) ∨ (¬p ∧ q)@ should be true — but with both @p@, @q@ true it is false. Contradiction. So A is a knave (@¬p@), and similarly B is a knave."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Logic circuits",
+      "body": [
+        {
+          "type": "p",
+          "text": "Every digital circuit is a propositional formula in disguise. The basic gates are physical implementations of @∧@, @∨@, and @¬@."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Inverter (NOT gate) — output is @¬p@",
+            "AND gate — output is @p ∧ q@",
+            "OR gate — output is @p ∨ q@"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Any compound proposition over @{¬, ∧, ∨}@ corresponds directly to a circuit. To design a circuit that produces a target output, write the desired output as a propositional formula, then translate each connective into a gate."
+        },
+        {
+          "type": "mermaid",
+          "code": "flowchart LR\n  P[\"p\"] --> N1[\"NOT\"]\n  N1 --> A1[\"AND\"]\n  R[\"r\"] --> A1\n  Q[\"q\"] --> N2[\"NOT\"]\n  N2 --> A2[\"AND\"]\n  R --> A2\n  A1 --> O[\"OR\"]\n  A2 --> O\n  O --> OUT[\"(¬p ∧ r) ∨ (¬q ∧ r)\"]"
+        }
+      ],
+      "examples": [
+        {
+          "label": "Reading a circuit",
+          "body": "A circuit with inputs @p@, @q@ feeding through an AND gate, then OR'd with @r@ produces output @(p ∧ q) ∨ r@."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Translate “If it rains, then the picnic is cancelled” into propositional logic. Let @r@ = it rains, @c@ = the picnic is cancelled.",
+      "options": [
+        "@r ∧ c@",
+        "@r → c@",
+        "@c → r@",
+        "@r ↔ c@"
+      ],
+      "answer": 1,
+      "explanation": "“If @A@, then @B@” is the conditional @A → B@, with @A@ as hypothesis and @B@ as conclusion.",
+      "moreExamples": [
+        {
+          "label": "Watch the direction",
+          "body": "“The picnic is cancelled if it rains” means the same thing — still @r → c@. The @if@ marks the hypothesis."
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "True or False: “@A@ only if @B@” translates to @B → A@.",
+      "answer": false,
+      "explanation": "“@A@ only if @B@” means @A → B@. The word “only” reverses the direction. The translation @B → A@ corresponds to “@A@ if @B@,” which is the converse.",
+      "moreExamples": [
+        {
+          "label": "Mnemonic",
+          "body": "“Only if” attaches to the consequent. “You can graduate only if you pay tuition” = @graduate → paid@."
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Which Boolean search would find pages about beaches in New Jersey, but not pages about “Jersey” in the English Channel?",
+      "options": [
+        "@JERSEY AND BEACHES@",
+        "@(NEW AND JERSEY) AND BEACHES@",
+        "@NEW OR JERSEY OR BEACHES@",
+        "@BEACHES NOT JERSEY@"
+      ],
+      "answer": 1,
+      "explanation": "Requiring @NEW@ alongside @JERSEY@ filters out the Channel Island. Adding @BEACHES@ narrows to coastal content.",
+      "moreExamples": [
+        {
+          "label": "Even tighter",
+          "body": "Use a quoted phrase: @\"NEW JERSEY\" AND BEACHES@ to require the words appear together."
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "short",
+      "level": 2,
+      "prompt": "Translate “You can access the Internet from campus only if you are a computer science major or you are not a freshman” into a single compound proposition. Let @a@ = access, @c@ = CS major, @f@ = freshman.",
+      "palette": [
+        "¬",
+        "∧",
+        "∨",
+        "→",
+        "↔",
+        "a",
+        "c",
+        "f",
+        "(",
+        ")"
+      ],
+      "acceptable": [
+        "a → (c ∨ ¬f)",
+        "a→(c∨¬f)",
+        "a → (c v ¬f)",
+        "a -> (c ∨ ¬f)",
+        "a→(c ∨ ¬f)",
+        "a→(c∨~f)",
+        "a → (c ∨ !f)"
+      ],
+      "canonical": "a → (c ∨ ¬f)",
+      "explanation": "“@a@ only if (@c@ or @¬f@)” → @a → (c ∨ ¬f)@. The “only if” places @a@ as hypothesis; the “or” between “CS major” and “not a freshman” gives a disjunction.",
+      "moreExamples": [
+        {
+          "label": "Equivalent forms",
+          "body": "By the conditional-disjunction equivalence: @a → (c ∨ ¬f) ≡ ¬a ∨ c ∨ ¬f@."
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "tf",
+      "level": 2,
+      "prompt": "True or False: The specs @p ∨ q@, @¬p@, and @p → q@ are inconsistent.",
+      "answer": false,
+      "explanation": "With p=F and q=T, all three specs are true simultaneously: @p ∨ q@ = T, @¬p@ = T, and @p → q@ = T (vacuously, since p is false). So the specs are consistent.",
+      "moreExamples": [
+        {
+          "label": "Becoming inconsistent",
+          "body": "Add the spec @¬q@. Now we need q=T (from above) and q=F (new spec), which is impossible."
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "On Smullyan's island, A says: “At least one of us is a knave.” What are A and B?",
+      "options": [
+        "Both knights",
+        "A is a knight, B is a knave",
+        "A is a knave, B is a knight",
+        "Both knaves"
+      ],
+      "answer": 1,
+      "explanation": "If A is a knave, A's statement is false, meaning neither is a knave — but A is a knave. Contradiction. So A is a knight and the statement is true: at least one is a knave. Since A is the knight, B must be the knave.",
+      "moreExamples": [
+        {
+          "label": "Extracting the structure",
+          "body": "Let @p@ = A is a knight, @q@ = B is a knight. A's claim is “@¬p ∨ ¬q@.” Since A's claim must equal @p@'s truth value, set @p ↔ (¬p ∨ ¬q)@ and solve."
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order these steps to determine whether a given set of system specifications is consistent.",
+      "items": [
+        "Identify the atomic propositions in the requirements",
+        "Translate each English specification into a compound proposition",
+        "Build a truth table over all atomic propositions",
+        "Check whether any row makes all specifications simultaneously true",
+        "Report consistent if such a row exists; otherwise inconsistent"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "Translation depends on identifying atoms first. The truth table needs the formal specs. Consistency is then a row-by-row check, and the conclusion follows from whether any row passes.",
+      "moreExamples": [
+        {
+          "label": "Shortcut",
+          "body": "For more than 4 or 5 atoms, truth tables become unwieldy. Equivalences (Lesson 1.3) and SAT solvers handle larger spec sets."
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "A logic circuit has inputs @p@, @q@, @r@ and produces output @(p ∧ ¬r) ∨ (¬q ∧ r)@. Identify the gates and how many of each are needed.",
+      "template": "Inverters (NOT gates): [[1]]\nAND gates: [[2]]\nOR gates: [[3]]",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "options": [
+            "1",
+            "2",
+            "3"
+          ],
+          "answer": "2"
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "options": [
+            "1",
+            "2",
+            "3"
+          ],
+          "answer": "2"
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "options": [
+            "1",
+            "2",
+            "3"
+          ],
+          "answer": "1"
+        }
+      ],
+      "explanation": "Two negations (@¬r@ and @¬q@) require 2 inverters. The two conjunctions @(p ∧ ¬r)@ and @(¬q ∧ r)@ need 2 AND gates. The final disjunction needs 1 OR gate.",
+      "moreExamples": [
+        {
+          "label": "Sharing inverters",
+          "body": "If the same negated variable is used twice, only one inverter is needed — its output fans out to multiple gates."
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "type": "short",
+      "level": 3,
+      "prompt": "Translate the trunk-treasure puzzle: Trunk 1 says “The treasure is in Trunk 2,” Trunk 2 says “The treasure is in Trunk 3,” Trunk 3 says “This trunk is empty.” The Queen says exactly one inscription is true. Write a single proposition (using @p1@, @p2@, @p3@ for “treasure is in Trunk i”) that captures “exactly one inscription is true.”",
+      "palette": [
+        "¬",
+        "∧",
+        "∨",
+        "p1",
+        "p2",
+        "p3",
+        "(",
+        ")"
+      ],
+      "acceptable": [
+        "(p2 ∧ ¬p3 ∧ p3) ∨ (¬p2 ∧ p3 ∧ p3) ∨ (¬p2 ∧ ¬p3 ∧ ¬p3)",
+        "(p2 ∧ ¬p3 ∧ ¬¬p3) ∨ (¬p2 ∧ p3 ∧ ¬¬p3) ∨ (¬p2 ∧ ¬p3 ∧ ¬p3)"
+      ],
+      "canonical": "(p2 ∧ ¬p3) ∨ (¬p2 ∧ p3)",
+      "explanation": "The three inscriptions correspond to @p2@, @p3@, and @¬p3@. Inscriptions 2 and 3 contradict, so they cannot both be true; exactly one of them being true forces a particular assignment. Working through the cases gives the simplified condition @(p2 ∧ ¬p3) ∨ (¬p2 ∧ p3)@ — the treasure is either in trunk 2 (then inscription 1 is true and the others false) or trunk 3 (then inscription 3 is true and the others false). Combined with the constraint that the treasure is in exactly one trunk, this puzzle has multiple consistent solutions.",
+      "moreExamples": [
+        {
+          "label": "General form",
+          "body": "“Exactly one of @s1, s2, s3@ is true” = @(s1 ∧ ¬s2 ∧ ¬s3) ∨ (¬s1 ∧ s2 ∧ ¬s3) ∨ (¬s1 ∧ ¬s2 ∧ s3)@."
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "Which set of system specifications is inconsistent?",
+      "options": [
+        "@p → q@, @q → r@, @p@, @r@",
+        "@p ∨ q@, @¬p ∨ q@, @p ∨ ¬q@",
+        "@p ↔ q@, @p@, @¬q@",
+        "@p → q@, @¬q@, @¬p@"
+      ],
+      "answer": 2,
+      "explanation": "Option 3 forces @p@ true and @q@ false, but @p ↔ q@ requires them to match. The others all admit some satisfying assignment.",
+      "moreExamples": [
+        {
+          "label": "Quick check",
+          "body": "Look for forced values. @p ↔ q@ chains @p@ and @q@ to the same truth value. Then @p@ and @¬q@ split them — contradiction."
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "On Smullyan's island, A says “I am a knave or B is a knight.” Determine the types of A and B.",
+      "template": "A is a [[1]]; B is a [[2]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "options": [
+            "knight",
+            "knave"
+          ],
+          "answer": "knight"
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "options": [
+            "knight",
+            "knave"
+          ],
+          "answer": "knight"
+        }
+      ],
+      "explanation": "Suppose A is a knave. Then A's statement “@¬p ∨ q@” is false, so @p@ is true and @q@ is false — but @p@ true contradicts our supposition. So A is a knight, and the statement holds: @¬p ∨ q@ is true with @p@ true, forcing @q@ true. Both are knights.",
+      "moreExamples": [
+        {
+          "label": "Pattern",
+          "body": "When a knight's claim contains “I am a knave,” that disjunct is false. The other disjunct must carry the truth."
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "reorder",
+      "level": 3,
+      "prompt": "Order the steps for designing a logic circuit that outputs @1@ exactly when @p@ and @q@ have different truth values (XOR).",
+      "items": [
+        "Write the desired output as a propositional formula: @(p ∧ ¬q) ∨ (¬p ∧ q)@",
+        "Identify the connectives needed: 2 negations, 2 conjunctions, 1 disjunction",
+        "Place an inverter on the @q@ line and another on the @p@ line",
+        "Feed @p@ and @¬q@ into one AND gate; feed @¬p@ and @q@ into the other",
+        "Feed both AND outputs into one OR gate; the OR output is the final XOR result"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "Always specify the formula first, then count the gates, then arrange them top-down: inversions, conjunctions, then the final combining operation.",
+      "moreExamples": [
+        {
+          "label": "Why XOR matters",
+          "body": "XOR is the simplest non-trivial Boolean function not realizable by a single AND/OR/NOT — it requires combining at least two of them. It's also the building block of binary adders."
+        }
+      ]
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

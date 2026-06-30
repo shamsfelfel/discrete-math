@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.3 الدوال — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٢</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٢٫٣</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.3.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "conceptsSub": "اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.",
+  "practiceSub": "الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fill": "إكمال الفراغ",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": {
+    "basic": "أساسي",
+    "applied": "تطبيقي",
+    "challenge": "تحدٍّ"
+  },
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولًا.",
+  "typeFirst": "اكتب إجابة أولًا.",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "2.3",
+  "title": "الدوال",
+  "subtitle": "إسنادات من مجالٍ إلى مجالٍ مقابل — التباينية والشمولية والتقابل، وكيف تتركّب.",
+  "cards": [
+    {
+      "title": "الدوال: المجال والمجال المقابل والصورة",
+      "blocks": [
+        {
+          "def": {
+            "term": "الدالة",
+            "text": "الدالة f من A إلى B، وتُكتب f : A → B، تُسنِد إلى كل عنصر من A عنصرًا واحدًا بالضبط من B. وإذا أسندت f القيمة b إلى a نكتب f(a) = b."
+          }
+        },
+        {
+          "p": "<span class=\"sym\">A</span> هي <span class=\"sym\">المجال</span>، و <span class=\"sym\">B</span> <span class=\"sym\">المجال المقابل</span>. ونقول إن <span class=\"sym\">b</span> <span class=\"sym\">صورة</span> <span class=\"sym\">a</span>، و <span class=\"sym\">a</span> <span class=\"sym\">سابقة</span> لـ <span class=\"sym\">b</span>. و <span class=\"sym\">مدى</span> (أو صورة) <span class=\"sym\">f</span> هو مجموعة كل الصور: <span class=\"sym\">{f(a) | a ∈ A}</span> — وهو مجموعة جزئية من المجال المقابل، وليس بالضرورة كله."
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "«واحدًا بالضبط» هو جوهر التعريف: كل مُدخَل يحصل على مُخرَجٍ واحد، ولا يُترك مُدخَلٌ دون إسناد. والقاعدة التي تعطي مُخرَجين لمُدخَلٍ واحد ليست دالة."
+          }
+        },
+        {
+          "p": "تتساوى دالتان حين يكون لهما المجال نفسه والمجال المقابل نفسه، وتتّفقان عند كل نقطة."
+        }
+      ]
+    },
+    {
+      "title": "الدوال التباينية (واحد لواحد)",
+      "blocks": [
+        {
+          "def": {
+            "term": "التباينية",
+            "text": "f تباينية (واحد لواحد) إذا أعطت المدخلات المتمايزة مخرجات متمايزة: f(a) = f(b) → a = b لكل a وb في المجال."
+          }
+        },
+        {
+          "p": "وبالتكافؤ <span class=\"sym\">a ≠ b → f(a) ≠ f(b)</span>. ولإثبات التباينية نفترض <span class=\"sym\">f(a) = f(b)</span> ونستنتج <span class=\"sym\">a = b</span>."
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">f(x) = x + 1</span> على <span class=\"sym\">Z</span> تباينية: <span class=\"sym\">x+1 = y+1</span> تفرض <span class=\"sym\">x = y</span>. أمّا <span class=\"sym\">f(x) = x²</span> على <span class=\"sym\">Z</span> فليست كذلك: <span class=\"sym\">f(2) = f(−2) = 4</span>."
+              }
+            ]
+          }
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "الدالة المتزايدة تمامًا أو المتناقصة تمامًا تباينية دائمًا."
+          }
+        }
+      ]
+    },
+    {
+      "title": "الدوال الشمولية والتقابل",
+      "blocks": [
+        {
+          "def": {
+            "term": "الشمولية",
+            "text": "f : A → B شمولية إذا كان لكل b ∈ B سابقةٌ واحدة على الأقل: ∀y ∈ B ∃x ∈ A (f(x) = y). وبالتكافؤ يساوي المدى المجال المقابل."
+          }
+        },
+        {
+          "def": {
+            "term": "التقابل",
+            "text": "f تقابل (مطابقة واحد لواحد) إذا كانت تباينية وشمولية معًا."
+          }
+        },
+        {
+          "p": "للدالة بين <span class=\"sym\">مجموعتين منتهيتين متساويتي العدد</span>، تكون التباينية مكافئةً للشمولية — فأيٌّ من الخاصيّتين وحدها يجعلها تقابلًا."
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">f(x) = x + 1</span> على <span class=\"sym\">Z</span> تقابل. أمّا <span class=\"sym\">f(x) = x²</span> على <span class=\"sym\">R</span> فليست تباينية ولا شمولية (لا تبلغ السوالب)."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "الدوال العكسية",
+      "blocks": [
+        {
+          "def": {
+            "term": "الدالة العكسية",
+            "text": "إذا كانت f : A → B تقابلًا، فعكسها f⁻¹ : B → A يُعيد كل b إلى الـ a الوحيد الذي f(a) = b. أي f⁻¹(b) = a ⇔ f(a) = b."
+          }
+        },
+        {
+          "p": "يوجد العكس <span class=\"sym\">إذا وفقط إذا</span> كانت <span class=\"sym\">f</span> تقابلًا؛ وتُسمّى عندئذٍ <span class=\"sym\">قابلة للعكس</span>. وانتبه: <span class=\"sym\">f⁻¹</span> تعني الدالة العكسية، لا <span class=\"sym\">1/f</span>."
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "لـ <span class=\"sym\">f(x) = x + 1</span>، حلّ <span class=\"sym\">y = x + 1</span> يعطي <span class=\"sym\">x = y − 1</span>، فيكون <span class=\"sym\">f⁻¹(y) = y − 1</span>."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "تركيب الدوال",
+      "blocks": [
+        {
+          "def": {
+            "term": "التركيب",
+            "text": "إذا كانت g : A → B و f : B → C، فالتركيب f ∘ g : A → C يُعرَّف بـ (f ∘ g)(x) = f(g(x))."
+          }
+        },
+        {
+          "p": "نطبّق <span class=\"sym\">g</span> أولًا ثم <span class=\"sym\">f</span>. ويجب أن يطابق المجال المقابل للدالة الداخلية مجالَ الخارجية. والتركيب <span class=\"sym\">تجميعيّ</span> لكنه <span class=\"sym\">غير إبداليّ</span>: <span class=\"sym\">f ∘ g ≠ g ∘ f</span> عمومًا."
+        },
+        {
+          "p": "لدالة قابلة للعكس <span class=\"sym\">f</span>: <span class=\"sym\">(f⁻¹ ∘ f)(a) = a</span> و <span class=\"sym\">(f ∘ f⁻¹)(b) = b</span> — يلغي كلٌّ منهما الآخر معطيًا المطابقة."
+        },
+        {
+          "mermaid": "graph LR\n  A[\"A\"] -->|g| B[\"B\"]\n  B -->|f| C[\"C\"]\n  A -.->|\"f ∘ g\"| C"
+        }
+      ]
+    },
+    {
+      "title": "دالّتا الأرضية والسقف",
+      "blocks": [
+        {
+          "def": {
+            "term": "الأرضية / السقف",
+            "text": "الأرضية ⌊x⌋ أكبر عددٍ صحيح ≤ x؛ والسقف ⌈x⌉ أصغر عددٍ صحيح ≥ x."
+          }
+        },
+        {
+          "example": {
+            "title": "قيم",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">⌊2.7⌋ = 2</span> و <span class=\"sym\">⌈2.1⌉ = 3</span> و <span class=\"sym\">⌊−1.5⌋ = −2</span> و <span class=\"sym\">⌈−1.5⌉ = −1</span> و <span class=\"sym\">⌊5⌋ = ⌈5⌉ = 5</span>."
+              }
+            ]
+          }
+        },
+        {
+          "p": "متطابقات مفيدة: <span class=\"sym\">⌊x⌋ = n ⇔ n ≤ x &lt; n + 1</span>؛ <span class=\"sym\">⌈x⌉ = n ⇔ n − 1 &lt; x ≤ n</span>؛ و <span class=\"sym\">⌊x + n⌋ = ⌊x⌋ + n</span> لعدد صحيح <span class=\"sym\">n</span>. وهاتان الدالّتان محوريّتان في العدّ وتحليل الخوارزميات."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "لِـ <span class=\"sym\">f : A → B</span> تُسمّى المجموعة <span class=\"sym\">{f(a) | a ∈ A}</span>:",
+      "options": [
+        "المجال",
+        "المجال المقابل",
+        "المدى (الصورة)",
+        "السابقة"
+      ],
+      "answer": 2,
+      "explain": "المدى مجموعة كل قيم المخرجات، وهو مجموعة جزئية من المجال المقابل."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "القاعدة التي تُسنِد مُخرَجين مختلفين لمُدخَلٍ واحد تبقى دالة.",
+      "answer": false,
+      "explain": "الدالة تُسنِد مُخرَجًا واحدًا بالضبط لكل مُدخَل."
+    },
+    {
+      "type": "fill",
+      "level": "basic",
+      "q": "الدالة التباينية والشمولية معًا تُسمّى [[1]].",
+      "blanks": [
+        [
+          "تقابلًا",
+          "تقابل",
+          "مطابقة واحد لواحد"
+        ]
+      ],
+      "explain": "التقابل دالة تباينية وشمولية."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "أيّ دالة على <span class=\"sym\">Z</span> تباينية؟",
+      "options": [
+        "<span class=\"sym\">f(x) = x²</span>",
+        "<span class=\"sym\">f(x) = |x|</span>",
+        "<span class=\"sym\">f(x) = 2x + 3</span>",
+        "<span class=\"sym\">f(x) = x² − x</span>"
+      ],
+      "answer": 2,
+      "explain": "<span class=\"sym\">2x+3</span> متزايدة تمامًا فهي تباينية؛ والباقي يكرّر القيم."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "أوجد <span class=\"sym\">⌊−2.3⌋</span> و <span class=\"sym\">⌈−2.3⌉</span>.",
+      "answer": "<span class=\"sym\">⌊−2.3⌋ = −3</span> (أكبر صحيح <span class=\"sym\">≤ −2.3</span>) و <span class=\"sym\">⌈−2.3⌉ = −2</span> (أصغر صحيح <span class=\"sym\">≥ −2.3</span>).",
+      "explain": "الأرضية تقرّب لأسفل والسقف لأعلى — انتبه للإشارة في السوالب."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "للدالة عكسٌ إذا وفقط إذا كانت تقابلًا.",
+      "answer": true,
+      "explain": "القابلية للعكس تكافئ تمامًا كونها تباينية وشمولية."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "إذا كان <span class=\"sym\">g(x) = 2x</span> و <span class=\"sym\">f(x) = x + 1</span>، احسب <span class=\"sym\">(f ∘ g)(3)</span> و <span class=\"sym\">(g ∘ f)(3)</span>.",
+      "answer": "<span class=\"sym\">(f ∘ g)(3) = f(6) = 7</span>؛ <span class=\"sym\">(g ∘ f)(3) = g(4) = 8</span>. يختلفان، فالتركيب ليس إبداليًّا.",
+      "explain": "نطبّق الدالة الداخلية أولًا؛ والترتيب مهمّ."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "التركيب <span class=\"sym\">(f ∘ g)(x)</span> يساوي <span class=\"sym\">f(</span>[[1]]<span class=\"sym\">)</span>.",
+      "blanks": [
+        [
+          "g(x)",
+          "g (x)"
+        ]
+      ],
+      "explain": "يطبّق التركيب <span class=\"sym\">g</span> أولًا ثم <span class=\"sym\">f</span> على الناتج."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "<span class=\"sym\">f : A → B</span> مع <span class=\"sym\">|A| = |B| = 7</span> (منتهيتان). إذا كانت <span class=\"sym\">f</span> شمولية فإنها:",
+      "options": [
+        "ليست بالضرورة تباينية",
+        "تباينية أيضًا (تقابل)",
+        "ليست تباينية أبدًا",
+        "ليست دالة"
+      ],
+      "answer": 1,
+      "explain": "بين مجموعتين منتهيتين متساويتي العدد، الشمولية ⇔ التباينية، فـ <span class=\"sym\">f</span> تقابل."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "أثبت أن <span class=\"sym\">f(x) = 3x − 4</span> من <span class=\"sym\">R</span> إلى <span class=\"sym\">R</span> تباينية.",
+      "answer": "افترض <span class=\"sym\">f(a) = f(b)</span>: <span class=\"sym\">3a − 4 = 3b − 4</span> ⇒ <span class=\"sym\">3a = 3b</span> ⇒ <span class=\"sym\">a = b</span>. إذن <span class=\"sym\">f</span> تباينية.",
+      "explain": "إثبات تباينية قياسيّ: افترض تساوي المخرجات واستنتج تساوي المدخلات."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "رتّب خطوات إيجاد عكس <span class=\"sym\">f(x) = 5x + 2</span>.",
+      "items": [
+        "اكتب <span class=\"sym\">y = 5x + 2</span>.",
+        "حلّ بدلالة <span class=\"sym\">x</span>: <span class=\"sym\">x = (y − 2)/5</span>.",
+        "بدّل الأدوار: <span class=\"sym\">f⁻¹(y) = (y − 2)/5</span>."
+      ],
+      "explain": "عبّر عن <span class=\"sym\">x</span> بدلالة <span class=\"sym\">y</span> ثم اقرأ قاعدة العكس."
+    }
+  ],
+  "lang": "ar"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

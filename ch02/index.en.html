@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic Structures: Sets, Functions, Sequences, Sums &amp; Matrices — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+
+<style>
+  .ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1rem}
+  .ch-card{display:block;text-decoration:none;border:1px solid var(--border,#e5e2dc);border-radius:14px;
+    padding:1.15rem 1.25rem;background:var(--card,#fff);transition:transform .12s ease,box-shadow .12s ease}
+  .ch-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  .ch-card .num{font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.04em;
+    color:var(--accent,#9a3b2e);font-weight:600}
+  .ch-card .ttl{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:600;margin:.3rem 0 .45rem;
+    color:var(--ink,#221f1c)}
+  .ch-card .desc{font-size:.92rem;line-height:1.5;color:var(--muted,#6b655d)}
+  html[dir="rtl"] .ch-card .ttl{font-family:'Amiri',serif}
+  html[dir="rtl"] .ch-card .desc,html[dir="rtl"] .ch-intro{font-family:'Cairo',sans-serif}
+  .ch-intro{max-width:60ch;color:var(--muted,#6b655d);line-height:1.6}
+</style>
+
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Mathematics</a> &nbsp;›&nbsp;
+    <span id="crumb-current">Ch. 2</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="index.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker">Chapter 2</div>
+    <h1>Basic Structures: Sets, Functions, Sequences, Sums &amp; Matrices</h1>
+    <p class="ch-intro">This chapter builds the core vocabulary of discrete mathematics: sets and their operations, functions, sequences and summations, cardinality, and matrices. Pick a lesson to begin.</p>
+  </header>
+
+  <section class="section">
+    <div class="ch-grid">
+  <a class="ch-card" href="lesson-2.1.en.html">
+    <div class="num">2.1</div>
+    <div class="ttl">Sets</div>
+    <div class="desc">Set-builder notation, standard number sets, subsets, power sets, and Cartesian products.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.2.en.html">
+    <div class="num">2.2</div>
+    <div class="ttl">Set Operations</div>
+    <div class="desc">Union, intersection, difference, complement, identities, and inclusion–exclusion.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.3.en.html">
+    <div class="num">2.3</div>
+    <div class="ttl">Functions</div>
+    <div class="desc">Domain, codomain, injections, surjections, bijections, inverses, composition, floor/ceiling.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.4.en.html">
+    <div class="num">2.4</div>
+    <div class="ttl">Sequences and Summations</div>
+    <div class="desc">Progressions, recurrence relations, summation notation, and key closed-form formulas.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.5.en.html">
+    <div class="num">2.5</div>
+    <div class="ttl">Cardinality of Sets</div>
+    <div class="desc">Same cardinality, countable vs uncountable, Cantor diagonalization, Schröder–Bernstein.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.6.en.html">
+    <div class="num">2.6</div>
+    <div class="ttl">Matrices</div>
+    <div class="desc">Addition, multiplication, identity, transpose, symmetry, and zero–one Boolean arithmetic.</div>
+  </a>
+    </div>
+  </section>
+</main>
+
+<script>
+  (function(){
+    var t=document.getElementById('theme-toggle');
+    if(t)t.addEventListener('click',function(){
+      var h=document.documentElement;
+      h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark');
+    });
+    var p=document.getElementById('print-btn');
+    if(p)p.addEventListener('click',function(){window.print();});
+  })();
+</script>
+</body>
+</html>

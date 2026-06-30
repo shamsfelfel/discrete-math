@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.6 المصفوفات — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٢</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٢٫٦</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.6.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "conceptsSub": "اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.",
+  "practiceSub": "الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fill": "إكمال الفراغ",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": {
+    "basic": "أساسي",
+    "applied": "تطبيقي",
+    "challenge": "تحدٍّ"
+  },
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولًا.",
+  "typeFirst": "اكتب إجابة أولًا.",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "2.6",
+  "title": "المصفوفات",
+  "subtitle": "مصفوفات مستطيلة من الأعداد — الجمع والضرب والمنقول، وحساب المصفوفات الصفرية–الأحادية البوليّ.",
+  "cards": [
+    {
+      "title": "المصفوفات: الصفوف والأعمدة والعناصر",
+      "blocks": [
+        {
+          "def": {
+            "term": "المصفوفة",
+            "text": "المصفوفة ترتيبٌ مستطيلٌ من الأعداد. والمصفوفة ذات m صفًّا و n عمودًا تُسمّى مصفوفة m × n. وإذا تساوى عدد الصفوف وعدد الأعمدة سُمّيت مربّعة."
+          }
+        },
+        {
+          "p": "نكتب <span class=\"sym\">A = [aᵢⱼ]</span>، حيث <span class=\"sym\">aᵢⱼ</span> — <span class=\"sym\">العنصر (i, j)</span> — هو العدد في الصف <span class=\"sym\">i</span> والعمود <span class=\"sym\">j</span>. وتتساوى مصفوفتان حين يكون لهما الحجم نفسه وتتساوى العناصر المتناظرة."
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">[[1, 1], [0, 2], [1, 3]]</span> مصفوفة <span class=\"sym\">3 × 2</span>: ثلاثة صفوف وعمودان."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "جمع المصفوفات",
+      "blocks": [
+        {
+          "def": {
+            "term": "المجموع",
+            "text": "لمصفوفتين m × n هما A = [aᵢⱼ] و B = [bᵢⱼ]، المجموع A + B هو المصفوفة m × n التي عنصرها (i, j) هو aᵢⱼ + bᵢⱼ — تُجمع المواضع المتناظرة."
+          }
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "لا يمكن جمع مصفوفتين مختلفتي الحجم: ستكون بعض المواضع موجودةً في إحداهما دون الأخرى."
+          }
+        },
+        {
+          "p": "الجمع <span class=\"sym\">تبديليّ</span> و <span class=\"sym\">تجميعيّ</span>، موروثٌ عنصرًا عنصرًا من الأعداد."
+        }
+      ]
+    },
+    {
+      "title": "ضرب المصفوفات",
+      "blocks": [
+        {
+          "def": {
+            "term": "الجداء",
+            "text": "إذا كانت A من النوع m × k و B من النوع k × n، فإن الجداء AB مصفوفة m × n عنصرها (i, j) هو aᵢ₁b₁ⱼ + aᵢ₂b₂ⱼ + ⋯ + aᵢₖbₖⱼ — وهو الجداء النقطي للصف i من A بالعمود j من B."
+          }
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "AB معرّفٌ فقط حين تتطابق الأبعاد الداخلية: أعمدة A = صفوف B. وللناتج البعدان الخارجيّان m × n."
+          }
+        },
+        {
+          "p": "ضرب المصفوفات <span class=\"sym\">تجميعيّ</span> لكنّه <span class=\"sym\">غير تبديليّ</span>: عمومًا <span class=\"sym\">AB ≠ BA</span>، وقد يكون أحد الجدائين معرّفًا والآخر غير معرّف."
+        }
+      ]
+    },
+    {
+      "title": "مصفوفة الوحدة والقوى",
+      "blocks": [
+        {
+          "def": {
+            "term": "مصفوفة الوحدة",
+            "text": "مصفوفة الوحدة من الرتبة n، وهي Iₙ = [δᵢⱼ]، فيها δᵢⱼ = 1 عندما i = j و 0 خلاف ذلك (دلتا كرونيكر) — آحادٌ على القطر الرئيس وأصفارٌ فيما عداه."
+          }
+        },
+        {
+          "p": "الضرب في مصفوفة وحدةٍ بالحجم المناسب يُبقي المصفوفة دون تغيير: <span class=\"sym\">AIₙ = IₘA = A</span> لمصفوفةٍ <span class=\"sym\">m × n</span> هي <span class=\"sym\">A</span>."
+        },
+        {
+          "p": "ولأنّ الضرب تجميعيّ، تُعرَّف <span class=\"sym\">قوى</span> المصفوفة المربّعة: <span class=\"sym\">A⁰ = Iₙ</span> و <span class=\"sym\">Aʳ = A·A⋯A</span> (<span class=\"sym\">r</span> مرّة)."
+        }
+      ]
+    },
+    {
+      "title": "المنقول والمصفوفات المتناظرة",
+      "blocks": [
+        {
+          "def": {
+            "term": "المنقول",
+            "text": "منقول Aᵗ لمصفوفة m × n هو المصفوفة n × m الناتجة عن تبديل الصفوف بالأعمدة: إن كان Aᵗ = [bᵢⱼ]، فإن bᵢⱼ = aⱼᵢ."
+          }
+        },
+        {
+          "def": {
+            "term": "المتناظرة",
+            "text": "تُسمّى المصفوفة المربّعة A متناظرة إذا كان A = Aᵗ، أي aᵢⱼ = aⱼᵢ لكل i و j — فهي مرآةٌ حول القطر الرئيس."
+          }
+        },
+        {
+          "example": {
+            "title": "المنقول",
+            "blocks": [
+              {
+                "p": "منقول <span class=\"sym\">[[1, 2, 3], [4, 5, 6]]</span> (<span class=\"sym\">2 × 3</span>) هو <span class=\"sym\">[[1, 4], [2, 5], [3, 6]]</span> (<span class=\"sym\">3 × 2</span>)."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "المصفوفات الصفرية–الأحادية: الضمّ والوصل والجداء البوليّ",
+      "blocks": [
+        {
+          "def": {
+            "term": "المصفوفة الصفرية–الأحادية",
+            "text": "مصفوفةٌ كل عناصرها 0 أو 1. ويستعمل حسابها العمليتين البوليّتين ∨ (أو) و ∧ (و) على البتّات."
+          }
+        },
+        {
+          "p": "<span class=\"sym\">الضمّ</span> <span class=\"sym\">A ∨ B</span> عنصره <span class=\"sym\">(i,j)</span> هو <span class=\"sym\">aᵢⱼ ∨ bᵢⱼ</span>؛ و <span class=\"sym\">الوصل</span> <span class=\"sym\">A ∧ B</span> عنصره <span class=\"sym\">aᵢⱼ ∧ bᵢⱼ</span> (كلاهما يتطلّب تساوي الحجمين)."
+        },
+        {
+          "def": {
+            "term": "الجداء البوليّ",
+            "text": "لـ A (m × k) و B (k × n)، الجداء A ⊙ B عنصره (i, j) هو (aᵢ₁ ∧ b₁ⱼ) ∨ (aᵢ₂ ∧ b₂ⱼ) ∨ ⋯ ∨ (aᵢₖ ∧ bₖⱼ) — كالجداء العاديّ مع + ← ∨ و · ← ∧."
+          }
+        },
+        {
+          "mermaid": "graph TD\n  Z[\"مصفوفات صفرية–أحادية\"] --> J[\"الضمّ ∨ (أو عنصريًّا)\"]\n  Z --> M[\"الوصل ∧ (و عنصريًّا)\"]\n  Z --> B[\"الجداء البوليّ ⊙ (∧ ثم ∨)\"]"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "المصفوفة التي يتساوى فيها عدد الصفوف وعدد الأعمدة تُسمّى:",
+      "options": [
+        "متناظرة",
+        "مربّعة",
+        "مصفوفة وحدة",
+        "صفرية–أحادية"
+      ],
+      "answer": 1,
+      "explain": "تساوي عدد الصفوف والأعمدة ⇐ مربّعة؛ أمّا التناظر فشرطٌ أقوى ومنفصل."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "يمكن جمع مصفوفتين مختلفتي الحجم عنصرًا عنصرًا.",
+      "answer": false,
+      "explain": "يتطلّب الجمع تطابق الأبعاد حتى يتناظر كل موضع."
+    },
+    {
+      "type": "fill",
+      "level": "basic",
+      "q": "في <span class=\"sym\">A = [aᵢⱼ]</span>، الرمز <span class=\"sym\">aᵢⱼ</span> هو العنصر في الصف <span class=\"sym\">i</span> والعمود [[1]].",
+      "blanks": [
+        [
+          "j",
+          "<span class=\"sym\">j</span>"
+        ]
+      ],
+      "explain": "<span class=\"sym\">aᵢⱼ</span> يقع في الصف <span class=\"sym\">i</span> والعمود <span class=\"sym\">j</span> — أي العنصر <span class=\"sym\">(i, j)</span>."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "إذا كانت <span class=\"sym\">A</span> من النوع <span class=\"sym\">2 × 3</span> و <span class=\"sym\">B</span> من النوع <span class=\"sym\">3 × 4</span>، فإن للجداء <span class=\"sym\">AB</span> الحجم:",
+      "options": [
+        "<span class=\"sym\">3 × 3</span>",
+        "<span class=\"sym\">2 × 4</span>",
+        "<span class=\"sym\">2 × 3</span>",
+        "غير معرّف"
+      ],
+      "answer": 1,
+      "explain": "الأبعاد الداخلية (3 = 3) متطابقة؛ ويأخذ الناتج البعدين الخارجيّين <span class=\"sym\">2 × 4</span>."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "احسب منقول <span class=\"sym\">[[2, 0, 1], [3, 4, 5]]</span>.",
+      "answer": "<span class=\"sym\">[[2, 3], [0, 4], [1, 5]]</span> — مصفوفة <span class=\"sym\">3 × 2</span>؛ تصبح الصفوف أعمدة.",
+      "explain": "<span class=\"sym\">bᵢⱼ = aⱼᵢ</span>: يصير الصف 1 <span class=\"sym\">(2,0,1)</span> العمودَ 1."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "ضرب المصفوفات تبديليّ: <span class=\"sym\">AB = BA</span> لكل المصفوفات القابلة للضرب.",
+      "answer": false,
+      "explain": "عمومًا <span class=\"sym\">AB ≠ BA</span>؛ بل قد يكون أحد الجدائين معرّفًا والآخر غير معرّف."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "المصفوفة المربّعة التي <span class=\"sym\">A = Aᵗ</span> تُسمّى [[1]].",
+      "blanks": [
+        [
+          "متناظرة",
+          "المتناظرة"
+        ]
+      ],
+      "explain": "المتناظرة تساوي منقولها: <span class=\"sym\">aᵢⱼ = aⱼᵢ</span>."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "الجداء البوليّ <span class=\"sym\">A ⊙ B</span> يستبدل <span class=\"sym\">+</span> و <span class=\"sym\">·</span> العاديّتين بـ:",
+      "options": [
+        "<span class=\"sym\">∧</span> و <span class=\"sym\">∨</span>",
+        "<span class=\"sym\">∨</span> و <span class=\"sym\">∧</span>",
+        "<span class=\"sym\">¬</span> و <span class=\"sym\">∨</span>",
+        "<span class=\"sym\">⊕</span> و <span class=\"sym\">∧</span>"
+      ],
+      "answer": 1,
+      "explain": "يصير الجمع <span class=\"sym\">∨</span> (أو) ويصير الضرب <span class=\"sym\">∧</span> (و)."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "أوجد الوصل <span class=\"sym\">A ∧ B</span> لـ <span class=\"sym\">A = [[1, 0, 1], [0, 1, 0]]</span> و <span class=\"sym\">B = [[0, 1, 0], [1, 1, 0]]</span>.",
+      "answer": "«و» عنصريًّا: <span class=\"sym\">[[1∧0, 0∧1, 1∧0], [0∧1, 1∧1, 0∧0]] = [[0, 0, 0], [0, 1, 0]]</span>.",
+      "explain": "الوصل هو <span class=\"sym\">∧</span> عنصريًّا؛ تبقى 1 فقط حيث القيمتان 1."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "رتّب خطوات حساب العنصر <span class=\"sym\">(i, j)</span> من الجداء العاديّ <span class=\"sym\">AB</span>.",
+      "items": [
+        "تحقّق أنّ أعمدة <span class=\"sym\">A</span> تساوي صفوف <span class=\"sym\">B</span>.",
+        "خُذ الصف <span class=\"sym\">i</span> من <span class=\"sym\">A</span> والعمود <span class=\"sym\">j</span> من <span class=\"sym\">B</span>.",
+        "اجمع جداءات الأزواج المتطابقة: <span class=\"sym\">aᵢ₁b₁ⱼ + ⋯ + aᵢₖbₖⱼ</span>."
+      ],
+      "explain": "تأكّد من قابلية الضرب، ثم اقرن صفًّا بعمود، ثم اضربهما نقطيًّا."
+    }
+  ],
+  "lang": "ar"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

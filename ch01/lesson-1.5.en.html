@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.5 Nested Quantifiers — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 1</a> &nbsp;›&nbsp;
+    <span id="crumb-current">1.5</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-1.5.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…"
+};
+window.LESSON_DATA = {
+  "id": "1.5",
+  "chapter": "1",
+  "title": "Nested Quantifiers",
+  "lede": "When a single quantifier is not enough, we nest them. “For every @x@ there exists a @y@” is fundamentally different from “there exists a @y@ that works for every @x@.” Order matters, and getting it wrong rewrites the meaning entirely.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Quantifiers as nested loops",
+      "body": [
+        {
+          "type": "p",
+          "text": "A nested quantifier is a quantifier whose scope contains another quantifier. The cleanest way to think about @∀x ∀y P(x,y)@ or @∀x ∃y P(x,y)@ is as nested loops: for each value the outer quantifier pulls from the domain, the inner one runs through the entire domain again."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "@∀x ∀y P(x,y)@ — outer loop and inner loop both iterate; the formula is true only if @P(x,y)@ holds in every iteration.",
+            "@∀x ∃y P(x,y)@ — outer loop iterates; for each @x@, the inner search must find at least one @y@.",
+            "@∃x ∀y P(x,y)@ — we are looking for one @x@ such that the inner loop over @y@ always succeeds.",
+            "@∃x ∃y P(x,y)@ — we just need one @(x,y)@ pair that works."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "Loops mental model",
+          "body": "Implementing @∀x ∃y P(x,y)@ as code: @for x in D: found = False; for y in D: if P(x,y): found = True; break; if not found: return False;@ return True. The outer loop must succeed for every @x@."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Same-quantifier nesting (∀∀, ∃∃) commutes",
+      "body": [
+        {
+          "type": "def",
+          "text": "@∀x ∀y P(x,y) ≡ ∀y ∀x P(x,y)@ — swapping two universal quantifiers preserves meaning."
+        },
+        {
+          "type": "def",
+          "text": "@∃x ∃y P(x,y) ≡ ∃y ∃x P(x,y)@ — swapping two existential quantifiers preserves meaning."
+        },
+        {
+          "type": "p",
+          "text": "Intuitively, if @P@ holds for every pair, the order in which we check the pairs doesn't matter. Same for finding one pair: we don't care which axis we search first."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Commutativity of addition",
+          "body": "“@∀x ∀y (x + y = y + x)@” says addition is commutative for every pair. Reordering the quantifiers gives the same statement."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Mixed-quantifier nesting (∀∃ vs ∃∀) does NOT commute",
+      "body": [
+        {
+          "type": "def",
+          "text": "@∀x ∃y P(x,y)@ asserts: for each @x@, there is some (possibly different) @y@ that depends on @x@."
+        },
+        {
+          "type": "def",
+          "text": "@∃y ∀x P(x,y)@ asserts the much stronger claim: there is a single @y@ that works for every @x@."
+        },
+        {
+          "type": "p",
+          "text": "These are not equivalent. The implication @∃y ∀x P(x,y) → ∀x ∃y P(x,y)@ holds (the single @y@ that works for everyone is also a witness for each individual @x@), but the converse fails."
+        },
+        {
+          "type": "mermaid",
+          "code": "flowchart TD\n  A[\"∀x ∃y P(x,y)\"] --> A1[\"y is allowed to depend on x\"]\n  B[\"∃y ∀x P(x,y)\"] --> B1[\"y is fixed, must work for ALL x\"]\n  B --> A"
+        }
+      ],
+      "examples": [
+        {
+          "label": "Real-world reading",
+          "body": "Let @L(x,y)@ = “@x@ loves @y@.” Then @∀x ∃y L(x,y)@ = “everybody loves somebody (each person picks their own).” But @∃y ∀x L(x,y)@ = “there is one person whom everybody loves.”"
+        },
+        {
+          "label": "Integers and additive inverses",
+          "body": "@∀x ∃y (x + y = 0)@ over the integers is TRUE — for each @x@, take @y = -x@. But @∃y ∀x (x + y = 0)@ is FALSE — no single @y@ works for every @x@."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Translating nested English statements",
+      "body": [
+        {
+          "type": "p",
+          "text": "English statements with multiple quantifying phrases require nested quantifiers. The key is identifying which quantifier scopes over which. “Every student in this class has visited Mexico” uses one quantifier; “every student has a friend” uses two."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "“Every … has …” → typically @∀x ∃y@",
+            "“There is a … such that every …” → @∃x ∀y@",
+            "“For every … and every …” → @∀x ∀y@",
+            "“Some … with some …” → @∃x ∃y@"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "When the statement involves restricted domains (e.g., “every positive integer”), express the restriction as a conditional: @∀x (positive(x) → …)@. For existential restrictions, use a conjunction: @∃x (positive(x) ∧ …)@."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Multi-step translation",
+          "body": "“The sum of any two positive integers is positive.” Domain: integers. Translate: @∀x ∀y ((x > 0 ∧ y > 0) → x + y > 0)@."
+        },
+        {
+          "label": "Restricted existence",
+          "body": "“There is a positive integer that is the sum of two squares of positive integers.” @∃x ∃y ∃z (x > 0 ∧ y > 0 ∧ z > 0 ∧ x = y^2 + z^2)@. Witness: @x = 2, y = z = 1@."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Negating nested quantifiers",
+      "body": [
+        {
+          "type": "p",
+          "text": "To negate a chain of quantifiers, push the @¬@ across each quantifier in turn, flipping it (@∀ ↔ ∃@) at each step, until the @¬@ lands on the predicate — then simplify the predicate."
+        },
+        {
+          "type": "ol",
+          "items": [
+            "@¬∀x ∀y P(x,y) ≡ ∃x ∃y ¬P(x,y)@",
+            "@¬∀x ∃y P(x,y) ≡ ∃x ∀y ¬P(x,y)@",
+            "@¬∃x ∀y P(x,y) ≡ ∀x ∃y ¬P(x,y)@",
+            "@¬∃x ∃y P(x,y) ≡ ∀x ∀y ¬P(x,y)@"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Notice that the order of the quantifiers does not change — only their type flips. If the original was @∀∃@, the negation is @∃∀@, in that order."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Disproving a claim",
+          "body": "Claim: @∀x ∃y (x · y = 1)@ over the real numbers. Negation: @∃x ∀y (x · y ≠ 1)@. To disprove the original, exhibit such an @x@: choose @x = 0@. Then @∀y (0 · y ≠ 1)@ is true — zero kills any product. So the original is false: @0@ has no multiplicative inverse."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Three or more quantifiers",
+      "body": [
+        {
+          "type": "p",
+          "text": "The formal definition of a limit uses three nested quantifiers: @lim_{x → a} f(x) = L@ means @∀ε > 0 ∃δ > 0 ∀x (0 < |x - a| < δ → |f(x) - L| < ε)@."
+        },
+        {
+          "type": "p",
+          "text": "Reading this carefully: “for every desired error @ε@ … there exists a tolerance @δ@ … for every @x@ within @δ@ of @a@, the function value is within @ε@ of @L@.” The order @∀ε ∃δ ∀x@ is essential — @δ@ may depend on @ε@, but it must work uniformly across all @x@ in its range."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Why ∀∃∀ not ∃∀∀",
+          "body": "If we wrote @∃δ ∀ε ∀x …@, we'd be requiring a single @δ@ that works for every @ε@, no matter how small — which collapses the limit to a constant function. The @∀ε ∃δ@ order captures the idea that smaller errors require finer tolerances."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Let @L(x,y)@ = “@x@ loves @y@.” What does @∀x ∃y L(x,y)@ assert?",
+      "options": [
+        "Everyone loves themselves",
+        "Everyone loves someone (possibly different for each person)",
+        "There is one person whom everyone loves",
+        "Someone loves everyone"
+      ],
+      "answer": 1,
+      "explanation": "@∀x ∃y@ — for each @x@, some @y@ exists, possibly depending on @x@. The @y@ may differ from person to person.",
+      "moreExamples": [
+        {
+          "label": "Different statement",
+          "body": "@∃y ∀x L(x,y)@ = “there is one person whom everyone loves” — a much stronger claim."
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "True or False: @∀x ∀y P(x,y) ≡ ∀y ∀x P(x,y)@.",
+      "answer": true,
+      "explanation": "Two universals commute. The pair @(x,y)@ ranges over the same set regardless of which variable iterates first.",
+      "moreExamples": [
+        {
+          "label": "Same for existentials",
+          "body": "@∃x ∃y P(x,y) ≡ ∃y ∃x P(x,y)@. Same logic."
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Over the integers, which is TRUE?",
+      "options": [
+        "@∃y ∀x (x + y = 0)@",
+        "@∀x ∃y (x + y = 0)@",
+        "@∀x ∀y (x + y = 0)@",
+        "@∃x ∀y (x + y = 0)@"
+      ],
+      "answer": 1,
+      "explanation": "For each @x@ we can take @y = -x@, giving @x + y = 0@. So @∀x ∃y@ holds. The other options either fix @y@ universally (impossible) or claim it for all @y@ (false except trivially).",
+      "moreExamples": [
+        {
+          "label": "Why not option 0",
+          "body": "@∃y ∀x (x + y = 0)@ says one fixed @y@ works for every @x@. But then @y@ would equal @-x@ for every @x@ — impossible."
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 2,
+      "prompt": "True or False: @∀x ∃y P(x,y) ≡ ∃y ∀x P(x,y)@ in general.",
+      "answer": false,
+      "explanation": "These are not equivalent. @∃y ∀x P(x,y) → ∀x ∃y P(x,y)@ holds, but the converse fails. Example: over integers, @∀x ∃y (x + y = 0)@ is true but @∃y ∀x (x + y = 0)@ is false.",
+      "moreExamples": [
+        {
+          "label": "Stronger to weaker",
+          "body": "Stronger → weaker: @∃y ∀x → ∀x ∃y@. The witness that works for all @x@ is a special witness for each particular @x@."
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "level": 2,
+      "prompt": "Negate the statement @∀x ∃y P(x,y)@ so that no ¬ appears outside any quantifier. Use the symbol palette.",
+      "palette": [
+        "¬",
+        "∀",
+        "∃",
+        "P(x,y)",
+        "x",
+        "y"
+      ],
+      "acceptable": [
+        "∃x ∀y ¬P(x,y)",
+        "∃x∀y¬P(x,y)",
+        "∃x ∀y ~P(x,y)",
+        "∃x ∀y !P(x,y)"
+      ],
+      "canonical": "∃x ∀y ¬P(x,y)",
+      "explanation": "Push @¬@ across each quantifier, flipping each: @¬∀x → ∃x@, then @¬∃y → ∀y@. The order stays the same; only types flip.",
+      "moreExamples": [
+        {
+          "label": "Three quantifiers",
+          "body": "@¬∀x ∃y ∀z P ≡ ∃x ∀y ∃z ¬P@."
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "Translate “There is a student in this class who has visited every country in Europe.” Let @S(x)@ = “@x@ is a student in this class,” @C(y)@ = “@y@ is a country in Europe,” @V(x,y)@ = “@x@ has visited @y@.”",
+      "options": [
+        "@∀x ∀y (S(x) ∧ C(y) → V(x,y))@",
+        "@∃x (S(x) ∧ ∀y (C(y) → V(x,y)))@",
+        "@∀y ∃x (C(y) → S(x) ∧ V(x,y))@",
+        "@∃x ∃y (S(x) ∧ C(y) ∧ V(x,y))@"
+      ],
+      "answer": 1,
+      "explanation": "“There is” → @∃x@; “who has visited” → the student must satisfy @S(x)@ AND a universal claim about countries. The countries part is a restricted universal: @∀y (C(y) → V(x,y))@.",
+      "moreExamples": [
+        {
+          "label": "Watch the structure",
+          "body": "Restricted existential uses ∧ (“there is an @x@ that is S AND …”). Restricted universal uses → (“every @y@ that is C is also …”)."
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps to negate “Every student has read at least one book by every author on the syllabus” into a positive equivalent. Let @S(x), B(y), A(z)@ classify and @R(x,y), W(z,y)@ relate.",
+      "items": [
+        "Symbolize: ∀x (S(x) → ∀z (A(z) → ∃y (B(y) ∧ W(z,y) ∧ R(x,y))))",
+        "Negate the whole: ¬ of the above",
+        "Push ¬ through ∀, →, ∀, →: ∃x (S(x) ∧ ∃z (A(z) ∧ ¬∃y (B(y) ∧ W(z,y) ∧ R(x,y))))",
+        "Push ¬ through ∃ to get ∀: ∃x (S(x) ∧ ∃z (A(z) ∧ ∀y ¬(B(y) ∧ W(z,y) ∧ R(x,y))))",
+        "Read back: “There is a student and an author such that the student has not read any book by that author.”"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "Symbolize first; then sequentially push ¬ through quantifiers and conditionals. Each step flips one quantifier or rewrites @¬(p → q)@ as @p ∧ ¬q@.",
+      "moreExamples": [
+        {
+          "label": "Pattern",
+          "body": "¬(restricted ∀) = restricted ∃ of the negation. ¬(restricted ∃) = restricted ∀ of the negation."
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Identify the truth value of each statement over the domain of integers, with @P(x,y)@ = “@x · y = 1@.”",
+      "template": "@∀x ∀y P(x,y)@: [[1]]\n@∃x ∃y P(x,y)@: [[2]]\n@∀x ∃y P(x,y)@: [[3]]\n@∃y ∀x P(x,y)@: [[4]]",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "options": [
+            "true",
+            "false"
+          ],
+          "answer": "false"
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "options": [
+            "true",
+            "false"
+          ],
+          "answer": "true"
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "options": [
+            "true",
+            "false"
+          ],
+          "answer": "false"
+        },
+        {
+          "id": "4",
+          "type": "select",
+          "options": [
+            "true",
+            "false"
+          ],
+          "answer": "false"
+        }
+      ],
+      "explanation": "@∀∀@: every product is 1? No, @2 · 3 = 6 ≠ 1@. @∃∃@: some pair multiplies to 1? Yes, @1 · 1 = 1@. @∀x ∃y@: every @x@ has a @y@ with @x · y = 1@? No — over integers, @x = 2@ has no integer inverse. @∃y ∀x@: a single @y@ that works for every @x@? Impossible.",
+      "moreExamples": [
+        {
+          "label": "Over the rationals",
+          "body": "@∀x ∃y (x · y = 1)@ over @ℚ \\ {0}@ is TRUE — every nonzero rational has a multiplicative inverse."
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "What is the negation of the limit definition @∀ε > 0 ∃δ > 0 ∀x (0 < |x - a| < δ → |f(x) - L| < ε)@?",
+      "options": [
+        "@∃ε > 0 ∀δ > 0 ∃x (0 < |x - a| < δ ∧ |f(x) - L| ≥ ε)@",
+        "@∀ε > 0 ∃δ > 0 ∃x (|f(x) - L| ≥ ε)@",
+        "@∃ε > 0 ∀δ > 0 ∀x (0 < |x - a| < δ → |f(x) - L| < ε)@",
+        "@∃ε > 0 ∃δ > 0 ∃x (|f(x) - L| ≥ ε)@"
+      ],
+      "answer": 0,
+      "explanation": "Flip each quantifier: ∀→∃, ∃→∀, ∀→∃. Then negate the conditional: @¬(A → B) ≡ A ∧ ¬B@. So @¬(0 < |x-a| < δ → |f(x)-L| < ε) ≡ 0 < |x-a| < δ ∧ |f(x)-L| ≥ ε@.",
+      "moreExamples": [
+        {
+          "label": "Reading the negation",
+          "body": "“There is some error ε such that for every tolerance δ, some @x@ within δ of @a@ has @f(x)@ at least ε away from @L@.”"
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Translate to logic and provide the negation. Domain: positive integers. Statement: “For every positive integer @n@ there is a prime @p@ greater than @n@.” Use @P(p)@ = “@p@ is prime” and write inequalities directly.",
+      "template": "Original: @∀n ∃p [[1]]@\nNegation: @∃n ∀p [[2]]@",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "(P(p) ∧ p > n)",
+          "acceptable": [
+            "(P(p) ∧ p > n)",
+            "P(p) ∧ p > n",
+            "(P(p)∧p>n)",
+            "P(p)∧p>n",
+            "(P(p) ∧ (p > n))"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "(¬P(p) ∨ p ≤ n)",
+          "acceptable": [
+            "(¬P(p) ∨ p ≤ n)",
+            "¬P(p) ∨ p ≤ n",
+            "(¬P(p)∨p≤n)",
+            "¬P(p)∨p≤n",
+            "(P(p) → p ≤ n)",
+            "P(p) → p ≤ n",
+            "(P(p)→p≤n)",
+            "(¬P(p) ∨ p<=n)",
+            "(P(p) -> p<=n)",
+            "P(p) -> p<=n"
+          ]
+        }
+      ],
+      "explanation": "“There is a prime greater than @n@” uses an existential @∃p@ with conjunction @P(p) ∧ p > n@. Negation flips the @∃p@ to @∀p@, and by De Morgan @¬(P(p) ∧ p > n) ≡ ¬P(p) ∨ p ≤ n@, equivalently @P(p) → p ≤ n@.",
+      "moreExamples": [
+        {
+          "label": "Why this matters",
+          "body": "The negation says “there is some @n@ such that every prime is at most @n@” — i.e., there are only finitely many primes. Euclid's theorem disproves this; the original is true."
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "reorder",
+      "level": 3,
+      "prompt": "Order the steps to translate “Between any two distinct rationals there is another rational” into formal logic over the rationals.",
+      "items": [
+        "Identify the two distinct rationals: introduce variables @x@ and @y@ with @x < y@",
+        "Add the universal quantifier over both: ∀x ∀y",
+        "Specify the existence of the in-between rational: ∃z",
+        "Add the relations the in-between rational satisfies: x < z ∧ z < y",
+        "Final form: ∀x ∀y (x < y → ∃z (x < z ∧ z < y))"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "First identify the unbound variables, then quantify them in the right order, then introduce the existential for the in-between element, and finally express the constraints. The conditional @x < y → …@ is necessary so the claim is vacuous when @x ≥ y@.",
+      "moreExamples": [
+        {
+          "label": "Density of ℚ",
+          "body": "This formula expresses the density of the rationals: between any two distinct rationals lies a third. A specific witness: @z = (x + y) / 2@."
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "tf",
+      "level": 3,
+      "prompt": "True or False: @∀x ∀y (P(x,y) → P(y,x))@ is logically equivalent to @∀x ∀y (P(x,y) ↔ P(y,x))@.",
+      "answer": true,
+      "explanation": "If @∀x ∀y (P(x,y) → P(y,x))@ holds, then by swapping the bound variables (which we can do under ∀∀), we also have @∀y ∀x (P(y,x) → P(x,y))@, i.e., the converse. Together they give the biconditional. Conversely, the biconditional immediately implies the conditional. So they are equivalent.",
+      "moreExamples": [
+        {
+          "label": "Symmetry",
+          "body": "This is the formal definition of @P@ being a symmetric relation. “If @x@ likes @y@, then @y@ likes @x@” — over a universal quantifier, the converse is automatic by relabeling."
+        }
+      ]
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

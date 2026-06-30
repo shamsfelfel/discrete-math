@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.6 Rules of Inference — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 1</a> &nbsp;›&nbsp;
+    <span id="crumb-current">1.6</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-1.6.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…"
+};
+window.LESSON_DATA = {
+  "id": "1.6",
+  "chapter": "1",
+  "title": "Rules of Inference",
+  "lede": "A proof is a chain of valid inferences. Rules of inference are the templates we are allowed to apply at each step. Master modus ponens, modus tollens, and a handful of relatives, and you can construct — and check — the structure of any propositional argument.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Valid arguments",
+      "body": [
+        {
+          "type": "def",
+          "text": "An argument in propositional logic is a sequence of propositions called premises ending in a final proposition called the conclusion. The argument is valid when the conjunction of the premises logically implies the conclusion: i.e., @p_1 ∧ p_2 ∧ … ∧ p_n → q@ is a tautology."
+        },
+        {
+          "type": "p",
+          "text": "Validity is about form, not truth. A valid argument with false premises can still have a false conclusion. The promise validity makes is: IF the premises are all true, the conclusion MUST be true."
+        },
+        {
+          "type": "p",
+          "text": "An argument form has propositional variables in place of specific propositions. We say the form is valid when every substitution of propositions for variables yields a valid argument. Rules of inference ARE valid argument forms."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Form vs content",
+          "body": "Form: @[p ∧ (p → q)] → q@ (modus ponens). Substituting @p@ = “it's raining” and @q@ = “the ground is wet” gives a valid argument. Substituting @p@ = “2 + 2 = 5” and @q@ = anything also gives a valid argument — the form is what matters."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "The seven essential rules",
+      "body": [
+        {
+          "type": "p",
+          "text": "Memorize these seven — they are the bread and butter of propositional proofs."
+        },
+        {
+          "type": "truthTable",
+          "headers": [
+            "Rule",
+            "Premises",
+            "Conclusion"
+          ],
+          "rows": [
+            [
+              "Modus ponens",
+              "p, p → q",
+              "q"
+            ],
+            [
+              "Modus tollens",
+              "¬q, p → q",
+              "¬p"
+            ],
+            [
+              "Hypothetical syllogism",
+              "p → q, q → r",
+              "p → r"
+            ],
+            [
+              "Disjunctive syllogism",
+              "p ∨ q, ¬p",
+              "q"
+            ],
+            [
+              "Addition",
+              "p",
+              "p ∨ q"
+            ],
+            [
+              "Simplification",
+              "p ∧ q",
+              "p"
+            ],
+            [
+              "Conjunction",
+              "p, q",
+              "p ∧ q"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Modus ponens: “assert and detach.” Given @p@ and @p → q@, conclude @q@. This is the most-used rule in mathematics. Modus tollens: contrapositive in motion — if @q@ is false and @p → q@, then @p@ must be false."
+        }
+      ],
+      "examples": [
+        {
+          "label": "A short proof",
+          "body": "Premises: @p → q@, @q → r@, @p@. Step 1: @p → r@ by hypothetical syllogism on the first two. Step 2: @r@ by modus ponens on @p@ and @p → r@."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Resolution",
+      "body": [
+        {
+          "type": "def",
+          "text": "Resolution: from premises @p ∨ q@ and @¬p ∨ r@, conclude @q ∨ r@."
+        },
+        {
+          "type": "p",
+          "text": "Resolution is a single inference rule that, on its own, is sufficient for proving any tautology in conjunctive normal form. It is the engine inside automated theorem provers and most SAT solvers."
+        },
+        {
+          "type": "p",
+          "text": "Why it works: in any model, either @p@ is true (then from @¬p ∨ r@, @r@ holds) or @p@ is false (then from @p ∨ q@, @q@ holds). Either way, @q ∨ r@ holds."
+        },
+        {
+          "type": "mermaid",
+          "code": "flowchart LR\n  P1[\"p ∨ q\"] --> R[\"resolve on p\"]\n  P2[\"¬p ∨ r\"] --> R\n  R --> C[\"q ∨ r\"]"
+        }
+      ],
+      "examples": [
+        {
+          "label": "A resolution proof",
+          "body": "From @“It's snowing or it's raining” (@s ∨ r@) and @“It's not snowing or my flight is delayed” (@¬s ∨ d@), resolve on @s@ to conclude @“It's raining or my flight is delayed” (@r ∨ d@)."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Common fallacies",
+      "body": [
+        {
+          "type": "p",
+          "text": "Two patterns look like rules but are NOT valid. They appear constantly in informal arguments and are responsible for many bad proofs."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Affirming the conclusion (or affirming the consequent): “@p → q@ and @q@, therefore @p@.” INVALID. Counterexample: “If it rains, the ground is wet. The ground is wet. Therefore it rained.” (Maybe a sprinkler is on.)",
+            "Denying the hypothesis (or denying the antecedent): “@p → q@ and @¬p@, therefore @¬q@.” INVALID. Counterexample: “If it rains, the ground is wet. It is not raining. Therefore the ground is not wet.” (Sprinkler again.)"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Both fallacies confuse a conditional with its converse or its inverse. Remember: @p → q@ tells you nothing about what happens when @p@ is false (vacuous case) or when @q@ is true (could be many causes)."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Recognizing the trap",
+          "body": "“If you study hard, you pass. Sara passed. Therefore Sara studied hard.” — affirming the conclusion. Maybe Sara already knew the material."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Rules of inference for quantified statements",
+      "body": [
+        {
+          "type": "ul",
+          "items": [
+            "Universal instantiation (UI): from @∀x P(x)@, conclude @P(c)@ for any specific @c@ in the domain.",
+            "Universal generalization (UG): from “@P(c)@ for an arbitrary @c@,” conclude @∀x P(x)@. The element @c@ must have been chosen with no special properties.",
+            "Existential instantiation (EI): from @∃x P(x)@, conclude @P(c)@ for some specific (but unnamed) @c@ — a new constant.",
+            "Existential generalization (EG): from @P(c)@ for some specific @c@, conclude @∃x P(x)@."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "These rules let us bridge between universal/existential claims and statements about specific elements. They are how we use a hypothesis like “every integer satisfies P” to actually conclude something about the integer 7."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Universal modus ponens",
+          "body": "Combining UI with modus ponens: from @∀x (P(x) → Q(x))@ and @P(a)@, conclude @Q(a)@. This is one of the most common mathematical inference patterns."
+        },
+        {
+          "label": "Why UG is delicate",
+          "body": "Once you've picked @c@ with no specific properties, anything you prove about it must hold for every element. But if you've used a property of @c@ that isn't universal (e.g., “assume @c > 0@”), you can only generalize over the restricted domain."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Building a multi-step proof",
+      "body": [
+        {
+          "type": "p",
+          "text": "A formal proof is a numbered list of propositions, each justified by either being a premise, an instance of an inference rule applied to earlier lines, or an axiom. The last line is the conclusion."
+        },
+        {
+          "type": "ol",
+          "items": [
+            "Premises: @¬p ∨ q@, @r → p@, @¬q@, @¬r ∨ s@. Goal: @s@.",
+            "From premises 1 and 3 by disjunctive syllogism: @¬p@.",
+            "From step 2 and premise 2 by modus tollens: @¬r@.",
+            "From step 3 and premise 4 by disjunctive syllogism: @s@."
+          ]
+        },
+        {
+          "type": "mermaid",
+          "code": "flowchart TD\n  P1[\"¬p ∨ q (premise)\"] --> S2[\"¬p (DS)\"]\n  P3[\"¬q (premise)\"] --> S2\n  S2 --> S3[\"¬r (MT)\"]\n  P2[\"r → p (premise)\"] --> S3\n  S3 --> S4[\"s (DS)\"]\n  P4[\"¬r ∨ s (premise)\"] --> S4"
+        }
+      ],
+      "examples": [
+        {
+          "label": "Proof strategy",
+          "body": "When constructing a proof: identify which premises mention the goal, work backward (what would let me conclude the goal?), and forward (what can I derive from the premises?). Meet in the middle."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Which rule applies: from @p@ and @p → q@, conclude @q@?",
+      "options": [
+        "Modus tollens",
+        "Modus ponens",
+        "Disjunctive syllogism",
+        "Hypothetical syllogism"
+      ],
+      "answer": 1,
+      "explanation": "Modus ponens (“the mode that affirms”): given an assertion @p@ and a conditional @p → q@, detach @q@.",
+      "moreExamples": [
+        {
+          "label": "In words",
+          "body": "“It's raining. If it's raining, the ground is wet. Therefore, the ground is wet.”"
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "True or False: “From @p → q@ and @q@, conclude @p@” is a valid rule.",
+      "answer": false,
+      "explanation": "This is the fallacy of affirming the conclusion. @q@ might be true for reasons other than @p@. Counterexample: “If it rains, the ground is wet. The ground is wet. Therefore it rained” — maybe a sprinkler.",
+      "moreExamples": [
+        {
+          "label": "Compare",
+          "body": "Modus ponens uses @p@ (the hypothesis) plus @p → q@. Affirming the conclusion uses @q@ (the conclusion) plus @p → q@ — backward and invalid."
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Which conclusion follows from @p ∨ q@ and @¬p@?",
+      "options": [
+        "@p@",
+        "@q@",
+        "@¬q@",
+        "@p ∧ q@"
+      ],
+      "answer": 1,
+      "explanation": "Disjunctive syllogism: if a disjunction is true and one disjunct is false, the other must be true.",
+      "moreExamples": [
+        {
+          "label": "In words",
+          "body": "“The key is in the kitchen or the bedroom. It's not in the kitchen. Therefore it's in the bedroom.”"
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 2,
+      "prompt": "True or False: From @¬q@ and @p → q@, we can conclude @¬p@.",
+      "answer": true,
+      "explanation": "This is modus tollens. Equivalent to applying modus ponens to the contrapositive @¬q → ¬p@.",
+      "moreExamples": [
+        {
+          "label": "In words",
+          "body": "“If I caught the bus, I would be there by 8. I'm not there by 8. Therefore I didn't catch the bus.”"
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "level": 2,
+      "prompt": "From premises @r → s@ and @s → t@, what is the conclusion by hypothetical syllogism? Use the symbol palette.",
+      "palette": [
+        "¬",
+        "→",
+        "∧",
+        "∨",
+        "r",
+        "s",
+        "t"
+      ],
+      "acceptable": [
+        "r → t",
+        "r→t",
+        "r->t",
+        "(r → t)"
+      ],
+      "canonical": "r → t",
+      "explanation": "Hypothetical syllogism chains conditionals: @r → s@ and @s → t@ together give @r → t@.",
+      "moreExamples": [
+        {
+          "label": "Generalization",
+          "body": "By repeated hypothetical syllogism, any chain @p_1 → p_2 → … → p_n@ collapses to @p_1 → p_n@."
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "Which is a fallacy?",
+      "options": [
+        "Modus ponens",
+        "Modus tollens",
+        "Affirming the conclusion",
+        "Disjunctive syllogism"
+      ],
+      "answer": 2,
+      "explanation": "Affirming the conclusion (“@p → q@ and @q@, therefore @p@”) is invalid. The other three are standard valid rules.",
+      "moreExamples": [
+        {
+          "label": "Mirror fallacy",
+          "body": "Denying the hypothesis (“@p → q@ and @¬p@, therefore @¬q@”) is also a fallacy."
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order this proof. Premises: @¬p ∨ q@, @r → p@, @¬q@, @¬r ∨ s@. Goal: @s@.",
+      "items": [
+        "From @¬p ∨ q@ and @¬q@ by disjunctive syllogism, derive @¬p@",
+        "From @r → p@ and @¬p@ by modus tollens, derive @¬r@",
+        "From @¬r ∨ s@ and @¬r@ by disjunctive syllogism, derive @s@",
+        "Conclude: @s@"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Each step combines existing facts with one rule to produce a new fact. The chain ends at the goal.",
+      "moreExamples": [
+        {
+          "label": "Strategy",
+          "body": "Start from premises that combine cleanly (here, @¬p ∨ q@ with @¬q@). Build the chain that leads to the goal."
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Identify each rule of inference.",
+      "template": "From @p ∧ q@ conclude @p@: [[1]]\nFrom @p@ and @q@ conclude @p ∧ q@: [[2]]\nFrom @p@ conclude @p ∨ q@: [[3]]\nFrom @∀x P(x)@ conclude @P(c)@: [[4]]",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "options": [
+            "Simplification",
+            "Conjunction",
+            "Addition",
+            "Modus ponens"
+          ],
+          "answer": "Simplification"
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "options": [
+            "Simplification",
+            "Conjunction",
+            "Addition",
+            "Modus ponens"
+          ],
+          "answer": "Conjunction"
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "options": [
+            "Simplification",
+            "Conjunction",
+            "Addition",
+            "Modus ponens"
+          ],
+          "answer": "Addition"
+        },
+        {
+          "id": "4",
+          "type": "select",
+          "options": [
+            "UI",
+            "UG",
+            "EI",
+            "EG"
+          ],
+          "answer": "UI"
+        }
+      ],
+      "explanation": "Simplification: drop a conjunct. Conjunction: combine two facts into a single conjunction. Addition: weaken a fact by disjoining anything. UI: from a universal claim, instantiate to any specific element.",
+      "moreExamples": [
+        {
+          "label": "All four quantifier rules",
+          "body": "UI: ∀ → specific. UG: arbitrary specific → ∀. EI: ∃ → a new specific name. EG: specific → ∃."
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "From @∀x (P(x) → Q(x))@ and @P(a)@, what conclusion is justified?",
+      "options": [
+        "@∀x Q(x)@",
+        "@Q(a)@",
+        "@∃x Q(x)@ only",
+        "Nothing without further premises"
+      ],
+      "answer": 1,
+      "explanation": "Universal modus ponens: instantiate the universal claim at @a@ to get @P(a) → Q(a)@, then apply modus ponens with @P(a)@ to conclude @Q(a)@. (We could then weaken to @∃x Q(x)@ by EG, but @Q(a)@ is the direct conclusion.)",
+      "moreExamples": [
+        {
+          "label": "Why not ∀x Q(x)",
+          "body": "We only know @P(a) → Q(a)@; about other elements, we'd need their @P@-status. ∀x Q(x) is only justified if we know @∀x P(x)@."
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Resolution from clauses. Identify the resolvent of each pair.",
+      "template": "@p ∨ q@ and @¬p ∨ r@ → [[1]]\n@¬q ∨ s@ and @q ∨ t@ → [[2]]",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "q ∨ r",
+          "acceptable": [
+            "q ∨ r",
+            "q∨r",
+            "q ∨ r",
+            "(q ∨ r)",
+            "q v r",
+            "r ∨ q",
+            "r ∨ q"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "s ∨ t",
+          "acceptable": [
+            "s ∨ t",
+            "s∨t",
+            "s ∨ t",
+            "(s ∨ t)",
+            "s v t",
+            "t ∨ s",
+            "t ∨ s"
+          ]
+        }
+      ],
+      "explanation": "Resolution: drop a complementary literal pair (here @p@/@¬p@ and @q@/@¬q@). The resolvent is the disjunction of the remaining literals.",
+      "moreExamples": [
+        {
+          "label": "Empty resolvent",
+          "body": "Resolving @p@ and @¬p@ gives the empty clause @⊥@ — a contradiction. This is how SAT solvers prove unsatisfiability."
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "reorder",
+      "level": 3,
+      "prompt": "Order the proof: premises @∀x (P(x) → Q(x))@, @∃x (R(x) ∧ P(x))@. Goal: @∃x (R(x) ∧ Q(x))@.",
+      "items": [
+        "From @∃x (R(x) ∧ P(x))@ by EI, get @R(c) ∧ P(c)@ for some specific @c@",
+        "By simplification, derive @P(c)@",
+        "By UI on @∀x (P(x) → Q(x))@, get @P(c) → Q(c)@",
+        "By modus ponens on @P(c)@ and @P(c) → Q(c)@, derive @Q(c)@",
+        "By simplification, derive @R(c)@; by conjunction, derive @R(c) ∧ Q(c)@; by EG, derive @∃x (R(x) ∧ Q(x))@"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "Always do EI early (introduce the new constant). Then UI lets you specialize the universal claim at @c@. Then modus ponens, then conjunction with @R(c)@, then EG to recover the existential conclusion.",
+      "moreExamples": [
+        {
+          "label": "EI subtlety",
+          "body": "EI must introduce a fresh name. Reusing a name that already appeared in another premise can lead to invalid conclusions."
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "tf",
+      "level": 3,
+      "prompt": "True or False: The following argument is valid. “If I'm tired, I'll go to bed early. I'm not tired. Therefore I won't go to bed early.”",
+      "answer": false,
+      "explanation": "This is the fallacy of denying the hypothesis. From @p → q@ and @¬p@, you cannot conclude @¬q@. Maybe I'll go to bed early for some other reason.",
+      "moreExamples": [
+        {
+          "label": "What WOULD be valid",
+          "body": "From @p → q@ and @¬q@, modus tollens gives @¬p@. “If I'm tired, I go to bed early. I didn't go to bed early. Therefore I wasn't tired.”"
+        }
+      ]
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

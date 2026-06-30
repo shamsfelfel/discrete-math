@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>البُنى الأساسية: المجموعات والدوال والمتتاليات والمجاميع والمصفوفات — الرياضيات المتقطّعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+
+<style>
+  .ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1rem}
+  .ch-card{display:block;text-decoration:none;border:1px solid var(--border,#e5e2dc);border-radius:14px;
+    padding:1.15rem 1.25rem;background:var(--card,#fff);transition:transform .12s ease,box-shadow .12s ease}
+  .ch-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  .ch-card .num{font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.04em;
+    color:var(--accent,#9a3b2e);font-weight:600}
+  .ch-card .ttl{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:600;margin:.3rem 0 .45rem;
+    color:var(--ink,#221f1c)}
+  .ch-card .desc{font-size:.92rem;line-height:1.5;color:var(--muted,#6b655d)}
+  html[dir="rtl"] .ch-card .ttl{font-family:'Amiri',serif}
+  html[dir="rtl"] .ch-card .desc,html[dir="rtl"] .ch-intro{font-family:'Cairo',sans-serif}
+  .ch-intro{max-width:60ch;color:var(--muted,#6b655d);line-height:1.6}
+</style>
+
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطّعة</a> &nbsp;›&nbsp;
+    <span id="crumb-current">الفصل ٢</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="index.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker">الفصل ٢</div>
+    <h1>البُنى الأساسية: المجموعات والدوال والمتتاليات والمجاميع والمصفوفات</h1>
+    <p class="ch-intro">هذا الفصل يبني المفردات الأساسية للرياضيات المتقطّعة: المجموعات وعملياتها، الدوال، المتتاليات والمجاميع، أعداد عناصر المجموعات، والمصفوفات. اختر درسًا للبدء.</p>
+  </header>
+
+  <section class="section">
+    <div class="ch-grid">
+  <a class="ch-card" href="lesson-2.1.ar.html">
+    <div class="num">٢٫١</div>
+    <div class="ttl">المجموعات</div>
+    <div class="desc">صياغة بناء المجموعة، المجموعات العددية القياسية، المجموعات الجزئية، مجموعات القوة، والجداءات الديكارتية.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.2.ar.html">
+    <div class="num">٢٫٢</div>
+    <div class="ttl">عمليات المجموعات</div>
+    <div class="desc">الاتحاد والتقاطع والفرق والمتمّم، والمتطابقات، ومبدأ الضمّ والاستبعاد.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.3.ar.html">
+    <div class="num">٢٫٣</div>
+    <div class="ttl">الدوال</div>
+    <div class="desc">المجال والمجال المقابل، التباينية والشمولية والتقابل، المعكوس والتركيب، والأرضية والسقف.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.4.ar.html">
+    <div class="num">٢٫٤</div>
+    <div class="ttl">المتتاليات والمجاميع</div>
+    <div class="desc">المتواليات وعلاقات التكرار ورمز الجمع وأهمّ الصيغ المغلقة.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.5.ar.html">
+    <div class="num">٢٫٥</div>
+    <div class="ttl">أعداد عناصر المجموعات</div>
+    <div class="desc">تساوي العدد الأصلي، القابلة وغير القابلة للعدّ، قطْريّة كانتور، وشرودر–برنشتاين.</div>
+  </a>
+  <a class="ch-card" href="lesson-2.6.ar.html">
+    <div class="num">٢٫٦</div>
+    <div class="ttl">المصفوفات</div>
+    <div class="desc">الجمع والضرب ومصفوفة الوحدة والمنقول والتناظر، وحساب المصفوفات الصفرية–الأحادية البوليّ.</div>
+  </a>
+    </div>
+  </section>
+</main>
+
+<script>
+  (function(){
+    var t=document.getElementById('theme-toggle');
+    if(t)t.addEventListener('click',function(){
+      var h=document.documentElement;
+      h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark');
+    });
+    var p=document.getElementById('print-btn');
+    if(p)p.addEventListener('click',function(){window.print();});
+  })();
+</script>
+</body>
+</html>

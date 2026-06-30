@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.3 The Complexity of Algorithms — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 3</a> &nbsp;›&nbsp;
+    <span id="crumb-current">3.3</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-3.3.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "3.3",
+  "chapter": "3",
+  "title": "The Complexity of Algorithms",
+  "lede": "Algorithmic complexity measures the resources — chiefly time, counted as basic operations — an algorithm needs as a function of input size, expressed with big-O and big-Theta.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Time complexity and how we count it",
+      "body": [
+        {
+          "type": "p",
+          "text": "The complexity of an algorithm has two facets: time complexity (how long it runs) and space complexity (how much memory it uses). This section measures time complexity by counting the basic operations — comparisons, additions, multiplications — as a function of the input size <span class=\"sym\">n</span>."
+        },
+        {
+          "type": "def",
+          "text": "We express the count with big-O or big-Theta in terms of <span class=\"sym\">n</span>. Constant factors and machine speed are deliberately ignored, so the same analysis holds across hardware."
+        },
+        {
+          "type": "p",
+          "text": "Finding the maximum of <span class=\"sym\">n</span> elements (Algorithm 1 of §3.1) makes one comparison <span class=\"sym\">i ≤ n</span> to test the loop and one <span class=\"sym\">max &lt; ai</span> each pass: about <span class=\"sym\">2n − 1</span> comparisons, which is <span class=\"sym\">Θ(n)</span> — linear."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Max-finding count",
+          "body": "<span class=\"sym\">2(n − 1) + 1 = 2n − 1</span> comparisons; <span class=\"sym\">2n − 1</span> is <span class=\"sym\">Θ(n)</span>, so finding the maximum is a linear-time algorithm."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Worst-case and average-case analysis",
+      "body": [
+        {
+          "type": "p",
+          "text": "Because the number of operations can depend on the particular input, we report it in standardised ways. Worst-case complexity is the largest count over all inputs of size <span class=\"sym\">n</span> — a guarantee that the algorithm is never slower than this."
+        },
+        {
+          "type": "p",
+          "text": "Average-case complexity averages the count over all inputs of size <span class=\"sym\">n</span>, usually harder to compute because it needs assumptions about how inputs are distributed."
+        },
+        {
+          "type": "p",
+          "text": "Linear search (Algorithm 2) compares <span class=\"sym\">x</span> with each term. In the worst case — <span class=\"sym\">x</span> absent or last — it uses <span class=\"sym\">2n + 2</span> comparisons, which is <span class=\"sym\">Θ(n)</span>. Its average case is also <span class=\"sym\">Θ(n)</span>."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Worst case: maximum operations over all inputs of size <span class=\"sym\">n</span>.",
+            "Average case: mean operations over all inputs of size <span class=\"sym\">n</span>.",
+            "Worst-case analysis is most common — it bounds performance with certainty."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "Linear search, worst case",
+          "body": "<span class=\"sym\">2n + 2</span> comparisons when <span class=\"sym\">x</span> is not in the list (two per term plus the final loop test), and <span class=\"sym\">2n + 2</span> is <span class=\"sym\">Θ(n)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Search and sort complexities",
+      "body": [
+        {
+          "type": "p",
+          "text": "The standard searching and sorting algorithms from §3.1 have these worst-case complexities, measured in comparisons:"
+        },
+        {
+          "type": "truthTable",
+          "headers": [
+            "Algorithm",
+            "Worst-case comparisons",
+            "Order"
+          ],
+          "rows": [
+            [
+              "Linear search",
+              "<span class=\"sym\">2n + 2</span>",
+              "<span class=\"sym\">Θ(n)</span>"
+            ],
+            [
+              "Binary search",
+              "<span class=\"sym\">2⌈log n⌉ + 2</span>",
+              "<span class=\"sym\">Θ(log n)</span>"
+            ],
+            [
+              "Bubble sort",
+              "<span class=\"sym\">n(n − 1)/2</span>",
+              "<span class=\"sym\">Θ(n²)</span>"
+            ],
+            [
+              "Insertion sort",
+              "<span class=\"sym\">n(n − 1)/2</span>",
+              "<span class=\"sym\">Θ(n²)</span>"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Binary search is dramatically faster than linear search on a sorted list because it halves the search space each step, giving <span class=\"sym\">Θ(log n)</span> rather than <span class=\"sym\">Θ(n)</span>. Both bubble and insertion sort are <span class=\"sym\">Θ(n²)</span> in the worst case."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Binary search count",
+          "body": "At most <span class=\"sym\">2k + 2 = 2⌈log n⌉ + 2</span> comparisons (with <span class=\"sym\">k = ⌈log n⌉</span> halvings), and <span class=\"sym\">2⌈log n⌉ + 2</span> is <span class=\"sym\">Θ(log n)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Matrix multiplication",
+      "body": [
+        {
+          "type": "p",
+          "text": "Multiplying two <span class=\"sym\">n × n</span> matrices by the definition (Algorithm 1) computes each of the <span class=\"sym\">n²</span> entries of the product as a sum of <span class=\"sym\">n</span> products."
+        },
+        {
+          "type": "def",
+          "text": "Each entry needs <span class=\"sym\">n</span> multiplications and <span class=\"sym\">n − 1</span> additions. Across all <span class=\"sym\">n²</span> entries: <span class=\"sym\">n³</span> multiplications and <span class=\"sym\">n²(n − 1)</span> additions — so the direct method is <span class=\"sym\">Θ(n³)</span>."
+        },
+        {
+          "type": "p",
+          "text": "Surprisingly, faster matrix-multiplication algorithms exist that beat <span class=\"sym\">n³</span>. The order in which a chain of matrices is multiplied also matters enormously: for compatible <span class=\"sym\">A1, A2, A3</span>, computing <span class=\"sym\">A1(A2 A3)</span> may cost <span class=\"sym\">14000</span> multiplications while <span class=\"sym\">(A1 A2)A3</span> costs <span class=\"sym\">36000</span> — same answer, very different work."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Operation count",
+          "body": "Direct <span class=\"sym\">n × n</span> multiplication: <span class=\"sym\">n³</span> multiplications and <span class=\"sym\">n²(n − 1)</span> additions, total <span class=\"sym\">Θ(n³)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Complexity terminology",
+      "body": [
+        {
+          "type": "p",
+          "text": "Common growth classes have standard names (Table 1). They let us describe an algorithm&#x27;s scalability at a glance."
+        },
+        {
+          "type": "truthTable",
+          "headers": [
+            "Complexity",
+            "Terminology"
+          ],
+          "rows": [
+            [
+              "<span class=\"sym\">Θ(1)</span>",
+              "Constant"
+            ],
+            [
+              "<span class=\"sym\">Θ(log n)</span>",
+              "Logarithmic"
+            ],
+            [
+              "<span class=\"sym\">Θ(n)</span>",
+              "Linear"
+            ],
+            [
+              "<span class=\"sym\">Θ(n log n)</span>",
+              "Linearithmic"
+            ],
+            [
+              "<span class=\"sym\">Θ(nᵇ)</span>",
+              "Polynomial"
+            ],
+            [
+              "<span class=\"sym\">Θ(bⁿ), b &gt; 1</span>",
+              "Exponential"
+            ],
+            [
+              "<span class=\"sym\">Θ(n!)</span>",
+              "Factorial"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Merge sort (Chapter 4) achieves <span class=\"sym\">Θ(n log n)</span> — linearithmic — better than the <span class=\"sym\">Θ(n²)</span> of bubble and insertion sort. The word linearithmic blends linear and logarithmic."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Tractable, intractable, and P vs NP",
+      "body": [
+        {
+          "type": "p",
+          "text": "Problems are classified by the best algorithm known to solve them."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Tractable: solvable with worst-case polynomial-time complexity (<span class=\"sym\">Θ(nᵇ)</span>). These belong to class <span class=\"sym\">P</span>.",
+            "Intractable: no polynomial-time algorithm is known; the worst case typically needs exponential time.",
+            "Unsolvable: no algorithm exists at all (e.g. the halting problem)."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Class <span class=\"sym\">NP</span> (nondeterministic polynomial time) contains problems whose proposed solutions can be verified in polynomial time. Whether <span class=\"sym\">P = NP</span> — whether every quickly-checkable problem is also quickly-solvable — is the most famous open problem in theoretical computer science, one of the seven Millennium Prize Problems (<span class=\"sym\">$1</span> million)."
+        },
+        {
+          "type": "def",
+          "text": "An <span class=\"sym\">NP</span>-complete problem is one in <span class=\"sym\">NP</span> such that, if it had a polynomial-time algorithm, then every <span class=\"sym\">NP</span> problem would too. Satisfiability is <span class=\"sym\">NP</span>-complete — the Cook–Levin theorem."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "When measuring the time complexity of an algorithm, what do we count?",
+      "options": [
+        "Basic operations (e.g. comparisons) as a function of input size",
+        "Seconds on a specific computer",
+        "Lines of source code",
+        "Bytes of memory used"
+      ],
+      "answer": 0,
+      "explanation": "Time complexity counts basic operations as a function of n, independent of hardware speed."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "Worst-case complexity gives the largest number of operations over all inputs of a given size.",
+      "answer": true,
+      "explanation": "That is exactly the definition — it bounds the algorithm&#x27;s performance with certainty."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "What is the worst-case complexity of binary search on a sorted list of <span class=\"sym\">n</span> elements?",
+      "options": [
+        "<span class=\"sym\">Θ(log n)</span>",
+        "<span class=\"sym\">Θ(n)</span>",
+        "<span class=\"sym\">Θ(n²)</span>",
+        "<span class=\"sym\">Θ(1)</span>"
+      ],
+      "answer": 0,
+      "explanation": "Binary search halves the list each step, using <span class=\"sym\">2⌈log n⌉ + 2</span> comparisons = <span class=\"sym\">Θ(log n)</span>."
+    },
+    {
+      "id": "q4",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Complexity of the standard searches and sorts.",
+      "template": "Linear search has worst-case complexity <span class=\"sym\">Θ(</span>[[1]]<span class=\"sym\">)</span>, while binary search achieves <span class=\"sym\">Θ(</span>[[2]]<span class=\"sym\">)</span>. Both bubble sort and insertion sort are <span class=\"sym\">Θ(</span>[[3]]<span class=\"sym\">)</span> in the worst case.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "n",
+          "acceptable": [
+            "n"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "log n",
+          "acceptable": [
+            "log n",
+            "logn",
+            "log(n)",
+            "lg n"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "n^2",
+          "acceptable": [
+            "n^2",
+            "n²",
+            "n squared",
+            "n**2"
+          ]
+        }
+      ],
+      "explanation": "Linear search Θ(n); binary search Θ(log n); bubble and insertion sort Θ(n²)."
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "level": 2,
+      "prompt": "Direct multiplication of two <span class=\"sym\">n × n</span> matrices: how many multiplications and additions, and what order is this?",
+      "canonical": "Each of the n² entries needs n multiplications and n−1 additions, giving n³ multiplications and n²(n−1) additions in total — Θ(n³).",
+      "acceptable": [
+        "n^3 multiplications",
+        "n cubed",
+        "n^3 mult and n^2(n-1) add",
+        "Theta(n^3)",
+        "n^3 and n^2(n-1)"
+      ],
+      "explanation": "n³ multiplications and n²(n−1) additions; the direct algorithm is Θ(n³)."
+    },
+    {
+      "id": "q6",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order these complexity classes from most efficient (top) to least efficient (bottom) for large <span class=\"sym\">n</span>.",
+      "items": [
+        "<span class=\"sym\">Θ(1)</span>",
+        "<span class=\"sym\">Θ(log n)</span>",
+        "<span class=\"sym\">Θ(n)</span>",
+        "<span class=\"sym\">Θ(n log n)</span>",
+        "<span class=\"sym\">Θ(n²)</span>",
+        "<span class=\"sym\">Θ(2ⁿ)</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "explanation": "Constant &lt; logarithmic &lt; linear &lt; linearithmic &lt; quadratic &lt; exponential."
+    },
+    {
+      "id": "q7",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "A problem solvable by an algorithm with worst-case polynomial-time complexity is called:",
+      "options": [
+        "Tractable",
+        "Intractable",
+        "Unsolvable",
+        "<span class=\"sym\">NP</span>-complete"
+      ],
+      "answer": 0,
+      "explanation": "Polynomial worst-case time = tractable; such problems form class <span class=\"sym\">P</span>."
+    },
+    {
+      "id": "q8",
+      "type": "tf",
+      "level": 2,
+      "prompt": "The terminology <span class=\"sym\">Θ(n log n)</span> is called linearithmic complexity.",
+      "answer": true,
+      "explanation": "Linearithmic blends “linear” and “logarithmic”; merge sort is <span class=\"sym\">Θ(n log n)</span>."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "What characterises an <span class=\"sym\">NP</span>-complete problem?",
+      "options": [
+        "If it has a polynomial-time algorithm, every <span class=\"sym\">NP</span> problem does",
+        "It can never be solved by any algorithm",
+        "It is always solvable in linear time",
+        "Its solutions cannot be verified"
+      ],
+      "answer": 0,
+      "explanation": "An <span class=\"sym\">NP</span>-complete problem solvable in polynomial time would put all of <span class=\"sym\">NP</span> in <span class=\"sym\">P</span>; satisfiability is the classic example (Cook–Levin)."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "Distinguish tractable, intractable, and unsolvable problems.",
+      "canonical": "Tractable problems have a polynomial worst-case algorithm (class P). Intractable problems have no known polynomial algorithm and usually need exponential time. Unsolvable problems have no algorithm at all, like the halting problem.",
+      "acceptable": [
+        "tractable polynomial, intractable exponential, unsolvable none",
+        "P is tractable",
+        "halting problem is unsolvable",
+        "no algorithm for unsolvable"
+      ],
+      "explanation": "Tractable = polynomial (P); intractable = no known polynomial algorithm; unsolvable = no algorithm exists (halting problem)."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Complexity classes and open problems.",
+      "template": "Problems whose solutions can be verified in polynomial time form class [[1]]. Whether this class equals <span class=\"sym\">P</span> is the famous <span class=\"sym\">P</span> vs <span class=\"sym\">NP</span> problem, one of the [[2]] Prize Problems. A problem with no algorithm at all, such as the [[3]] problem, is called unsolvable.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "NP",
+          "acceptable": [
+            "NP",
+            "np"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "Millennium",
+          "options": [
+            "Millennium",
+            "Nobel",
+            "Turing"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "halting",
+          "acceptable": [
+            "halting",
+            "the halting",
+            "halting problem"
+          ]
+        }
+      ],
+      "explanation": "Verifiable-in-polynomial-time = NP; P vs NP is a Millennium Prize Problem; the halting problem is unsolvable."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discrete Mathematics — Study Site</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="toolbar">
+  <div class="crumbs"><span>Discrete Mathematics</span></div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="index.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+</div>
+
+<main class="page">
+  <header class="index-head">
+    <div class="kicker">Rosen · 8th edition · Study guide</div>
+    <h1>Discrete Mathematics &amp; Its Applications</h1>
+    <p class="lede">An interactive study companion to Kenneth Rosen's textbook. Each chapter is broken into focused lessons — flashcard-style concept cards followed by graded practice questions. Open one to begin.</p>
+  </header>
+
+  <section class="section">
+    <h2>Chapters</h2>
+    <div class="section-sub">Chapters 1–3 available. Other chapters will follow.</div>
+
+    <div class="lesson-grid">
+
+      <a class="lesson-link" href="ch01/index.en.html">
+        <div class="ll-num">Chapter 1 · 8 lessons</div>
+        <h3>The Foundations: Logic and Proofs</h3>
+        <p>Propositions, logical connectives, equivalences, predicates, quantifiers, rules of inference, and the methods of mathematical proof.</p>
+      </a>
+
+      <a class="lesson-link" href="ch02/index.en.html">
+        <div class="ll-num">Chapter 2 · 6 lessons</div>
+        <h3>Basic Structures: Sets, Functions, Sequences, Sums &amp; Matrices</h3>
+        <p>The mathematical structures used throughout the rest of the book — set notation, set operations, functions, sequences, summation, and matrices.</p>
+      </a>
+
+      <a class="lesson-link" href="ch03/index.en.html">
+        <div class="ll-num">Chapter 3 · 3 lessons</div>
+        <h3>Algorithms</h3>
+        <p>What makes an algorithm, how to express one in pseudocode, and how to analyze running time using big-O, big-Ω, and big-Θ notation.</p>
+      </a>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 4 · coming soon</div>
+        <h3>Number Theory and Cryptography</h3>
+        <p>Divisibility, modular arithmetic, primes, GCDs, the Euclidean algorithm, and applications including classical and public-key cryptography.</p>
+      </div>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 5 · coming soon</div>
+        <h3>Induction and Recursion</h3>
+        <p>Mathematical induction, strong induction, well-ordering, recursive definitions, structural induction, and program correctness.</p>
+      </div>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 6 · coming soon</div>
+        <h3>Counting</h3>
+        <p>The product and sum rules, permutations, combinations, the pigeonhole principle, and counting by inclusion-exclusion.</p>
+      </div>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 7 · coming soon</div>
+        <h3>Discrete Probability</h3>
+        <p>Probability spaces, conditional probability, independence, expected value, variance, and Bayes' theorem.</p>
+      </div>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 8 · coming soon</div>
+        <h3>Advanced Counting Techniques</h3>
+        <p>Recurrence relations, generating functions, divide-and-conquer relations, and inclusion-exclusion in depth.</p>
+      </div>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 9 · coming soon</div>
+        <h3>Relations</h3>
+        <p>Properties of binary relations, n-ary relations, closures, equivalence relations, and partial orderings.</p>
+      </div>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 10 · coming soon</div>
+        <h3>Graphs</h3>
+        <p>Graph terminology, representations, isomorphism, connectivity, Euler and Hamilton paths, planarity, and graph coloring.</p>
+      </div>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 11 · coming soon</div>
+        <h3>Trees</h3>
+        <p>Properties of trees, applications, traversal algorithms, spanning trees, and minimum spanning trees.</p>
+      </div>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 12 · coming soon</div>
+        <h3>Boolean Algebra</h3>
+        <p>Boolean functions, expressing and minimizing them, logic gates, and circuit design.</p>
+      </div>
+
+      <div class="lesson-link" style="opacity:.45; pointer-events:none">
+        <div class="ll-num">Chapter 13 · coming soon</div>
+        <h3>Modeling Computation</h3>
+        <p>Languages and grammars, finite-state machines with and without output, language recognition, and Turing machines.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script>
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const r = document.documentElement;
+  r.dataset.theme = r.dataset.theme === 'dark' ? 'light' : 'dark';
+});
+</script>
+</body>
+</html>

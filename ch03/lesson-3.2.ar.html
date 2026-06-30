@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>٣.٢ نمو الدوال — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٣</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٣.٢</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-3.2.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "3.2",
+  "chapter": "3",
+  "title": "نمو الدوال",
+  "lede": "تصف رموز <span class=\"sym\">O</span> الكبيرة و<span class=\"sym\">Ω</span> الكبيرة و<span class=\"sym\">Θ</span> الكبيرة مدى سرعة نمو الدالّة عندما تكبر المدخلات — وهي اللغة التي نستخدمها لمقارنة كفاءة الخوارزميات.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "رمز <span class=\"sym\">O</span> الكبير والشواهد",
+      "body": [
+        {
+          "type": "p",
+          "text": "يلتقط رمز <span class=\"sym\">O</span> الكبير كيف يُحدّ من حجم الدالّة من الأعلى بدالّة مرجعية أبسط لكل المدخلات الكبيرة. فهو يتجاهل العوامل الثابتة والحدود الأقل رتبة ويركّز على معدّل النمو المهيمن."
+        },
+        {
+          "type": "def",
+          "text": "التعريف ١. لتكن <span class=\"sym\">f</span> و<span class=\"sym\">g</span> دالّتين من الأعداد إلى الأعداد الحقيقية. نقول إنّ <span class=\"sym\">f(x)</span> هي <span class=\"sym\">O(g(x))</span> إذا وجدت ثوابت <span class=\"sym\">C</span> و<span class=\"sym\">k</span> بحيث <span class=\"sym\">|f(x)| ≤ C|g(x)|</span> عندما <span class=\"sym\">x &gt; k</span>."
+        },
+        {
+          "type": "p",
+          "text": "يُسمّى الثابتان <span class=\"sym\">C</span> و<span class=\"sym\">k</span> شاهدين على العلاقة. لإثبات أنّ <span class=\"sym\">f(x)</span> هي <span class=\"sym\">O(g(x))</span> يكفي إيجاد زوج واحد من الشواهد — ومتى وجد زوج وجدت أزواج لا نهائية."
+        },
+        {
+          "type": "p",
+          "text": "لأنّ <span class=\"sym\">g</span> تُختار عادةً موجبة عند القيم الكبيرة لـ<span class=\"sym\">x</span>، يمكن غالبًا حذف القيمة المطلقة عمليًا."
+        }
+      ],
+      "examples": [
+        {
+          "label": "مثال ١ — زوج من الشواهد",
+          "body": "لـ <span class=\"sym\">f(x) = x² + 2x + 1</span> وعند <span class=\"sym\">x &gt; 1</span> لدينا <span class=\"sym\">x² + 2x + 1 ≤ x² + 2x² + x² = 4x²</span>، فيكون <span class=\"sym\">C = 4, k = 1</span> شاهدين: <span class=\"sym\">f(x)</span> هي <span class=\"sym\">O(x²)</span>. الاختيار غير وحيد — <span class=\"sym\">C = 3, k = 2</span> يصلحان أيضًا."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "الحدود المهيمنة وما يخفيه <span class=\"sym\">O</span>",
+      "body": [
+        {
+          "type": "p",
+          "text": "عندما تكون <span class=\"sym\">f(x)</span> هي <span class=\"sym\">O(g(x))</span>، نختار عادةً أصغر <span class=\"sym\">g</span> بسيطة ممكنة. فأيّ دالّة هي <span class=\"sym\">O</span> لأيّ دالّة أسرع نموًا: <span class=\"sym\">7x²</span> هي <span class=\"sym\">O(x³)</span>، لكن العبارة الأدقّ والأنفع هي <span class=\"sym\">7x²</span> هي <span class=\"sym\">O(x²)</span>."
+        },
+        {
+          "type": "p",
+          "text": "العلاقة أحادية الاتجاه عمومًا. فـ <span class=\"sym\">x²</span> ليست <span class=\"sym\">O(x)</span>: لا توجد ثوابت <span class=\"sym\">C, k</span> تجعل <span class=\"sym\">x² ≤ Cx</span> صحيحة لكل <span class=\"sym\">x</span> كبيرة، لأنّ <span class=\"sym\">x ≤ C</span> تفشل متى تجاوز <span class=\"sym\">x</span> الثابت <span class=\"sym\">C</span>."
+        },
+        {
+          "type": "def",
+          "text": "المبرهنة ١ (كثيرات الحدود). إذا كانت <span class=\"sym\">f(x) = an xⁿ + … + a1 x + a0</span> بمعاملات حقيقية، فإنّ <span class=\"sym\">f(x)</span> هي <span class=\"sym\">O(xⁿ)</span>. الحدّ الرئيسي يحدّد الرتبة؛ وتُبتلع كلّ الحدود الأدنى."
+        },
+        {
+          "type": "p",
+          "text": "يجدر حفظ سلّم النمو القياسي، من الأبطأ إلى الأسرع:"
+        },
+        {
+          "type": "ol",
+          "items": [
+            "<span class=\"sym\">1</span> (ثابت)",
+            "<span class=\"sym\">log n</span> (لوغاريتمي)",
+            "<span class=\"sym\">n</span> (خطي)",
+            "<span class=\"sym\">n log n</span> (خطي-لوغاريتمي)",
+            "<span class=\"sym\">n²</span> (تربيعي) — وقوى أعلى <span class=\"sym\">n³, …</span>",
+            "<span class=\"sym\">2ⁿ</span> (أسي)",
+            "<span class=\"sym\">n!</span> (عاملي)"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "العاملي واللوغاريتم",
+          "body": "<span class=\"sym\">n! ≤ nⁿ</span> تعطي <span class=\"sym\">n!</span> هي <span class=\"sym\">O(nⁿ)</span> بـ <span class=\"sym\">C = 1, k = 1</span>. وبأخذ اللوغاريتمات، <span class=\"sym\">log n! ≤ n log n</span>، فـ <span class=\"sym\">log n!</span> هي <span class=\"sym\">O(n log n)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "دمج تقديرات <span class=\"sym\">O</span>",
+      "body": [
+        {
+          "type": "p",
+          "text": "تُمكّنك مبرهنتان من بناء رمز <span class=\"sym\">O</span> لعبارة معقّدة انطلاقًا من أجزائها — وهي الأدوات اليومية لتحليل الخوارزميات."
+        },
+        {
+          "type": "def",
+          "text": "المبرهنة ٢ (الجمع). إذا كانت <span class=\"sym\">f1(x)</span> هي <span class=\"sym\">O(g1(x))</span> و<span class=\"sym\">f2(x)</span> هي <span class=\"sym\">O(g2(x))</span>، فإنّ <span class=\"sym\">(f1 + f2)(x)</span> هي <span class=\"sym\">O(g(x))</span> حيث <span class=\"sym\">g(x) = max(|g1(x)|, |g2(x)|)</span>."
+        },
+        {
+          "type": "def",
+          "text": "النتيجة ١. إذا كانت <span class=\"sym\">f1</span> و<span class=\"sym\">f2</span> كلتاهما <span class=\"sym\">O(g(x))</span>، فإنّ <span class=\"sym\">(f1 + f2)(x)</span> هي <span class=\"sym\">O(g(x))</span> — جمع دالّتين من الرتبة نفسها يبقي تلك الرتبة."
+        },
+        {
+          "type": "def",
+          "text": "المبرهنة ٣ (الضرب). إذا كانت <span class=\"sym\">f1(x)</span> هي <span class=\"sym\">O(g1(x))</span> و<span class=\"sym\">f2(x)</span> هي <span class=\"sym\">O(g2(x))</span>، فإنّ <span class=\"sym\">(f1 f2)(x)</span> هي <span class=\"sym\">O(g1(x) g2(x))</span>."
+        },
+        {
+          "type": "p",
+          "text": "في الجمع نأخذ القيمة العظمى للأجزاء؛ وفي الضرب نضرب الأجزاء. ومعًا تُختزلان معظم العبارات إلى حدّها المهيمن الوحيد."
+        }
+      ],
+      "examples": [
+        {
+          "label": "دمج محلول",
+          "body": "لـ <span class=\"sym\">f(n) = 3n log(n!) + (n² + 3) log n</span>: بما أنّ <span class=\"sym\">log(n!)</span> هي <span class=\"sym\">O(n log n)</span> و<span class=\"sym\">3n</span> هي <span class=\"sym\">O(n)</span>، تعطي المبرهنة ٣ أنّ <span class=\"sym\">3n log(n!)</span> هي <span class=\"sym\">O(n² log n)</span>. وكذلك <span class=\"sym\">(n² + 3) log n</span> هي <span class=\"sym\">O(n² log n)</span>. وبالمبرهنة ٢، <span class=\"sym\">f(n)</span> هي <span class=\"sym\">O(n² log n)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "<span class=\"sym\">Ω</span> الكبير: الحدود الدنيا",
+      "body": [
+        {
+          "type": "p",
+          "text": "يعطي <span class=\"sym\">O</span> الكبير حدًا أعلى. وللقول إنّ دالّة تنمو بسرعة لا تقلّ عن مرجع، نستخدم <span class=\"sym\">Ω</span> الكبير."
+        },
+        {
+          "type": "def",
+          "text": "التعريف ٢. <span class=\"sym\">f(x)</span> هي <span class=\"sym\">Ω(g(x))</span> إذا وجدت ثوابت موجبة <span class=\"sym\">C</span> و<span class=\"sym\">k</span> بحيث <span class=\"sym\">|f(x)| ≥ C|g(x)|</span> عندما <span class=\"sym\">x &gt; k</span>."
+        },
+        {
+          "type": "p",
+          "text": "هناك ثنائية أنيقة: <span class=\"sym\">f(x)</span> هي <span class=\"sym\">Ω(g(x))</span> إذا وفقط إذا كانت <span class=\"sym\">g(x)</span> هي <span class=\"sym\">O(f(x))</span>. فالحدّ الأدنى على <span class=\"sym\">f</span> هو نفس العبارة كحدّ أعلى على <span class=\"sym\">g</span> مقروءًا بالاتجاه الآخر."
+        }
+      ],
+      "examples": [
+        {
+          "label": "حدّ أدنى",
+          "body": "<span class=\"sym\">f(x) = 8x³ + 5x² + 7</span> هي <span class=\"sym\">Ω(x³)</span>: فـ <span class=\"sym\">8x³ + 5x² + 7 ≥ 8x³</span> لكلّ <span class=\"sym\">x &gt; 0</span>، فيكون <span class=\"sym\">C = 8, k = 0</span> شاهدين."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "<span class=\"sym\">Θ</span> الكبير: حدود متطابقة",
+      "body": [
+        {
+          "type": "p",
+          "text": "عندما تُحدّ دالّة من الأعلى والأسفل بالمرجع نفسه، تكون لدينا رتبة نموّها الدقيقة."
+        },
+        {
+          "type": "def",
+          "text": "التعريف ٣. <span class=\"sym\">f(x)</span> هي <span class=\"sym\">Θ(g(x))</span> إذا كانت <span class=\"sym\">f(x)</span> هي <span class=\"sym\">O(g(x))</span> و<span class=\"sym\">f(x)</span> هي <span class=\"sym\">Ω(g(x))</span>. نقول عندئذٍ إنّ <span class=\"sym\">f</span> من رتبة <span class=\"sym\">g</span>، أو أنّ <span class=\"sym\">f</span> و<span class=\"sym\">g</span> من الرتبة نفسها."
+        },
+        {
+          "type": "p",
+          "text": "بصيغة مكافئة، <span class=\"sym\">f(x)</span> هي <span class=\"sym\">Θ(g(x))</span> عند وجود ثوابت موجبة <span class=\"sym\">C1, C2, k</span> بحيث <span class=\"sym\">C1|g(x)| ≤ |f(x)| ≤ C2|g(x)|</span> عند <span class=\"sym\">x &gt; k</span>."
+        },
+        {
+          "type": "def",
+          "text": "المبرهنة ٤. إذا كانت <span class=\"sym\">f(x) = an xⁿ + … + a1 x + a0</span> مع <span class=\"sym\">an ≠ 0</span>، فإنّ <span class=\"sym\">f(x)</span> هي <span class=\"sym\">Θ(xⁿ)</span>. فكثيرة الحدود هي <span class=\"sym\">Θ</span> لأعلى قوّة فيها."
+        }
+      ],
+      "examples": [
+        {
+          "label": "مجموع أول <span class=\"sym\">n</span> عدد",
+          "body": "<span class=\"sym\">1 + 2 + … + n = n(n+1)/2</span>. هي <span class=\"sym\">O(n²)</span> (كلّ حدّ <span class=\"sym\">≤ n</span>، فالمجموع <span class=\"sym\">≤ n²</span>) و<span class=\"sym\">Ω(n²)</span> (النصف الأعلى من الحدود يتجاوز كلّ منها <span class=\"sym\">n/2</span>)، فهي إذًا <span class=\"sym\">Θ(n²)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "التاريخ ولماذا يهمّ",
+      "body": [
+        {
+          "type": "p",
+          "text": "يسبق رمز <span class=\"sym\">O</span> الكبير عصر الحوسبة. فقد أدخله الرياضي الألماني بول باخمان عام ١٨٩٢ في كتاب عن نظرية الأعداد؛ ويُسمّى الرمز أحيانًا رمز لانداو نسبةً إلى إدموند لانداو الذي استخدمه على نطاق واسع."
+        },
+        {
+          "type": "p",
+          "text": "وقد عمّم دونالد كنوث رمز <span class=\"sym\">O</span> الكبير في علوم الحاسوب وأدخل رمزي <span class=\"sym\">Ω</span> و<span class=\"sym\">Θ</span> المستخدمين اليوم."
+        },
+        {
+          "type": "p",
+          "text": "تتيح لنا هذه الرموز مقارنة الخوارزميات بمعزل عن العتاد: خوارزمية تستخدم <span class=\"sym\">100n² + 17n + 4</span> عملية هي <span class=\"sym\">O(n²)</span>، فتتفوّق عند <span class=\"sym\">n</span> الكبيرة على خوارزمية تستخدم <span class=\"sym\">n³</span> عملية مهما كان الجهاز. ففئة النمو، لا الثابت، هي التي تحدّد قابلية التوسّع."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "في العبارة «<span class=\"sym\">f(x)</span> هي <span class=\"sym\">O(g(x))</span> إذا كان <span class=\"sym\">|f(x)| ≤ C|g(x)|</span> عندما <span class=\"sym\">x &gt; k</span>»، ماذا يُسمّى <span class=\"sym\">C</span> و<span class=\"sym\">k</span>؟",
+      "options": [
+        "شاهدان",
+        "حدّان",
+        "معاملان",
+        "نهايتان"
+      ],
+      "answer": 0,
+      "explanation": "يُسمّى <span class=\"sym\">C</span> و<span class=\"sym\">k</span> شاهدين على العلاقة؛ وإيجاد زوج واحد يُثبتها."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "<span class=\"sym\">x²</span> هي <span class=\"sym\">O(x)</span>.",
+      "answer": false,
+      "explanation": "لا توجد ثوابت <span class=\"sym\">C, k</span> تجعل <span class=\"sym\">x² ≤ Cx</span> صحيحة لكل <span class=\"sym\">x</span> كبيرة، لأنّ ذلك يتطلّب <span class=\"sym\">x ≤ C</span>. فـ <span class=\"sym\">x²</span> ليست <span class=\"sym\">O(x)</span>."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "أيّ قائمة ترتّب هذه الدوال من الأبطأ نموًا إلى الأسرع؟",
+      "options": [
+        "<span class=\"sym\">log n, n, n², 2ⁿ, n!</span>",
+        "<span class=\"sym\">n, log n, n², n!, 2ⁿ</span>",
+        "<span class=\"sym\">2ⁿ, n!, n², n, log n</span>",
+        "<span class=\"sym\">log n, n², n, 2ⁿ, n!</span>"
+      ],
+      "answer": 0,
+      "explanation": "السلّم القياسي هو <span class=\"sym\">1, log n, n, n log n, n², …, 2ⁿ, n!</span>."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 2,
+      "prompt": "إذا كانت <span class=\"sym\">f1(x)</span> هي <span class=\"sym\">O(x²)</span> و<span class=\"sym\">f2(x)</span> هي <span class=\"sym\">O(x³)</span>، فإنّ <span class=\"sym\">(f1 + f2)(x)</span> هي <span class=\"sym\">O(x³)</span>.",
+      "answer": true,
+      "explanation": "بالمبرهنة ٢ يكون المجموع <span class=\"sym\">O(max(x², x³)) = O(x³)</span>."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "طبّق المبرهنة ١ على كثيرة حدود.",
+      "template": "بالمبرهنة ١، كثيرة الحدود <span class=\"sym\">f(x) = 5x³ + 9x² + 2x + 7</span> هي <span class=\"sym\">O(</span>[[1]]<span class=\"sym\">)</span>. وذلك لأنّ الحدّ [[2]] يهيمن عند <span class=\"sym\">x</span> الكبيرة.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "x^3",
+          "acceptable": [
+            "x^3",
+            "x³",
+            "x**3"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "الرئيسي",
+          "options": [
+            "الرئيسي",
+            "الثابت"
+          ]
+        }
+      ],
+      "explanation": "كثيرة حدود من الدرجة ٣ هي <span class=\"sym\">O(x³)</span>؛ والحدّ الرئيسي <span class=\"sym\">x³</span> يبتلع الحدود الأدنى."
+    },
+    {
+      "id": "q6",
+      "type": "short",
+      "level": 2,
+      "prompt": "أعطِ زوج شواهد <span class=\"sym\">C</span> و<span class=\"sym\">k</span> يبيّن أنّ <span class=\"sym\">f(x) = x² + 2x + 1</span> هي <span class=\"sym\">O(x²)</span>، مع تبرير موجز.",
+      "canonical": "خذ C = 4 و k = 1: عند x > 1 يكون x² + 2x + 1 ≤ x² + 2x² + x² = 4x²، فـ |f(x)| ≤ 4|x²|. (و C = 3, k = 2 يصلحان أيضًا.)",
+      "acceptable": [
+        "C=4, k=1",
+        "C = 4 و k = 1",
+        "4 و 1",
+        "C=3 k=2",
+        "C = 3, k = 2",
+        "أربعة وواحد"
+      ],
+      "explanation": "بتحديد كلّ حدّ أدنى بـ <span class=\"sym\">x²</span> عند <span class=\"sym\">x &gt; 1</span> نحصل على <span class=\"sym\">4x²</span>؛ فـ <span class=\"sym\">C = 4, k = 1</span> شاهدان (وكذلك <span class=\"sym\">C = 3, k = 2</span>)."
+    },
+    {
+      "id": "q7",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "<span class=\"sym\">f(x)</span> هي <span class=\"sym\">Ω(g(x))</span> إذا وفقط إذا تحقّقت أيّ عبارة؟",
+      "options": [
+        "<span class=\"sym\">g(x)</span> هي <span class=\"sym\">O(f(x))</span>",
+        "<span class=\"sym\">f(x)</span> هي <span class=\"sym\">O(g(x))</span>",
+        "<span class=\"sym\">f(x)</span> هي <span class=\"sym\">Θ(g(x))</span>",
+        "<span class=\"sym\">g(x)</span> هي <span class=\"sym\">Ω(f(x))</span>"
+      ],
+      "answer": 0,
+      "explanation": "الحدّ الأدنى على <span class=\"sym\">f</span> هو بالضبط حدّ أعلى على <span class=\"sym\">g</span>: فـ <span class=\"sym\">f</span> هي <span class=\"sym\">Ω(g)</span> إذا وفقط إذا كانت <span class=\"sym\">g</span> هي <span class=\"sym\">O(f)</span>."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب هذه الدوال من الأبطأ نموًا (أعلى) إلى الأسرع (أسفل).",
+      "items": [
+        "<span class=\"sym\">log n</span>",
+        "<span class=\"sym\">n log n</span>",
+        "<span class=\"sym\">n²</span>",
+        "<span class=\"sym\">2ⁿ</span>",
+        "<span class=\"sym\">n!</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "الترتيب: <span class=\"sym\">log n &lt; n log n &lt; n² &lt; 2ⁿ &lt; n!</span>."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "أيّ شرط يجعل <span class=\"sym\">f(x)</span> تمامًا <span class=\"sym\">Θ(g(x))</span>؟",
+      "options": [
+        "<span class=\"sym\">f</span> هي <span class=\"sym\">O(g)</span> و<span class=\"sym\">Ω(g)</span> معًا",
+        "<span class=\"sym\">f</span> هي <span class=\"sym\">O(g)</span> فقط",
+        "<span class=\"sym\">f</span> هي <span class=\"sym\">Ω(g)</span> فقط",
+        "<span class=\"sym\">f</span> تنمو أسرع تمامًا من <span class=\"sym\">g</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">Θ</span> يتطلّب حدًا أعلى (<span class=\"sym\">O</span>) وحدًا أدنى (<span class=\"sym\">Ω</span>) متطابقي الرتبة."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "اشرح لماذا <span class=\"sym\">1 + 2 + … + n</span> هي <span class=\"sym\">Θ(n²)</span>.",
+      "canonical": "المجموع يساوي n(n+1)/2. كلّ حدّ على الأكثر n، فالمجموع ≤ n·n = n²، أي O(n²). وأكبر n/2 حدّ يتجاوز كلّ منها n/2، فالمجموع ≥ (n/2)(n/2) = n²/4، أي Ω(n²). وبتطابق الحدّين فهي Θ(n²).",
+      "acceptable": [
+        "n(n+1)/2",
+        "هي O(n^2) و Omega(n^2)",
+        "حدّ أعلى وأدنى n^2",
+        "المجموع n تربيع على 2"
+      ],
+      "explanation": "حدّ أعلى <span class=\"sym\">n²</span> (كلّ حدّ <span class=\"sym\">≤ n</span>) وحدّ أدنى <span class=\"sym\">n²/4</span> (النصف الأعلى) يعطيان رتبة متطابقة، فـ <span class=\"sym\">Θ(n²)</span>."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "ادمج تقديرات <span class=\"sym\">O</span> باستخدام المبرهنات.",
+      "template": "لتحديد مجموع <span class=\"sym\">f1 + f2</span> نأخذ [[1]] الدالّتين المرجعيتين (المبرهنة ٢)؛ ولتحديد جداء <span class=\"sym\">f1 f2</span> [[2]] هما (المبرهنة ٣). يعطي <span class=\"sym\">O</span> حدًا أعلى، بينما يعطي <span class=\"sym\">Ω</span> حدًا [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "answer": "القيمة العظمى",
+          "options": [
+            "القيمة العظمى",
+            "القيمة الصغرى",
+            "المجموع"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "نضرب",
+          "options": [
+            "نضرب",
+            "نجمع",
+            "نتوسّط"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "أدنى",
+          "acceptable": [
+            "أدنى",
+            "حدّ أدنى",
+            "أسفل"
+          ]
+        }
+      ],
+      "explanation": "الجمع يأخذ العظمى (المبرهنة ٢)، والضرب يضرب (المبرهنة ٣)؛ و<span class=\"sym\">O</span> حدّ أعلى و<span class=\"sym\">Ω</span> حدّ أدنى."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

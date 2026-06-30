@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.2 Set Operations — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 2</a> &nbsp;›&nbsp;
+    <span id="crumb-current">2.2</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.2.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "conceptsSub": "Read each card, then attempt the questions below.",
+  "practiceSub": "Answers are hidden — submit each, then reveal feedback.",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fill": "Fill in Blank",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": {
+    "basic": "Basic",
+    "applied": "Applied",
+    "challenge": "Challenge"
+  },
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "2.2",
+  "title": "Set Operations",
+  "subtitle": "Union, intersection, difference, complement — and the algebra of set identities.",
+  "cards": [
+    {
+      "title": "Union, intersection, and disjoint sets",
+      "blocks": [
+        {
+          "def": {
+            "term": "Union",
+            "text": "A ∪ B = {x | x ∈ A ∨ x ∈ B} — the set of elements in A, in B, or in both."
+          }
+        },
+        {
+          "def": {
+            "term": "Intersection",
+            "text": "A ∩ B = {x | x ∈ A ∧ x ∈ B} — the set of elements in both A and B."
+          }
+        },
+        {
+          "p": "Two sets are <span class=\"sym\">disjoint</span> when <span class=\"sym\">A ∩ B = ∅</span>: they share no element. The operators mirror logic exactly — <span class=\"sym\">∪</span> tracks <span class=\"sym\">∨</span> and <span class=\"sym\">∩</span> tracks <span class=\"sym\">∧</span>."
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "With <span class=\"sym\">A = {1, 3, 5}</span> and <span class=\"sym\">B = {1, 2, 3}</span>: <span class=\"sym\">A ∪ B = {1, 2, 3, 5}</span> and <span class=\"sym\">A ∩ B = {1, 3}</span>."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Difference and complement",
+      "blocks": [
+        {
+          "def": {
+            "term": "Difference",
+            "text": "A − B = {x | x ∈ A ∧ x ∉ B} — elements in A but not in B (also written A \\ B)."
+          }
+        },
+        {
+          "def": {
+            "term": "Complement",
+            "text": "Relative to a universal set U, the complement of A is Ā = U − A = {x ∈ U | x ∉ A}."
+          }
+        },
+        {
+          "p": "The complement always depends on the chosen <span class=\"sym\">U</span>. Note <span class=\"sym\">A − B = A ∩ B̄</span> — difference is intersection with a complement."
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "<span class=\"sym\">A − B</span> and <span class=\"sym\">B − A</span> are usually different; difference is not commutative."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Counting a union: inclusion–exclusion",
+      "blocks": [
+        {
+          "p": "Adding <span class=\"sym\">|A|</span> and <span class=\"sym\">|B|</span> double-counts the overlap, so subtract it once:"
+        },
+        {
+          "def": {
+            "term": "Inclusion–exclusion (two sets)",
+            "text": "|A ∪ B| = |A| + |B| − |A ∩ B|."
+          }
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "Among 30 students, 18 study French and 14 study German, 6 study both. Then <span class=\"sym\">|F ∪ G| = 18 + 14 − 6 = 26</span> study at least one language."
+              }
+            ]
+          }
+        },
+        {
+          "p": "If <span class=\"sym\">A</span> and <span class=\"sym\">B</span> are disjoint, <span class=\"sym\">|A ∩ B| = 0</span> and the formula collapses to <span class=\"sym\">|A ∪ B| = |A| + |B|</span>."
+        }
+      ]
+    },
+    {
+      "title": "The set identities",
+      "blocks": [
+        {
+          "p": "Set algebra parallels propositional logic. The core laws (Rosen, Table 1):"
+        },
+        {
+          "table": {
+            "head": [
+              "Identity",
+              "Name"
+            ],
+            "rows": [
+              [
+                "<span class=\"sym\">A ∪ ∅ = A</span>,  <span class=\"sym\">A ∩ U = A</span>",
+                "Identity laws"
+              ],
+              [
+                "<span class=\"sym\">A ∪ U = U</span>,  <span class=\"sym\">A ∩ ∅ = ∅</span>",
+                "Domination laws"
+              ],
+              [
+                "<span class=\"sym\">A ∪ A = A</span>,  <span class=\"sym\">A ∩ A = A</span>",
+                "Idempotent laws"
+              ],
+              [
+                "<span class=\"sym\">(Ā)¯ = A</span>",
+                "Complementation law"
+              ],
+              [
+                "<span class=\"sym\">A ∪ B = B ∪ A</span>",
+                "Commutative laws"
+              ],
+              [
+                "<span class=\"sym\">A ∪ (B ∪ C) = (A ∪ B) ∪ C</span>",
+                "Associative laws"
+              ],
+              [
+                "<span class=\"sym\">A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</span>",
+                "Distributive laws"
+              ],
+              [
+                "<span class=\"sym\">A ∪ B¯ = Ā ∩ B̄</span>,  <span class=\"sym\">A ∩ B¯ = Ā ∪ B̄</span>",
+                "De Morgan’s laws"
+              ],
+              [
+                "<span class=\"sym\">A ∪ (A ∩ B) = A</span>",
+                "Absorption laws"
+              ],
+              [
+                "<span class=\"sym\">A ∪ Ā = U</span>,  <span class=\"sym\">A ∩ Ā = ∅</span>",
+                "Complement laws"
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Proving identities",
+      "blocks": [
+        {
+          "p": "Three standard techniques prove a set identity:"
+        },
+        {
+          "ol": [
+            "Show each side is a subset of the other (double inclusion).",
+            "Use set-builder notation and known logical equivalences.",
+            "Build a membership table — one row per region, columns of 1/0 for membership."
+          ]
+        },
+        {
+          "example": {
+            "title": "Membership table for De Morgan <span class=\"sym\">A ∪ B¯ = Ā ∩ B̄</span>",
+            "blocks": [
+              {
+                "table": {
+                  "head": [
+                    "<span class=\"sym\">A</span>",
+                    "<span class=\"sym\">B</span>",
+                    "<span class=\"sym\">A ∪ B</span>",
+                    "<span class=\"sym\">A ∪ B¯</span>",
+                    "<span class=\"sym\">Ā</span>",
+                    "<span class=\"sym\">B̄</span>",
+                    "<span class=\"sym\">Ā ∩ B̄</span>"
+                  ],
+                  "rows": [
+                    [
+                      "1",
+                      "1",
+                      "1",
+                      "0",
+                      "0",
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "1",
+                      "0",
+                      "1",
+                      "0",
+                      "0",
+                      "1",
+                      "0"
+                    ],
+                    [
+                      "0",
+                      "1",
+                      "1",
+                      "0",
+                      "1",
+                      "0",
+                      "0"
+                    ],
+                    [
+                      "0",
+                      "0",
+                      "0",
+                      "1",
+                      "1",
+                      "1",
+                      "1"
+                    ]
+                  ]
+                }
+              },
+              {
+                "p": "The two highlighted columns match in every row, so the identity holds."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Generalized operations &amp; bit strings",
+      "blocks": [
+        {
+          "p": "Union and intersection extend to any collection of sets:"
+        },
+        {
+          "def": {
+            "term": "Generalized union / intersection",
+            "text": "⋃ᵢ₌₁ⁿ Aᵢ = A₁ ∪ … ∪ Aₙ contains x when x is in at least one Aᵢ; ⋂ᵢ₌₁ⁿ Aᵢ contains x when x is in every Aᵢ."
+          }
+        },
+        {
+          "p": "A subset of a universal set <span class=\"sym\">U = {a₁, …, aₙ}</span> can be stored as a <span class=\"sym\">bit string</span> of length <span class=\"sym\">n</span>: position <span class=\"sym\">i</span> is <span class=\"sym\">1</span> iff <span class=\"sym\">aᵢ</span> is in the subset. Then <span class=\"sym\">∪</span> is bitwise OR, <span class=\"sym\">∩</span> is bitwise AND, and complement is bitwise NOT."
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "Over <span class=\"sym\">U = {1, 2, 3, 4, 5}</span>, the subset <span class=\"sym\">{1, 3, 5}</span> is <span class=\"sym\">10101</span> and <span class=\"sym\">{2, 3}</span> is <span class=\"sym\">01100</span>. Their union is <span class=\"sym\">11101 = {1, 2, 3, 5}</span> (bitwise OR)."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "Which expression defines <span class=\"sym\">A ∩ B</span>?",
+      "options": [
+        "<span class=\"sym\">{x | x ∈ A ∨ x ∈ B}</span>",
+        "<span class=\"sym\">{x | x ∈ A ∧ x ∈ B}</span>",
+        "<span class=\"sym\">{x | x ∈ A ∧ x ∉ B}</span>",
+        "<span class=\"sym\">{x | x ∉ A}</span>"
+      ],
+      "answer": 1,
+      "explain": "Intersection uses <span class=\"sym\">∧</span> (and): elements in both sets."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "<span class=\"sym\">A − B</span> is always equal to <span class=\"sym\">B − A</span>.",
+      "answer": false,
+      "explain": "Difference is not commutative. E.g. <span class=\"sym\">{1,2}−{2} = {1}</span> but <span class=\"sym\">{2}−{1,2} = ∅</span>."
+    },
+    {
+      "type": "fill",
+      "level": "basic",
+      "q": "Two sets with <span class=\"sym\">A ∩ B = ∅</span> are called [[1]].",
+      "blanks": [
+        [
+          "disjoint",
+          "Disjoint"
+        ]
+      ],
+      "explain": "Disjoint sets share no element."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "If <span class=\"sym\">|A| = 12</span>, <span class=\"sym\">|B| = 18</span>, and <span class=\"sym\">|A ∩ B| = 5</span>, then <span class=\"sym\">|A ∪ B|</span> is:",
+      "options": [
+        "30",
+        "25",
+        "35",
+        "23"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">|A ∪ B| = 12 + 18 − 5 = 25</span> by inclusion–exclusion."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "Rewrite <span class=\"sym\">A − B</span> using complement and intersection.",
+      "answer": "<span class=\"sym\">A − B = A ∩ B̄</span> — the elements of <span class=\"sym\">A</span> that lie outside <span class=\"sym\">B</span>.",
+      "explain": "Being in <span class=\"sym\">A</span> and not in <span class=\"sym\">B</span> is exactly being in <span class=\"sym\">A ∩ B̄</span>."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "De Morgan’s law gives <span class=\"sym\">A ∩ B¯ = Ā ∪ B̄</span>.",
+      "answer": true,
+      "explain": "The complement of an intersection is the union of the complements."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "Over <span class=\"sym\">U = {1,2,3,4}</span> the subset <span class=\"sym\">{2,4}</span> has bit string [[1]].",
+      "blanks": [
+        "0101"
+      ],
+      "explain": "Positions 2 and 4 are 1, positions 1 and 3 are 0, reading left to right."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "The bitwise operation that computes <span class=\"sym\">A ∪ B</span> on bit-string representations is:",
+      "options": [
+        "AND",
+        "OR",
+        "XOR",
+        "NOT"
+      ],
+      "answer": 1,
+      "explain": "Union corresponds to bitwise OR (membership in at least one)."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "Using set-builder and logic, justify the distributive law <span class=\"sym\">A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</span>.",
+      "answer": "<span class=\"sym\">x ∈ A ∩ (B ∪ C)</span> ⇔ <span class=\"sym\">x ∈ A ∧ (x ∈ B ∨ x ∈ C)</span> ⇔ <span class=\"sym\">(x∈A ∧ x∈B) ∨ (x∈A ∧ x∈C)</span> ⇔ <span class=\"sym\">x ∈ (A∩B) ∪ (A∩C)</span>, using the logical distributive law.",
+      "explain": "Set identities inherit directly from the matching logical equivalences."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "Order the steps to prove a set identity with a membership table.",
+      "items": [
+        "List every combination of memberships (1/0) for the basic sets as rows.",
+        "Compute a column of 1/0 values for each side of the identity.",
+        "Confirm the two final columns are identical in every row."
+      ],
+      "explain": "Matching membership columns across all rows proves the identity."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "Which expression simplifies to <span class=\"sym\">A</span> by the absorption law?",
+      "options": [
+        "<span class=\"sym\">A ∩ (A ∪ B)</span>",
+        "<span class=\"sym\">A ∪ Ā</span>",
+        "<span class=\"sym\">A ∩ ∅</span>",
+        "<span class=\"sym\">A ∪ U</span>"
+      ],
+      "answer": 0,
+      "explain": "Absorption: <span class=\"sym\">A ∩ (A ∪ B) = A</span> (and dually <span class=\"sym\">A ∪ (A ∩ B) = A</span>)."
+    }
+  ],
+  "lang": "en"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

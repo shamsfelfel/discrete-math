@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.3 Functions — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 2</a> &nbsp;›&nbsp;
+    <span id="crumb-current">2.3</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.3.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "conceptsSub": "Read each card, then attempt the questions below.",
+  "practiceSub": "Answers are hidden — submit each, then reveal feedback.",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fill": "Fill in Blank",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": {
+    "basic": "Basic",
+    "applied": "Applied",
+    "challenge": "Challenge"
+  },
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "2.3",
+  "title": "Functions",
+  "subtitle": "Assignments from a domain to a codomain — injections, surjections, bijections, and how they compose.",
+  "cards": [
+    {
+      "title": "Functions: domain, codomain, image",
+      "blocks": [
+        {
+          "def": {
+            "term": "Function",
+            "text": "A function f from A to B, written f : A → B, assigns to each element of A exactly one element of B. If f assigns b to a we write f(a) = b."
+          }
+        },
+        {
+          "p": "<span class=\"sym\">A</span> is the <span class=\"sym\">domain</span>, <span class=\"sym\">B</span> the <span class=\"sym\">codomain</span>. We say <span class=\"sym\">b</span> is the <span class=\"sym\">image</span> of <span class=\"sym\">a</span> and <span class=\"sym\">a</span> is a <span class=\"sym\">preimage</span> of <span class=\"sym\">b</span>. The <span class=\"sym\">range</span> (or image) of <span class=\"sym\">f</span> is the set of all images: <span class=\"sym\">{f(a) | a ∈ A}</span> — a subset of the codomain, not necessarily all of it."
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "“Exactly one” is the heart of it: every input gets one output, and no input is left unassigned. A rule giving two outputs for one input is not a function."
+          }
+        },
+        {
+          "p": "Two functions are <span class=\"sym\">equal</span> when they have the same domain, the same codomain, and agree at every point."
+        }
+      ]
+    },
+    {
+      "title": "One-to-one (injective) functions",
+      "blocks": [
+        {
+          "def": {
+            "term": "Injective",
+            "text": "f is one-to-one (injective) if distinct inputs give distinct outputs: f(a) = f(b) → a = b for all a, b in the domain."
+          }
+        },
+        {
+          "p": "Equivalently, <span class=\"sym\">a ≠ b → f(a) ≠ f(b)</span>. To prove injectivity, assume <span class=\"sym\">f(a) = f(b)</span> and derive <span class=\"sym\">a = b</span>."
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">f(x) = x + 1</span> on <span class=\"sym\">Z</span> is one-to-one: <span class=\"sym\">x+1 = y+1</span> forces <span class=\"sym\">x = y</span>. But <span class=\"sym\">f(x) = x²</span> on <span class=\"sym\">Z</span> is not: <span class=\"sym\">f(2) = f(−2) = 4</span>."
+              }
+            ]
+          }
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "A strictly increasing or strictly decreasing function is always one-to-one."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Onto (surjective) and bijections",
+      "blocks": [
+        {
+          "def": {
+            "term": "Surjective",
+            "text": "f : A → B is onto (surjective) if every b ∈ B has at least one preimage: ∀y ∈ B ∃x ∈ A (f(x) = y). Equivalently, the range equals the codomain."
+          }
+        },
+        {
+          "def": {
+            "term": "Bijective",
+            "text": "f is a bijection (one-to-one correspondence) if it is both one-to-one and onto."
+          }
+        },
+        {
+          "p": "For a function between <span class=\"sym\">finite sets of equal size</span>, being one-to-one is the same as being onto — so either property alone makes it a bijection."
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">f(x) = x + 1</span> on <span class=\"sym\">Z</span> is a bijection. <span class=\"sym\">f(x) = x²</span> on <span class=\"sym\">R</span> is neither (not one-to-one, and never reaches negatives)."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Inverse functions",
+      "blocks": [
+        {
+          "def": {
+            "term": "Inverse function",
+            "text": "If f : A → B is a bijection, its inverse f⁻¹ : B → A sends each b back to the unique a with f(a) = b. So f⁻¹(b) = a ⇔ f(a) = b."
+          }
+        },
+        {
+          "p": "An inverse exists <span class=\"sym\">if and only if</span> <span class=\"sym\">f</span> is a bijection; such an <span class=\"sym\">f</span> is called <span class=\"sym\">invertible</span>. Caution: <span class=\"sym\">f⁻¹</span> means the inverse function, not <span class=\"sym\">1/f</span>."
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "For <span class=\"sym\">f(x) = x + 1</span>, solving <span class=\"sym\">y = x + 1</span> gives <span class=\"sym\">x = y − 1</span>, so <span class=\"sym\">f⁻¹(y) = y − 1</span>."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Composition of functions",
+      "blocks": [
+        {
+          "def": {
+            "term": "Composition",
+            "text": "If g : A → B and f : B → C, the composition f ∘ g : A → C is defined by (f ∘ g)(x) = f(g(x))."
+          }
+        },
+        {
+          "p": "Apply <span class=\"sym\">g</span> first, then <span class=\"sym\">f</span>. The codomain of the inner function must match the domain of the outer one. Composition is <span class=\"sym\">associative</span> but <span class=\"sym\">not commutative</span>: <span class=\"sym\">f ∘ g ≠ g ∘ f</span> in general."
+        },
+        {
+          "p": "For an invertible <span class=\"sym\">f</span>: <span class=\"sym\">(f⁻¹ ∘ f)(a) = a</span> and <span class=\"sym\">(f ∘ f⁻¹)(b) = b</span> — each undoes the other, giving the identity."
+        },
+        {
+          "mermaid": "graph LR\n  A[\"A\"] -->|g| B[\"B\"]\n  B -->|f| C[\"C\"]\n  A -.->|\"f ∘ g\"| C"
+        }
+      ]
+    },
+    {
+      "title": "Floor and ceiling functions",
+      "blocks": [
+        {
+          "def": {
+            "term": "Floor / ceiling",
+            "text": "The floor ⌊x⌋ is the greatest integer ≤ x; the ceiling ⌈x⌉ is the least integer ≥ x."
+          }
+        },
+        {
+          "example": {
+            "title": "Values",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">⌊2.7⌋ = 2</span>, <span class=\"sym\">⌈2.1⌉ = 3</span>, <span class=\"sym\">⌊−1.5⌋ = −2</span>, <span class=\"sym\">⌈−1.5⌉ = −1</span>, and <span class=\"sym\">⌊5⌋ = ⌈5⌉ = 5</span>."
+              }
+            ]
+          }
+        },
+        {
+          "p": "Useful identities: <span class=\"sym\">⌊x⌋ = n ⇔ n ≤ x &lt; n + 1</span>; <span class=\"sym\">⌈x⌉ = n ⇔ n − 1 &lt; x ≤ n</span>; and <span class=\"sym\">⌊x + n⌋ = ⌊x⌋ + n</span> for integer <span class=\"sym\">n</span>. These functions are central to counting and algorithm analysis."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "For <span class=\"sym\">f : A → B</span>, the set <span class=\"sym\">{f(a) | a ∈ A}</span> is called the:",
+      "options": [
+        "domain",
+        "codomain",
+        "range (image)",
+        "preimage"
+      ],
+      "answer": 2,
+      "explain": "The range is the set of all output values; it is a subset of the codomain."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "A rule that assigns two different outputs to a single input is still a function.",
+      "answer": false,
+      "explain": "A function assigns exactly one output to each input."
+    },
+    {
+      "type": "fill",
+      "level": "basic",
+      "q": "A function that is both one-to-one and onto is called a [[1]].",
+      "blanks": [
+        [
+          "bijection",
+          "Bijection",
+          "one-to-one correspondence"
+        ]
+      ],
+      "explain": "A bijection is an injective and surjective function."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "Which function on <span class=\"sym\">Z</span> is one-to-one?",
+      "options": [
+        "<span class=\"sym\">f(x) = x²</span>",
+        "<span class=\"sym\">f(x) = |x|</span>",
+        "<span class=\"sym\">f(x) = 2x + 3</span>",
+        "<span class=\"sym\">f(x) = x² − x</span>"
+      ],
+      "answer": 2,
+      "explain": "<span class=\"sym\">2x+3</span> is strictly increasing, hence one-to-one; the others repeat values."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "Find <span class=\"sym\">⌊−2.3⌋</span> and <span class=\"sym\">⌈−2.3⌉</span>.",
+      "answer": "<span class=\"sym\">⌊−2.3⌋ = −3</span> (greatest integer <span class=\"sym\">≤ −2.3</span>) and <span class=\"sym\">⌈−2.3⌉ = −2</span> (least integer <span class=\"sym\">≥ −2.3</span>).",
+      "explain": "Floor rounds down, ceiling rounds up — watch the sign on negatives."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "A function has an inverse if and only if it is a bijection.",
+      "answer": true,
+      "explain": "Invertibility is exactly equivalent to being one-to-one and onto."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "If <span class=\"sym\">g(x) = 2x</span> and <span class=\"sym\">f(x) = x + 1</span>, compute <span class=\"sym\">(f ∘ g)(3)</span> and <span class=\"sym\">(g ∘ f)(3)</span>.",
+      "answer": "<span class=\"sym\">(f ∘ g)(3) = f(6) = 7</span>; <span class=\"sym\">(g ∘ f)(3) = g(4) = 8</span>. They differ, so composition isn’t commutative.",
+      "explain": "Apply the inner function first; order matters."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "The composition <span class=\"sym\">(f ∘ g)(x)</span> equals <span class=\"sym\">f(</span>[[1]]<span class=\"sym\">)</span>.",
+      "blanks": [
+        [
+          "g(x)",
+          "g (x)"
+        ]
+      ],
+      "explain": "Composition applies <span class=\"sym\">g</span> first, then <span class=\"sym\">f</span> to the result."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "<span class=\"sym\">f : A → B</span> with <span class=\"sym\">|A| = |B| = 7</span> (both finite). If <span class=\"sym\">f</span> is onto, then <span class=\"sym\">f</span> is:",
+      "options": [
+        "not necessarily one-to-one",
+        "also one-to-one (a bijection)",
+        "never one-to-one",
+        "not a function"
+      ],
+      "answer": 1,
+      "explain": "Between finite sets of equal size, onto ⇔ one-to-one, so <span class=\"sym\">f</span> is a bijection."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "Prove that <span class=\"sym\">f(x) = 3x − 4</span> from <span class=\"sym\">R</span> to <span class=\"sym\">R</span> is one-to-one.",
+      "answer": "Assume <span class=\"sym\">f(a) = f(b)</span>: <span class=\"sym\">3a − 4 = 3b − 4</span> ⇒ <span class=\"sym\">3a = 3b</span> ⇒ <span class=\"sym\">a = b</span>. Hence <span class=\"sym\">f</span> is one-to-one.",
+      "explain": "Standard injectivity proof: assume equal outputs, derive equal inputs."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "Order the steps to find the inverse of <span class=\"sym\">f(x) = 5x + 2</span>.",
+      "items": [
+        "Write <span class=\"sym\">y = 5x + 2</span>.",
+        "Solve for <span class=\"sym\">x</span>: <span class=\"sym\">x = (y − 2)/5</span>.",
+        "Swap roles: <span class=\"sym\">f⁻¹(y) = (y − 2)/5</span>."
+      ],
+      "explain": "Express <span class=\"sym\">x</span> in terms of <span class=\"sym\">y</span>, then read off the inverse rule."
+    }
+  ],
+  "lang": "en"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

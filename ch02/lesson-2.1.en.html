@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.1 Sets — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 2</a> &nbsp;›&nbsp;
+    <span id="crumb-current">2.1</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.1.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "conceptsSub": "Read each card, then attempt the questions below.",
+  "practiceSub": "Answers are hidden — submit each, then reveal feedback.",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fill": "Fill in Blank",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": {
+    "basic": "Basic",
+    "applied": "Applied",
+    "challenge": "Challenge"
+  },
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "2.1",
+  "title": "Sets",
+  "subtitle": "Collections of distinct objects — the foundation of every discrete structure.",
+  "cards": [
+    {
+      "title": "What is a set?",
+      "blocks": [
+        {
+          "def": {
+            "term": "Set",
+            "text": "A set is an unordered collection of distinct objects, called the elements or members of the set. A set is said to contain its elements."
+          }
+        },
+        {
+          "p": "If <span class=\"sym\">a</span> is an element of the set <span class=\"sym\">A</span> we write <span class=\"sym\">a ∈ A</span>; if it is not, we write <span class=\"sym\">a ∉ A</span>. Two facts make sets different from lists: order does not matter, and repetition does not matter."
+        },
+        {
+          "ul": [
+            "Roster method — list the elements: <span class=\"sym\">V = {a, e, i, o, u}</span>.",
+            "Set-builder notation — state a property: <span class=\"sym\">O = {x | x is an odd positive integer &lt; 10}</span>, read “the set of all <span class=\"sym\">x</span> such that …”."
+          ]
+        },
+        {
+          "p": "Because elements are distinct and unordered, <span class=\"sym\">{1, 3, 5} = {3, 5, 1} = {1, 1, 3, 5}</span> — all name the same set."
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "Set-builder is essential when a set is infinite or too large to list, e.g. <span class=\"sym\">Q = {p/q | p ∈ Z, q ∈ Z, q ≠ 0}</span>."
+          }
+        }
+      ]
+    },
+    {
+      "title": "The standard number sets",
+      "blocks": [
+        {
+          "p": "Several sets appear so often they get reserved symbols:"
+        },
+        {
+          "table": {
+            "head": [
+              "Symbol",
+              "Set"
+            ],
+            "rows": [
+              [
+                "<span class=\"sym\">N</span>",
+                "natural numbers <span class=\"sym\">{0, 1, 2, 3, …}</span>"
+              ],
+              [
+                "<span class=\"sym\">Z</span>",
+                "integers <span class=\"sym\">{…, -2, -1, 0, 1, 2, …}</span>"
+              ],
+              [
+                "<span class=\"sym\">Z⁺</span>",
+                "positive integers <span class=\"sym\">{1, 2, 3, …}</span>"
+              ],
+              [
+                "<span class=\"sym\">Q</span>",
+                "rational numbers <span class=\"sym\">{p/q | p, q ∈ Z, q ≠ 0}</span>"
+              ],
+              [
+                "<span class=\"sym\">R</span>",
+                "real numbers"
+              ],
+              [
+                "<span class=\"sym\">R⁺</span>",
+                "positive reals"
+              ],
+              [
+                "<span class=\"sym\">C</span>",
+                "complex numbers"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "For real <span class=\"sym\">a &lt; b</span>, intervals are sets too: <span class=\"sym\">[a, b] = {x | a ≤ x ≤ b}</span> (closed), <span class=\"sym\">(a, b) = {x | a &lt; x &lt; b}</span> (open), plus the half-open <span class=\"sym\">[a, b)</span> and <span class=\"sym\">(a, b]</span>."
+        }
+      ]
+    },
+    {
+      "title": "Equality, the empty set, and Venn diagrams",
+      "blocks": [
+        {
+          "def": {
+            "term": "Set equality",
+            "text": "Sets A and B are equal, written A = B, if and only if they have exactly the same elements: ∀x (x ∈ A ↔ x ∈ B)."
+          }
+        },
+        {
+          "p": "The <span class=\"sym\">empty set</span> (or null set), written <span class=\"sym\">∅</span> or <span class=\"sym\">{}</span>, has no elements. It is unique."
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "Do not confuse <span class=\"sym\">∅</span> with <span class=\"sym\">{∅}</span>. The first is empty; the second is a set containing one element — the empty set — so <span class=\"sym\">|{∅}| = 1</span>."
+          }
+        },
+        {
+          "p": "A <span class=\"sym\">Venn diagram</span> shows sets as regions inside a rectangle representing the <span class=\"sym\">universal set U</span> — the collection of everything under discussion."
+        }
+      ]
+    },
+    {
+      "title": "Subsets and proper subsets",
+      "blocks": [
+        {
+          "def": {
+            "term": "Subset",
+            "text": "A is a subset of B, written A ⊆ B, if and only if every element of A is also an element of B: ∀x (x ∈ A → x ∈ B)."
+          }
+        },
+        {
+          "p": "If <span class=\"sym\">A ⊆ B</span> but <span class=\"sym\">A ≠ B</span>, then <span class=\"sym\">A</span> is a <span class=\"sym\">proper subset</span>: <span class=\"sym\">A ⊂ B</span>."
+        },
+        {
+          "example": {
+            "title": "Theorem 1 (Rosen)",
+            "blocks": [
+              {
+                "p": "For every set <span class=\"sym\">S</span>: (i) <span class=\"sym\">∅ ⊆ S</span> and (ii) <span class=\"sym\">S ⊆ S</span>."
+              },
+              {
+                "p": "Part (i) holds vacuously: <span class=\"sym\">x ∈ ∅</span> is always false, so <span class=\"sym\">x ∈ ∅ → x ∈ S</span> is always true."
+              }
+            ]
+          }
+        },
+        {
+          "p": "To prove two sets equal, show inclusion both ways: <span class=\"sym\">A = B</span> exactly when <span class=\"sym\">A ⊆ B</span> and <span class=\"sym\">B ⊆ A</span>."
+        }
+      ]
+    },
+    {
+      "title": "Cardinality and power sets",
+      "blocks": [
+        {
+          "def": {
+            "term": "Cardinality",
+            "text": "If a set S has exactly n distinct elements with n a nonnegative integer, S is finite and its cardinality is |S| = n. A set that is not finite is infinite."
+          }
+        },
+        {
+          "def": {
+            "term": "Power set",
+            "text": "The power set of S, written P(S), is the set of all subsets of S."
+          }
+        },
+        {
+          "p": "If <span class=\"sym\">|S| = n</span> then <span class=\"sym\">|P(S)| = 2ⁿ</span>, because each element is independently in or out of a given subset."
+        },
+        {
+          "example": {
+            "title": "Example",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">P(∅) = {∅}</span> — one subset. <span class=\"sym\">P({a}) = {∅, {a}}</span> — two subsets. <span class=\"sym\">P({a, b}) = {∅, {a}, {b}, {a, b}}</span> — four subsets."
+              }
+            ]
+          }
+        },
+        {
+          "mermaid": "graph BT\n  E[\"∅\"] --> A[\"{a}\"]\n  E --> B[\"{b}\"]\n  A --> AB[\"{a, b}\"]\n  B --> AB"
+        }
+      ]
+    },
+    {
+      "title": "Cartesian products and tuples",
+      "blocks": [
+        {
+          "def": {
+            "term": "Ordered n-tuple",
+            "text": "The ordered n-tuple (a₁, a₂, …, aₙ) is the ordered collection with a₁ first, a₂ second, …, aₙ last. Two n-tuples are equal iff corresponding entries are equal."
+          }
+        },
+        {
+          "def": {
+            "term": "Cartesian product",
+            "text": "A × B = {(a, b) | a ∈ A ∧ b ∈ B}, the set of all ordered pairs whose first entry is in A and second in B."
+          }
+        },
+        {
+          "p": "Order matters, so <span class=\"sym\">A × B ≠ B × A</span> in general. For finite sets <span class=\"sym\">|A × B| = |A| · |B|</span>, and more generally <span class=\"sym\">|A₁ × A₂ × … × Aₙ| = |A₁| · |A₂| · … · |Aₙ|</span>. We write <span class=\"sym\">A² = A × A</span>, <span class=\"sym\">Aⁿ</span> for the n-fold product."
+        },
+        {
+          "p": "A predicate <span class=\"sym\">P</span> over a domain <span class=\"sym\">D</span> has a <span class=\"sym\">truth set</span> <span class=\"sym\">{x ∈ D | P(x)}</span> — the elements that make it true."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "Which statement about the set <span class=\"sym\">{2, 2, 4, 6}</span> is correct?",
+      "options": [
+        "It has 4 elements",
+        "It equals <span class=\"sym\">{2, 4, 6}</span>",
+        "It is ordered so <span class=\"sym\">2</span> comes first",
+        "It is not a valid set"
+      ],
+      "answer": 1,
+      "explain": "Repetition doesn’t matter, so <span class=\"sym\">{2, 2, 4, 6} = {2, 4, 6}</span>, a set of cardinality 3."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "<span class=\"sym\">∅ = {∅}</span>.",
+      "answer": false,
+      "explain": "<span class=\"sym\">∅</span> has no elements; <span class=\"sym\">{∅}</span> has one element (the empty set), so <span class=\"sym\">|{∅}| = 1</span>. They are different sets."
+    },
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "Which symbol denotes the set of integers?",
+      "options": [
+        "<span class=\"sym\">N</span>",
+        "<span class=\"sym\">Z</span>",
+        "<span class=\"sym\">Q</span>",
+        "<span class=\"sym\">R</span>"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">Z</span> is the integers; <span class=\"sym\">N</span> is the naturals, <span class=\"sym\">Q</span> the rationals, <span class=\"sym\">R</span> the reals."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "In set-builder notation, <span class=\"sym\">{x | P(x)}</span> is read “the set of all [[1]] such that [[2]] holds.”",
+      "blanks": [
+        "x",
+        "P(x)"
+      ],
+      "explain": "The bar separates the variable from the membership property <span class=\"sym\">P</span>."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "List every element of <span class=\"sym\">P({a, b})</span>.",
+      "answer": "<span class=\"sym\">∅</span>, <span class=\"sym\">{a}</span>, <span class=\"sym\">{b}</span>, and <span class=\"sym\">{a, b}</span> — four subsets, since <span class=\"sym\">|P({a,b})| = 2² = 4</span>.",
+      "explain": "The power set always includes <span class=\"sym\">∅</span> and the set itself."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "For every set <span class=\"sym\">S</span>, <span class=\"sym\">∅ ⊆ S</span>.",
+      "answer": true,
+      "explain": "True vacuously: <span class=\"sym\">x ∈ ∅</span> is false, so <span class=\"sym\">x ∈ ∅ → x ∈ S</span> is always true (Theorem 1)."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "If <span class=\"sym\">|A| = 3</span> and <span class=\"sym\">|B| = 4</span>, then <span class=\"sym\">|A × B|</span> equals:",
+      "options": [
+        "7",
+        "12",
+        "<span class=\"sym\">2³</span>",
+        "81"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">|A × B| = |A| · |B| = 3 · 4 = 12</span>."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "If <span class=\"sym\">|S| = n</span> then <span class=\"sym\">|P(S)| =</span> [[1]].",
+      "blanks": [
+        [
+          "2^n",
+          "2ⁿ",
+          "2**n"
+        ]
+      ],
+      "explain": "Each element is independently in or out of a subset, giving <span class=\"sym\">2ⁿ</span> subsets."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "Explain why <span class=\"sym\">{1, 2} × {1, 2} ≠ {1, 2}²</span> is a false claim — i.e. why the two are equal.",
+      "answer": "<span class=\"sym\">A² </span> is defined as <span class=\"sym\">A × A</span>, so <span class=\"sym\">{1,2}² = {1,2} × {1,2} = {(1,1),(1,2),(2,1),(2,2)}</span>. They are the same set by definition.",
+      "explain": "<span class=\"sym\">Aⁿ</span> is shorthand for the n-fold Cartesian product."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "Order these steps to prove <span class=\"sym\">A = B</span> by double inclusion.",
+      "items": [
+        "Assume <span class=\"sym\">x ∈ A</span> and derive <span class=\"sym\">x ∈ B</span>, establishing <span class=\"sym\">A ⊆ B</span>.",
+        "Assume <span class=\"sym\">x ∈ B</span> and derive <span class=\"sym\">x ∈ A</span>, establishing <span class=\"sym\">B ⊆ A</span>.",
+        "Combine <span class=\"sym\">A ⊆ B</span> and <span class=\"sym\">B ⊆ A</span> to conclude <span class=\"sym\">A = B</span>."
+      ],
+      "explain": "Set equality is proved by showing each set is a subset of the other."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "How many elements does <span class=\"sym\">P(P(∅))</span> have?",
+      "options": [
+        "1",
+        "2",
+        "4",
+        "0"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">P(∅) = {∅}</span> has 1 element, so <span class=\"sym\">P(P(∅)) = P({∅}) = {∅, {∅}}</span> has <span class=\"sym\">2¹ = 2</span> elements."
+    }
+  ],
+  "lang": "en"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

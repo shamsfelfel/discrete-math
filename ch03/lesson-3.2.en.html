@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.2 The Growth of Functions — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 3</a> &nbsp;›&nbsp;
+    <span id="crumb-current">3.2</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-3.2.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "3.2",
+  "chapter": "3",
+  "title": "The Growth of Functions",
+  "lede": "Big-O, big-Omega, and big-Theta notation describe how fast a function grows as its input gets large — the language we use to compare the efficiency of algorithms.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Big-O notation and witnesses",
+      "body": [
+        {
+          "type": "p",
+          "text": "Big-O notation captures how the size of a function is bounded above by a simpler reference function for all large inputs. It lets us ignore constant factors and low-order terms and focus on the dominant rate of growth."
+        },
+        {
+          "type": "def",
+          "text": "Definition 1. Let <span class=\"sym\">f</span> and <span class=\"sym\">g</span> be functions from the integers or reals to the reals. We say <span class=\"sym\">f(x)</span> is <span class=\"sym\">O(g(x))</span> if there are constants <span class=\"sym\">C</span> and <span class=\"sym\">k</span> such that <span class=\"sym\">|f(x)| ≤ C|g(x)|</span> whenever <span class=\"sym\">x &gt; k</span>. This is read “<span class=\"sym\">f(x)</span> is big-oh of <span class=\"sym\">g(x)</span>.”"
+        },
+        {
+          "type": "p",
+          "text": "The constants <span class=\"sym\">C</span> and <span class=\"sym\">k</span> are called witnesses to the relationship. To prove <span class=\"sym\">f(x)</span> is <span class=\"sym\">O(g(x))</span> you need exhibit only one pair of witnesses — though once one pair exists, infinitely many do."
+        },
+        {
+          "type": "p",
+          "text": "Because <span class=\"sym\">g</span> is usually chosen positive for the large <span class=\"sym\">x</span> we care about, the absolute-value bars can often be dropped in practice."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Example 1 — a pair of witnesses",
+          "body": "For <span class=\"sym\">f(x) = x² + 2x + 1</span> and <span class=\"sym\">x &gt; 1</span> we have <span class=\"sym\">x² + 2x + 1 ≤ x² + 2x² + x² = 4x²</span>, so <span class=\"sym\">C = 4, k = 1</span> are witnesses: <span class=\"sym\">f(x)</span> is <span class=\"sym\">O(x²)</span>. The choice is not unique — <span class=\"sym\">C = 3, k = 2</span> work as well."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Dominant terms and what big-O hides",
+      "body": [
+        {
+          "type": "p",
+          "text": "When <span class=\"sym\">f(x)</span> is <span class=\"sym\">O(g(x))</span> and <span class=\"sym\">g</span> grows no faster than <span class=\"sym\">f</span>, we usually pick the smallest simple <span class=\"sym\">g</span> we can. A function is always big-O of any faster-growing one: <span class=\"sym\">7x²</span> is <span class=\"sym\">O(x³)</span>, but the tighter and more useful statement is <span class=\"sym\">7x²</span> is <span class=\"sym\">O(x²)</span>."
+        },
+        {
+          "type": "p",
+          "text": "The relationship is one-directional in general. <span class=\"sym\">x²</span> is not <span class=\"sym\">O(x)</span>: no constants <span class=\"sym\">C, k</span> make <span class=\"sym\">x² ≤ Cx</span> hold for all large <span class=\"sym\">x</span>, since <span class=\"sym\">x ≤ C</span> fails once <span class=\"sym\">x</span> exceeds <span class=\"sym\">C</span>."
+        },
+        {
+          "type": "def",
+          "text": "Theorem 1 (polynomials). If <span class=\"sym\">f(x) = an xⁿ + … + a1 x + a0</span> with real coefficients, then <span class=\"sym\">f(x)</span> is <span class=\"sym\">O(xⁿ)</span>. The leading term dictates the order; all lower terms are absorbed."
+        },
+        {
+          "type": "p",
+          "text": "A standard growth hierarchy, slowest to fastest, is worth memorising:"
+        },
+        {
+          "type": "ol",
+          "items": [
+            "<span class=\"sym\">1</span> (constant)",
+            "<span class=\"sym\">log n</span> (logarithmic)",
+            "<span class=\"sym\">n</span> (linear)",
+            "<span class=\"sym\">n log n</span> (linearithmic)",
+            "<span class=\"sym\">n²</span> (quadratic) — and higher powers <span class=\"sym\">n³, …</span>",
+            "<span class=\"sym\">2ⁿ</span> (exponential)",
+            "<span class=\"sym\">n!</span> (factorial)"
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "Factimorials and logs",
+          "body": "<span class=\"sym\">n! ≤ nⁿ</span> gives <span class=\"sym\">n!</span> is <span class=\"sym\">O(nⁿ)</span> with <span class=\"sym\">C = 1, k = 1</span>. Taking logarithms, <span class=\"sym\">log n! ≤ n log n</span>, so <span class=\"sym\">log n!</span> is <span class=\"sym\">O(n log n)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Combining big-O estimates",
+      "body": [
+        {
+          "type": "p",
+          "text": "Two theorems let you build the big-O of a complicated expression from its pieces — the everyday toolkit for analysing algorithms."
+        },
+        {
+          "type": "def",
+          "text": "Theorem 2 (sums). If <span class=\"sym\">f1(x)</span> is <span class=\"sym\">O(g1(x))</span> and <span class=\"sym\">f2(x)</span> is <span class=\"sym\">O(g2(x))</span>, then <span class=\"sym\">(f1 + f2)(x)</span> is <span class=\"sym\">O(g(x))</span> where <span class=\"sym\">g(x) = max(|g1(x)|, |g2(x)|)</span>."
+        },
+        {
+          "type": "def",
+          "text": "Corollary 1. If <span class=\"sym\">f1</span> and <span class=\"sym\">f2</span> are both <span class=\"sym\">O(g(x))</span>, then <span class=\"sym\">(f1 + f2)(x)</span> is <span class=\"sym\">O(g(x))</span> — adding two functions of the same order keeps that order."
+        },
+        {
+          "type": "def",
+          "text": "Theorem 3 (products). If <span class=\"sym\">f1(x)</span> is <span class=\"sym\">O(g1(x))</span> and <span class=\"sym\">f2(x)</span> is <span class=\"sym\">O(g2(x))</span>, then <span class=\"sym\">(f1 f2)(x)</span> is <span class=\"sym\">O(g1(x) g2(x))</span>."
+        },
+        {
+          "type": "p",
+          "text": "Sums take the max of the parts; products multiply the parts. Together they reduce most expressions to their single dominant term."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Worked combination",
+          "body": "For <span class=\"sym\">f(n) = 3n log(n!) + (n² + 3) log n</span>: since <span class=\"sym\">log(n!)</span> is <span class=\"sym\">O(n log n)</span> and <span class=\"sym\">3n</span> is <span class=\"sym\">O(n)</span>, Theorem 3 gives <span class=\"sym\">3n log(n!)</span> is <span class=\"sym\">O(n² log n)</span>. Also <span class=\"sym\">(n² + 3) log n</span> is <span class=\"sym\">O(n² log n)</span>. By Theorem 2, <span class=\"sym\">f(n)</span> is <span class=\"sym\">O(n² log n)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Big-Omega: lower bounds",
+      "body": [
+        {
+          "type": "p",
+          "text": "Big-O gives an upper bound. To say a function grows at least as fast as a reference, we use big-Omega."
+        },
+        {
+          "type": "def",
+          "text": "Definition 2. <span class=\"sym\">f(x)</span> is <span class=\"sym\">Ω(g(x))</span> if there are positive constants <span class=\"sym\">C</span> and <span class=\"sym\">k</span> with <span class=\"sym\">|f(x)| ≥ C|g(x)|</span> whenever <span class=\"sym\">x &gt; k</span>. (<span class=\"sym\">Ω</span> is the Greek capital omega.)"
+        },
+        {
+          "type": "p",
+          "text": "There is a clean duality: <span class=\"sym\">f(x)</span> is <span class=\"sym\">Ω(g(x))</span> if and only if <span class=\"sym\">g(x)</span> is <span class=\"sym\">O(f(x))</span>. A lower bound on <span class=\"sym\">f</span> is the same statement as an upper bound on <span class=\"sym\">g</span> read the other way."
+        }
+      ],
+      "examples": [
+        {
+          "label": "A lower bound",
+          "body": "<span class=\"sym\">f(x) = 8x³ + 5x² + 7</span> is <span class=\"sym\">Ω(x³)</span>: <span class=\"sym\">8x³ + 5x² + 7 ≥ 8x³</span> for all <span class=\"sym\">x &gt; 0</span>, so <span class=\"sym\">C = 8, k = 0</span> are witnesses."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Big-Theta: matching bounds",
+      "body": [
+        {
+          "type": "p",
+          "text": "When a function is bounded both above and below by the same reference, we have its exact order of growth."
+        },
+        {
+          "type": "def",
+          "text": "Definition 3. <span class=\"sym\">f(x)</span> is <span class=\"sym\">Θ(g(x))</span> if <span class=\"sym\">f(x)</span> is <span class=\"sym\">O(g(x))</span> and <span class=\"sym\">f(x)</span> is <span class=\"sym\">Ω(g(x))</span>. We then say <span class=\"sym\">f</span> is of order <span class=\"sym\">g</span>, or <span class=\"sym\">f</span> and <span class=\"sym\">g</span> are of the same order."
+        },
+        {
+          "type": "p",
+          "text": "Equivalently, <span class=\"sym\">f(x)</span> is <span class=\"sym\">Θ(g(x))</span> when there are constants <span class=\"sym\">C1, C2, k</span> (all positive) with <span class=\"sym\">C1|g(x)| ≤ |f(x)| ≤ C2|g(x)|</span> for <span class=\"sym\">x &gt; k</span>."
+        },
+        {
+          "type": "def",
+          "text": "Theorem 4. If <span class=\"sym\">f(x) = an xⁿ + … + a1 x + a0</span> with <span class=\"sym\">an ≠ 0</span>, then <span class=\"sym\">f(x)</span> is <span class=\"sym\">Θ(xⁿ)</span>. A polynomial is big-Theta of its leading power."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Sum of the first n integers",
+          "body": "<span class=\"sym\">1 + 2 + … + n = n(n+1)/2</span>. It is <span class=\"sym\">O(n²)</span> (each term <span class=\"sym\">≤ n</span>, so the sum <span class=\"sym\">≤ n²</span>) and <span class=\"sym\">Ω(n²)</span> (the top half of the terms each exceed <span class=\"sym\">n/2</span>), hence <span class=\"sym\">Θ(n²)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "History and why it matters",
+      "body": [
+        {
+          "type": "p",
+          "text": "Big-O notation predates computing. The German mathematician Paul Bachmann introduced it in 1892 in a book on number theory; the symbol is sometimes called a Landau symbol after Edmund Landau, who used it widely."
+        },
+        {
+          "type": "p",
+          "text": "Donald Knuth popularised big-O in computer science and introduced the big-Omega and big-Theta notations used today."
+        },
+        {
+          "type": "p",
+          "text": "These notations let us compare algorithms independently of hardware: an algorithm using <span class=\"sym\">100n² + 17n + 4</span> operations is <span class=\"sym\">O(n²)</span>, so for large <span class=\"sym\">n</span> it beats one using <span class=\"sym\">n³</span> operations regardless of the machine. The growth class, not the constant, decides scalability."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "In the statement “<span class=\"sym\">f(x)</span> is <span class=\"sym\">O(g(x))</span> if <span class=\"sym\">|f(x)| ≤ C|g(x)|</span> whenever <span class=\"sym\">x &gt; k</span>,” what are <span class=\"sym\">C</span> and <span class=\"sym\">k</span> called?",
+      "options": [
+        "Witnesses",
+        "Bounds",
+        "Coefficients",
+        "Limits"
+      ],
+      "answer": 0,
+      "explanation": "C and k are the witnesses to the relationship f(x) is O(g(x)); exhibiting one pair proves it."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "<span class=\"sym\">x²</span> is <span class=\"sym\">O(x)</span>.",
+      "answer": false,
+      "explanation": "No constants C, k make x² ≤ Cx hold for all large x, since that needs x ≤ C. So x² is not O(x)."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Which list orders these functions from slowest-growing to fastest-growing?",
+      "options": [
+        "<span class=\"sym\">log n, n, n², 2ⁿ, n!</span>",
+        "<span class=\"sym\">n, log n, n², n!, 2ⁿ</span>",
+        "<span class=\"sym\">2ⁿ, n!, n², n, log n</span>",
+        "<span class=\"sym\">log n, n², n, 2ⁿ, n!</span>"
+      ],
+      "answer": 0,
+      "explanation": "The standard hierarchy is 1, log n, n, n log n, n², …, 2ⁿ, n!."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 2,
+      "prompt": "If <span class=\"sym\">f1(x)</span> is <span class=\"sym\">O(x²)</span> and <span class=\"sym\">f2(x)</span> is <span class=\"sym\">O(x³)</span>, then <span class=\"sym\">(f1 + f2)(x)</span> is <span class=\"sym\">O(x³)</span>.",
+      "answer": true,
+      "explanation": "By Theorem 2 the sum is O(max(x², x³)) = O(x³)."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Apply Theorem 1 to a polynomial.",
+      "template": "By Theorem 1, the polynomial <span class=\"sym\">f(x) = 5x³ + 9x² + 2x + 7</span> is <span class=\"sym\">O(</span>[[1]]<span class=\"sym\">)</span>. This works because the [[2]] term dominates for large <span class=\"sym\">x</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "x^3",
+          "acceptable": [
+            "x^3",
+            "x³",
+            "x cubed",
+            "x**3"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "leading",
+          "options": [
+            "leading",
+            "constant"
+          ]
+        }
+      ],
+      "explanation": "A degree-3 polynomial is O(x³); the leading term x³ absorbs all lower-order terms."
+    },
+    {
+      "id": "q6",
+      "type": "short",
+      "level": 2,
+      "prompt": "Give a pair of witnesses <span class=\"sym\">C</span> and <span class=\"sym\">k</span> showing that <span class=\"sym\">f(x) = x² + 2x + 1</span> is <span class=\"sym\">O(x²)</span>, and justify them briefly.",
+      "canonical": "Take C = 4 and k = 1: for x > 1, x² + 2x + 1 ≤ x² + 2x² + x² = 4x², so |f(x)| ≤ 4|x²|. (C = 3, k = 2 also work.)",
+      "acceptable": [
+        "C=4, k=1",
+        "C = 4 and k = 1",
+        "4 and 1",
+        "C=3 k=2",
+        "C = 3, k = 2",
+        "three and two"
+      ],
+      "explanation": "Bounding each lower term by x² for x &gt; 1 gives 4x²; C = 4, k = 1 are witnesses (and so are C = 3, k = 2)."
+    },
+    {
+      "id": "q7",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "<span class=\"sym\">f(x)</span> is <span class=\"sym\">Ω(g(x))</span> if and only if which statement holds?",
+      "options": [
+        "<span class=\"sym\">g(x)</span> is <span class=\"sym\">O(f(x))</span>",
+        "<span class=\"sym\">f(x)</span> is <span class=\"sym\">O(g(x))</span>",
+        "<span class=\"sym\">f(x)</span> is <span class=\"sym\">Θ(g(x))</span>",
+        "<span class=\"sym\">g(x)</span> is <span class=\"sym\">Ω(f(x))</span>"
+      ],
+      "answer": 0,
+      "explanation": "A lower bound on f is exactly an upper bound on g: f is Ω(g) iff g is O(f)."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order these functions from slowest-growing (top) to fastest-growing (bottom).",
+      "items": [
+        "<span class=\"sym\">log n</span>",
+        "<span class=\"sym\">n log n</span>",
+        "<span class=\"sym\">n²</span>",
+        "<span class=\"sym\">2ⁿ</span>",
+        "<span class=\"sym\">n!</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "log n &lt; n log n &lt; n² &lt; 2ⁿ &lt; n! in order of growth."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "Which condition makes <span class=\"sym\">f(x)</span> exactly <span class=\"sym\">Θ(g(x))</span>?",
+      "options": [
+        "<span class=\"sym\">f</span> is both <span class=\"sym\">O(g)</span> and <span class=\"sym\">Ω(g)</span>",
+        "<span class=\"sym\">f</span> is <span class=\"sym\">O(g)</span> only",
+        "<span class=\"sym\">f</span> is <span class=\"sym\">Ω(g)</span> only",
+        "<span class=\"sym\">f</span> grows strictly faster than <span class=\"sym\">g</span>"
+      ],
+      "answer": 0,
+      "explanation": "Big-Theta requires matching upper (O) and lower (Ω) bounds of the same order."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "Explain why <span class=\"sym\">1 + 2 + … + n</span> is <span class=\"sym\">Θ(n²)</span>.",
+      "canonical": "The sum equals n(n+1)/2. Each term is at most n, so the sum is ≤ n·n = n², giving O(n²). The largest n/2 terms each exceed n/2, so the sum is ≥ (n/2)(n/2) = n²/4, giving Ω(n²). Both bounds match, so it is Θ(n²).",
+      "acceptable": [
+        "n(n+1)/2",
+        "it is O(n^2) and Omega(n^2)",
+        "sum is n squared over 2",
+        "upper and lower bound n^2",
+        "both O and Omega of n^2"
+      ],
+      "explanation": "Upper bound n² (each term ≤ n) and lower bound n²/4 (top half of terms) give matching orders, so Θ(n²)."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Combine big-O estimates with the theorems.",
+      "template": "To bound a sum <span class=\"sym\">f1 + f2</span> we take the [[1]] of the two reference functions (Theorem 2); to bound a product <span class=\"sym\">f1 f2</span> we [[2]] them (Theorem 3). Big-O gives an upper bound, while <span class=\"sym\">Ω</span> gives a [[3]] bound.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "answer": "maximum",
+          "options": [
+            "maximum",
+            "minimum",
+            "sum"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "multiply",
+          "options": [
+            "multiply",
+            "add",
+            "average"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "lower",
+          "acceptable": [
+            "lower",
+            "lower bound",
+            "below"
+          ]
+        }
+      ],
+      "explanation": "Sums take the max (Theorem 2), products multiply (Theorem 3); big-O is an upper bound and big-Omega a lower bound."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

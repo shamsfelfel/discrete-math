@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.4 المتتاليات والمجاميع — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٢</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٢٫٤</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.4.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "conceptsSub": "اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.",
+  "practiceSub": "الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fill": "إكمال الفراغ",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": {
+    "basic": "أساسي",
+    "applied": "تطبيقي",
+    "challenge": "تحدٍّ"
+  },
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولًا.",
+  "typeFirst": "اكتب إجابة أولًا.",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "2.4",
+  "title": "المتتاليات والمجاميع",
+  "subtitle": "قوائم مرتّبة مفهرسة بالأعداد الصحيحة — المتواليات وعلاقات التكرار وصيغ الجمع التي تتكرّر في كل مكان.",
+  "cards": [
+    {
+      "title": "المتتاليات",
+      "blocks": [
+        {
+          "def": {
+            "term": "المتتالية",
+            "text": "المتتالية دالة من مجموعة جزئية من الأعداد الصحيحة (عادةً {0, 1, 2, …} أو {1, 2, 3, …}) إلى مجموعة S. نكتب aₙ لصورة n — وهي حدٌّ من المتتالية — و {aₙ} للمتتالية كاملة."
+          }
+        },
+        {
+          "p": "قد تكون المتتالية منتهية أو غير منتهية. فمثلًا <span class=\"sym\">1, 2, 3, 5, 8</span> متتالية منتهية، بينما <span class=\"sym\">1, 3, 9, 27, … , 3ⁿ, …</span> غير منتهية. ولا تخلط رمز المتتالية <span class=\"sym\">{aₙ}</span> برمز المجموعة — فالترتيب والتكرار مهمّان هنا."
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "المتتالية المنتهية a₁, a₂, …, aₙ تُسمّى أيضًا سلسلة نصية وتُكتب a₁a₂…aₙ. والسلسلة الفارغة λ طولها صفر."
+          }
+        }
+      ]
+    },
+    {
+      "title": "المتواليتان الهندسية والحسابية",
+      "blocks": [
+        {
+          "def": {
+            "term": "المتوالية الهندسية",
+            "text": "متتالية على الصورة a, ar, ar², … , arⁿ, … بحدٍّ أوّل a ونسبةٍ مشتركة r (كلاهما حقيقي). وهي النظير المتقطّع للدالة f(x) = a·rˣ."
+          }
+        },
+        {
+          "def": {
+            "term": "المتوالية الحسابية",
+            "text": "متتالية على الصورة a, a + d, a + 2d, … , a + nd, … بحدٍّ أوّل a وفرقٍ مشترك d. وهي النظير المتقطّع للدالة f(x) = dx + a."
+          }
+        },
+        {
+          "example": {
+            "title": "أمثلة",
+            "blocks": [
+              {
+                "p": "هندسية بـ <span class=\"sym\">a = 2, r = 5</span>: <span class=\"sym\">2, 10, 50, 250, 1250, …</span> (هنا <span class=\"sym\">cₙ = 2·5ⁿ</span>)."
+              },
+              {
+                "p": "حسابية بـ <span class=\"sym\">a = −1, d = 4</span>: <span class=\"sym\">−1, 3, 7, 11, …</span> (هنا <span class=\"sym\">sₙ = −1 + 4n</span>)."
+              }
+            ]
+          }
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "ثبات نسبة الحدّين المتتاليين ⇐ هندسية. ثبات فرق الحدّين المتتاليين ⇐ حسابية."
+          }
+        }
+      ]
+    },
+    {
+      "title": "علاقات التكرار",
+      "blocks": [
+        {
+          "def": {
+            "term": "علاقة التكرار",
+            "text": "معادلة تعبّر عن aₙ بدلالة حدٍّ سابق أو أكثر a₀, a₁, …, aₙ₋₁، صالحة لكل n ≥ n₀. والمتتالية التي تحقّقها تُسمّى حلًّا لها."
+          }
+        },
+        {
+          "p": "تُحدّد الشروط الابتدائية الحدودَ السابقة لبدء عمل علاقة التكرار. وعلاقة التكرار مع شروطها الابتدائية تحدّد حلًّا <span class=\"sym\">وحيدًا</span>."
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "إذا كانت <span class=\"sym\">aₙ = aₙ₋₁ + 3</span> مع <span class=\"sym\">a₀ = 2</span>، فإن <span class=\"sym\">a₁ = 5</span>، <span class=\"sym\">a₂ = 8</span>، <span class=\"sym\">a₃ = 11</span> — وهي متوالية حسابية متخفّية."
+              }
+            ]
+          }
+        },
+        {
+          "def": {
+            "term": "متتالية فيبوناتشي",
+            "text": "تُعرَّف بـ f₀ = 0، f₁ = 1، و fₙ = fₙ₋₁ + fₙ₋₂ لكل n ≥ 2، فتعطي 0, 1, 1, 2, 3, 5, 8, 13, …"
+          }
+        }
+      ]
+    },
+    {
+      "title": "رمز الجمع (الـمجموع)",
+      "blocks": [
+        {
+          "def": {
+            "term": "المجموع",
+            "text": "المجموع aₘ + aₘ₊₁ + ⋯ + aₙ يُكتب Σⱼ₌ₘⁿ aⱼ. وهنا j دليل الجمع (أيّ حرفٍ يصلح)، و m الحدّ الأدنى، و n الحدّ الأعلى."
+          }
+        },
+        {
+          "p": "يمكن الجمع على مجموعة أيضًا: <span class=\"sym\">Σ_{s∈S} f(s)</span> يجمع <span class=\"sym\">f(s)</span> على كل عناصر <span class=\"sym\">S</span>. فمثلًا <span class=\"sym\">Σ_{s∈{0,2,4}} s = 0 + 2 + 4 = 6</span>."
+        },
+        {
+          "def": {
+            "term": "المجموع المزدوج",
+            "text": "مجموع متداخل مثل Σᵢ₌₁⁴ Σⱼ₌₁³ ij: نوسّع المجموع الداخلي أوّلًا ثم الخارجي. وهو يحاكي الحلقات المتداخلة في البرامج."
+          }
+        }
+      ]
+    },
+    {
+      "title": "صيغة المتسلسلة الهندسية",
+      "blocks": [
+        {
+          "def": {
+            "term": "المتسلسلة الهندسية (المبرهنة 1)",
+            "text": "إذا كان r ≠ 0: Σⱼ₌₀ⁿ arʲ = (arⁿ⁺¹ − a)/(r − 1) عندما r ≠ 1، و (n + 1)a عندما r = 1."
+          }
+        },
+        {
+          "p": "يضرب البرهان المجموع <span class=\"sym\">Sₙ</span> في <span class=\"sym\">r</span>، ثم يزيح الدليل ويطرح — فيتداعى إلى <span class=\"sym\">rSₙ = Sₙ + (arⁿ⁺¹ − a)</span>، ومنه يُحَلّ <span class=\"sym\">Sₙ</span>."
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">Σⱼ₌₀ⁿ 2·3ʲ = (2·3ⁿ⁺¹ − 2)/(3 − 1) = 3ⁿ⁺¹ − 1</span>."
+              }
+            ]
+          }
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "الصيغة المغلقة تتطلّب r ≠ 1. وعندما r = 1 يساوي كل حدٍّ a، فيصبح المجموع ببساطة (n + 1)a."
+          }
+        }
+      ]
+    },
+    {
+      "title": "صيغ جمعٍ مفيدة",
+      "blocks": [
+        {
+          "p": "تتكرّر هذه باستمرار؛ احفظ الثلاث الأولى. وكلٌّ منها يمكن إثباته بالاستقراء (القسم 5.1)."
+        },
+        {
+          "table": {
+            "head": [
+              "المجموع",
+              "الصيغة المغلقة"
+            ],
+            "rows": [
+              [
+                "<span class=\"sym\">Σ_{k=0}ⁿ arᵏ</span> (<span class=\"sym\">r ≠ 1</span>)",
+                "<span class=\"sym\">(arⁿ⁺¹ − a)/(r − 1)</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=1}ⁿ k</span>",
+                "<span class=\"sym\">n(n + 1)/2</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=1}ⁿ k²</span>",
+                "<span class=\"sym\">n(n + 1)(2n + 1)/6</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=1}ⁿ k³</span>",
+                "<span class=\"sym\">n²(n + 1)²/4</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=0}^∞ xᵏ</span> (<span class=\"sym\">|x| &lt; 1</span>)",
+                "<span class=\"sym\">1/(1 − x)</span>"
+              ],
+              [
+                "<span class=\"sym\">Σ_{k=1}^∞ k·xᵏ⁻¹</span> (<span class=\"sym\">|x| &lt; 1</span>)",
+                "<span class=\"sym\">1/(1 − x)²</span>"
+              ]
+            ]
+          }
+        },
+        {
+          "example": {
+            "title": "تقسيم المدى",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">Σ_{k=50}^{100} k² = Σ_{k=1}^{100} k² − Σ_{k=1}^{49} k² = 338350 − 40425 = 297925</span>."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "المتتالية رسميًا دالة من مجموعة جزئية من الأعداد الصحيحة إلى مجموعة S. والرمز <span class=\"sym\">aₙ</span> يدلّ على:",
+      "options": [
+        "دليل الجمع",
+        "حدّ المتتالية (صورة n)",
+        "النسبة المشتركة",
+        "النهاية"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">aₙ</span> هي صورة العدد الصحيح <span class=\"sym\">n</span> — أي حدٌّ مفردٌ من المتتالية <span class=\"sym\">{aₙ}</span>."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "في المتوالية الهندسية يكون للحدّين المتتاليين فرقٌ ثابت.",
+      "answer": false,
+      "explain": "للمتوالية الهندسية نسبةٌ ثابتة؛ أمّا الفرق الثابت فيصف المتوالية الحسابية."
+    },
+    {
+      "type": "fill",
+      "level": "basic",
+      "q": "المجموع <span class=\"sym\">a₂ + a₃ + a₄</span> يُكتب <span class=\"sym\">Σ_{j=2}^{4} aⱼ</span>، حيث <span class=\"sym\">j</span> هو [[1]] الجمع.",
+      "blanks": [
+        [
+          "دليل",
+          "دَليل"
+        ]
+      ],
+      "explain": "الحرف أسفل السيغما هو دليل الجمع، واختياره اعتباطيّ."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "ما نوع المتوالية <span class=\"sym\">3, 7, 11, 15, …</span>؟",
+      "options": [
+        "هندسية، نسبتها 4",
+        "حسابية، فرقها 4",
+        "هندسية، نسبتها 7/3",
+        "فيبوناتشي"
+      ],
+      "answer": 1,
+      "explain": "يزيد كل حدٍّ عن سابقه بـ 4 — حسابية بـ <span class=\"sym\">a = 3, d = 4</span>."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "تحقّق متتالية <span class=\"sym\">aₙ = aₙ₋₁ − aₙ₋₂</span> مع <span class=\"sym\">a₀ = 3</span> و <span class=\"sym\">a₁ = 5</span>. أوجد <span class=\"sym\">a₂</span> و <span class=\"sym\">a₃</span>.",
+      "answer": "<span class=\"sym\">a₂ = a₁ − a₀ = 5 − 3 = 2</span> و <span class=\"sym\">a₃ = a₂ − a₁ = 2 − 5 = −3</span>.",
+      "explain": "طبّق علاقة التكرار خطوةً خطوة مستعينًا بالشرطين الابتدائيين."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "استعمل صيغة المتسلسلة الهندسية لإيجاد <span class=\"sym\">Σ_{j=0}^{n} 2·3ʲ</span>.",
+      "answer": "<span class=\"sym\">(2·3ⁿ⁺¹ − 2)/(3 − 1) = 3ⁿ⁺¹ − 1</span>، باستعمال <span class=\"sym\">a = 2, r = 3</span>.",
+      "explain": "عوّض <span class=\"sym\">a = 2</span> و <span class=\"sym\">r = 3</span> في <span class=\"sym\">(arⁿ⁺¹ − a)/(r − 1)</span>."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "وفق الجدول 2، <span class=\"sym\">Σ_{k=1}^{n} k = n(n + 1)/[[1]]</span>.",
+      "blanks": [
+        [
+          "2",
+          "٢",
+          "اثنين"
+        ]
+      ],
+      "explain": "مجموع أوّل <span class=\"sym\">n</span> من الأعداد الصحيحة الموجبة هو <span class=\"sym\">n(n + 1)/2</span>."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "لتقييم مجموعٍ مزدوج <span class=\"sym\">Σᵢ Σⱼ</span> نوسّع المجموع الداخلي أوّلًا ثم الخارجي.",
+      "answer": true,
+      "explain": "البدء بالداخلي هو الترتيب القياسي، محاكاةً للحلقات المتداخلة."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "الصيغة المغلقة للمتسلسلة الهندسية <span class=\"sym\">(arⁿ⁺¹ − a)/(r − 1)</span> تستلزم أيّ شرط؟",
+      "options": [
+        "<span class=\"sym\">r &gt; 0</span>",
+        "<span class=\"sym\">r ≠ 1</span>",
+        "<span class=\"sym\">a ≠ 0</span>",
+        "<span class=\"sym\">n</span> زوجي"
+      ],
+      "answer": 1,
+      "explain": "القسمة على <span class=\"sym\">r − 1</span> تفشل عند <span class=\"sym\">r = 1</span>؛ وحينها يكون المجموع <span class=\"sym\">(n + 1)a</span>."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "احسب <span class=\"sym\">Σ_{k=1}^{10} k²</span> بصيغةٍ مغلقة.",
+      "answer": "<span class=\"sym\">n(n + 1)(2n + 1)/6</span> مع <span class=\"sym\">n = 10</span>: <span class=\"sym\">10·11·21/6 = 2310/6 = 385</span>.",
+      "explain": "طبّق صيغة مجموع المربّعات مباشرةً."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "رتّب خطوات إثبات <span class=\"sym\">Σⱼ₌₀ⁿ arʲ = (arⁿ⁺¹ − a)/(r − 1)</span> عندما <span class=\"sym\">r ≠ 1</span>.",
+      "items": [
+        "ليكن <span class=\"sym\">Sₙ = Σⱼ₌₀ⁿ arʲ</span>.",
+        "اضرب في <span class=\"sym\">r</span> وأزِح الدليل لتحصل على <span class=\"sym\">rSₙ = Sₙ + (arⁿ⁺¹ − a)</span>.",
+        "حُلّ من أجل <span class=\"sym\">Sₙ</span> بالقسمة على <span class=\"sym\">r − 1</span>."
+      ],
+      "explain": "الضرب والإزاحة والطرح يُتلِف المجموع، ثم نعزل <span class=\"sym\">Sₙ</span>."
+    }
+  ],
+  "lang": "ar"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

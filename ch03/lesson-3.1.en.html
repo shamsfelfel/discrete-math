@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.1 Algorithms — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 3</a> &nbsp;›&nbsp;
+    <span id="crumb-current">3.1</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-3.1.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "3.1",
+  "chapter": "3",
+  "title": "Algorithms",
+  "lede": "An algorithm is a finite sequence of precise instructions for performing a computation or solving a problem — the bridge from a mathematical model to an actual solution.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "What is an algorithm?",
+      "body": [
+        {
+          "type": "p",
+          "text": "When a problem is posed — find the largest integer in a list, sort a set, find a shortest path — the first step is to build a mathematical model. The second step is a method that solves the general problem on that model. Such a step-by-step method is an algorithm."
+        },
+        {
+          "type": "def",
+          "text": "An algorithm is a finite sequence of precise instructions for performing a computation or for solving a problem."
+        },
+        {
+          "type": "p",
+          "text": "The word comes from al-Khowarizmi, a ninth-century mathematician whose book on Hindu numerals underlies modern decimal notation. To describe algorithms without committing to one programming language, this book uses pseudocode — an intermediate step between plain English and real code."
+        },
+        {
+          "type": "p",
+          "text": "Algorithm 1 finds the maximum of <span class=\"sym\">a1, a2, …, an</span>: set <span class=\"sym\">max := a1</span>, then loop <span class=\"sym\">i := 2 to n</span> and replace <span class=\"sym\">max</span> whenever <span class=\"sym\">ai &gt; max</span>. A trace on <span class=\"sym\">8, 4, 11, 3, 10</span> gives <span class=\"sym\">max</span> values <span class=\"sym\">8, 8, 11, 11, 11</span>, ending at <span class=\"sym\">11</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph TD\n  A[\"max := a1\"] --> B{\"i ≤ n ?\"}\n  B -- no --> E[\"return max\"]\n  B -- yes --> C{\"ai > max ?\"}\n  C -- yes --> D[\"max := ai\"]\n  C -- no --> F[\"i := i + 1\"]\n  D --> F\n  F --> B"
+        }
+      ],
+      "examples": [
+        {
+          "label": "Pseudocode — Algorithm 1",
+          "body": "procedure max(<span class=\"sym\">a1, a2, …, an</span>: integers) · <span class=\"sym\">max := a1</span> · for <span class=\"sym\">i := 2 to n</span> · if <span class=\"sym\">max &lt; ai</span> then <span class=\"sym\">max := ai</span> · return <span class=\"sym\">max</span>."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Properties algorithms share",
+      "body": [
+        {
+          "type": "p",
+          "text": "Well-designed algorithms generally have seven properties. They are worth checking whenever you describe a procedure."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Input — values are taken from a specified set.",
+            "Output — each input produces output that solves the problem.",
+            "Definiteness — every step is defined precisely.",
+            "Correctness — the output is correct for every valid input.",
+            "Finiteness — it halts after a finite number of steps.",
+            "Effectiveness — each step can be done exactly in finite time.",
+            "Generality — it works for all problems of the desired form, not one case."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "For Algorithm 1: the input is a sequence of integers, the output is the largest term, each step is an assignment or comparison (definite, effective), it halts after examining all <span class=\"sym\">n</span> terms (finite), and it works for any finite sequence (general)."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Linear search",
+      "body": [
+        {
+          "type": "p",
+          "text": "A searching problem asks: locate <span class=\"sym\">x</span> in a list <span class=\"sym\">a1, a2, …, an</span> of distinct elements, or report that it is absent. The answer is the position <span class=\"sym\">i</span> where <span class=\"sym\">x = ai</span>, or <span class=\"sym\">0</span> if <span class=\"sym\">x</span> is not present."
+        },
+        {
+          "type": "p",
+          "text": "The linear (sequential) search compares <span class=\"sym\">x</span> with <span class=\"sym\">a1</span>, then <span class=\"sym\">a2</span>, and so on, stopping at the first match. If the whole list is scanned with no match, it returns <span class=\"sym\">0</span>. It works on any list — sorted or not."
+        },
+        {
+          "type": "def",
+          "text": "Linear search: scan terms left to right until <span class=\"sym\">x = ai</span> (return <span class=\"sym\">i</span>) or the list ends (return <span class=\"sym\">0</span>)."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Pseudocode — Algorithm 2",
+          "body": "procedure linear search(<span class=\"sym\">x</span>: integer, <span class=\"sym\">a1, …, an</span>: distinct integers) · <span class=\"sym\">i := 1</span> · while <span class=\"sym\">(i ≤ n and x ≠ ai)</span>: <span class=\"sym\">i := i + 1</span> · if <span class=\"sym\">i ≤ n</span> then <span class=\"sym\">location := i</span> else <span class=\"sym\">location := 0</span> · return <span class=\"sym\">location</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Binary search",
+      "body": [
+        {
+          "type": "p",
+          "text": "Binary search is far more efficient than linear search, but it requires the list to be sorted in increasing order. It compares <span class=\"sym\">x</span> with the middle term, then keeps only the half that could contain <span class=\"sym\">x</span>, repeating until one term remains."
+        },
+        {
+          "type": "p",
+          "text": "With endpoints <span class=\"sym\">i</span> (left) and <span class=\"sym\">j</span> (right), the middle index is <span class=\"sym\">m = ⌊(i + j)/2⌋</span>. If <span class=\"sym\">x &gt; am</span>, search the upper half (<span class=\"sym\">i := m + 1</span>); otherwise the lower half (<span class=\"sym\">j := m</span>). Each round roughly halves the list."
+        },
+        {
+          "type": "p",
+          "text": "Searching for <span class=\"sym\">19</span> in a 16-term list halves it to 8, then 4, then 2, then 1 term — just a handful of comparisons, versus up to 16 for a linear scan."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Pseudocode — Algorithm 3",
+          "body": "procedure binary search(<span class=\"sym\">x</span>: integer, <span class=\"sym\">a1, …, an</span>: increasing integers) · <span class=\"sym\">i := 1</span>; <span class=\"sym\">j := n</span> · while <span class=\"sym\">i &lt; j</span>: <span class=\"sym\">m := ⌊(i + j)/2⌋</span>; if <span class=\"sym\">x &gt; am</span> then <span class=\"sym\">i := m + 1</span> else <span class=\"sym\">j := m</span> · if <span class=\"sym\">x = ai</span> then <span class=\"sym\">location := i</span> else <span class=\"sym\">location := 0</span> · return <span class=\"sym\">location</span>."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Sorting — bubble &amp; insertion",
+      "body": [
+        {
+          "type": "p",
+          "text": "Sorting puts list elements into order (increasing, decreasing, alphabetic). Two simple — if not the fastest — sorts are the bubble sort and the insertion sort."
+        },
+        {
+          "type": "p",
+          "text": "Bubble sort makes repeated passes, comparing adjacent terms and interchanging them if out of order. After pass <span class=\"sym\">i</span>, the <span class=\"sym\">i</span> largest elements have &#x27;bubbled&#x27; to their final places. On <span class=\"sym\">3, 2, 4, 1, 5</span> the first pass yields <span class=\"sym\">2, 3, 1, 4, 5</span>, and continued passes finish the order."
+        },
+        {
+          "type": "p",
+          "text": "Insertion sort takes each term in turn and inserts it into its correct place among the already-sorted terms to its left, using a linear search to find the spot. On <span class=\"sym\">3, 2, 4, 1, 5</span> it produces <span class=\"sym\">2,3,4,1,5</span> then <span class=\"sym\">1,2,3,4,5</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  A[\"3 2 4 1 5\"] --> B[\"2 3 4 1 5\"]\n  B --> C[\"2 3 1 4 5\"]\n  C --> D[\"1 2 3 4 5\"]"
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Greedy algorithms &amp; unsolvable problems",
+      "body": [
+        {
+          "type": "p",
+          "text": "Optimization problems ask for a solution that minimizes or maximizes some value. A greedy algorithm makes the locally best choice at each step. It is called &#x27;greedy&#x27; whether or not that strategy actually reaches an optimum — you must prove optimality or exhibit a counterexample."
+        },
+        {
+          "type": "p",
+          "text": "The cashier&#x27;s algorithm makes change by repeatedly taking the largest coin that fits. For <span class=\"sym\">67</span> cents with quarters, dimes, nickels, pennies it gives <span class=\"sym\">25, 25, 10, 5, 1, 1</span>. With U.S. coins it is provably optimal — but remove the nickel and it fails: for <span class=\"sym\">30</span> cents it returns a quarter and five pennies (6 coins) instead of three dimes."
+        },
+        {
+          "type": "p",
+          "text": "For scheduling the most non-overlapping talks, the criterion that works is earliest finish time — selecting earliest start or shortest talk can be beaten by counterexamples."
+        },
+        {
+          "type": "def",
+          "text": "The halting problem asks for a procedure that decides, for any program and input, whether the program eventually halts. Turing proved in 1936 that no such procedure exists — it is unsolvable. The proof builds <span class=\"sym\">K(P)</span> that does the opposite of <span class=\"sym\">H(P,P)</span>, then runs <span class=\"sym\">K</span> on itself to force a contradiction."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Which statement best defines an algorithm?",
+      "options": [
+        "A finite sequence of precise instructions for performing a computation or solving a problem.",
+        "Any computer program written in Java or C++.",
+        "A mathematical model of a real-world situation.",
+        "A guess that is refined until it happens to work."
+      ],
+      "answer": 0,
+      "explanation": "This is Rosen&#x27;s Definition 1. An algorithm need not be in any particular language — pseudocode or English will do — and it must be finite and precise."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "Binary search can be applied to any list, whether or not its elements are in increasing order.",
+      "answer": false,
+      "explanation": "False. Binary search requires the list to be sorted in increasing order; it relies on comparing with the middle term to discard half the list. Linear search, by contrast, works on any list."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Which property of an algorithm guarantees that it stops after a finite number of steps for every valid input?",
+      "options": [
+        "Finiteness",
+        "Definiteness",
+        "Generality",
+        "Effectiveness"
+      ],
+      "answer": 0,
+      "explanation": "Finiteness is the property that the algorithm produces its output after finitely many steps. Definiteness means steps are precise; effectiveness means each step is doable in finite time; generality means it applies to all inputs of the form."
+    },
+    {
+      "id": "q4",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Complete the binary search step.",
+      "template": "In binary search with left endpoint <span class=\"sym\">i</span> and right endpoint <span class=\"sym\">j</span>, the middle index is computed as <span class=\"sym\">m =</span> [[1]] . If <span class=\"sym\">x &gt; am</span>, the search moves to the [[2]] half of the list.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "floor((i+j)/2)",
+          "acceptable": [
+            "floor((i+j)/2)",
+            "⌊(i+j)/2⌋",
+            "(i+j)/2 floored",
+            "floor (i+j)/2"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "upper",
+          "options": [
+            "upper",
+            "lower"
+          ]
+        }
+      ],
+      "explanation": "The middle index is <span class=\"sym\">m = ⌊(i + j)/2⌋</span>. Because <span class=\"sym\">x &gt; am</span>, every term that could equal <span class=\"sym\">x</span> lies above <span class=\"sym\">am</span>, so the search restricts to the upper half via <span class=\"sym\">i := m + 1</span>."
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "level": 2,
+      "prompt": "The cashier&#x27;s algorithm is optimal for U.S. coins, yet for 30 cents using only quarters, dimes, and pennies (no nickel) it is not. Explain what it returns and what the optimal change is.",
+      "canonical": "Greedy takes a quarter first, leaving 5 cents, which must be five pennies — six coins. The optimal change is three dimes, only three coins.",
+      "acceptable": [
+        "quarter and five pennies",
+        "three dimes",
+        "6 coins vs 3",
+        "quarter plus 5 pennies is worse than three dimes"
+      ],
+      "explanation": "Taking the largest coin first forces a quarter (locally best), leaving 5 cents payable only as five pennies — 6 coins. Three dimes (3 coins) is better, so greedy is not optimal for this coin set."
+    },
+    {
+      "id": "q6",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order these states of the list during the first pass of bubble sort on 3, 2, 4, 1, 5 (compare-and-swap adjacent pairs left to right).",
+      "items": [
+        "3 2 4 1 5",
+        "2 3 4 1 5",
+        "2 3 4 1 5",
+        "2 3 1 4 5",
+        "2 3 1 4 5"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "Start 3 2 4 1 5 → swap 3,2 → 2 3 4 1 5 → 3,4 in order (no swap) → swap 4,1 → 2 3 1 4 5 → 4,5 in order. The largest element 5 is now fixed at the end after one pass."
+    },
+    {
+      "id": "q7",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "To schedule the greatest number of non-overlapping talks, which greedy selection criterion is provably optimal?",
+      "options": [
+        "Always add the compatible talk with the earliest finish time.",
+        "Always add the compatible talk with the earliest start time.",
+        "Always add the shortest compatible talk.",
+        "Always add the longest compatible talk."
+      ],
+      "answer": 0,
+      "explanation": "Earliest-finish-time is optimal (proved later by induction). Earliest-start and shortest-talk both have counterexamples where they schedule fewer talks than possible."
+    },
+    {
+      "id": "q8",
+      "type": "tf",
+      "level": 2,
+      "prompt": "An algorithm is called &#x27;greedy&#x27; only if its locally optimal choices are guaranteed to produce a globally optimal solution.",
+      "answer": false,
+      "explanation": "False. An algorithm is greedy if it makes the best choice at each step, whether or not the result is globally optimal. Optimality must be proven separately, and sometimes a counterexample shows it fails."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "What did Alan Turing establish about the halting problem in 1936?",
+      "options": [
+        "No algorithm can decide, for every program and input, whether the program halts — it is unsolvable.",
+        "Every program either halts or can be made to halt by adding a timer.",
+        "The halting problem can be solved in exponential time but not polynomial time.",
+        "Only programs that call themselves can fail to halt."
+      ],
+      "answer": 0,
+      "explanation": "The halting problem is unsolvable: assuming a decider <span class=\"sym\">H(P,I)</span> exists leads to a contradiction by constructing <span class=\"sym\">K(P)</span> that does the opposite of <span class=\"sym\">H(P,P)</span> and running <span class=\"sym\">K</span> on itself."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "In Turing&#x27;s proof, the procedure K(P) is built from H(P,P). Describe what K does and why running K on itself is contradictory.",
+      "canonical": "K(P) loops forever when H says P halts, and halts when H says P loops. Running K(K): if H(K,K) says 'halts' then K(K) loops, but H claimed it halts — a contradiction; the symmetric case fails too. So H cannot exist.",
+      "acceptable": [
+        "K does the opposite of H(P,P)",
+        "K(K) leads to a contradiction",
+        "if it halts it loops and vice versa"
+      ],
+      "explanation": "K(P) does the opposite of H(P,P): halt when H says &#x27;loops forever&#x27;, loop when H says &#x27;halts&#x27;. Feeding K to itself makes H(K,K) wrong in both cases, so the assumed decider H cannot exist."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Compare the two searches.",
+      "template": "On a sorted list, [[1]] search discards half the remaining list at each step, while [[2]] search may examine every term. The first works only on [[3]] lists.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "answer": "binary",
+          "options": [
+            "binary",
+            "linear"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "linear",
+          "options": [
+            "binary",
+            "linear"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "sorted",
+          "acceptable": [
+            "sorted",
+            "ordered",
+            "increasing",
+            "sorted (ordered)"
+          ]
+        }
+      ],
+      "explanation": "Binary search halves the list per step but needs a sorted (increasing) list; linear search scans term by term and works on any list."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

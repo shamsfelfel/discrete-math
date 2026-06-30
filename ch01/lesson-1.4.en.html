@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.4 Predicates and Quantifiers — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 1</a> &nbsp;›&nbsp;
+    <span id="crumb-current">1.4</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-1.4.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…"
+};
+window.LESSON_DATA = {
+  "id": "1.4",
+  "chapter": "1",
+  "title": "Predicates and Quantifiers",
+  "lede": "Propositional logic cannot say things like “every student passed” or “some integer is prime.” Predicates introduce variables that range over a domain, and quantifiers (∀ “for all,” ∃ “there exists”) bind those variables. Together they give us the language of mathematics.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Predicates and propositional functions",
+      "body": [
+        {
+          "type": "p",
+          "text": "An expression like “@x@ is greater than 3” is not yet a proposition — its truth value depends on what @x@ stands for. We call this a predicate, written @P(x)@. Once @x@ is given a specific value, @P(x)@ becomes a proposition with a definite truth value."
+        },
+        {
+          "type": "def",
+          "text": "A predicate (or propositional function) @P(x)@ assigns a truth value to each element @x@ in some domain. If we plug a value into @P@, we get a proposition. Predicates can have multiple arguments: @Q(x,y)@, @R(x,y,z)@, etc."
+        },
+        {
+          "type": "p",
+          "text": "The set of values @x@ can take is called the domain of discourse (or just the domain). The same predicate over different domains can have different truth values."
+        }
+      ],
+      "examples": [
+        {
+          "label": "One-argument predicate",
+          "body": "Let @P(x)@ = “@x@ > 3”. Then @P(4)@ is the proposition “4 > 3” (true) and @P(2)@ is “2 > 3” (false)."
+        },
+        {
+          "label": "Two-argument predicate",
+          "body": "Let @Q(x,y)@ = “@x@ + @y@ = 5”. @Q(2,3)@ is true; @Q(1,1)@ is false."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "The universal quantifier ∀",
+      "body": [
+        {
+          "type": "def",
+          "text": "The universal quantification of @P(x)@ is the statement “@P(x)@ for every @x@ in the domain,” written @∀x P(x)@. It is true when @P(a)@ is true for every element @a@ in the domain, and false if even one element makes @P@ false. Such an element is called a counterexample."
+        },
+        {
+          "type": "p",
+          "text": "Read @∀x@ as “for all @x@” or “for every @x@.” The domain MUST be specified (or be clear from context); the same statement can be true over one domain and false over another."
+        }
+      ],
+      "examples": [
+        {
+          "label": "True over one domain, false over another",
+          "body": "@∀x (x^2 ≥ 0)@ is true when the domain is the real numbers, but @∀x (x^2 > 0)@ is FALSE over the reals (counterexample: @x@ = 0)."
+        },
+        {
+          "label": "Disproving with a counterexample",
+          "body": "Claim: @∀n (n^2 > n)@ over positive integers. Counterexample: @n@ = 1, since @1^2 = 1@ is not greater than 1."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "The existential quantifier ∃",
+      "body": [
+        {
+          "type": "def",
+          "text": "The existential quantification of @P(x)@ is the statement “there exists an @x@ in the domain such that @P(x)@,” written @∃x P(x)@. It is true when @P(a)@ holds for at least one element @a@ in the domain, and false only when @P@ fails for every element."
+        },
+        {
+          "type": "p",
+          "text": "Read @∃x@ as “there is an @x@,” “there exists @x@,” or “for some @x@.” To prove @∃x P(x)@, exhibit one element @a@ such that @P(a)@ is true (this is a constructive proof of existence)."
+        },
+        {
+          "type": "p",
+          "text": "There is also the uniqueness quantifier @∃! x P(x)@, meaning “there exists exactly one @x@ such that @P(x)@.” It is shorthand for @∃x (P(x) ∧ ∀y (P(y) → y = x))@."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Witnessing existence",
+          "body": "@∃x (x^2 = 2)@ over the real numbers is true, witnessed by @x = √2@. Over the rationals, the same statement is false — there is no rational @x@ with @x^2 = 2@."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Truth values summary",
+      "body": [
+        {
+          "type": "p",
+          "text": "When the domain consists of @x_1, x_2, …, x_n@:"
+        },
+        {
+          "type": "truthTable",
+          "headers": [
+            "Statement",
+            "When true",
+            "When false"
+          ],
+          "rows": [
+            [
+              "∀x P(x)",
+              "P(x_i) true for every x_i",
+              "P(x_i) false for some x_i"
+            ],
+            [
+              "∃x P(x)",
+              "P(x_i) true for some x_i",
+              "P(x_i) false for every x_i"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Mnemonic: ∀ acts like a big AND across the domain, and ∃ acts like a big OR. This intuition makes negation rules easy to remember."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Empty domain convention",
+          "body": "@∀x P(x)@ over an empty domain is conventionally TRUE (vacuously — there are no counterexamples). @∃x P(x)@ over an empty domain is FALSE (there is nothing to witness it)."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Free vs. bound variables; scope",
+      "body": [
+        {
+          "type": "p",
+          "text": "When a quantifier @∀x@ or @∃x@ is applied, every occurrence of @x@ within its scope becomes bound. Variables not bound by any quantifier or fixed value are called free."
+        },
+        {
+          "type": "def",
+          "text": "The scope of a quantifier is the part of the formula it applies to (often the immediately following parenthesized expression). All variables in a propositional function must be bound or assigned a value to turn it into a proposition."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Mixed binding",
+          "body": "In @∃x(x + y = 1)@, @x@ is bound by @∃@ but @y@ is free. The whole expression is not yet a proposition; it depends on @y@."
+        },
+        {
+          "label": "Disjoint scopes",
+          "body": "@∃x(P(x) ∧ Q(x)) ∨ ∀x R(x)@ — the two @x@'s are different bound variables; renaming one to @y@ doesn't change the meaning."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "De Morgan's laws for quantifiers",
+      "body": [
+        {
+          "type": "def",
+          "text": "@¬∀x P(x) ≡ ∃x ¬P(x)@ — “not every @x@ has @P@” means “some @x@ does not have @P@.”"
+        },
+        {
+          "type": "def",
+          "text": "@¬∃x P(x) ≡ ∀x ¬P(x)@ — “no @x@ has @P@” means “every @x@ fails to have @P@.”"
+        },
+        {
+          "type": "p",
+          "text": "These are exactly De Morgan's laws extended to the quantifier setting. Negation crosses a quantifier by flipping it (@∀@ ↔ @∃@) and pushing the negation inside."
+        },
+        {
+          "type": "mermaid",
+          "code": "flowchart LR\n  A[\"¬∀x P(x)\"] --> B[\"∃x ¬P(x)\"]\n  C[\"¬∃x P(x)\"] --> D[\"∀x ¬P(x)\"]"
+        }
+      ],
+      "examples": [
+        {
+          "label": "Negating an English statement",
+          "body": "Statement: “Every student in your class has taken calculus.” Symbolically: @∀x P(x)@. Negation: @∃x ¬P(x)@ — “Some student in your class has not taken calculus.”"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "tf",
+      "level": 1,
+      "prompt": "True or False: The expression “@x@ + 2 = 5” (with @x@ over the integers) is a proposition.",
+      "answer": false,
+      "explanation": "Its truth depends on @x@. It is a predicate @P(x)@. Once @x@ is given a value (e.g. @P(3)@), it becomes a proposition.",
+      "moreExamples": [
+        {
+          "label": "It becomes a proposition",
+          "body": "@P(3)@ = “3 + 2 = 5” is the proposition “5 = 5” (true)."
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Let @P(x)@ = “@x@ is even,” with the domain being the positive integers. What is the truth value of @P(7)@?",
+      "options": [
+        "True",
+        "False",
+        "Cannot be determined",
+        "Both"
+      ],
+      "answer": 1,
+      "explanation": "7 is odd, so @P(7)@ = “7 is even” is false. Plugging a value in turns the predicate into a definite proposition.",
+      "moreExamples": [
+        {
+          "label": "Universal claim",
+          "body": "@∀x P(x)@ over positive integers is false (counterexample: @x@ = 7). @∃x P(x)@ is true (witness: @x@ = 2)."
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Let the domain be @{1, 2, 3, 4}@ and @P(x)@ = “@x ≤ 4@.” Which is true?",
+      "options": [
+        "@∀x P(x)@ is true",
+        "@∀x P(x)@ is false",
+        "@P@ has no truth value",
+        "@∃x P(x)@ is false"
+      ],
+      "answer": 0,
+      "explanation": "Every element of the domain satisfies @x ≤ 4@. So @∀x P(x)@ is true.",
+      "moreExamples": [
+        {
+          "label": "Change one thing",
+          "body": "If we expand the domain to @{1, 2, 3, 4, 5}@, then @∀x P(x)@ becomes false (counterexample: @x = 5@)."
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 2,
+      "prompt": "True or False: Over the real numbers, @∃x (x^2 < 0)@ is true.",
+      "answer": false,
+      "explanation": "Squaring any real number gives a nonnegative result, so no real @x@ makes @x^2 < 0@. The statement is false. (Over the complex numbers it would be true — e.g. @i^2 = -1@.)",
+      "moreExamples": [
+        {
+          "label": "Domain matters",
+          "body": "Same statement over @ℂ@ (complex numbers): true, witnessed by @i@."
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "level": 2,
+      "prompt": "Write the negation of @∀x P(x)@ so that no negation appears outside any quantifier. Use the symbol palette.",
+      "palette": [
+        "¬",
+        "∀",
+        "∃",
+        "P(x)",
+        "x"
+      ],
+      "acceptable": [
+        "∃x ¬P(x)",
+        "∃x¬P(x)",
+        "∃x ~P(x)",
+        "∃x !P(x)"
+      ],
+      "canonical": "∃x ¬P(x)",
+      "explanation": "By De Morgan for quantifiers, @¬∀x P(x) ≡ ∃x ¬P(x)@. The @∀@ flips to @∃@, and the negation moves inside to attach to the predicate.",
+      "moreExamples": [
+        {
+          "label": "Mirror law",
+          "body": "@¬∃x P(x) ≡ ∀x ¬P(x)@."
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "Translate “Some student in this class is from Cairo” into logic. Let the domain be students in this class and let @C(x)@ = “@x@ is from Cairo.”",
+      "options": [
+        "@∀x C(x)@",
+        "@∃x C(x)@",
+        "@∀x ¬C(x)@",
+        "@∃x ¬C(x)@"
+      ],
+      "answer": 1,
+      "explanation": "“Some …” corresponds to @∃@. The claim is that at least one student in this class is from Cairo.",
+      "moreExamples": [
+        {
+          "label": "Negation",
+          "body": "Negation: @¬∃x C(x) ≡ ∀x ¬C(x)@ = “No student in this class is from Cairo.”"
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps to negate “All mathematicians wear glasses” into an equivalent positive form.",
+      "items": [
+        "Symbolize: ∀x (M(x) → G(x))",
+        "Negate the whole statement: ¬∀x (M(x) → G(x))",
+        "Apply De Morgan for ∀: ∃x ¬(M(x) → G(x))",
+        "Rewrite the negated conditional: ∃x (M(x) ∧ ¬G(x))",
+        "Read it back: “There is a mathematician who does not wear glasses.”"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "Symbolize first, then push the negation across the quantifier and the conditional. The result is a clean positive form: existence of a counterexample.",
+      "moreExamples": [
+        {
+          "label": "Pattern",
+          "body": "To disprove “all A are B,” find one A that isn't B — ∃x (A(x) ∧ ¬B(x))."
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Identify which variable is bound and which is free in each expression.",
+      "template": "In @∃x (x + y = 1)@: @x@ is [[1]], @y@ is [[2]].\nIn @∀x P(x) ∨ Q(x)@ (no parentheses): the @x@ in @P(x)@ is [[3]], the @x@ in @Q(x)@ is [[4]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "options": [
+            "bound",
+            "free"
+          ],
+          "answer": "bound"
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "options": [
+            "bound",
+            "free"
+          ],
+          "answer": "free"
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "options": [
+            "bound",
+            "free"
+          ],
+          "answer": "bound"
+        },
+        {
+          "id": "4",
+          "type": "select",
+          "options": [
+            "bound",
+            "free"
+          ],
+          "answer": "free"
+        }
+      ],
+      "explanation": "A variable is bound when a quantifier has it in scope. In @∀x P(x) ∨ Q(x)@, the @∀x@ scopes only over @P(x)@ — not over @Q(x)@ — so the @x@ in @Q(x)@ is free. Always parenthesize: @∀x (P(x) ∨ Q(x))@ would bind both.",
+      "moreExamples": [
+        {
+          "label": "Why scope matters",
+          "body": "Free variables must be bound or given values before a propositional function becomes a proposition."
+        }
+      ]
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "Let the domain be the integers. Which statement is FALSE?",
+      "options": [
+        "@∀x ∃y (x + y = 0)@",
+        "@∃y ∀x (x + y = 0)@",
+        "@∀x (x · 1 = x)@",
+        "@∃x (x^2 = 4)@"
+      ],
+      "answer": 1,
+      "explanation": "@∃y ∀x (x + y = 0)@ asserts a single @y@ that works for every @x@ — impossible since @y@ would have to equal @-x@ for every @x@. (Lesson 1.5 explores this in detail.) The other three are all true.",
+      "moreExamples": [
+        {
+          "label": "Order matters",
+          "body": "@∀x ∃y@ allows @y@ to depend on @x@; @∃y ∀x@ demands a single @y@ that works uniformly."
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Translate “Every integer is the sum of two squares” into logic, and provide the negation. Let @S(x,y,z)@ = “@x = y^2 + z^2@.” Domain: integers.",
+      "template": "Original: @∀x [[1]]@\nNegation (no ¬ outside quantifiers): @∃x [[2]]@",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "∃y ∃z S(x,y,z)",
+          "acceptable": [
+            "∃y∃z S(x,y,z)",
+            "∃y ∃z (S(x,y,z))",
+            "∃y∃zS(x,y,z)",
+            "∃y ∃z S(x, y, z)",
+            "∃y ∃z s(x,y,z)"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "∀y ∀z ¬S(x,y,z)",
+          "acceptable": [
+            "∀y∀z¬S(x,y,z)",
+            "∀y ∀z ¬S(x,y,z)",
+            "∀y∀z !S(x,y,z)",
+            "∀y ∀z ~S(x,y,z)",
+            "∀y ∀z ¬ S(x,y,z)"
+          ]
+        }
+      ],
+      "explanation": "“Is the sum of two squares” means there exist @y, z@ such that @x = y^2 + z^2@: @∃y ∃z S(x,y,z)@. Negating @∀x ∃y ∃z S@ pushes ¬ inward by repeatedly applying De Morgan: ∀ → ∃, ∃ → ∀, ∃ → ∀, leaving ¬ on @S@.",
+      "moreExamples": [
+        {
+          "label": "Counterexample to original",
+          "body": "@x = 3@ is not the sum of two squares. So the original is false; the negation is true with @x = 3@ as witness."
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "reorder",
+      "level": 3,
+      "prompt": "Order the steps to negate “There is a perfect politician” into a positive equivalent. Let @P(x)@ = “@x@ is a perfect politician.”",
+      "items": [
+        "Symbolize: ∃x P(x)",
+        "Negate: ¬∃x P(x)",
+        "Apply De Morgan for ∃: ∀x ¬P(x)",
+        "Read back: “Every politician is imperfect.”"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "@¬∃x P(x) ≡ ∀x ¬P(x)@. The @∃@ flips to @∀@, and the negation goes onto the predicate.",
+      "moreExamples": [
+        {
+          "label": "English subtlety",
+          "body": "\"All politicians are not perfect\" in everyday English often means \"not all are\" — ambiguous! The unambiguous form is \"no politician is perfect\" or \"every politician is imperfect.\""
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "tf",
+      "level": 3,
+      "prompt": "True or False: Over the real numbers, @∀x (P(x) ∨ Q(x))@ is logically equivalent to @∀x P(x) ∨ ∀x Q(x)@.",
+      "answer": false,
+      "explanation": "Counterexample: let the domain be @{1, 2}@, @P@ true at 1 only, @Q@ true at 2 only. Then @∀x (P(x) ∨ Q(x))@ is true (every element satisfies @P@ or @Q@), but neither @∀x P(x)@ nor @∀x Q(x)@ is true individually. (∀ distributes over ∧ but NOT over ∨.)",
+      "moreExamples": [
+        {
+          "label": "What does distribute",
+          "body": "@∀x (P(x) ∧ Q(x)) ≡ ∀x P(x) ∧ ∀x Q(x)@. And @∃x (P(x) ∨ Q(x)) ≡ ∃x P(x) ∨ ∃x Q(x)@."
+        }
+      ]
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

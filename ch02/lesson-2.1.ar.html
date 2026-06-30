@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.1 المجموعات — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٢</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٢٫١</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-2.1.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "conceptsSub": "اقرأ كل بطاقة، ثم حاول حل الأسئلة في الأسفل.",
+  "practiceSub": "الإجابات مخفية — أرسل كل إجابة ثم اكشف التغذية الراجعة.",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fill": "إكمال الفراغ",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": {
+    "basic": "أساسي",
+    "applied": "تطبيقي",
+    "challenge": "تحدٍّ"
+  },
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولًا.",
+  "typeFirst": "اكتب إجابة أولًا.",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "2.1",
+  "title": "المجموعات",
+  "subtitle": "تجميعات من عناصر متمايزة — الأساس الذي تُبنى عليه كل بنية متقطعة.",
+  "cards": [
+    {
+      "title": "ما المجموعة؟",
+      "blocks": [
+        {
+          "def": {
+            "term": "المجموعة",
+            "text": "المجموعة تجميعٌ غير مرتَّب من عناصر متمايزة تُسمّى عناصر المجموعة أو أفرادها، ويُقال إن المجموعة تحتوي عناصرها."
+          }
+        },
+        {
+          "p": "إذا كان <span class=\"sym\">a</span> عنصرًا في المجموعة <span class=\"sym\">A</span> نكتب <span class=\"sym\">a ∈ A</span>؛ وإن لم يكن كذلك نكتب <span class=\"sym\">a ∉ A</span>. ما يميّز المجموعة عن القائمة أمران: الترتيب لا يهمّ، والتكرار لا يهمّ."
+        },
+        {
+          "ul": [
+            "طريقة السرد — نعدّ العناصر: <span class=\"sym\">V = {a, e, i, o, u}</span>.",
+            "صياغة البناء — نذكر خاصيّة: <span class=\"sym\">O = {x | x عدد فردي موجب أصغر من 10}</span>، وتُقرأ «مجموعة كل <span class=\"sym\">x</span> بحيث …»."
+          ]
+        },
+        {
+          "p": "بما أن العناصر متمايزة وغير مرتَّبة، فإن <span class=\"sym\">{1, 3, 5} = {3, 5, 1} = {1, 1, 3, 5}</span> — كلها تسمّي المجموعة نفسها."
+        },
+        {
+          "note": {
+            "kind": "tip",
+            "text": "صياغة البناء ضرورية حين تكون المجموعة لا نهائية أو أكبر من أن تُسرد، مثل <span class=\"sym\">Q = {p/q | p ∈ Z, q ∈ Z, q ≠ 0}</span>."
+          }
+        }
+      ]
+    },
+    {
+      "title": "مجموعات الأعداد القياسية",
+      "blocks": [
+        {
+          "p": "تتكرّر بعض المجموعات كثيرًا حتى خُصِّصت لها رموز محجوزة:"
+        },
+        {
+          "table": {
+            "head": [
+              "الرمز",
+              "المجموعة"
+            ],
+            "rows": [
+              [
+                "<span class=\"sym\">N</span>",
+                "الأعداد الطبيعية <span class=\"sym\">{0, 1, 2, 3, …}</span>"
+              ],
+              [
+                "<span class=\"sym\">Z</span>",
+                "الأعداد الصحيحة <span class=\"sym\">{…, -2, -1, 0, 1, 2, …}</span>"
+              ],
+              [
+                "<span class=\"sym\">Z⁺</span>",
+                "الأعداد الصحيحة الموجبة <span class=\"sym\">{1, 2, 3, …}</span>"
+              ],
+              [
+                "<span class=\"sym\">Q</span>",
+                "الأعداد النسبية <span class=\"sym\">{p/q | p, q ∈ Z, q ≠ 0}</span>"
+              ],
+              [
+                "<span class=\"sym\">R</span>",
+                "الأعداد الحقيقية"
+              ],
+              [
+                "<span class=\"sym\">R⁺</span>",
+                "الأعداد الحقيقية الموجبة"
+              ],
+              [
+                "<span class=\"sym\">C</span>",
+                "الأعداد المركّبة"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "لأعداد حقيقية <span class=\"sym\">a &lt; b</span>، الفترات مجموعات أيضًا: <span class=\"sym\">[a, b] = {x | a ≤ x ≤ b}</span> (مغلقة)، <span class=\"sym\">(a, b) = {x | a &lt; x &lt; b}</span> (مفتوحة)، إضافةً إلى نصف المفتوحة <span class=\"sym\">[a, b)</span> و <span class=\"sym\">(a, b]</span>."
+        }
+      ]
+    },
+    {
+      "title": "التساوي، والمجموعة الخالية، ومخطّطات فِن",
+      "blocks": [
+        {
+          "def": {
+            "term": "تساوي المجموعتين",
+            "text": "تتساوى A وB، ونكتب A = B، إذا وفقط إذا كان لهما العناصر نفسها تمامًا: ∀x (x ∈ A ↔ x ∈ B)."
+          }
+        },
+        {
+          "p": "<span class=\"sym\">المجموعة الخالية</span>، وتُكتب <span class=\"sym\">∅</span> أو <span class=\"sym\">{}</span>، لا تحتوي أيّ عنصر، وهي وحيدة."
+        },
+        {
+          "note": {
+            "kind": "warn",
+            "text": "لا تخلط بين <span class=\"sym\">∅</span> و <span class=\"sym\">{∅}</span>. الأولى خالية؛ والثانية مجموعة فيها عنصر واحد هو المجموعة الخالية، فيكون <span class=\"sym\">|{∅}| = 1</span>."
+          }
+        },
+        {
+          "p": "يُظهر <span class=\"sym\">مخطّط فِن</span> المجموعات كمناطق داخل مستطيل يمثّل <span class=\"sym\">المجموعة الشاملة U</span> — أي كل ما هو قيد النقاش."
+        }
+      ]
+    },
+    {
+      "title": "المجموعات الجزئية والجزئية الحقيقية",
+      "blocks": [
+        {
+          "def": {
+            "term": "المجموعة الجزئية",
+            "text": "A مجموعة جزئية من B، ونكتب A ⊆ B، إذا وفقط إذا كان كل عنصر في A عنصرًا في B أيضًا: ∀x (x ∈ A → x ∈ B)."
+          }
+        },
+        {
+          "p": "إذا كان <span class=\"sym\">A ⊆ B</span> لكن <span class=\"sym\">A ≠ B</span>، فإن <span class=\"sym\">A</span> <span class=\"sym\">مجموعة جزئية حقيقية</span>: <span class=\"sym\">A ⊂ B</span>."
+        },
+        {
+          "example": {
+            "title": "المبرهنة 1 (روزن)",
+            "blocks": [
+              {
+                "p": "لكل مجموعة <span class=\"sym\">S</span>: (i) <span class=\"sym\">∅ ⊆ S</span> و (ii) <span class=\"sym\">S ⊆ S</span>."
+              },
+              {
+                "p": "الجزء (i) يتحقّق على نحوٍ فارغ: العبارة <span class=\"sym\">x ∈ ∅</span> خاطئة دائمًا، فيكون <span class=\"sym\">x ∈ ∅ → x ∈ S</span> صحيحًا دائمًا."
+              }
+            ]
+          }
+        },
+        {
+          "p": "لإثبات تساوي مجموعتين، نُثبت الاحتواء في الاتجاهين: <span class=\"sym\">A = B</span> بالضبط حين <span class=\"sym\">A ⊆ B</span> و <span class=\"sym\">B ⊆ A</span>."
+        }
+      ]
+    },
+    {
+      "title": "العدد الأصليّ ومجموعة القوة",
+      "blocks": [
+        {
+          "def": {
+            "term": "العدد الأصليّ (Cardinality)",
+            "text": "إذا كان للمجموعة S عددٌ صحيحٌ غير سالب n من العناصر المتمايزة، فهي منتهية وعددها الأصليّ |S| = n. والمجموعة غير المنتهية لا نهائية."
+          }
+        },
+        {
+          "def": {
+            "term": "مجموعة القوة",
+            "text": "مجموعة القوة لـ S، وتُكتب P(S)، هي مجموعة كل المجموعات الجزئية من S."
+          }
+        },
+        {
+          "p": "إذا كان <span class=\"sym\">|S| = n</span> فإن <span class=\"sym\">|P(S)| = 2ⁿ</span>، لأن كل عنصر إمّا داخل المجموعة الجزئية أو خارجها باستقلال."
+        },
+        {
+          "example": {
+            "title": "مثال",
+            "blocks": [
+              {
+                "p": "<span class=\"sym\">P(∅) = {∅}</span> — مجموعة جزئية واحدة. <span class=\"sym\">P({a}) = {∅, {a}}</span> — اثنتان. <span class=\"sym\">P({a, b}) = {∅, {a}, {b}, {a, b}}</span> — أربع."
+              }
+            ]
+          }
+        },
+        {
+          "mermaid": "graph BT\n  E[\"∅\"] --> A[\"{a}\"]\n  E --> B[\"{b}\"]\n  A --> AB[\"{a, b}\"]\n  B --> AB"
+        }
+      ]
+    },
+    {
+      "title": "الجداء الديكارتيّ والمرتَّبات",
+      "blocks": [
+        {
+          "def": {
+            "term": "المرتَّبة من المرتبة n",
+            "text": "المرتَّبة (a₁, a₂, …, aₙ) تجميعٌ مرتَّب فيه a₁ أولًا ثم a₂ ثانيًا … وaₙ أخيرًا. تتساوى مرتَّبتان إذا تساوت مركّباتهما المتناظرة."
+          }
+        },
+        {
+          "def": {
+            "term": "الجداء الديكارتيّ",
+            "text": "A × B = {(a, b) | a ∈ A ∧ b ∈ B}، أي مجموعة كل الأزواج المرتَّبة التي مركّبها الأول في A والثاني في B."
+          }
+        },
+        {
+          "p": "الترتيب مهمّ، لذا <span class=\"sym\">A × B ≠ B × A</span> عمومًا. وللمجموعات المنتهية <span class=\"sym\">|A × B| = |A| · |B|</span>، وبصورة أعمّ <span class=\"sym\">|A₁ × A₂ × … × Aₙ| = |A₁| · |A₂| · … · |Aₙ|</span>. ونكتب <span class=\"sym\">A² = A × A</span> و <span class=\"sym\">Aⁿ</span> للجداء n-مرّات."
+        },
+        {
+          "p": "للمحمول <span class=\"sym\">P</span> على مجال <span class=\"sym\">D</span> <span class=\"sym\">مجموعة صدق</span> <span class=\"sym\">{x ∈ D | P(x)}</span> — أي العناصر التي تجعله صحيحًا."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "أيّ عبارة صحيحة عن المجموعة <span class=\"sym\">{2, 2, 4, 6}</span>؟",
+      "options": [
+        "لها 4 عناصر",
+        "تساوي <span class=\"sym\">{2, 4, 6}</span>",
+        "مرتَّبة فيأتي <span class=\"sym\">2</span> أولًا",
+        "ليست مجموعة صحيحة"
+      ],
+      "answer": 1,
+      "explain": "التكرار لا يهمّ، فـ <span class=\"sym\">{2, 2, 4, 6} = {2, 4, 6}</span> وعددها الأصليّ 3."
+    },
+    {
+      "type": "tf",
+      "level": "basic",
+      "q": "<span class=\"sym\">∅ = {∅}</span>.",
+      "answer": false,
+      "explain": "<span class=\"sym\">∅</span> خالية؛ و <span class=\"sym\">{∅}</span> فيها عنصر واحد (المجموعة الخالية)، فـ <span class=\"sym\">|{∅}| = 1</span>. هما مجموعتان مختلفتان."
+    },
+    {
+      "type": "mcq",
+      "level": "basic",
+      "q": "أيّ رمز يدلّ على مجموعة الأعداد الصحيحة؟",
+      "options": [
+        "<span class=\"sym\">N</span>",
+        "<span class=\"sym\">Z</span>",
+        "<span class=\"sym\">Q</span>",
+        "<span class=\"sym\">R</span>"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">Z</span> للأعداد الصحيحة؛ و <span class=\"sym\">N</span> للطبيعية و <span class=\"sym\">Q</span> للنسبية و <span class=\"sym\">R</span> للحقيقية."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "في صياغة البناء، تُقرأ <span class=\"sym\">{x | P(x)}</span> «مجموعة كل [[1]] بحيث يتحقّق [[2]]».",
+      "blanks": [
+        "x",
+        "P(x)"
+      ],
+      "explain": "يفصل الشريط بين المتغيّر وخاصيّة الانتماء <span class=\"sym\">P</span>."
+    },
+    {
+      "type": "short",
+      "level": "applied",
+      "q": "اذكر كل عناصر <span class=\"sym\">P({a, b})</span>.",
+      "answer": "<span class=\"sym\">∅</span> و <span class=\"sym\">{a}</span> و <span class=\"sym\">{b}</span> و <span class=\"sym\">{a, b}</span> — أربع مجموعات جزئية، لأن <span class=\"sym\">|P({a,b})| = 2² = 4</span>.",
+      "explain": "تتضمّن مجموعة القوة دائمًا <span class=\"sym\">∅</span> والمجموعة نفسها."
+    },
+    {
+      "type": "tf",
+      "level": "applied",
+      "q": "لكل مجموعة <span class=\"sym\">S</span> يكون <span class=\"sym\">∅ ⊆ S</span>.",
+      "answer": true,
+      "explain": "صحيح على نحوٍ فارغ: <span class=\"sym\">x ∈ ∅</span> خاطئة، فـ <span class=\"sym\">x ∈ ∅ → x ∈ S</span> صحيحة دائمًا (المبرهنة 1)."
+    },
+    {
+      "type": "mcq",
+      "level": "applied",
+      "q": "إذا كان <span class=\"sym\">|A| = 3</span> و <span class=\"sym\">|B| = 4</span> فإن <span class=\"sym\">|A × B|</span> يساوي:",
+      "options": [
+        "7",
+        "12",
+        "<span class=\"sym\">2³</span>",
+        "81"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">|A × B| = |A| · |B| = 3 · 4 = 12</span>."
+    },
+    {
+      "type": "fill",
+      "level": "applied",
+      "q": "إذا كان <span class=\"sym\">|S| = n</span> فإن <span class=\"sym\">|P(S)| =</span> [[1]].",
+      "blanks": [
+        [
+          "2^n",
+          "2ⁿ",
+          "2**n"
+        ]
+      ],
+      "explain": "كل عنصر إمّا داخل المجموعة الجزئية أو خارجها، فينتج <span class=\"sym\">2ⁿ</span> مجموعة جزئية."
+    },
+    {
+      "type": "short",
+      "level": "challenge",
+      "q": "وضّح لماذا الادّعاء <span class=\"sym\">{1, 2} × {1, 2} ≠ {1, 2}²</span> خاطئ — أي لماذا الطرفان متساويان.",
+      "answer": "<span class=\"sym\">A²</span> معرّف بأنه <span class=\"sym\">A × A</span>، فـ <span class=\"sym\">{1,2}² = {1,2} × {1,2} = {(1,1),(1,2),(2,1),(2,2)}</span>. هما المجموعة نفسها بالتعريف.",
+      "explain": "<span class=\"sym\">Aⁿ</span> اختصارٌ للجداء الديكارتيّ n-مرّات."
+    },
+    {
+      "type": "reorder",
+      "level": "challenge",
+      "q": "رتّب الخطوات لإثبات <span class=\"sym\">A = B</span> بالاحتواء المزدوج.",
+      "items": [
+        "افترض <span class=\"sym\">x ∈ A</span> واستنتج <span class=\"sym\">x ∈ B</span>، فيثبت <span class=\"sym\">A ⊆ B</span>.",
+        "افترض <span class=\"sym\">x ∈ B</span> واستنتج <span class=\"sym\">x ∈ A</span>، فيثبت <span class=\"sym\">B ⊆ A</span>.",
+        "اجمع <span class=\"sym\">A ⊆ B</span> و <span class=\"sym\">B ⊆ A</span> لتخلص إلى <span class=\"sym\">A = B</span>."
+      ],
+      "explain": "يُثبت تساوي المجموعتين بإظهار أن كلًّا منهما جزئية من الأخرى."
+    },
+    {
+      "type": "mcq",
+      "level": "challenge",
+      "q": "كم عنصرًا في <span class=\"sym\">P(P(∅))</span>؟",
+      "options": [
+        "1",
+        "2",
+        "4",
+        "0"
+      ],
+      "answer": 1,
+      "explain": "<span class=\"sym\">P(∅) = {∅}</span> فيها عنصر واحد، فـ <span class=\"sym\">P(P(∅)) = P({∅}) = {∅, {∅}}</span> فيها <span class=\"sym\">2¹ = 2</span> عنصرين."
+    }
+  ],
+  "lang": "ar"
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.1 Propositional Logic — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 1</a> &nbsp;›&nbsp;
+    <span id="crumb-current">1.1</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-1.1.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  siteTitle: 'Discrete Mathematics',
+  kickerPrefix: 'Chapter', lesson: 'Lesson',
+  q: 'Q', step: 'Step', symbols: 'Symbols',
+  qTypes: { mcq: 'MCQ', tf: 'True / False', short: 'Short Answer', reorder: 'Reorder', fillblank: 'Fill in Blank' },
+  qLevels: ['Basic', 'Applied', 'Challenge'],
+  btnCheck: 'Check answer', btnReveal: 'Show answer', btnHint: 'Hint', btnMore: 'More examples',
+  true: 'True', false: 'False',
+  correct: 'Correct.', wrong: 'Not quite.',
+  expected: 'Expected:', answer: 'Answer', hint: 'Hint:',
+  selectFirst: 'Select an option first.', typeFirst: 'Type an answer first.',
+  typeAnswer: 'Type your answer…'
+};
+
+window.LESSON_DATA = {
+  id: '1.1',
+  chapter: '1',
+  title: 'Propositional Logic',
+  lede: 'Propositions are the atoms of mathematical reasoning — declarative statements that are either true or false. By combining them with logical connectives, we build the precise language of mathematics, computer science, and automated reasoning.',
+  concepts: [
+    {
+      id: 'c1',
+      title: 'Propositions',
+      body: [
+        { type: 'p', text: 'A proposition is a declarative sentence that is either true or false — but not both. Questions, commands, and statements with unknown truth values are not propositions.' },
+        { type: 'def', text: 'Definition. A proposition is a declarative sentence (a sentence that declares a fact) that is either true or false, but not both.' },
+        { type: 'p', text: 'We use lowercase letters such as @p@, @q@, @r@ as propositional variables to stand for propositions. Each has a truth value: T (true) or F (false).' }
+      ],
+      examples: [
+        { label: 'Propositions', body: '“Toronto is the capital of Canada.” is a proposition (false). “1 + 1 = 2” is a proposition (true).' },
+        { label: 'Not propositions', body: '“What time is it?” (a question), “Read this carefully.” (a command), and “@x@ + 1 = 2” (truth depends on @x@) are not propositions.' }
+      ]
+    },
+    {
+      id: 'c2',
+      title: 'Negation',
+      body: [
+        { type: 'def', text: 'Definition. Let @p@ be a proposition. The negation of @p@, denoted @¬p@, is the statement “It is not the case that @p@.” The truth value of @¬p@ is the opposite of @p@.' },
+        { type: 'p', text: 'Other notations you may see: @~p@, @p\'@, @!p@. The truth table for negation has just two rows:' },
+        { type: 'truthTable',
+          headers: ['p', '¬p'],
+          rows: [['T','F'], ['F','T']]
+        }
+      ],
+      examples: [
+        { label: 'Example', body: 'If @p@: “Michael\'s PC runs Linux,” then @¬p@: “Michael\'s PC does not run Linux.”' }
+      ]
+    },
+    {
+      id: 'c3',
+      title: 'Conjunction (AND) and Disjunction (OR)',
+      body: [
+        { type: 'def', text: 'Conjunction @p ∧ q@ (read “p and q”) is true when both @p@ and @q@ are true; false otherwise.' },
+        { type: 'def', text: 'Disjunction @p ∨ q@ (read “p or q”) is true when at least one of @p@, @q@ is true; false only when both are false. This is the inclusive or.' },
+        { type: 'truthTable',
+          headers: ['p', 'q', 'p ∧ q', 'p ∨ q'],
+          rows: [['T','T','T','T'],['T','F','F','T'],['F','T','F','T'],['F','F','F','F']]
+        }
+      ],
+      examples: [
+        { label: 'Conjunction', body: 'If @p@: “It is raining” and @q@: “It is cold,” then @p ∧ q@ means “It is raining and it is cold.”' },
+        { label: 'Inclusive vs. exclusive or', body: '“Students may take Calculus or Discrete Math” usually means inclusive or — taking both is allowed. The exclusive or @p ⊕ q@ would forbid taking both.' }
+      ]
+    },
+    {
+      id: 'c4',
+      title: 'Conditional and Biconditional',
+      body: [
+        { type: 'def', text: 'Conditional @p → q@ (read “if @p@, then @q@”) is false only when @p@ is true and @q@ is false. In all other cases it is true. Here @p@ is the hypothesis and @q@ the conclusion.' },
+        { type: 'def', text: 'Biconditional @p ↔ q@ (read “@p@ if and only if @q@”) is true when @p@ and @q@ have the same truth value, false otherwise. It is logically equivalent to @(p → q) ∧ (q → p)@.' },
+        { type: 'truthTable',
+          headers: ['p', 'q', 'p → q', 'p ↔ q'],
+          rows: [['T','T','T','T'],['T','F','F','F'],['F','T','T','F'],['F','F','T','T']]
+        },
+        { type: 'p', text: 'From a conditional @p → q@ we can form three related statements: the converse @q → p@, the contrapositive @¬q → ¬p@, and the inverse @¬p → ¬q@. The contrapositive is logically equivalent to the original — the converse and inverse are not.' }
+      ],
+      examples: [
+        { label: 'Reading a conditional', body: '“If you finish your meal, then you can have dessert.” Hypothesis: you finish your meal. Conclusion: you can have dessert. The statement is broken (false) only if you finished but got no dessert.' },
+        { label: 'Vacuous truth', body: '@p → q@ is automatically true whenever @p@ is false. So “If 1 = 2, then I am the king of France” is true!' }
+      ]
+    },
+    {
+      id: 'c5',
+      title: 'Precedence of operators',
+      body: [
+        { type: 'p', text: 'When parentheses are missing, operators apply in this order:' },
+        { type: 'ol', items: [
+          '@¬@ (negation) — highest',
+          '@∧@ (conjunction)',
+          '@∨@ (disjunction)',
+          '@→@ (conditional)',
+          '@↔@ (biconditional) — lowest'
+        ]},
+        { type: 'p', text: 'So @¬p ∧ q@ means @(¬p) ∧ q@, and @p ∨ q ∧ r@ means @p ∨ (q ∧ r)@. When in doubt, add parentheses.' }
+      ],
+      examples: [
+        { label: 'Walk-through', body: 'Parse @¬p ∨ q → r@: first apply @¬@ to get @(¬p)@, then @∨@ to get @((¬p) ∨ q)@, then @→@ to get @(((¬p) ∨ q) → r)@.' }
+      ]
+    },
+    {
+      id: 'c6',
+      title: 'Building a truth table',
+      body: [
+        { type: 'p', text: 'To find the truth value of a compound proposition, list every combination of truth values for its variables (@2^n@ rows for @n@ variables) and compute each sub-expression in a column.' },
+        { type: 'p', text: 'Example: build the truth table for @(p ∨ ¬q) → (p ∧ q)@.' },
+        { type: 'truthTable',
+          headers: ['p','q','¬q','p ∨ ¬q','p ∧ q','(p ∨ ¬q) → (p ∧ q)'],
+          rows: [
+            ['T','T','F','T','T','T'],
+            ['T','F','T','T','F','F'],
+            ['F','T','F','F','F','T'],
+            ['F','F','T','T','F','F']
+          ]
+        },
+        { type: 'p', text: 'The flow of evaluation can be visualized as a small dependency diagram:' },
+        { type: 'mermaid', code: 'flowchart LR\n  P["p"] --> A["p ∨ ¬q"]\n  Q["q"] --> N["¬q"]\n  N --> A\n  P --> B["p ∧ q"]\n  Q --> B\n  A --> C["(p ∨ ¬q) → (p ∧ q)"]\n  B --> C' }
+      ],
+      examples: []
+    }
+  ],
+  questions: [
+    { id: 'q1', type: 'tf', level: 1,
+      prompt: 'True or False: The sentence “Close the door.” is a proposition.',
+      answer: false,
+      explanation: 'It is a command (imperative), not a declarative sentence with a truth value. Only declarative sentences that are true or false (but not both) are propositions.',
+      moreExamples: [{ label: 'Counter', body: '“The door is closed.” is a proposition — declarative, can be true or false.' }]
+    },
+    { id: 'q2', type: 'mcq', level: 1,
+      prompt: 'Let @p@: “It is raining” and @q@: “The ground is wet.” Which compound proposition expresses “It is raining but the ground is not wet”?',
+      options: [ '@p ∧ ¬q@', '@p ∨ ¬q@', '@¬p ∧ q@', '@p → ¬q@' ],
+      answer: 0,
+      explanation: '“But” is a conjunction — same logical meaning as “and.” Combine @p@ (it is raining) with @¬q@ (the ground is not wet).',
+      moreExamples: [{ label: 'Same pattern', body: '“It snowed but the road is clear” → @p ∧ ¬q@ where @p@: it snowed, @q@: the road is not clear.' }]
+    },
+    { id: 'q3', type: 'mcq', level: 1,
+      prompt: 'What is the truth value of @p → q@ when @p@ is false and @q@ is true?',
+      options: ['True', 'False', 'Cannot be determined', 'Undefined'],
+      answer: 0,
+      explanation: 'A conditional is false only when the hypothesis is true and the conclusion is false. With @p@ false, @p → q@ is vacuously true regardless of @q@.',
+      moreExamples: [{ label: 'Vacuous truth', body: '“If pigs fly, then 1 = 1.” The hypothesis is false, so the conditional is true.' }]
+    },
+    { id: 'q4', type: 'mcq', level: 2,
+      prompt: 'Which of the following is logically equivalent to @p → q@?',
+      options: [ '@q → p@ (the converse)', '@¬p → ¬q@ (the inverse)', '@¬q → ¬p@ (the contrapositive)', '@p ∧ ¬q@' ],
+      answer: 2,
+      explanation: 'The contrapositive @¬q → ¬p@ is always logically equivalent to @p → q@. The converse and inverse are equivalent to each other but not to the original.',
+      moreExamples: [{ label: 'Check by truth table', body: 'Both @p → q@ and @¬q → ¬p@ are F only in the row p=T, q=F.' }]
+    },
+    { id: 'q5', type: 'tf', level: 2,
+      prompt: 'True or False: @p ∨ q ∧ r@ is the same as @(p ∨ q) ∧ r@.',
+      answer: false,
+      explanation: 'Conjunction has higher precedence than disjunction, so @p ∨ q ∧ r@ is read as @p ∨ (q ∧ r)@, not @(p ∨ q) ∧ r@.',
+      moreExamples: [{ label: 'Counterexample', body: 'Take p=T, q=F, r=F. Then @p ∨ (q ∧ r)@ = T, but @(p ∨ q) ∧ r@ = F. Different values prove they are not equal.' }]
+    },
+    { id: 'q6', type: 'short', level: 2,
+      prompt: 'Write the negation of the proposition “@p ∧ q@” using De Morgan\'s law. Use the symbol palette below.',
+      palette: ['¬','∧','∨','→','↔','p','q','r','(',')','α','θ'],
+      acceptable: ['¬p ∨ ¬q', '¬p∨¬q', '(¬p) ∨ (¬q)', '~p ∨ ~q', '!p ∨ !q', '¬p v ¬q'],
+      canonical: '¬p ∨ ¬q',
+      explanation: 'By De Morgan\'s law: @¬(p ∧ q) ≡ ¬p ∨ ¬q@. Negating an AND turns it into an OR with each part negated.',
+      moreExamples: [{ label: 'Mirror law', body: '@¬(p ∨ q) ≡ ¬p ∧ ¬q@. Negating OR turns it into AND of negations.' }]
+    },
+    { id: 'q7', type: 'reorder', level: 2,
+      prompt: 'Rebuild the columns of the truth table for @(p ∨ ¬q) → (p ∧ q)@ in the correct dependency order — earliest column first.',
+      items: [ 'p', 'q', '¬q', 'p ∨ ¬q', 'p ∧ q', '(p ∨ ¬q) → (p ∧ q)' ],
+      answer: [0,1,2,3,4,5],
+      explanation: 'Atomic variables come first, then unary subexpressions like @¬q@, then binary combinations, and finally the full expression.',
+      moreExamples: [{ label: 'Heuristic', body: 'Walk the parse tree from leaves up. Anything you need before computing the next column must come earlier.' }]
+    },
+    { id: 'q8', type: 'fillblank', level: 2,
+      prompt: 'Complete the missing cells of the truth table for @p → q@.',
+      template: 'Row 1 — p=T, q=T  →  p → q = [[1]]\nRow 2 — p=T, q=F  →  p → q = [[2]]\nRow 3 — p=F, q=T  →  p → q = [[3]]\nRow 4 — p=F, q=F  →  p → q = [[4]]',
+      blanks: [
+        { id: '1', type: 'select', options: ['T','F'], answer: 'T' },
+        { id: '2', type: 'select', options: ['T','F'], answer: 'F' },
+        { id: '3', type: 'select', options: ['T','F'], answer: 'T' },
+        { id: '4', type: 'select', options: ['T','F'], answer: 'T' }
+      ],
+      explanation: 'The conditional is false only in row 2 (hypothesis true, conclusion false). All other rows are true — including the two rows where @p@ is false (vacuous truth).',
+      moreExamples: [{ label: 'Why row 2 is the only false', body: 'Think of @p → q@ as a promise: “if @p@ holds, I guarantee @q@.” The promise is broken only when @p@ holds and @q@ doesn\'t.' }]
+    },
+    { id: 'q9', type: 'mcq', level: 3,
+      prompt: 'Which compound proposition is true for exactly the assignments p=T,q=T and p=F,q=F (and false for the other two)?',
+      options: [ '@p ∧ q@', '@p ∨ q@', '@p ↔ q@', '@p ⊕ q@' ],
+      answer: 2,
+      explanation: 'The biconditional @p ↔ q@ is true exactly when @p@ and @q@ have the same truth value. The XOR @p ⊕ q@ is the opposite — true when they differ.',
+      moreExamples: [{ label: 'Identity', body: '@p ↔ q ≡ ¬(p ⊕ q)@ — biconditional and exclusive or are negations of each other.' }]
+    },
+    { id: 'q10', type: 'fillblank', level: 3,
+      prompt: 'Translate “You can graduate only if you pass the final exam, and you do not pass the final exam.” into propositional logic. Let @g@ = “you can graduate,” @f@ = “you pass the final exam.” Fill in each blank.',
+      palette: ['¬','∧','∨','→','↔','g','f','(',')'],
+      template: '[[1]] ∧ [[2]]',
+      blanks: [
+        { id: '1', type: 'input', answer: 'g → f', acceptable: ['g→f','g -> f','(g→f)','(g -> f)','g→ f','g →f'] },
+        { id: '2', type: 'input', answer: '¬f', acceptable: ['~f','!f','(¬f)','¬ f'] }
+      ],
+      explanation: '“@A@ only if @B@” translates as @A → B@, so “you can graduate only if you pass” is @g → f@. Combined with “you do not pass” (@¬f@) using and: @(g → f) ∧ ¬f@. Modus tollens then gives @¬g@.',
+      moreExamples: [{ label: 'Easy to confuse', body: '“@A@ if @B@” means @B → A@. “@A@ only if @B@” means @A → B@. The “only” flips the direction.' }]
+    },
+    { id: 'q11', type: 'reorder', level: 3,
+      prompt: 'Order these steps to verify @(p → q) ∧ p ⊨ q@ (the modus ponens pattern) using a truth table.',
+      items: [
+        'List all 4 combinations of truth values for p and q',
+        'Compute the column for p → q',
+        'Compute the column for (p → q) ∧ p',
+        'Compare the column for (p → q) ∧ p with the column for q',
+        'Conclude that whenever (p → q) ∧ p is T, q is also T'
+      ],
+      answer: [0,1,2,3,4],
+      explanation: 'First enumerate the rows, then build up sub-expressions before the conjunction, then compare the final premise column to @q@. The argument is valid because the premise column is true only on the row where @q@ is also true.',
+      moreExamples: [{ label: 'Why it works', body: '(p → q) ∧ p is T only in row p=T, q=T. In that row, q is T too. So the conclusion never fails when the premises hold.' }]
+    },
+    { id: 'q12', type: 'short', level: 3,
+      prompt: 'Write a compound proposition in p, q, r that is true exactly when an odd number of p, q, r are true. Use the symbol palette.',
+      palette: ['¬','∧','∨','⊕','→','↔','p','q','r','(',')'],
+      acceptable: [ 'p ⊕ q ⊕ r', 'p⊕q⊕r', '(p ⊕ q) ⊕ r', 'p ⊕ (q ⊕ r)', '(p⊕q)⊕r', 'p⊕(q⊕r)' ],
+      canonical: 'p ⊕ q ⊕ r',
+      explanation: 'XOR is associative, and @a ⊕ b@ is true when an odd number of @a@, @b@ are true. Chaining: @p ⊕ q ⊕ r@ is true iff an odd number of the three are true.',
+      moreExamples: [{ label: 'Without XOR', body: 'An equivalent form using only @∧, ∨, ¬@: @(p ∧ ¬q ∧ ¬r) ∨ (¬p ∧ q ∧ ¬r) ∨ (¬p ∧ ¬q ∧ r) ∨ (p ∧ q ∧ r)@.' }]
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
