@@ -222,7 +222,7 @@ body {
   color: var(--accent);
   font-weight: 500;
   direction: ltr;
-  unicode-bidi: bidi-override;
+  unicode-bidi: isolate;
   display: inline-block;
 }
 
