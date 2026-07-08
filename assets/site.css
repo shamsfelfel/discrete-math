@@ -270,6 +270,10 @@ table.tt th, table.tt td {
   padding: 8px 14px;
   text-align: center;
   min-width: 50px;
+  /* Cells hold LTR math (¬p, p → q) even on RTL pages. `plaintext` sets each
+     cell's direction from its first strong character, so negations and
+     implications are not reordered by the surrounding RTL context. */
+  unicode-bidi: plaintext;
 }
 table.tt th {
   background: var(--bg-sunk);
