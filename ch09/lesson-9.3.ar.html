@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>٩.٣ تمثيل العلاقات — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٩</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٩.٣</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.3.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "9.3",
+  "chapter": "9",
+  "title": "تمثيل العلاقات",
+  "lede": "إلى جانب سرد أزواجها المرتّبة، يمكن تخزين علاقة على مجموعات منتهية كمصفوفة <span class=\"sym\">0/1</span> — ملائمة للحساب — أو رسمها كرسم موجّه يُبرز خصائصها البنيوية بلمحة.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "مصفوفة الصفر–واحد للعلاقة",
+      "body": [
+        {
+          "type": "def",
+          "text": "لتكن <span class=\"sym\">R</span> علاقة من <span class=\"sym\">A = {a₁, …, aₘ}</span> إلى <span class=\"sym\">B = {b₁, …, bₙ}</span>. مصفوفتها <span class=\"sym\">Mᴿ = [mᵢⱼ]</span>، حيث <span class=\"sym\">mᵢⱼ = 1</span> إذا <span class=\"sym\">(aᵢ, bⱼ) ∈ R</span> و<span class=\"sym\">mᵢⱼ = 0</span> فيما عدا ذلك."
+        },
+        {
+          "type": "p",
+          "text": "تُسرَد عناصر <span class=\"sym\">A</span> و<span class=\"sym\">B</span> بترتيب ثابت؛ وعندما <span class=\"sym\">A = B</span> يُستخدم الترتيب نفسه للصفوف والأعمدة، فتنتج مصفوفة مربّعة."
+        }
+      ],
+      "examples": [
+        {
+          "label": "بناء المصفوفة",
+          "body": "لـ <span class=\"sym\">A = {1,2,3}</span> و<span class=\"sym\">B = {1,2}</span> و<span class=\"sym\">R = {(2,1),(3,1),(3,2)}</span> (أزواج <span class=\"sym\">a &gt; b</span>)، تحوي المصفوفة ١ في تلك المواضع الثلاثة بالضبط و٠ فيما عداها."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "قراءة الخصائص من المصفوفة",
+      "body": [
+        {
+          "type": "p",
+          "text": "لعلاقة على مجموعة (مصفوفة مربّعة) للخصائص الثلاث معايير مصفوفيّة أنيقة:"
+        },
+        {
+          "type": "truthTable",
+          "headers": [
+            "الخاصّية",
+            "المعيار المصفوفي"
+          ],
+          "rows": [
+            [
+              "انعكاسية",
+              "كلّ مدخل قطري <span class=\"sym\">mᵢᵢ = 1</span>"
+            ],
+            [
+              "تماثلية",
+              "<span class=\"sym\">Mᴿ = (Mᴿ)ᵗ</span>، أي <span class=\"sym\">mᵢⱼ = mⱼᵢ</span>"
+            ],
+            [
+              "ضدّ تماثلية",
+              "<span class=\"sym\">mᵢⱼ = 1</span> مع <span class=\"sym\">i ≠ j</span> يفرض <span class=\"sym\">mⱼᵢ = 0</span>"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "فالانعكاسية نظرة على القطر الرئيسي، والتماثلية فحصٌ لكون المصفوفة تساوي منقولها."
+        }
+      ],
+      "examples": [
+        {
+          "label": "الثلاث معًا",
+          "body": "المصفوفة ذات الصفوف <span class=\"sym\">(1 1 0), (1 1 1), (0 1 1)</span> كلّ مداخلها القطرية ١ (انعكاسية) وتساوي منقولها (تماثلية)، ولذلك ليست ضدّ تماثلية."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "الاتّحاد والتقاطع بالضمّ والالتقاء",
+      "body": [
+        {
+          "type": "def",
+          "text": "إذا كانت <span class=\"sym\">R₁</span> و<span class=\"sym\">R₂</span> علاقتين على مجموعة بمصفوفتَي <span class=\"sym\">Mᴿ₁</span> و<span class=\"sym\">Mᴿ₂</span>، فإنّ <span class=\"sym\">M_{R₁∪R₂} = Mᴿ₁ ∨ Mᴿ₂</span> (الضمّ البولي) و<span class=\"sym\">M_{R₁∩R₂} = Mᴿ₁ ∧ Mᴿ₂</span> (الالتقاء البولي)."
+        },
+        {
+          "type": "p",
+          "text": "الضمّ يضع ١ حيثما كان في <b>إحدى</b> المصفوفتين ١؛ والالتقاء يضع ١ حيثما كان في <b>كلتيهما</b> ١ — مطابقًا اتّحاد العلاقتين وتقاطعهما مدخلاً بمدخل."
+        }
+      ],
+      "examples": [
+        {
+          "label": "الضمّ والالتقاء",
+          "body": "بـ <span class=\"sym\">Mᴿ₁</span> صفوف <span class=\"sym\">(1 0 1),(1 0 0),(0 1 0)</span> و<span class=\"sym\">Mᴿ₂</span> صفوف <span class=\"sym\">(1 0 1),(0 1 1),(1 0 0)</span>، يكون الضمّ <span class=\"sym\">(1 0 1),(1 1 1),(1 1 0)</span> والالتقاء <span class=\"sym\">(1 0 1),(0 0 0),(0 0 0)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "التركيب والقوى بالجداء البولي",
+      "body": [
+        {
+          "type": "def",
+          "text": "إذا كانت <span class=\"sym\">R</span> من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span> و<span class=\"sym\">S</span> من <span class=\"sym\">B</span> إلى <span class=\"sym\">C</span>، فإنّ <span class=\"sym\">M_{S∘R} = Mᴿ ⊙ Mˢ</span>، الجداء البولي للمصفوفتين."
+        },
+        {
+          "type": "p",
+          "text": "والقوى تتبع القاعدة نفسها: مصفوفة <span class=\"sym\">Rⁿ</span> هي القوّة البوليّة النونيّة <span class=\"sym\">Mᴿ^[n]</span>. ويستخدم الجداء البولي <span class=\"sym\">∧</span> لجداءات الحدود و<span class=\"sym\">∨</span> لدمجها."
+        }
+      ],
+      "examples": [
+        {
+          "label": "تربيع علاقة",
+          "body": "لـ <span class=\"sym\">Mᴿ</span> بصفوف <span class=\"sym\">(0 1 0),(0 1 1),(1 0 0)</span>، يكون المربّع البولي <span class=\"sym\">Mᴿ^[2]</span> بصفوف <span class=\"sym\">(0 1 1),(1 1 1),(0 1 0)</span> — مصفوفة <span class=\"sym\">R²</span>."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "الرسوم الموجّهة",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>الرسم الموجّه</b> يتكوّن من مجموعة رؤوس <span class=\"sym\">V</span> (عُقَد) ومجموعة حوافّ <span class=\"sym\">E</span> (أقواس)، كلٌّ منها زوج مرتّب من <span class=\"sym\">V</span>. في الحافّة <span class=\"sym\">(a, b)</span> يكون <span class=\"sym\">a</span> الرأس الابتدائي و<span class=\"sym\">b</span> الرأس النهائي."
+        },
+        {
+          "type": "p",
+          "text": "تُرسَم علاقة على مجموعة بجعل عناصرها رؤوسًا وكلّ زوج <span class=\"sym\">(a, b) ∈ R</span> حافّةً من <span class=\"sym\">a</span> إلى <span class=\"sym\">b</span>. والحافّة <span class=\"sym\">(a, a)</span> من رأس إلى نفسه تُسمّى <b>حلقة</b>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "رسم موجّه لعلاقة",
+          "body": "العلاقة <span class=\"sym\">R = {(1,1),(1,3),(2,1),(2,3),(2,4),(3,1),(3,2),(4,1)}</span> على <span class=\"sym\">{1,2,3,4}</span> تُرسَم بحلقة عند ١ وأسهم لكلّ زوج آخر."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "قراءة الخصائص من الرسم الموجّه",
+      "body": [
+        {
+          "type": "truthTable",
+          "headers": [
+            "الخاصّية",
+            "المعيار في الرسم"
+          ],
+          "rows": [
+            [
+              "انعكاسية",
+              "حلقة عند كلّ رأس"
+            ],
+            [
+              "تماثلية",
+              "لكلّ حافّة بين رأسين متمايزين حافّة في الاتّجاه المعاكس"
+            ],
+            [
+              "ضدّ تماثلية",
+              "لا توجد أبدًا حافّتان في اتّجاهين متعاكسين بين رأسين متمايزين"
+            ],
+            [
+              "متعدّية",
+              "كلّما وُجد <span class=\"sym\">x→y</span> و<span class=\"sym\">y→z</span> وُجدت الحافّة <span class=\"sym\">x→z</span>"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "هذه الاختبارات التصويرية تسرّع تصنيف العلاقة: افحص الحلقات المفقودة، والحوافّ أُحاديّة الاتّجاه، وحوافّ «الاختصار» المفقودة التي تُكمل مثلّثًا."
+        }
+      ],
+      "examples": [
+        {
+          "label": "التصنيف من صورة",
+          "body": "رسم موجّه بحلقة عند كلّ رأس لكن بحافّة أُحاديّة واحدة <span class=\"sym\">x→y</span> (بلا <span class=\"sym\">y→x</span>) هو انعكاسي وضدّ تماثلي، لكنّه ليس تماثليًّا."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "في مصفوفة الصفر–واحد <span class=\"sym\">Mᴿ = [mᵢⱼ]</span> لعلاقة، يساوي المدخل <span class=\"sym\">mᵢⱼ</span> واحدًا بالضبط عندما:",
+      "options": [
+        "<span class=\"sym\">(aᵢ, bⱼ) ∈ R</span>",
+        "<span class=\"sym\">(aᵢ, bⱼ) ∉ R</span>",
+        "<span class=\"sym\">i = j</span>",
+        "<span class=\"sym\">aᵢ = bⱼ</span>"
+      ],
+      "answer": 0,
+      "explanation": "بالتعريف <span class=\"sym\">mᵢⱼ = 1</span> إذا وفقط إذا كان الزوج <span class=\"sym\">(aᵢ, bⱼ)</span> في العلاقة."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "العلاقة على مجموعة انعكاسية إذا وفقط إذا كان كلّ مدخل على القطر الرئيسي لمصفوفتها ١.",
+      "answer": true,
+      "explanation": "الانعكاسية تعني <span class=\"sym\">(aᵢ, aᵢ) ∈ R</span> لكلّ <span class=\"sym\">i</span>، أي <span class=\"sym\">mᵢᵢ = 1</span>."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "في الرسم الموجّه، الحافّة <span class=\"sym\">(a, a)</span> من رأس إلى نفسه تُسمّى:",
+      "options": [
+        "حلقة",
+        "قوسًا",
+        "مسارًا",
+        "دائرة"
+      ],
+      "answer": 0,
+      "explanation": "الحافّة من رأس إلى نفسه حلقة."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "العلاقة تماثلية إذا وفقط إذا ساوت مصفوفتها منقولها، <span class=\"sym\">Mᴿ = (Mᴿ)ᵗ</span>.",
+      "answer": true,
+      "explanation": "التماثلية تعني <span class=\"sym\">mᵢⱼ = mⱼᵢ</span> لكلّ <span class=\"sym\">i, j</span>، وهو بالضبط <span class=\"sym\">Mᴿ = (Mᴿ)ᵗ</span>."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "عمليات المصفوفات لدمج العلاقات.",
+      "template": "مصفوفة <span class=\"sym\">R₁ ∪ R₂</span> هي [[1]] البولي <span class=\"sym\">Mᴿ₁ ∨ Mᴿ₂</span>. ومصفوفة <span class=\"sym\">R₁ ∩ R₂</span> هي [[2]] البولي <span class=\"sym\">Mᴿ₁ ∧ Mᴿ₂</span>. ومصفوفة المركّب <span class=\"sym\">S ∘ R</span> هي [[3]] البولي <span class=\"sym\">Mᴿ ⊙ Mˢ</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "الضمّ",
+          "acceptable": [
+            "الضمّ",
+            "الضم",
+            "ضمّ",
+            "ضم"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "الالتقاء",
+          "acceptable": [
+            "الالتقاء",
+            "التقاء"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "الجداء",
+          "acceptable": [
+            "الجداء",
+            "جداء",
+            "الضرب"
+          ]
+        }
+      ],
+      "explanation": "الاتّحاد ↔ الضمّ <span class=\"sym\">∨</span>، التقاطع ↔ الالتقاء <span class=\"sym\">∧</span>، التركيب ↔ الجداء البولي <span class=\"sym\">⊙</span>."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "أيّ عملية مصفوفيّة تعطي مصفوفة المركّب <span class=\"sym\">S ∘ R</span>؟",
+      "options": [
+        "الجداء البولي <span class=\"sym\">Mᴿ ⊙ Mˢ</span>",
+        "الضمّ <span class=\"sym\">Mᴿ ∨ Mˢ</span>",
+        "الالتقاء <span class=\"sym\">Mᴿ ∧ Mˢ</span>",
+        "المنقول <span class=\"sym\">(Mᴿ)ᵗ</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">M_{S∘R} = Mᴿ ⊙ Mˢ</span>، الجداء البولي."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "اذكر معيار الرسم الموجّه لكون العلاقة انعكاسية.",
+      "canonical": "توجد حلقة عند كلّ رأس من رؤوس الرسم الموجّه.",
+      "acceptable": [
+        "حلقة عند كلّ رأس",
+        "كلّ رأس له حلقة",
+        "حلقات على كلّ الرؤوس"
+      ],
+      "explanation": "الانعكاسية تعني <span class=\"sym\">(a, a) ∈ R</span> لكلّ <span class=\"sym\">a</span> — حلقة عند كلّ رأس."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب خطوات رسم الرسم الموجّه لعلاقة <span class=\"sym\">R</span> على مجموعة <span class=\"sym\">A</span>.",
+      "items": [
+        "ارسم رأسًا واحدًا لكلّ عنصر من <span class=\"sym\">A</span>",
+        "لكلّ زوج <span class=\"sym\">(a, b) ∈ R</span> أضِف سهمًا من <span class=\"sym\">a</span> إلى <span class=\"sym\">b</span>",
+        "ارسم حلقة عند <span class=\"sym\">a</span> لكلّ زوج <span class=\"sym\">(a, a) ∈ R</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "الرؤوس أوّلاً، ثمّ الحوافّ الموجّهة للأزواج المرتّبة، مع حلقات لأزواج الشكل <span class=\"sym\">(a, a)</span>."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "رسم موجّه فيه حلقة عند كلّ رأس، وبين الرؤوس المتمايزة لا يوجد زوج حوافّ متعاكسة الاتّجاه. هذه العلاقة بالتأكيد:",
+      "options": [
+        "انعكاسية وضدّ تماثلية",
+        "تماثلية",
+        "ليست انعكاسية",
+        "متعدّية"
+      ],
+      "answer": 0,
+      "explanation": "حلقات في كلّ مكان ⇒ انعكاسية؛ لا حوافّ متعاكسة بين المتمايزين ⇒ ضدّ تماثلية. أمّا التماثلية والتعدّي فغير مضمونين."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "باستخدام المصفوفات، كيف تحصل على مصفوفة قوّة العلاقة <span class=\"sym\">Rⁿ</span>؟",
+      "canonical": "هي القوّة البوليّة النونيّة للمصفوفة، M_R^[n].",
+      "acceptable": [
+        "القوّة البوليّة النونيّة لـ M_R",
+        "M_R^[n]",
+        "القوة البولية n لـ M_R"
+      ],
+      "explanation": "بما أنّ <span class=\"sym\">Rⁿ</span> يركّب <span class=\"sym\">R</span> مع نفسه <span class=\"sym\">n</span> مرّة، فمصفوفتها القوّة البوليّة النونيّة <span class=\"sym\">Mᴿ^[n]</span>."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "اختبارات الرسم الموجّه للخصائص الأربع.",
+      "template": "العلاقة تماثلية إذا وفقط إذا كان لكلّ حافّة بين رأسين متمايزين حافّة في الاتّجاه [[1]]. وهي ضدّ تماثلية إذا وفقط إذا لم توجد أبدًا حافّتان في اتّجاهين [[2]] بين رأسين متمايزين. وهي متعدّية إذا وفقط إذا كان كلّما وُجد <span class=\"sym\">x→y</span> و<span class=\"sym\">y→z</span> وُجدت أيضًا الحافّة [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "المعاكس",
+          "acceptable": [
+            "المعاكس",
+            "معاكس",
+            "المقابل",
+            "العكسي"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "متعاكسين",
+          "acceptable": [
+            "متعاكسين",
+            "متعاكسة",
+            "متقابلين"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "x→z",
+          "acceptable": [
+            "x→z",
+            "x to z",
+            "x -> z",
+            "من x إلى z"
+          ]
+        }
+      ],
+      "explanation": "تماثلية ↔ الحافّة المعاكسة موجودة؛ ضدّ تماثلية ↔ لا زوج متعاكس؛ متعدّية ↔ حافّة الاختصار <span class=\"sym\">x→z</span> موجودة."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

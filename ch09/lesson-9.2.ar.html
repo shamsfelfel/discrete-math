@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>٩.٢ العلاقات n-ـيّة وتطبيقاتها — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٩</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٩.٢</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.2.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "9.2",
+  "chapter": "9",
+  "title": "العلاقات n-ـيّة وتطبيقاتها",
+  "lede": "العلاقة <span class=\"sym\">n</span>-ـيّة هي مجموعة من الـ<span class=\"sym\">n</span>-توائم المرتّبة مأخوذة من <span class=\"sym\">n</span> مجموعة. وهذه العلاقات هي الأساس الرياضي لقواعد البيانات العلائقية، حيث كلّ صفّ <span class=\"sym\">n</span>-تُوأم، وتتيح لنا عمليات كالانتقاء والإسقاط والوصل الاستعلام عن البيانات.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "العلاقات n-ـيّة: الدرجة والمجالات",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ١.</b> لتكن <span class=\"sym\">A₁, A₂, …, Aₙ</span> مجموعات. <b>العلاقة <span class=\"sym\">n</span>-ـيّة</b> على هذه المجموعات هي مجموعة جزئية من <span class=\"sym\">A₁ × A₂ × … × Aₙ</span>. وتُسمّى المجموعات <span class=\"sym\">A₁, …, Aₙ</span> <b>مجالات</b> العلاقة، و<span class=\"sym\">n</span> هي <b>درجتها</b>."
+        },
+        {
+          "type": "p",
+          "text": "فالعلاقة الثنائية (القسم ٩.١) ما هي إلّا الحالة <span class=\"sym\">n = 2</span>. والعلاقة <span class=\"sym\">n</span>-ـيّة مجموعة من الـ<span class=\"sym\">n</span>-توائم المرتّبة <span class=\"sym\">(a₁, a₂, …, aₙ)</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "درجة ٣ على الأعداد الطبيعية",
+          "body": "لتكن <span class=\"sym\">R</span> على <span class=\"sym\">N × N × N</span> مكوّنة من الثلاثيات <span class=\"sym\">(a, b, c)</span> حيث <span class=\"sym\">a &lt; b &lt; c</span>. عندئذٍ <span class=\"sym\">(1, 2, 3) ∈ R</span> لكن <span class=\"sym\">(2, 4, 3) ∉ R</span>. درجتها ٣ وكلّ مجالاتها <span class=\"sym\">N</span>."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "مزيد من العلاقات n-ـيّة",
+      "body": [
+        {
+          "type": "p",
+          "text": "قد يكون الشرط المعرِّف للعلاقة <span class=\"sym\">n</span>-ـيّة أيّ مسند على الـ<span class=\"sym\">n</span>-تُوأم. وينتمي التُوأم إلى العلاقة بالضبط عندما يتحقّق المسند."
+        },
+        {
+          "type": "p",
+          "text": "ليس لزامًا أن تكون المجالات مجموعات متمايزة، وقد تتكرّر المجموعة نفسها عدّة مرّات — كما في <span class=\"sym\">Z × Z × Z</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "المتتاليات الحسابية",
+          "body": "لتكن <span class=\"sym\">R</span> على <span class=\"sym\">Z × Z × Z</span> الثلاثيات <span class=\"sym\">(a, b, c)</span> التي تشكّل متتالية حسابية — أي يوجد عدد صحيح <span class=\"sym\">k</span> بحيث <span class=\"sym\">b − a = k</span> و<span class=\"sym\">c − b = k</span>. عندئذٍ <span class=\"sym\">(1, 3, 5) ∈ R</span> لكن <span class=\"sym\">(2, 5, 9) ∉ R</span>."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "نموذج البيانات العلائقي",
+      "body": [
+        {
+          "type": "def",
+          "text": "يمكن نمذجة قاعدة بيانات من السجلّات كعلاقة <span class=\"sym\">n</span>-ـيّة: كلّ <b>سجلّ</b> هو <span class=\"sym\">n</span>-تُوأم <span class=\"sym\">(a₁, …, aₙ)</span>، وكلّ مركّبة مأخوذة من <b>حقل</b> (أو سمة) مجموعة قيمه الممكنة مجالٌ. وهذا هو <b>نموذج البيانات العلائقي</b>."
+        },
+        {
+          "type": "p",
+          "text": "ومن الطبيعي عرض مثل هذه العلاقة كـ<b>جدول</b>: كلّ صفّ سجلّ (<span class=\"sym\">n</span>-تُوأم) وكلّ عمود حقل. فقد يكون لجدول الطلاب الحقول <span class=\"sym\">(الاسم, الرقم, التخصّص, المعدّل)</span> — علاقة رباعيّة."
+        }
+      ],
+      "examples": [
+        {
+          "label": "الجدول علاقة",
+          "body": "الصفّان <span class=\"sym\">(Ackermann, 231455, CS, 3.88)</span> و<span class=\"sym\">(Chou, 102147, CS, 3.49)</span> رباعيّتان من علاقة الطلاب؛ والدرجة ٤."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "المفاتيح الأساسية والمركّبة",
+      "body": [
+        {
+          "type": "def",
+          "text": "يكون الحقل <b>مفتاحًا أساسيًّا</b> عندما لا يتشارك <span class=\"sym\">n</span>-توأمان في العلاقة القيمةَ نفسها في ذلك الحقل. والمفتاح الأساسي يميّز كلّ سجلّ تمييزًا وحيدًا."
+        },
+        {
+          "type": "p",
+          "text": "وعندما لا يفي حقل واحد بالغرض، يكون اتّحاد حقول فريدٌ عبر كلّ السجلّات <b>مفتاحًا مركّبًا</b>. وقد تعتمد المفاتيح على المحتوى الحالي للعلاقة، لكنّ قاعدة البيانات المصمّمة جيّدًا تختار مفاتيح تبقى صالحة لكلّ حالة مسموحة."
+        }
+      ],
+      "examples": [
+        {
+          "label": "الرقم كمفتاح",
+          "body": "في <span class=\"sym\">(الاسم, الرقم, التخصّص, المعدّل)</span> يكون حقل <span class=\"sym\">الرقم</span> مفتاحًا أساسيًّا لأنّ أرقام الطلاب فريدة — أمّا <span class=\"sym\">التخصّص</span> فليس كذلك، إذ يتشارك فيه كثير من الطلاب."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "الانتقاء",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>عامل الانتقاء</b> <span class=\"sym\">sᴄ</span> يُرسل العلاقة <span class=\"sym\">n</span>-ـيّة <span class=\"sym\">R</span> إلى العلاقة الجزئية المكوّنة من كلّ الـ<span class=\"sym\">n</span>-توائم في <span class=\"sym\">R</span> التي تحقّق الشرط <span class=\"sym\">C</span>. فهو يُبقي السجلّات كاملة لكن يقتصر على المطابِقة للشرط."
+        },
+        {
+          "type": "p",
+          "text": "الانتقاء هو عملية «تصفية الصفوف» في الاستعلام: لا يغيّر الحقول أبدًا، بل يحدّد أيّ السجلّات يبقى."
+        }
+      ],
+      "examples": [
+        {
+          "label": "تصفية الصفوف",
+          "body": "تطبيق <span class=\"sym\">s_{Major = CS}</span> على علاقة الطلاب يعيد بالضبط السجلّات التي يساوي حقل <span class=\"sym\">التخصّص</span> فيها <span class=\"sym\">CS</span>."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "الإسقاط والوصل",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>الإسقاط</b> <span class=\"sym\">Pᵢ₁…ᵢₘ</span> يُبقي الحقول <span class=\"sym\">i₁, …, iₘ</span> فقط من كلّ تُوأم ويحذف الباقي. ولأنّ الحقول المتبقّية قد لا تميّز السجلّات، فقد يُنتج الإسقاط توائم أقلّ ممّا بدأ به."
+        },
+        {
+          "type": "def",
+          "text": "<b>الوصل</b> <span class=\"sym\">Jₚ(R, S)</span> يدمج علاقة <span class=\"sym\">R</span> من الدرجة <span class=\"sym\">m</span> مع علاقة <span class=\"sym\">S</span> من الدرجة <span class=\"sym\">n</span> تتّفقان في <span class=\"sym\">p</span> حقلاً مشتركًا، مُنتجًا توائم من الدرجة <span class=\"sym\">m + n − p</span> كلّما تطابقت الحقول المشتركة."
+        }
+      ],
+      "examples": [
+        {
+          "label": "إسقاط حقل",
+          "body": "الإسقاط <span class=\"sym\">P₁,₃</span> المطبَّق على الرباعيّات <span class=\"sym\">(الاسم, الرقم, التخصّص, المعدّل)</span> يعطي الأزواج <span class=\"sym\">(الاسم, التخصّص)</span>، حاذفًا <span class=\"sym\">الرقم</span> و<span class=\"sym\">المعدّل</span>."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "العلاقة <span class=\"sym\">n</span>-ـيّة على المجموعات <span class=\"sym\">A₁, …, Aₙ</span> هي:",
+      "options": [
+        "مجموعة جزئية من <span class=\"sym\">A₁ × A₂ × … × Aₙ</span>",
+        "مجموعة جزئية من <span class=\"sym\">A₁ ∪ … ∪ Aₙ</span>",
+        "دالّة في <span class=\"sym\">n</span> متغيّرًا",
+        "عنصر من <span class=\"sym\">A₁ × … × Aₙ</span>"
+      ],
+      "answer": 0,
+      "explanation": "بحسب التعريف ١، هي مجموعة جزئية من الجداء الديكارتي للمجالات <span class=\"sym\">n</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "<b>درجة</b> العلاقة <span class=\"sym\">n</span>-ـيّة هي العدد <span class=\"sym\">n</span> للمجموعات الداخلة فيها.",
+      "answer": true,
+      "explanation": "الدرجة = <span class=\"sym\">n</span>؛ والمجموعات <span class=\"sym\">A₁, …, Aₙ</span> هي المجالات."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "في نموذج البيانات العلائقي، يقابل كلُّ سجلٍّ:",
+      "options": [
+        "<span class=\"sym\">n</span>-تُوأمًا",
+        "حقلاً",
+        "مجالاً",
+        "مفتاحًا أساسيًّا"
+      ],
+      "answer": 0,
+      "explanation": "السجلّ <span class=\"sym\">n</span>-تُوأم مرتّب؛ والأعمدة هي الحقول (السمات)."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "يكون الحقل مفتاحًا أساسيًّا فقط إذا لم يتشارك سجلّان القيمةَ نفسها في ذلك الحقل.",
+      "answer": true,
+      "explanation": "هذا التفرّد هو بالضبط ما يجعل الحقل مفتاحًا أساسيًّا."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "مصطلحات النموذج العلائقي.",
+      "template": "في جدول ينمذج علاقة <span class=\"sym\">n</span>-ـيّة، كلّ صفّ [[1]] وكلّ عمود [[2]]. وعدد الأعمدة <span class=\"sym\">n</span> هو [[3]] العلاقة.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "سجلّ",
+          "acceptable": [
+            "سجلّ",
+            "سجل",
+            "تُوأم",
+            "صفّ"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "حقل",
+          "acceptable": [
+            "حقل",
+            "سمة",
+            "مجال",
+            "عمود"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "درجة",
+          "acceptable": [
+            "درجة"
+          ]
+        }
+      ],
+      "explanation": "الصفّ = سجلّ (<span class=\"sym\">n</span>-تُوأم)، العمود = حقل/سمة، و<span class=\"sym\">n</span> = الدرجة."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "لعلاقة <span class=\"sym\">R</span> على <span class=\"sym\">N³</span> من الثلاثيات ذات <span class=\"sym\">a &lt; b &lt; c</span>، أيّ ثلاثيّة في <span class=\"sym\">R</span>؟",
+      "options": [
+        "<span class=\"sym\">(1, 2, 3)</span>",
+        "<span class=\"sym\">(2, 4, 3)</span>",
+        "<span class=\"sym\">(3, 3, 5)</span>",
+        "<span class=\"sym\">(5, 2, 1)</span>"
+      ],
+      "answer": 0,
+      "explanation": "وحدها <span class=\"sym\">(1, 2, 3)</span> تحقّق <span class=\"sym\">a &lt; b &lt; c</span>."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "ماذا يفعل عامل الانتقاء <span class=\"sym\">sᴄ</span> بعلاقة <span class=\"sym\">R</span>؟",
+      "canonical": "يعيد العلاقة الجزئية لكلّ الـ n-توائم في R التي تحقّق الشرط C، مُبقيًا السجلّات كاملة لكن المطابِقة فقط.",
+      "acceptable": [
+        "يبقي توائم R التي تحقّق الشرط C",
+        "يصفّي الصفوف المطابقة للشرط C",
+        "يعيد السجلّات التي تحقّق C"
+      ],
+      "explanation": "الانتقاء يصفّي الصفوف: يُبقي كلّ حقل لكن السجلّات المطابِقة لـ <span class=\"sym\">C</span> فقط."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب عمليات الاستعلام هذه بحسب عدد الحقول التي يُبقيها كلّ منها، من <b>إبقاء كلّ الحقول</b> (أعلى) إلى <b>حذف حقول</b> (أسفل).",
+      "items": [
+        "الانتقاء <span class=\"sym\">sᴄ</span> — يُبقي كلّ حقل",
+        "الوصل <span class=\"sym\">Jₚ</span> — يدمج ويُبقي <span class=\"sym\">m + n − p</span> حقلاً",
+        "الإسقاط <span class=\"sym\">Pᵢ…</span> — يحذف بعض الحقول"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "الانتقاء يُبقي كلّ الحقول (يصفّي الصفوف)؛ الوصل يدمج الحقول؛ الإسقاط يحذف حقولاً."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "تطبيق الإسقاط <span class=\"sym\">P₁,₃</span> على الرباعيّات <span class=\"sym\">(الاسم, الرقم, التخصّص, المعدّل)</span> يعطي:",
+      "options": [
+        "<span class=\"sym\">(الاسم, التخصّص)</span>",
+        "<span class=\"sym\">(الرقم, المعدّل)</span>",
+        "<span class=\"sym\">(الاسم, الرقم, التخصّص)</span>",
+        "<span class=\"sym\">(الاسم, المعدّل)</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">P₁,₃</span> يُبقي الحقلين ١ و٣ — <span class=\"sym\">الاسم</span> و<span class=\"sym\">التخصّص</span> — ويحذف الباقي."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "الوصل <span class=\"sym\">Jₚ(R, S)</span> يدمج علاقة من الدرجة <span class=\"sym\">m</span> مع علاقة من الدرجة <span class=\"sym\">n</span> تتشاركان <span class=\"sym\">p</span> حقلاً. ما درجة الناتج؟",
+      "canonical": "m + n − p.",
+      "acceptable": [
+        "m+n-p",
+        "m + n - p",
+        "m زائد n ناقص p"
+      ],
+      "explanation": "الحقول المشتركة <span class=\"sym\">p</span> لا تُكرَّر، فتكون توائم الوصل من الدرجة <span class=\"sym\">m + n − p</span>."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "اختيار المفاتيح.",
+      "template": "عندما لا يكون أيّ حقل مفردٍ فريدًا عبر كلّ السجلّات، يُسمّى اتّحاد الحقول الفريد مفتاحًا [[1]]. وفي علاقة الطلاب <span class=\"sym\">(الاسم, الرقم, التخصّص, المعدّل)</span> يكون الحقل [[2]] مفتاحًا أساسيًّا طبيعيًّا، بينما [[3]] ليس كذلك لأنّ كثيرًا من الطلاب يتشاركونه.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "مركّبًا",
+          "acceptable": [
+            "مركّبًا",
+            "مركبا",
+            "مركّب",
+            "مركب"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "الرقم",
+          "acceptable": [
+            "الرقم",
+            "ID"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "answer": "التخصّص",
+          "options": [
+            "التخصّص",
+            "الرقم"
+          ]
+        }
+      ],
+      "explanation": "الاتّحاد الفريد مفتاح مركّب؛ <span class=\"sym\">الرقم</span> فريد (مفتاح أساسي) بينما <span class=\"sym\">التخصّص</span> يتكرّر."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>٩.٤ انغلاقات العلاقات — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٩</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٩.٤</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.4.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "9.4",
+  "chapter": "9",
+  "title": "انغلاقات العلاقات",
+  "lede": "عندما تفتقر علاقة إلى خاصّية <span class=\"sym\">P</span>، يكون <b>انغلاقها</b> بالنسبة لـ <span class=\"sym\">P</span> أصغر علاقة بخاصّية <span class=\"sym\">P</span> تحتويها. والانغلاقان الانعكاسي والتماثلي سهلان؛ أمّا انغلاق التعدّي فيحتاج فكرة المسارات وعلاقة الاتّصال.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "ما هو الانغلاق",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ١.</b> إذا كانت <span class=\"sym\">R</span> علاقة على <span class=\"sym\">A</span>، فإنّ <b>انغلاق <span class=\"sym\">R</span> بالنسبة للخاصّية <span class=\"sym\">P</span></b> (إن وُجد) هو العلاقة <span class=\"sym\">S</span> ذات الخاصّية <span class=\"sym\">P</span> التي تحتوي <span class=\"sym\">R</span> وتكون مجموعةً جزئيةً من كلّ علاقة ذات الخاصّية <span class=\"sym\">P</span> تحتوي <span class=\"sym\">R</span>."
+        },
+        {
+          "type": "p",
+          "text": "باختصار، الانغلاق هو <b>أصغر</b> علاقة بالخاصّية ما زالت تحتوي كلّ <span class=\"sym\">R</span> — نضيف بالضبط الأزواج التي نُضطرّ لإضافتها، لا أكثر."
+        }
+      ],
+      "examples": [
+        {
+          "label": "إضافة الأقلّ",
+          "body": "<span class=\"sym\">R = {(1,1),(1,2),(2,1),(3,2)}</span> على <span class=\"sym\">{1,2,3}</span> ليست انعكاسية؛ وإضافة <span class=\"sym\">(2,2)</span> و<span class=\"sym\">(3,3)</span> فقط تعطي انغلاقها الانعكاسي."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "الانغلاق الانعكاسي",
+      "body": [
+        {
+          "type": "def",
+          "text": "الانغلاق الانعكاسي لـ <span class=\"sym\">R</span> هو <span class=\"sym\">R ∪ Δ</span>، حيث <span class=\"sym\">Δ = {(a, a) | a ∈ A}</span> هي <b>العلاقة القطرية</b>. نضيف كلّ زوج مفقود من الشكل <span class=\"sym\">(a, a)</span>."
+        },
+        {
+          "type": "p",
+          "text": "هذا أصغر علاقة انعكاسية تحتوي <span class=\"sym\">R</span>: فالانعكاسية تفرض كلّ الأزواج القطرية، وهي وحدها ما نضيف."
+        }
+      ],
+      "examples": [
+        {
+          "label": "على الأعداد الصحيحة",
+          "body": "لـ <span class=\"sym\">R = {(a, b) | a &lt; b}</span> على <span class=\"sym\">Z</span>، الانغلاق الانعكاسي هو <span class=\"sym\">R ∪ Δ = {(a, b) | a ≤ b}</span>."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "الانغلاق التماثلي",
+      "body": [
+        {
+          "type": "def",
+          "text": "الانغلاق التماثلي لـ <span class=\"sym\">R</span> هو <span class=\"sym\">R ∪ R⁻¹</span>، حيث <span class=\"sym\">R⁻¹ = {(b, a) | (a, b) ∈ R}</span> هي العلاقة <b>المعكوسة</b>. نضيف معكوس كلّ زوج."
+        },
+        {
+          "type": "p",
+          "text": "إضافة <span class=\"sym\">R⁻¹</span> تفرض وجود كلّ زوج مرآتي، وهو بالضبط ما تتطلّبه التماثلية — ولا يُضاف سواه."
+        }
+      ],
+      "examples": [
+        {
+          "label": "على الأعداد الصحيحة الموجبة",
+          "body": "لـ <span class=\"sym\">R = {(a, b) | a &gt; b}</span>، الانغلاق التماثلي هو <span class=\"sym\">R ∪ R⁻¹ = {(a, b) | a ≠ b}</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "المسارات ولماذا انغلاق التعدّي أصعب",
+      "body": [
+        {
+          "type": "p",
+          "text": "لا يمكن إيجاد انغلاق التعدّي بإضافة جولة واحدة من الأزواج: فإضافة كلّ <span class=\"sym\">(a, c)</span> المفقودة للسلاسل <span class=\"sym\">(a, b), (b, c)</span> قد تُنشئ سلاسل جديدة تظلّ تخرق التعدّي. نحتاج المسارات."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ٢.</b> <b>المسار</b> من <span class=\"sym\">a</span> إلى <span class=\"sym\">b</span> في رسم موجّه هو متتالية حوافّ <span class=\"sym\">(x₀, x₁), (x₁, x₂), …, (xₙ₋₁, xₙ)</span> بـ <span class=\"sym\">x₀ = a</span> و<span class=\"sym\">xₙ = b</span>؛ و<b>طوله</b> <span class=\"sym\">n</span>. والمسار ذو الطول <span class=\"sym\">n ≥ 1</span> الذي يبدأ وينتهي عند الرأس نفسه <b>دائرة</b>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "مسار طوله ٣",
+          "body": "إذا كانت <span class=\"sym\">(a,b), (b,e), (e,d)</span> حوافّ، فإنّ <span class=\"sym\">a, b, e, d</span> مسار طوله ٣. ومسار مثل <span class=\"sym\">e, b, a, b, a, b, e</span> يعود إلى بدايته دائرة."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "علاقة الاتّصال وانغلاق التعدّي",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>مبرهنة ١.</b> يوجد مسار طوله <span class=\"sym\">n</span> من <span class=\"sym\">a</span> إلى <span class=\"sym\">b</span> إذا وفقط إذا كان <span class=\"sym\">(a, b) ∈ Rⁿ</span>."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ٣.</b> <b>علاقة الاتّصال</b> <span class=\"sym\">R*</span> تتكوّن من الأزواج <span class=\"sym\">(a, b)</span> التي يوجد لأجلها مسار طوله واحد على الأقلّ من <span class=\"sym\">a</span> إلى <span class=\"sym\">b</span>: <span class=\"sym\">R* = ⋃ₙ₌₁ Rⁿ</span>."
+        },
+        {
+          "type": "p",
+          "text": "<b>مبرهنة ٢.</b> انغلاق التعدّي لعلاقة <span class=\"sym\">R</span> يساوي علاقة اتّصالها <span class=\"sym\">R*</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "«قد التقى بـ»",
+          "body": "إذا كانت <span class=\"sym\">R</span> تعني «a التقى بـ b»، فإنّ <span class=\"sym\">R*</span> يربط <span class=\"sym\">a</span> بـ <span class=\"sym\">b</span> كلّما ربطتهما سلسلة معارف — صديق صديق صديق، لأيّ عمق."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "حساب انغلاق التعدّي بالمصفوفات",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>مبرهنة ٣.</b> إذا كانت <span class=\"sym\">Mᴿ</span> مصفوفة علاقة على مجموعة من <span class=\"sym\">n</span> عنصرًا، فمصفوفة انغلاق التعدّي هي <span class=\"sym\">M_{R*} = Mᴿ ∨ Mᴿ^[2] ∨ Mᴿ^[3] ∨ … ∨ Mᴿ^[n]</span>."
+        },
+        {
+          "type": "p",
+          "text": "لأنّ المسار في رسم من <span class=\"sym\">n</span> رأسًا لا يحتاج أن يتجاوز الطول <span class=\"sym\">n</span>، يتوقّف الضمّ عند القوّة البوليّة النونيّة. وخوارزمية وارشال تحسب هذا بكفاءة أعلى."
+        }
+      ],
+      "examples": [
+        {
+          "label": "لماذا يتوقّف عند n",
+          "body": "أيّ مسار بين رأسين من <span class=\"sym\">n</span> رأسًا يكرّر رأسًا يمكن اختصاره، فأقصر مسار واصل طوله <span class=\"sym\">n</span> على الأكثر — فلا حاجة لقوى أعلى."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "انغلاق <span class=\"sym\">R</span> بالنسبة لخاصّية <span class=\"sym\">P</span> هو:",
+      "options": [
+        "أصغر علاقة بالخاصّية <span class=\"sym\">P</span> تحتوي <span class=\"sym\">R</span>",
+        "أكبر علاقة بالخاصّية <span class=\"sym\">P</span> داخل <span class=\"sym\">R</span>",
+        "أيّ علاقة بالخاصّية <span class=\"sym\">P</span>",
+        "متمّمة <span class=\"sym\">R</span>"
+      ],
+      "answer": 0,
+      "explanation": "بحسب التعريف ١ الانغلاق هو أصغر علاقة بالخاصّية <span class=\"sym\">P</span> تحتوي <span class=\"sym\">R</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "الانغلاق الانعكاسي لـ <span class=\"sym\">R</span> هو <span class=\"sym\">R ∪ Δ</span>، حيث <span class=\"sym\">Δ</span> العلاقة القطرية.",
+      "answer": true,
+      "explanation": "نضيف بالضبط الأزواج القطرية المفقودة <span class=\"sym\">(a, a)</span>."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "العلاقة المعكوسة المستخدمة لتكوين الانغلاق التماثلي هي:",
+      "options": [
+        "<span class=\"sym\">R⁻¹ = {(b, a) | (a, b) ∈ R}</span>",
+        "<span class=\"sym\">R⁻¹ = {(a, a) | a ∈ A}</span>",
+        "<span class=\"sym\">R⁻¹ = R ∩ Δ</span>",
+        "<span class=\"sym\">R⁻¹ = A × A − R</span>"
+      ],
+      "answer": 0,
+      "explanation": "المعكوسة تقلب كلّ زوج؛ والانغلاق التماثلي هو <span class=\"sym\">R ∪ R⁻¹</span>."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "المسار ذو الطول <span class=\"sym\">n ≥ 1</span> الذي يبدأ وينتهي عند الرأس نفسه يُسمّى دائرة.",
+      "answer": true,
+      "explanation": "هذا هو تعريف الدائرة."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "الانغلاقات الثلاثة.",
+      "template": "الانغلاق الانعكاسي يضيف العلاقة [[1]] <span class=\"sym\">Δ</span>. والانغلاق التماثلي يضيف العلاقة [[2]] <span class=\"sym\">R⁻¹</span>. وانغلاق التعدّي يساوي علاقة [[3]] <span class=\"sym\">R*</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "القطرية",
+          "acceptable": [
+            "القطرية",
+            "قطرية"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "المعكوسة",
+          "acceptable": [
+            "المعكوسة",
+            "معكوسة",
+            "العكسية"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "الاتّصال",
+          "acceptable": [
+            "الاتّصال",
+            "الاتصال",
+            "اتصال"
+          ]
+        }
+      ],
+      "explanation": "انعكاسي ↔ القطرية <span class=\"sym\">Δ</span>؛ تماثلي ↔ المعكوسة <span class=\"sym\">R⁻¹</span>؛ تعدٍّ ↔ الاتّصال <span class=\"sym\">R*</span>."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "الانغلاق الانعكاسي لـ <span class=\"sym\">R = {(a, b) | a &lt; b}</span> على <span class=\"sym\">Z</span> هو:",
+      "options": [
+        "<span class=\"sym\">{(a, b) | a ≤ b}</span>",
+        "<span class=\"sym\">{(a, b) | a &gt; b}</span>",
+        "<span class=\"sym\">{(a, b) | a ≠ b}</span>",
+        "<span class=\"sym\">{(a, b) | a = b}</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">R ∪ Δ</span> يضيف كلّ الأزواج <span class=\"sym\">(a, a)</span>، فيحوّل <span class=\"sym\">&lt;</span> إلى <span class=\"sym\">≤</span>."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "اذكر المبرهنة ١ التي تربط المسارات بقوى العلاقة.",
+      "canonical": "يوجد مسار طوله n من a إلى b إذا وفقط إذا كان (a,b) في R^n.",
+      "acceptable": [
+        "مسار طوله n من a إلى b إذا وفقط إذا (a,b) في R^n",
+        "(a,b) في R^n عندما يوجد مسار طوله n",
+        "مسار طوله n موجود إذا وفقط إذا (a,b) ∈ R^n"
+      ],
+      "explanation": "المبرهنة ١: مسارات الطول <span class=\"sym\">n</span> تقابل تمامًا الانتماء إلى <span class=\"sym\">Rⁿ</span>."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب هذه الانغلاقات بحسب ما تحتاجه من أدوات، من <b>الأبسط</b> (أعلى) إلى <b>الأكثر تعقيدًا</b> (أسفل).",
+      "items": [
+        "الانغلاق الانعكاسي — اتّحاد مع القطر <span class=\"sym\">Δ</span>",
+        "الانغلاق التماثلي — اتّحاد مع المعكوسة <span class=\"sym\">R⁻¹</span>",
+        "انغلاق التعدّي — اتّحاد كلّ القوى <span class=\"sym\">R*</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "الانغلاقان الانعكاسي والتماثلي يضيفان مجموعة أزواج واحدة؛ أمّا انغلاق التعدّي فيحتاج المسارات وعلاقة الاتّصال."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "علاقة الاتّصال <span class=\"sym\">R*</span> تُعرَّف بأنّها:",
+      "options": [
+        "<span class=\"sym\">⋃ₙ₌₁ Rⁿ</span> — كلّ الأزواج التي يربطها مسار طوله ≥ ١",
+        "<span class=\"sym\">R ∩ R⁻¹</span>",
+        "<span class=\"sym\">R ∪ Δ</span>",
+        "<span class=\"sym\">R²</span> فقط"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">R* = R¹ ∪ R² ∪ R³ ∪ …</span>، الأزواج الموصولة بمسار طوله واحد على الأقلّ."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "بحسب المبرهنة ٣، كيف تُحسب مصفوفة انغلاق التعدّي <span class=\"sym\">R*</span> لعلاقة على <span class=\"sym\">n</span> عنصرًا؟",
+      "canonical": "M_{R*} = M_R ∨ M_R^[2] ∨ M_R^[3] ∨ ... ∨ M_R^[n]، ضمّ القوى البوليّة الأولى حتى النونيّة.",
+      "acceptable": [
+        "ضمّ M_R حتى M_R^[n]",
+        "M_R ∨ M_R^[2] ∨ ... ∨ M_R^[n]",
+        "ضمّ أوّل n قوّة بوليّة"
+      ],
+      "explanation": "اضمم القوى البوليّة حتى النونيّة، إذ لا يحتاج مسار واصل أن يتجاوز الطول <span class=\"sym\">n</span>."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "انغلاق التعدّي والمسارات.",
+      "template": "بحسب المبرهنة ٢ يساوي انغلاق التعدّي لـ <span class=\"sym\">R</span> علاقة [[1]] <span class=\"sym\">R*</span>. ويتوقّف ضمّ المصفوفات عند القوّة البوليّة [[2]] لأنّ مسارًا واصلاً في رسم من <span class=\"sym\">n</span> رأسًا لا يحتاج أن يتجاوز الطول [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "الاتّصال",
+          "acceptable": [
+            "الاتّصال",
+            "الاتصال",
+            "اتصال"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "النونيّة",
+          "options": [
+            "النونيّة",
+            "الثانية",
+            "n − 1"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "n",
+          "acceptable": [
+            "n"
+          ]
+        }
+      ],
+      "explanation": "انغلاق التعدّي = علاقة الاتّصال؛ ويمتدّ الضمّ حتى <span class=\"sym\">Mᴿ^[n]</span> لأنّ أقصر مسار طوله <span class=\"sym\">n</span> على الأكثر."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

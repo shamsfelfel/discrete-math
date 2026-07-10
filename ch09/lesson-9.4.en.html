@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9.4 Closures of Relations — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 9</a> &nbsp;›&nbsp;
+    <span id="crumb-current">9.4</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.4.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "9.4",
+  "chapter": "9",
+  "title": "Closures of Relations",
+  "lede": "When a relation lacks a property <span class=\"sym\">P</span>, its <b>closure</b> with respect to <span class=\"sym\">P</span> is the smallest relation with property <span class=\"sym\">P</span> that contains it. Reflexive and symmetric closures are easy; the transitive closure requires the idea of paths and the connectivity relation.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "What a closure is",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition 1.</b> If <span class=\"sym\">R</span> is a relation on <span class=\"sym\">A</span>, the <b>closure of <span class=\"sym\">R</span> with respect to property <span class=\"sym\">P</span></b> (if it exists) is the relation <span class=\"sym\">S</span> with property <span class=\"sym\">P</span> that contains <span class=\"sym\">R</span> and is a subset of every relation with property <span class=\"sym\">P</span> that contains <span class=\"sym\">R</span>."
+        },
+        {
+          "type": "p",
+          "text": "In short, the closure is the <b>smallest</b> relation with the property that still contains all of <span class=\"sym\">R</span> — we add exactly the pairs we are forced to add, and no more."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Adding the least",
+          "body": "<span class=\"sym\">R = {(1,1),(1,2),(2,1),(3,2)}</span> on <span class=\"sym\">{1,2,3}</span> is not reflexive; adding just <span class=\"sym\">(2,2)</span> and <span class=\"sym\">(3,3)</span> gives its reflexive closure."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Reflexive closure",
+      "body": [
+        {
+          "type": "def",
+          "text": "The reflexive closure of <span class=\"sym\">R</span> is <span class=\"sym\">R ∪ Δ</span>, where <span class=\"sym\">Δ = {(a, a) | a ∈ A}</span> is the <b>diagonal relation</b>. We add every missing pair of the form <span class=\"sym\">(a, a)</span>."
+        },
+        {
+          "type": "p",
+          "text": "This is the smallest reflexive relation containing <span class=\"sym\">R</span>: reflexivity forces all diagonal pairs, and those are the only ones we add."
+        }
+      ],
+      "examples": [
+        {
+          "label": "On the integers",
+          "body": "For <span class=\"sym\">R = {(a, b) | a &lt; b}</span> on <span class=\"sym\">Z</span>, the reflexive closure is <span class=\"sym\">R ∪ Δ = {(a, b) | a ≤ b}</span>."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Symmetric closure",
+      "body": [
+        {
+          "type": "def",
+          "text": "The symmetric closure of <span class=\"sym\">R</span> is <span class=\"sym\">R ∪ R⁻¹</span>, where <span class=\"sym\">R⁻¹ = {(b, a) | (a, b) ∈ R}</span> is the <b>inverse</b> relation. We add the reverse of every pair."
+        },
+        {
+          "type": "p",
+          "text": "Adding <span class=\"sym\">R⁻¹</span> forces every mirror pair to be present, which is exactly what symmetry requires — and nothing else is added."
+        }
+      ],
+      "examples": [
+        {
+          "label": "On the positive integers",
+          "body": "For <span class=\"sym\">R = {(a, b) | a &gt; b}</span>, the symmetric closure is <span class=\"sym\">R ∪ R⁻¹ = {(a, b) | a ≠ b}</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Paths and why transitive closure is harder",
+      "body": [
+        {
+          "type": "p",
+          "text": "Transitive closure cannot be found by adding one round of pairs: adding all missing <span class=\"sym\">(a, c)</span> for chains <span class=\"sym\">(a, b), (b, c)</span> can create new chains that still violate transitivity. We need paths."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 2.</b> A <b>path</b> from <span class=\"sym\">a</span> to <span class=\"sym\">b</span> in a digraph is a sequence of edges <span class=\"sym\">(x₀, x₁), (x₁, x₂), …, (xₙ₋₁, xₙ)</span> with <span class=\"sym\">x₀ = a</span> and <span class=\"sym\">xₙ = b</span>; its <b>length</b> is <span class=\"sym\">n</span>. A path of length <span class=\"sym\">n ≥ 1</span> that begins and ends at the same vertex is a <b>circuit</b> (cycle)."
+        }
+      ],
+      "examples": [
+        {
+          "label": "A path of length 3",
+          "body": "If <span class=\"sym\">(a,b), (b,e), (e,d)</span> are edges, then <span class=\"sym\">a, b, e, d</span> is a path of length 3. A path like <span class=\"sym\">e, b, a, b, a, b, e</span> that returns to its start is a circuit."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "The connectivity relation and transitive closure",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Theorem 1.</b> There is a path of length <span class=\"sym\">n</span> from <span class=\"sym\">a</span> to <span class=\"sym\">b</span> if and only if <span class=\"sym\">(a, b) ∈ Rⁿ</span>."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 3.</b> The <b>connectivity relation</b> <span class=\"sym\">R*</span> consists of the pairs <span class=\"sym\">(a, b)</span> for which there is a path of length at least one from <span class=\"sym\">a</span> to <span class=\"sym\">b</span>: <span class=\"sym\">R* = ⋃ₙ₌₁ Rⁿ</span>."
+        },
+        {
+          "type": "p",
+          "text": "<b>Theorem 2.</b> The transitive closure of a relation <span class=\"sym\">R</span> equals its connectivity relation <span class=\"sym\">R*</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "&#x27;Has met&#x27;",
+          "body": "If <span class=\"sym\">R</span> means &#x27;a has met b&#x27;, then <span class=\"sym\">R*</span> pairs <span class=\"sym\">a</span> with <span class=\"sym\">b</span> whenever a chain of acquaintances links them — a friend of a friend of a friend, to any depth."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Computing the transitive closure with matrices",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Theorem 3.</b> If <span class=\"sym\">Mᴿ</span> is the matrix of a relation on a set of <span class=\"sym\">n</span> elements, the matrix of the transitive closure is <span class=\"sym\">M_{R*} = Mᴿ ∨ Mᴿ^[2] ∨ Mᴿ^[3] ∨ … ∨ Mᴿ^[n]</span>."
+        },
+        {
+          "type": "p",
+          "text": "Because a path in an <span class=\"sym\">n</span>-vertex graph need never be longer than <span class=\"sym\">n</span>, the join stops at the <span class=\"sym\">n</span>-th Boolean power. Warshall&#x27;s algorithm computes this more efficiently."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Why it stops at n",
+          "body": "Any path between two of <span class=\"sym\">n</span> vertices that repeats a vertex can be shortened, so a shortest connecting path has length at most <span class=\"sym\">n</span> — no higher powers are needed."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "The closure of <span class=\"sym\">R</span> with respect to a property <span class=\"sym\">P</span> is:",
+      "options": [
+        "The smallest relation with property <span class=\"sym\">P</span> that contains <span class=\"sym\">R</span>",
+        "The largest relation with property <span class=\"sym\">P</span> inside <span class=\"sym\">R</span>",
+        "Any relation with property <span class=\"sym\">P</span>",
+        "The complement of <span class=\"sym\">R</span>"
+      ],
+      "answer": 0,
+      "explanation": "By Definition 1 the closure is the smallest relation with <span class=\"sym\">P</span> that contains <span class=\"sym\">R</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "The reflexive closure of <span class=\"sym\">R</span> is <span class=\"sym\">R ∪ Δ</span>, where <span class=\"sym\">Δ</span> is the diagonal relation.",
+      "answer": true,
+      "explanation": "We add exactly the missing diagonal pairs <span class=\"sym\">(a, a)</span>."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "The inverse relation used to form the symmetric closure is:",
+      "options": [
+        "<span class=\"sym\">R⁻¹ = {(b, a) | (a, b) ∈ R}</span>",
+        "<span class=\"sym\">R⁻¹ = {(a, a) | a ∈ A}</span>",
+        "<span class=\"sym\">R⁻¹ = R ∩ Δ</span>",
+        "<span class=\"sym\">R⁻¹ = A × A − R</span>"
+      ],
+      "answer": 0,
+      "explanation": "The inverse reverses each pair; the symmetric closure is <span class=\"sym\">R ∪ R⁻¹</span>."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "A path of length <span class=\"sym\">n ≥ 1</span> that begins and ends at the same vertex is called a circuit (or cycle).",
+      "answer": true,
+      "explanation": "That is the definition of a circuit."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "The three closures.",
+      "template": "The reflexive closure adds the [[1]] relation <span class=\"sym\">Δ</span>. The symmetric closure adds the [[2]] relation <span class=\"sym\">R⁻¹</span>. The transitive closure equals the [[3]] relation <span class=\"sym\">R*</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "diagonal",
+          "acceptable": [
+            "diagonal"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "inverse",
+          "acceptable": [
+            "inverse"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "connectivity",
+          "acceptable": [
+            "connectivity"
+          ]
+        }
+      ],
+      "explanation": "Reflexive ↔ diagonal <span class=\"sym\">Δ</span>; symmetric ↔ inverse <span class=\"sym\">R⁻¹</span>; transitive ↔ connectivity <span class=\"sym\">R*</span>."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "The reflexive closure of <span class=\"sym\">R = {(a, b) | a &lt; b}</span> on <span class=\"sym\">Z</span> is:",
+      "options": [
+        "<span class=\"sym\">{(a, b) | a ≤ b}</span>",
+        "<span class=\"sym\">{(a, b) | a &gt; b}</span>",
+        "<span class=\"sym\">{(a, b) | a ≠ b}</span>",
+        "<span class=\"sym\">{(a, b) | a = b}</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">R ∪ Δ</span> adds all pairs <span class=\"sym\">(a, a)</span>, turning <span class=\"sym\">&lt;</span> into <span class=\"sym\">≤</span>."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "State Theorem 1 relating paths to powers of a relation.",
+      "canonical": "There is a path of length n from a to b if and only if (a,b) is in R^n.",
+      "acceptable": [
+        "path of length n from a to b iff (a,b) in R^n",
+        "(a,b) in R^n exactly when there is a path of length n",
+        "length-n path exists iff (a,b) ∈ R^n"
+      ],
+      "explanation": "Theorem 1: paths of length <span class=\"sym\">n</span> correspond exactly to membership in <span class=\"sym\">Rⁿ</span>."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order these closures by how much machinery they need, from <b>simplest</b> (top) to <b>most involved</b> (bottom).",
+      "items": [
+        "Reflexive closure — union with the diagonal <span class=\"sym\">Δ</span>",
+        "Symmetric closure — union with the inverse <span class=\"sym\">R⁻¹</span>",
+        "Transitive closure — union of all powers <span class=\"sym\">R*</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Reflexive and symmetric closures add one set of pairs; the transitive closure needs paths and the connectivity relation."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "The connectivity relation <span class=\"sym\">R*</span> is defined as:",
+      "options": [
+        "<span class=\"sym\">⋃ₙ₌₁ Rⁿ</span> — all pairs joined by a path of length ≥ 1",
+        "<span class=\"sym\">R ∩ R⁻¹</span>",
+        "<span class=\"sym\">R ∪ Δ</span>",
+        "<span class=\"sym\">R²</span> only"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">R* = R¹ ∪ R² ∪ R³ ∪ …</span>, the pairs connected by some path of length at least one."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "By Theorem 3, how is the matrix of the transitive closure <span class=\"sym\">R*</span> computed for a relation on <span class=\"sym\">n</span> elements?",
+      "canonical": "M_{R*} = M_R ∨ M_R^[2] ∨ M_R^[3] ∨ ... ∨ M_R^[n], the join of the first n Boolean powers.",
+      "acceptable": [
+        "join of M_R through M_R^[n]",
+        "M_R ∨ M_R^[2] ∨ ... ∨ M_R^[n]",
+        "the join of the first n Boolean powers"
+      ],
+      "explanation": "Join the Boolean powers up to the <span class=\"sym\">n</span>-th, since no connecting path need be longer than <span class=\"sym\">n</span>."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Transitive closure and paths.",
+      "template": "By Theorem 2 the transitive closure of <span class=\"sym\">R</span> equals its [[1]] relation <span class=\"sym\">R*</span>. The matrix join stops at the [[2]]-th Boolean power because a connecting path in an <span class=\"sym\">n</span>-vertex graph need never exceed length [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "connectivity",
+          "acceptable": [
+            "connectivity"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "n",
+          "options": [
+            "n",
+            "2",
+            "n − 1"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "n",
+          "acceptable": [
+            "n"
+          ]
+        }
+      ],
+      "explanation": "Transitive closure = connectivity relation; the join runs to <span class=\"sym\">Mᴿ^[n]</span> because a shortest path has length at most <span class=\"sym\">n</span>."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

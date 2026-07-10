@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9.3 Representing Relations — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 9</a> &nbsp;›&nbsp;
+    <span id="crumb-current">9.3</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.3.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "9.3",
+  "chapter": "9",
+  "title": "Representing Relations",
+  "lede": "Beyond listing its ordered pairs, a relation on finite sets can be stored as a <span class=\"sym\">0/1</span> matrix — convenient for computation — or drawn as a directed graph, which makes its structural properties easy to see at a glance.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "The zero–one matrix of a relation",
+      "body": [
+        {
+          "type": "def",
+          "text": "Let <span class=\"sym\">R</span> be a relation from <span class=\"sym\">A = {a₁, …, aₘ}</span> to <span class=\"sym\">B = {b₁, …, bₙ}</span>. Its matrix is <span class=\"sym\">Mᴿ = [mᵢⱼ]</span>, where <span class=\"sym\">mᵢⱼ = 1</span> if <span class=\"sym\">(aᵢ, bⱼ) ∈ R</span> and <span class=\"sym\">mᵢⱼ = 0</span> otherwise."
+        },
+        {
+          "type": "p",
+          "text": "The elements of <span class=\"sym\">A</span> and <span class=\"sym\">B</span> are listed in some fixed order; when <span class=\"sym\">A = B</span> the same order is used for rows and columns, giving a square matrix."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Building the matrix",
+          "body": "For <span class=\"sym\">A = {1,2,3}</span>, <span class=\"sym\">B = {1,2}</span> and <span class=\"sym\">R = {(2,1),(3,1),(3,2)}</span> (pairs with <span class=\"sym\">a &gt; b</span>), the matrix has 1s exactly in those three positions and 0s elsewhere."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Reading properties off the matrix",
+      "body": [
+        {
+          "type": "p",
+          "text": "For a relation on a set (a square matrix) the three properties have clean matrix criteria:"
+        },
+        {
+          "type": "truthTable",
+          "headers": [
+            "Property",
+            "Matrix criterion"
+          ],
+          "rows": [
+            [
+              "Reflexive",
+              "every diagonal entry <span class=\"sym\">mᵢᵢ = 1</span>"
+            ],
+            [
+              "Symmetric",
+              "<span class=\"sym\">Mᴿ = (Mᴿ)ᵗ</span>, i.e. <span class=\"sym\">mᵢⱼ = mⱼᵢ</span>"
+            ],
+            [
+              "Antisymmetric",
+              "<span class=\"sym\">mᵢⱼ = 1</span> with <span class=\"sym\">i ≠ j</span> forces <span class=\"sym\">mⱼᵢ = 0</span>"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "So reflexivity is a glance down the main diagonal, and symmetry is a check that the matrix equals its own transpose."
+        }
+      ],
+      "examples": [
+        {
+          "label": "All three at once",
+          "body": "The matrix with rows <span class=\"sym\">(1 1 0), (1 1 1), (0 1 1)</span> has all diagonal entries 1 (reflexive) and equals its transpose (symmetric), but is therefore not antisymmetric."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Union and intersection by join and meet",
+      "body": [
+        {
+          "type": "def",
+          "text": "If <span class=\"sym\">R₁</span> and <span class=\"sym\">R₂</span> are relations on a set with matrices <span class=\"sym\">Mᴿ₁</span> and <span class=\"sym\">Mᴿ₂</span>, then <span class=\"sym\">M_{R₁∪R₂} = Mᴿ₁ ∨ Mᴿ₂</span> (the Boolean join) and <span class=\"sym\">M_{R₁∩R₂} = Mᴿ₁ ∧ Mᴿ₂</span> (the Boolean meet)."
+        },
+        {
+          "type": "p",
+          "text": "The join puts a 1 wherever <b>either</b> matrix has a 1; the meet puts a 1 wherever <b>both</b> do — matching the union and intersection of the relations entry by entry."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Join and meet",
+          "body": "With <span class=\"sym\">Mᴿ₁</span> rows <span class=\"sym\">(1 0 1),(1 0 0),(0 1 0)</span> and <span class=\"sym\">Mᴿ₂</span> rows <span class=\"sym\">(1 0 1),(0 1 1),(1 0 0)</span>, the join is <span class=\"sym\">(1 0 1),(1 1 1),(1 1 0)</span> and the meet is <span class=\"sym\">(1 0 1),(0 0 0),(0 0 0)</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Composite and powers by Boolean product",
+      "body": [
+        {
+          "type": "def",
+          "text": "If <span class=\"sym\">R</span> is from <span class=\"sym\">A</span> to <span class=\"sym\">B</span> and <span class=\"sym\">S</span> from <span class=\"sym\">B</span> to <span class=\"sym\">C</span>, then <span class=\"sym\">M_{S∘R} = Mᴿ ⊙ Mˢ</span>, the Boolean product of the two matrices."
+        },
+        {
+          "type": "p",
+          "text": "Powers follow the same rule: the matrix of <span class=\"sym\">Rⁿ</span> is the <span class=\"sym\">n</span>-th Boolean power <span class=\"sym\">Mᴿ^[n]</span>. The Boolean product uses <span class=\"sym\">∧</span> for the term products and <span class=\"sym\">∨</span> to combine them."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Squaring a relation",
+          "body": "For <span class=\"sym\">Mᴿ</span> with rows <span class=\"sym\">(0 1 0),(0 1 1),(1 0 0)</span>, the Boolean square <span class=\"sym\">Mᴿ^[2]</span> has rows <span class=\"sym\">(0 1 1),(1 1 1),(0 1 0)</span> — the matrix of <span class=\"sym\">R²</span>."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Directed graphs (digraphs)",
+      "body": [
+        {
+          "type": "def",
+          "text": "A <b>directed graph</b> or <b>digraph</b> consists of a set <span class=\"sym\">V</span> of vertices (nodes) and a set <span class=\"sym\">E</span> of edges (arcs), each an ordered pair from <span class=\"sym\">V</span>. In the edge <span class=\"sym\">(a, b)</span>, <span class=\"sym\">a</span> is the initial vertex and <span class=\"sym\">b</span> the terminal vertex."
+        },
+        {
+          "type": "p",
+          "text": "A relation on a set is drawn by taking its elements as vertices and each pair <span class=\"sym\">(a, b) ∈ R</span> as an edge from <span class=\"sym\">a</span> to <span class=\"sym\">b</span>. An edge <span class=\"sym\">(a, a)</span> from a vertex back to itself is a <b>loop</b>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "A digraph of a relation",
+          "body": "The relation <span class=\"sym\">R = {(1,1),(1,3),(2,1),(2,3),(2,4),(3,1),(3,2),(4,1)}</span> on <span class=\"sym\">{1,2,3,4}</span> is drawn with a loop at 1 and arrows for every other pair."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Reading properties off the digraph",
+      "body": [
+        {
+          "type": "truthTable",
+          "headers": [
+            "Property",
+            "Digraph criterion"
+          ],
+          "rows": [
+            [
+              "Reflexive",
+              "a loop at every vertex"
+            ],
+            [
+              "Symmetric",
+              "every edge between distinct vertices has an edge in the opposite direction"
+            ],
+            [
+              "Antisymmetric",
+              "never two edges in opposite directions between distinct vertices"
+            ],
+            [
+              "Transitive",
+              "whenever <span class=\"sym\">x→y</span> and <span class=\"sym\">y→z</span>, the edge <span class=\"sym\">x→z</span> is present"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "These pictorial tests make it fast to classify a relation: scan for missing loops, one-way edges, and missing &#x27;shortcut&#x27; edges that would complete a triangle."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Classifying from a picture",
+          "body": "A digraph with a loop at every vertex but a single one-way edge <span class=\"sym\">x→y</span> (no <span class=\"sym\">y→x</span>) is reflexive and antisymmetric, but not symmetric."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "In the zero–one matrix <span class=\"sym\">Mᴿ = [mᵢⱼ]</span> of a relation, the entry <span class=\"sym\">mᵢⱼ</span> equals 1 exactly when:",
+      "options": [
+        "<span class=\"sym\">(aᵢ, bⱼ) ∈ R</span>",
+        "<span class=\"sym\">(aᵢ, bⱼ) ∉ R</span>",
+        "<span class=\"sym\">i = j</span>",
+        "<span class=\"sym\">aᵢ = bⱼ</span>"
+      ],
+      "answer": 0,
+      "explanation": "By definition <span class=\"sym\">mᵢⱼ = 1</span> iff the pair <span class=\"sym\">(aᵢ, bⱼ)</span> is in the relation."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "A relation on a set is reflexive if and only if every entry on the main diagonal of its matrix is 1.",
+      "answer": true,
+      "explanation": "Reflexivity means <span class=\"sym\">(aᵢ, aᵢ) ∈ R</span> for all <span class=\"sym\">i</span>, i.e. <span class=\"sym\">mᵢᵢ = 1</span>."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "In a digraph, an edge <span class=\"sym\">(a, a)</span> from a vertex back to itself is called:",
+      "options": [
+        "A loop",
+        "An arc",
+        "A path",
+        "A circuit"
+      ],
+      "answer": 0,
+      "explanation": "An edge from a vertex to itself is a loop."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "A relation is symmetric if and only if its matrix equals its own transpose, <span class=\"sym\">Mᴿ = (Mᴿ)ᵗ</span>.",
+      "answer": true,
+      "explanation": "Symmetry means <span class=\"sym\">mᵢⱼ = mⱼᵢ</span> for all <span class=\"sym\">i, j</span>, which is exactly <span class=\"sym\">Mᴿ = (Mᴿ)ᵗ</span>."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Matrix operations for combining relations.",
+      "template": "The matrix of <span class=\"sym\">R₁ ∪ R₂</span> is the Boolean [[1]] <span class=\"sym\">Mᴿ₁ ∨ Mᴿ₂</span>. The matrix of <span class=\"sym\">R₁ ∩ R₂</span> is the Boolean [[2]] <span class=\"sym\">Mᴿ₁ ∧ Mᴿ₂</span>. The matrix of the composite <span class=\"sym\">S ∘ R</span> is the Boolean [[3]] <span class=\"sym\">Mᴿ ⊙ Mˢ</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "join",
+          "acceptable": [
+            "join"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "meet",
+          "acceptable": [
+            "meet"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "product",
+          "acceptable": [
+            "product"
+          ]
+        }
+      ],
+      "explanation": "Union ↔ join <span class=\"sym\">∨</span>, intersection ↔ meet <span class=\"sym\">∧</span>, composite ↔ Boolean product <span class=\"sym\">⊙</span>."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "Which matrix operation gives the matrix of the composite <span class=\"sym\">S ∘ R</span>?",
+      "options": [
+        "The Boolean product <span class=\"sym\">Mᴿ ⊙ Mˢ</span>",
+        "The join <span class=\"sym\">Mᴿ ∨ Mˢ</span>",
+        "The meet <span class=\"sym\">Mᴿ ∧ Mˢ</span>",
+        "The transpose <span class=\"sym\">(Mᴿ)ᵗ</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">M_{S∘R} = Mᴿ ⊙ Mˢ</span>, the Boolean product."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "State the digraph criterion for a relation to be reflexive.",
+      "canonical": "There is a loop at every vertex of the directed graph.",
+      "acceptable": [
+        "a loop at every vertex",
+        "every vertex has a loop",
+        "loops on all vertices"
+      ],
+      "explanation": "Reflexive means <span class=\"sym\">(a, a) ∈ R</span> for all <span class=\"sym\">a</span> — a loop at each vertex."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps to draw the digraph of a relation <span class=\"sym\">R</span> on a set <span class=\"sym\">A</span>.",
+      "items": [
+        "Draw one vertex for each element of <span class=\"sym\">A</span>",
+        "For each pair <span class=\"sym\">(a, b) ∈ R</span>, add an arrow from <span class=\"sym\">a</span> to <span class=\"sym\">b</span>",
+        "Draw a loop at <span class=\"sym\">a</span> for each pair <span class=\"sym\">(a, a) ∈ R</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Vertices first, then directed edges for ordered pairs, with loops for pairs of the form <span class=\"sym\">(a, a)</span>."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "A digraph has a loop at every vertex and, between distinct vertices, no pair of opposite-direction edges. This relation is certainly:",
+      "options": [
+        "Reflexive and antisymmetric",
+        "Symmetric",
+        "Not reflexive",
+        "Transitive"
+      ],
+      "answer": 0,
+      "explanation": "Loops everywhere ⇒ reflexive; no opposite edges between distinct vertices ⇒ antisymmetric. Symmetry and transitivity are not guaranteed."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "Using matrices, how do you obtain the matrix of the relation power <span class=\"sym\">Rⁿ</span>?",
+      "canonical": "It is the n-th Boolean power of the matrix, M_R^[n].",
+      "acceptable": [
+        "the n-th Boolean power of M_R",
+        "M_R^[n]",
+        "Boolean power n of M_R"
+      ],
+      "explanation": "Since <span class=\"sym\">Rⁿ</span> composes <span class=\"sym\">R</span> with itself <span class=\"sym\">n</span> times, its matrix is the <span class=\"sym\">n</span>-th Boolean power <span class=\"sym\">Mᴿ^[n]</span>."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Digraph tests for the four properties.",
+      "template": "A relation is symmetric iff every edge between distinct vertices has an edge in the [[1]] direction. It is antisymmetric iff there are never two edges in [[2]] directions between distinct vertices. It is transitive iff whenever <span class=\"sym\">x→y</span> and <span class=\"sym\">y→z</span> there is also an edge [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "opposite",
+          "acceptable": [
+            "opposite",
+            "reverse"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "opposite",
+          "acceptable": [
+            "opposite",
+            "reverse"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "x→z",
+          "acceptable": [
+            "x→z",
+            "x to z",
+            "x -> z",
+            "from x to z"
+          ]
+        }
+      ],
+      "explanation": "Symmetric ↔ reverse edge present; antisymmetric ↔ no opposite pair; transitive ↔ the shortcut <span class=\"sym\">x→z</span> is present."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

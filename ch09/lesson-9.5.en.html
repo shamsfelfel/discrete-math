@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9.5 Equivalence Relations — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 9</a> &nbsp;›&nbsp;
+    <span id="crumb-current">9.5</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.5.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "9.5",
+  "chapter": "9",
+  "title": "Equivalence Relations",
+  "lede": "A relation that is reflexive, symmetric, and transitive is an <b>equivalence relation</b>. Its equivalence classes carve the underlying set into disjoint pieces — a partition — and every partition arises this way.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Definition of an equivalence relation",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition 1.</b> A relation on a set <span class=\"sym\">A</span> is an <b>equivalence relation</b> if it is reflexive, symmetric, and transitive."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 2.</b> Two elements <span class=\"sym\">a</span> and <span class=\"sym\">b</span> related by an equivalence relation are called <b>equivalent</b>, written <span class=\"sym\">a ∼ b</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Three properties at once",
+          "body": "To prove a relation is an equivalence relation, verify all three properties in turn: reflexive, then symmetric, then transitive."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Congruence and the absolute-value relation",
+      "body": [
+        {
+          "type": "p",
+          "text": "On <span class=\"sym\">Z</span>, the relation <span class=\"sym\">a R b ⟺ a = b or a = −b</span> is an equivalence relation — it was shown reflexive, symmetric, and transitive in Section 9.1."
+        },
+        {
+          "type": "p",
+          "text": "A central example: for a fixed <span class=\"sym\">m &gt; 1</span>, <b>congruence modulo <span class=\"sym\">m</span></b> — <span class=\"sym\">a ≡ b (mod m)</span>, meaning <span class=\"sym\">m</span> divides <span class=\"sym\">a − b</span> — is an equivalence relation on the integers."
+        }
+      ],
+      "examples": [
+        {
+          "label": "&#x27;Differ by an integer&#x27;",
+          "body": "On the reals, <span class=\"sym\">a R b ⟺ a − b ∈ Z</span> is an equivalence relation: <span class=\"sym\">a − a = 0 ∈ Z</span> (reflexive), <span class=\"sym\">a − b ∈ Z ⇒ b − a ∈ Z</span> (symmetric), and sums of integers are integers (transitive)."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "A relation that is not an equivalence relation",
+      "body": [
+        {
+          "type": "p",
+          "text": "Failing even one property breaks equivalence. The relation <span class=\"sym\">x R y ⟺ |x − y| &lt; 1</span> on the reals is reflexive and symmetric but <b>not</b> transitive, so it is not an equivalence relation."
+        },
+        {
+          "type": "p",
+          "text": "The lesson: always check transitivity separately — reflexivity and symmetry alone are not enough."
+        }
+      ],
+      "examples": [
+        {
+          "label": "The transitivity counterexample",
+          "body": "Take <span class=\"sym\">x = 2.8, y = 1.9, z = 1.1</span>: <span class=\"sym\">|x − y| = 0.9 &lt; 1</span> and <span class=\"sym\">|y − z| = 0.8 &lt; 1</span>, but <span class=\"sym\">|x − z| = 1.7 &gt; 1</span> — so <span class=\"sym\">x R y</span> and <span class=\"sym\">y R z</span> yet <span class=\"sym\">x R̸ z</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Equivalence classes",
+      "body": [
+        {
+          "type": "def",
+          "text": "Let <span class=\"sym\">R</span> be an equivalence relation on <span class=\"sym\">A</span>. The <b>equivalence class</b> of <span class=\"sym\">a</span> is <span class=\"sym\">[a] = {s ∈ A | (a, s) ∈ R}</span> — all elements equivalent to <span class=\"sym\">a</span>. Any element of a class is a <b>representative</b> of it."
+        },
+        {
+          "type": "p",
+          "text": "For congruence modulo <span class=\"sym\">m</span>, the class of <span class=\"sym\">a</span> is its <b>congruence class</b> <span class=\"sym\">[a]ₘ</span> — all integers with the same remainder on division by <span class=\"sym\">m</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Classes mod 4",
+          "body": "Modulo 4, <span class=\"sym\">[0] = {…, −4, 0, 4, 8, …}</span> and <span class=\"sym\">[1] = {…, −3, 1, 5, 9, …}</span>. There are exactly four classes: <span class=\"sym\">[0], [1], [2], [3]</span>."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Classes are equal or disjoint",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Theorem.</b> For an equivalence relation <span class=\"sym\">R</span> on <span class=\"sym\">A</span>, the following are equivalent: <span class=\"sym\">(a, b) ∈ R</span>; <span class=\"sym\">[a] = [b]</span>; and <span class=\"sym\">[a] ∩ [b] ≠ ∅</span>."
+        },
+        {
+          "type": "p",
+          "text": "So any two equivalence classes are either identical or completely disjoint — they never partially overlap."
+        }
+      ],
+      "examples": [
+        {
+          "label": "No partial overlap",
+          "body": "If some element lies in both <span class=\"sym\">[a]</span> and <span class=\"sym\">[b]</span>, then <span class=\"sym\">a ∼ b</span> and the classes coincide: <span class=\"sym\">[a] = [b]</span>."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Equivalence relations and partitions",
+      "body": [
+        {
+          "type": "def",
+          "text": "A <b>partition</b> of <span class=\"sym\">A</span> is a collection of non-empty, pairwise disjoint subsets whose union is <span class=\"sym\">A</span>. The equivalence classes of an equivalence relation on <span class=\"sym\">A</span> form a partition of <span class=\"sym\">A</span>."
+        },
+        {
+          "type": "def",
+          "text": "Conversely, given any partition <span class=\"sym\">{Aᵢ}</span> of <span class=\"sym\">A</span>, the relation &#x27;<span class=\"sym\">x</span> and <span class=\"sym\">y</span> lie in the same block&#x27; is an equivalence relation whose classes are exactly the blocks. Equivalence relations and partitions are two views of the same thing."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Partition from congruence",
+          "body": "Congruence modulo 4 partitions <span class=\"sym\">Z</span> into the four classes <span class=\"sym\">[0], [1], [2], [3]</span> — disjoint, non-empty, and together all of <span class=\"sym\">Z</span>."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "A relation is an equivalence relation if and only if it is:",
+      "options": [
+        "Reflexive, symmetric, and transitive",
+        "Reflexive and antisymmetric",
+        "Symmetric and transitive only",
+        "Antisymmetric and transitive"
+      ],
+      "answer": 0,
+      "explanation": "By Definition 1, an equivalence relation is exactly a reflexive, symmetric, and transitive relation."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "If <span class=\"sym\">a</span> and <span class=\"sym\">b</span> are related by an equivalence relation, we write <span class=\"sym\">a ∼ b</span> and call them equivalent.",
+      "answer": true,
+      "explanation": "That is Definition 2 — the notation and terminology for equivalent elements."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "The equivalence class of <span class=\"sym\">a</span> is:",
+      "options": [
+        "<span class=\"sym\">[a] = {s | (a, s) ∈ R}</span>",
+        "<span class=\"sym\">{a}</span> only",
+        "<span class=\"sym\">A − {a}</span>",
+        "the empty set"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">[a]</span> is the set of all elements equivalent to <span class=\"sym\">a</span>."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "Congruence modulo <span class=\"sym\">m</span> — where <span class=\"sym\">a ≡ b (mod m)</span> means <span class=\"sym\">m</span> divides <span class=\"sym\">a − b</span> — is an equivalence relation on the integers.",
+      "answer": true,
+      "explanation": "Congruence mod <span class=\"sym\">m</span> is reflexive, symmetric, and transitive."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "The three defining properties.",
+      "template": "An equivalence relation must be [[1]] (every element relates to itself), [[2]] (relations go both ways), and [[3]] (chains close up).",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "reflexive",
+          "acceptable": [
+            "reflexive"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "symmetric",
+          "acceptable": [
+            "symmetric"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "transitive",
+          "acceptable": [
+            "transitive"
+          ]
+        }
+      ],
+      "explanation": "Reflexive + symmetric + transitive together define an equivalence relation."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "Why is <span class=\"sym\">x R y ⟺ |x − y| &lt; 1</span> on the reals <b>not</b> an equivalence relation?",
+      "options": [
+        "It fails transitivity",
+        "It fails reflexivity",
+        "It fails symmetry",
+        "It is antisymmetric"
+      ],
+      "answer": 0,
+      "explanation": "It is reflexive and symmetric, but <span class=\"sym\">2.8 R 1.9</span> and <span class=\"sym\">1.9 R 1.1</span> while <span class=\"sym\">2.8 R̸ 1.1</span> — transitivity fails."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "State the theorem describing how two equivalence classes <span class=\"sym\">[a]</span> and <span class=\"sym\">[b]</span> can relate.",
+      "canonical": "They are either equal or disjoint; [a] = [b] exactly when a ∼ b, and otherwise [a] ∩ [b] = ∅.",
+      "acceptable": [
+        "equal or disjoint",
+        "[a]=[b] iff a~b else disjoint",
+        "two classes are identical or completely disjoint"
+      ],
+      "explanation": "<span class=\"sym\">(a,b) ∈ R</span>, <span class=\"sym\">[a] = [b]</span>, and <span class=\"sym\">[a] ∩ [b] ≠ ∅</span> are all equivalent, so classes never partially overlap."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps for proving a relation is an equivalence relation.",
+      "items": [
+        "Show <span class=\"sym\">(a, a) ∈ R</span> for all <span class=\"sym\">a</span> (reflexive)",
+        "Show <span class=\"sym\">(a, b) ∈ R ⇒ (b, a) ∈ R</span> (symmetric)",
+        "Show <span class=\"sym\">(a, b), (b, c) ∈ R ⇒ (a, c) ∈ R</span> (transitive)",
+        "Conclude it is an equivalence relation"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify reflexivity, symmetry, and transitivity, then conclude."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "How many distinct equivalence classes does congruence modulo 4 have on <span class=\"sym\">Z</span>?",
+      "options": [
+        "4",
+        "3",
+        "Infinitely many",
+        "2"
+      ],
+      "answer": 0,
+      "explanation": "The classes are <span class=\"sym\">[0], [1], [2], [3]</span> — one for each possible remainder on division by 4."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "How are equivalence relations on <span class=\"sym\">A</span> related to partitions of <span class=\"sym\">A</span>?",
+      "canonical": "The equivalence classes of an equivalence relation form a partition of A, and conversely every partition of A yields an equivalence relation whose classes are the blocks — they are two views of the same thing.",
+      "acceptable": [
+        "classes form a partition and every partition gives an equivalence relation",
+        "one-to-one correspondence between equivalence relations and partitions",
+        "equivalence classes partition A; partitions induce equivalence relations"
+      ],
+      "explanation": "There is a one-to-one correspondence: equivalence classes are the blocks of a partition, and each partition defines an equivalence relation."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Classes and partitions.",
+      "template": "Two equivalence classes are either equal or [[1]]. The classes of an equivalence relation on <span class=\"sym\">A</span> form a [[2]] of <span class=\"sym\">A</span>: non-empty, pairwise disjoint subsets whose [[3]] is all of <span class=\"sym\">A</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "disjoint",
+          "acceptable": [
+            "disjoint"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "partition",
+          "acceptable": [
+            "partition"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "answer": "union",
+          "options": [
+            "union",
+            "intersection",
+            "difference"
+          ]
+        }
+      ],
+      "explanation": "Classes are equal or disjoint; they form a partition — disjoint non-empty pieces whose union is <span class=\"sym\">A</span>."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9.2 n-ary Relations and Their Applications — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 9</a> &nbsp;›&nbsp;
+    <span id="crumb-current">9.2</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.2.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "9.2",
+  "chapter": "9",
+  "title": "n-ary Relations and Their Applications",
+  "lede": "An <span class=\"sym\">n</span>-ary relation is a set of ordered <span class=\"sym\">n</span>-tuples drawn from <span class=\"sym\">n</span> sets. These relations are the mathematical foundation of relational databases, where each row is an <span class=\"sym\">n</span>-tuple and operations like selection, projection, and join let us query the data.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "n-ary relations, degree, and domains",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition 1.</b> Let <span class=\"sym\">A₁, A₂, …, Aₙ</span> be sets. An <b><span class=\"sym\">n</span>-ary relation</b> on these sets is a subset of <span class=\"sym\">A₁ × A₂ × … × Aₙ</span>. The sets <span class=\"sym\">A₁, …, Aₙ</span> are the <b>domains</b> of the relation, and <span class=\"sym\">n</span> is its <b>degree</b>."
+        },
+        {
+          "type": "p",
+          "text": "So a binary relation (Section 9.1) is just the case <span class=\"sym\">n = 2</span>. An <span class=\"sym\">n</span>-ary relation is a set of ordered <span class=\"sym\">n</span>-tuples <span class=\"sym\">(a₁, a₂, …, aₙ)</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Degree 3 on the naturals",
+          "body": "Let <span class=\"sym\">R</span> on <span class=\"sym\">N × N × N</span> consist of triples <span class=\"sym\">(a, b, c)</span> with <span class=\"sym\">a &lt; b &lt; c</span>. Then <span class=\"sym\">(1, 2, 3) ∈ R</span> but <span class=\"sym\">(2, 4, 3) ∉ R</span>. Its degree is 3 and all its domains are <span class=\"sym\">N</span>."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "More n-ary relations",
+      "body": [
+        {
+          "type": "p",
+          "text": "The condition defining an <span class=\"sym\">n</span>-ary relation can be any predicate on the <span class=\"sym\">n</span>-tuple. The tuple belongs to the relation exactly when the predicate holds."
+        },
+        {
+          "type": "p",
+          "text": "Domains need not be distinct sets, and the same set can appear several times — as in <span class=\"sym\">Z × Z × Z</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Arithmetic progressions",
+          "body": "Let <span class=\"sym\">R</span> on <span class=\"sym\">Z × Z × Z</span> be the triples <span class=\"sym\">(a, b, c)</span> forming an arithmetic progression — that is, some integer <span class=\"sym\">k</span> has <span class=\"sym\">b − a = k</span> and <span class=\"sym\">c − b = k</span>. Then <span class=\"sym\">(1, 3, 5) ∈ R</span>, but <span class=\"sym\">(2, 5, 9) ∉ R</span>."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "The relational data model",
+      "body": [
+        {
+          "type": "def",
+          "text": "A database of records can be modelled as an <span class=\"sym\">n</span>-ary relation: each <b>record</b> is an <span class=\"sym\">n</span>-tuple <span class=\"sym\">(a₁, …, aₙ)</span>, and each component is drawn from a <b>field</b> (or attribute), whose set of possible values is a domain. This is the <b>relational data model</b>."
+        },
+        {
+          "type": "p",
+          "text": "It is natural to display such a relation as a <b>table</b>: each row is a record (an <span class=\"sym\">n</span>-tuple) and each column is a field. A student table might have fields <span class=\"sym\">(Name, ID, Major, GPA)</span> — a 4-ary relation."
+        }
+      ],
+      "examples": [
+        {
+          "label": "A table is a relation",
+          "body": "The rows <span class=\"sym\">(Ackermann, 231455, CS, 3.88)</span> and <span class=\"sym\">(Chou, 102147, CS, 3.49)</span> are 4-tuples of the student relation; the degree is 4."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Primary and composite keys",
+      "body": [
+        {
+          "type": "def",
+          "text": "A domain (field) is a <b>primary key</b> when no two <span class=\"sym\">n</span>-tuples in the relation have the same value in that field. A primary key uniquely identifies each record."
+        },
+        {
+          "type": "p",
+          "text": "When no single field works, a combination of fields that is unique across all records is a <b>composite key</b>. Keys can depend on the current contents of the relation, but a well-designed database chooses keys that stay valid for every allowed state."
+        }
+      ],
+      "examples": [
+        {
+          "label": "ID as a key",
+          "body": "In <span class=\"sym\">(Name, ID, Major, GPA)</span> the <span class=\"sym\">ID</span> field is a primary key because student IDs are unique — but <span class=\"sym\">Major</span> is not, since many students share a major."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Selection",
+      "body": [
+        {
+          "type": "def",
+          "text": "A <b>selection operator</b> <span class=\"sym\">sᴄ</span> maps an <span class=\"sym\">n</span>-ary relation <span class=\"sym\">R</span> to the sub-relation of all <span class=\"sym\">n</span>-tuples of <span class=\"sym\">R</span> that satisfy a condition <span class=\"sym\">C</span>. It keeps whole records but only those matching the condition."
+        },
+        {
+          "type": "p",
+          "text": "Selection is the &#x27;filter the rows&#x27; operation of a query: it never changes the fields, only which records survive."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Filtering rows",
+          "body": "Applying <span class=\"sym\">s_{Major = CS}</span> to the student relation returns exactly the records whose <span class=\"sym\">Major</span> field equals <span class=\"sym\">CS</span>."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Projection and join",
+      "body": [
+        {
+          "type": "def",
+          "text": "A <b>projection</b> <span class=\"sym\">Pᵢ₁…ᵢₘ</span> keeps only the fields <span class=\"sym\">i₁, …, iₘ</span> of each tuple, deleting the rest. Because the surviving fields may no longer distinguish records, projection can produce fewer tuples than it started with."
+        },
+        {
+          "type": "def",
+          "text": "A <b>join</b> <span class=\"sym\">Jₚ(R, S)</span> combines a relation <span class=\"sym\">R</span> of degree <span class=\"sym\">m</span> with a relation <span class=\"sym\">S</span> of degree <span class=\"sym\">n</span> that agree on <span class=\"sym\">p</span> shared fields, producing tuples of degree <span class=\"sym\">m + n − p</span> whenever the shared fields match."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Projecting away a field",
+          "body": "The projection <span class=\"sym\">P₁,₃</span> applied to 4-tuples <span class=\"sym\">(Name, ID, Major, GPA)</span> yields pairs <span class=\"sym\">(Name, Major)</span>, discarding <span class=\"sym\">ID</span> and <span class=\"sym\">GPA</span>."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "An <span class=\"sym\">n</span>-ary relation on sets <span class=\"sym\">A₁, …, Aₙ</span> is:",
+      "options": [
+        "A subset of <span class=\"sym\">A₁ × A₂ × … × Aₙ</span>",
+        "A subset of <span class=\"sym\">A₁ ∪ … ∪ Aₙ</span>",
+        "A function of <span class=\"sym\">n</span> variables",
+        "An element of <span class=\"sym\">A₁ × … × Aₙ</span>"
+      ],
+      "answer": 0,
+      "explanation": "By Definition 1, it is a subset of the Cartesian product of the <span class=\"sym\">n</span> domains."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "The <b>degree</b> of an <span class=\"sym\">n</span>-ary relation is the number <span class=\"sym\">n</span> of sets involved.",
+      "answer": true,
+      "explanation": "Degree = <span class=\"sym\">n</span>; the sets <span class=\"sym\">A₁, …, Aₙ</span> are the domains."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "In the relational data model, each record corresponds to:",
+      "options": [
+        "An <span class=\"sym\">n</span>-tuple",
+        "A field",
+        "A domain",
+        "A primary key"
+      ],
+      "answer": 0,
+      "explanation": "A record is an ordered <span class=\"sym\">n</span>-tuple; the columns are the fields (attributes)."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "A field is a primary key only if no two records share the same value in that field.",
+      "answer": true,
+      "explanation": "That uniqueness is exactly what makes a field a primary key."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Vocabulary of the relational model.",
+      "template": "In a table modelling an <span class=\"sym\">n</span>-ary relation, each row is a [[1]] and each column is a [[2]]. The number of columns, <span class=\"sym\">n</span>, is the relation&#x27;s [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "record",
+          "acceptable": [
+            "record",
+            "tuple",
+            "n-tuple",
+            "row"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "field",
+          "acceptable": [
+            "field",
+            "attribute",
+            "domain",
+            "column"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "degree",
+          "acceptable": [
+            "degree"
+          ]
+        }
+      ],
+      "explanation": "Row = record (<span class=\"sym\">n</span>-tuple), column = field/attribute, and <span class=\"sym\">n</span> = degree."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "For <span class=\"sym\">R</span> on <span class=\"sym\">N³</span> of triples with <span class=\"sym\">a &lt; b &lt; c</span>, which triple is in <span class=\"sym\">R</span>?",
+      "options": [
+        "<span class=\"sym\">(1, 2, 3)</span>",
+        "<span class=\"sym\">(2, 4, 3)</span>",
+        "<span class=\"sym\">(3, 3, 5)</span>",
+        "<span class=\"sym\">(5, 2, 1)</span>"
+      ],
+      "answer": 0,
+      "explanation": "Only <span class=\"sym\">(1, 2, 3)</span> satisfies <span class=\"sym\">a &lt; b &lt; c</span>."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "What does the selection operator <span class=\"sym\">sᴄ</span> do to a relation <span class=\"sym\">R</span>?",
+      "canonical": "It returns the sub-relation of all n-tuples of R that satisfy the condition C, keeping whole records but only those that match.",
+      "acceptable": [
+        "keeps the tuples of R satisfying condition C",
+        "filters rows meeting condition C",
+        "returns records that satisfy C"
+      ],
+      "explanation": "Selection filters the rows: it keeps every field but only the records meeting <span class=\"sym\">C</span>."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order these query operations by how many fields each keeps, from <b>all fields kept</b> (top) to <b>fields deleted</b> (bottom).",
+      "items": [
+        "Selection <span class=\"sym\">sᴄ</span> — keeps every field",
+        "Join <span class=\"sym\">Jₚ</span> — merges and keeps <span class=\"sym\">m + n − p</span> fields",
+        "Projection <span class=\"sym\">Pᵢ…</span> — deletes some fields"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Selection keeps all fields (filters rows); join combines fields; projection removes fields."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "Applying projection <span class=\"sym\">P₁,₃</span> to 4-tuples <span class=\"sym\">(Name, ID, Major, GPA)</span> gives:",
+      "options": [
+        "<span class=\"sym\">(Name, Major)</span>",
+        "<span class=\"sym\">(ID, GPA)</span>",
+        "<span class=\"sym\">(Name, ID, Major)</span>",
+        "<span class=\"sym\">(Name, GPA)</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">P₁,₃</span> keeps fields 1 and 3 — <span class=\"sym\">Name</span> and <span class=\"sym\">Major</span> — deleting the others."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "The join <span class=\"sym\">Jₚ(R, S)</span> combines a degree-<span class=\"sym\">m</span> relation with a degree-<span class=\"sym\">n</span> relation sharing <span class=\"sym\">p</span> fields. What is the degree of the result?",
+      "canonical": "m + n − p.",
+      "acceptable": [
+        "m+n-p",
+        "m + n - p",
+        "m plus n minus p"
+      ],
+      "explanation": "The <span class=\"sym\">p</span> shared fields are not duplicated, so the joined tuples have degree <span class=\"sym\">m + n − p</span>."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Choosing keys.",
+      "template": "When no single field is unique across all records, a combination of fields that is unique is called a [[1]] key. In the student relation <span class=\"sym\">(Name, ID, Major, GPA)</span>, the field [[2]] is a natural primary key, whereas [[3]] is not, because many students share it.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "composite",
+          "acceptable": [
+            "composite",
+            "compound"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "ID",
+          "acceptable": [
+            "ID",
+            "id"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "answer": "Major",
+          "options": [
+            "Major",
+            "ID"
+          ]
+        }
+      ],
+      "explanation": "A unique combination is a composite key; <span class=\"sym\">ID</span> is unique (primary key) while <span class=\"sym\">Major</span> repeats."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

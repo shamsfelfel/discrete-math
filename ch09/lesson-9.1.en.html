@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9.1 Relations and Their Properties — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 9</a> &nbsp;›&nbsp;
+    <span id="crumb-current">9.1</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.1.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "9.1",
+  "chapter": "9",
+  "title": "Relations and Their Properties",
+  "lede": "A binary relation from a set <span class=\"sym\">A</span> to a set <span class=\"sym\">B</span> is simply a subset of the Cartesian product <span class=\"sym\">A × B</span> — a set of ordered pairs. This is the most general way to link elements of sets, and we classify relations on a set by whether they are reflexive, symmetric, antisymmetric, or transitive.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Binary relations and notation",
+      "body": [
+        {
+          "type": "p",
+          "text": "The most direct way to express a relationship between elements of two sets is to use ordered pairs made up of two related elements. Relationships between elements of sets are represented by the structure called a binary relation."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 1.</b> Let <span class=\"sym\">A</span> and <span class=\"sym\">B</span> be sets. A <b>binary relation from <span class=\"sym\">A</span> to <span class=\"sym\">B</span></b> is a subset of <span class=\"sym\">A × B</span>. In other words, it is a set <span class=\"sym\">R</span> of ordered pairs where the first element comes from <span class=\"sym\">A</span> and the second from <span class=\"sym\">B</span>."
+        },
+        {
+          "type": "p",
+          "text": "We use the notation <span class=\"sym\">a R b</span> to denote that <span class=\"sym\">(a, b) ∈ R</span>, and <span class=\"sym\">a R̸ b</span> to denote that <span class=\"sym\">(a, b) ∉ R</span>. When <span class=\"sym\">(a, b) ∈ R</span>, we say <span class=\"sym\">a</span> is related to <span class=\"sym\">b</span> by <span class=\"sym\">R</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "A relation from A to B",
+          "body": "Let <span class=\"sym\">A = {0, 1, 2}</span> and <span class=\"sym\">B = {a, b}</span>. Then <span class=\"sym\">{(0, a), (0, b), (1, a), (2, b)}</span> is a relation from <span class=\"sym\">A</span> to <span class=\"sym\">B</span> — so <span class=\"sym\">0 R a</span> holds, but <span class=\"sym\">1 R̸ b</span>."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Functions as relations",
+      "body": [
+        {
+          "type": "p",
+          "text": "Recall that a function <span class=\"sym\">f</span> from a set <span class=\"sym\">A</span> to a set <span class=\"sym\">B</span> assigns exactly one element of <span class=\"sym\">B</span> to each element of <span class=\"sym\">A</span>. The graph of <span class=\"sym\">f</span> is the set of ordered pairs <span class=\"sym\">(a, b)</span> with <span class=\"sym\">b = f(a)</span>. Because this graph is a subset of <span class=\"sym\">A × B</span>, it is a relation from <span class=\"sym\">A</span> to <span class=\"sym\">B</span>."
+        },
+        {
+          "type": "def",
+          "text": "Conversely, if <span class=\"sym\">R</span> is a relation from <span class=\"sym\">A</span> to <span class=\"sym\">B</span> such that every element of <span class=\"sym\">A</span> is the first element of exactly one ordered pair of <span class=\"sym\">R</span>, then a function can be defined with <span class=\"sym\">R</span> as its graph."
+        },
+        {
+          "type": "p",
+          "text": "Relations are a generalization of function graphs: a relation can express a one-to-many relationship, where an element of <span class=\"sym\">A</span> may be related to more than one element of <span class=\"sym\">B</span> — something a function cannot do."
+        }
+      ],
+      "examples": [
+        {
+          "label": "One-to-many",
+          "body": "A student may be enrolled in several courses, so the &#x27;is enrolled in&#x27; relation pairs one student with many courses — not a function, but a perfectly good relation."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Relations on a set",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition 2.</b> A <b>relation on a set <span class=\"sym\">A</span></b> is a relation from <span class=\"sym\">A</span> to <span class=\"sym\">A</span> — that is, a subset of <span class=\"sym\">A × A</span>."
+        },
+        {
+          "type": "p",
+          "text": "For example, on <span class=\"sym\">A = {1, 2, 3, 4}</span> the relation <span class=\"sym\">R = {(a, b) | a divides b}</span> is <span class=\"sym\">{(1,1), (1,2), (1,3), (1,4), (2,2), (2,4), (3,3), (4,4)}</span>."
+        },
+        {
+          "type": "p",
+          "text": "Because a set with <span class=\"sym\">n</span> elements has <span class=\"sym\">n²</span> ordered pairs in <span class=\"sym\">A × A</span>, there are <span class=\"sym\">2^(n²)</span> different relations on it — a set of 3 elements already has <span class=\"sym\">2⁹ = 512</span> relations."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Relations on the integers",
+          "body": "<span class=\"sym\">R₁ = {(a,b) | a ≤ b}</span>, <span class=\"sym\">R₂ = {(a,b) | a &gt; b}</span>, <span class=\"sym\">R₄ = {(a,b) | a = b}</span>, and <span class=\"sym\">R₅ = {(a,b) | a = b + 1}</span> are all relations on <span class=\"sym\">Z</span>. The pair <span class=\"sym\">(1, 1)</span> lies in <span class=\"sym\">R₁</span> and <span class=\"sym\">R₄</span> but not <span class=\"sym\">R₂</span> or <span class=\"sym\">R₅</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Reflexive, symmetric, and antisymmetric",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Reflexive:</b> <span class=\"sym\">R</span> is reflexive if <span class=\"sym\">(a, a) ∈ R</span> for every element <span class=\"sym\">a ∈ A</span> — that is, <span class=\"sym\">∀a ((a, a) ∈ R)</span>."
+        },
+        {
+          "type": "def",
+          "text": "<b>Symmetric:</b> <span class=\"sym\">R</span> is symmetric if <span class=\"sym\">(b, a) ∈ R</span> whenever <span class=\"sym\">(a, b) ∈ R</span>: <span class=\"sym\">∀a∀b((a,b) ∈ R → (b,a) ∈ R)</span>. <b>Antisymmetric:</b> if <span class=\"sym\">(a, b) ∈ R</span> and <span class=\"sym\">(b, a) ∈ R</span> imply <span class=\"sym\">a = b</span>: <span class=\"sym\">∀a∀b(((a,b) ∈ R ∧ (b,a) ∈ R) → a = b)</span>."
+        },
+        {
+          "type": "p",
+          "text": "Symmetric and antisymmetric are <b>not</b> opposites. A relation can be both (for example the equality relation), and a relation can be neither."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Checking the properties",
+          "body": "On <span class=\"sym\">{1,2,3,4}</span>, the relation <span class=\"sym\">R = {(1,1),(1,2),(2,1),(2,2)}</span> is symmetric (each <span class=\"sym\">(a,b)</span> has its mirror <span class=\"sym\">(b,a)</span>) but not reflexive because <span class=\"sym\">(3,3) ∉ R</span>."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Transitive relations",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition 5.</b> A relation <span class=\"sym\">R</span> on a set <span class=\"sym\">A</span> is <b>transitive</b> if whenever <span class=\"sym\">(a, b) ∈ R</span> and <span class=\"sym\">(b, c) ∈ R</span>, then <span class=\"sym\">(a, c) ∈ R</span>, for all <span class=\"sym\">a, b, c ∈ A</span>: <span class=\"sym\">∀a∀b∀c(((a,b) ∈ R ∧ (b,c) ∈ R) → (a,c) ∈ R)</span>."
+        },
+        {
+          "type": "p",
+          "text": "On the integers, <span class=\"sym\">≤</span>, <span class=\"sym\">&gt;</span>, and <span class=\"sym\">=</span> are all transitive; the &#x27;divides&#x27; relation is transitive too. But <span class=\"sym\">R₅ = {(a,b) | a = b + 1}</span> is not transitive: <span class=\"sym\">(2,1)</span> and <span class=\"sym\">(1,0)</span> are in <span class=\"sym\">R₅</span>, but <span class=\"sym\">(2,0)</span> is not."
+        },
+        {
+          "type": "p",
+          "text": "To show a relation is <b>not</b> transitive, exhibit a single counterexample: pairs <span class=\"sym\">(a,b)</span> and <span class=\"sym\">(b,c)</span> in <span class=\"sym\">R</span> with <span class=\"sym\">(a,c) ∉ R</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "A non-transitive relation",
+          "body": "For <span class=\"sym\">R = {(1,1),(1,2),(2,1),(2,2),(3,4),(4,1),(4,4)}</span> on <span class=\"sym\">{1,2,3,4}</span>: <span class=\"sym\">(3,4)</span> and <span class=\"sym\">(4,1)</span> are in <span class=\"sym\">R</span>, but <span class=\"sym\">(3,1)</span> is not — so <span class=\"sym\">R</span> is not transitive."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "Combining relations: composites and powers",
+      "body": [
+        {
+          "type": "p",
+          "text": "Because relations from <span class=\"sym\">A</span> to <span class=\"sym\">B</span> are sets of pairs, any two can be combined with the set operations <span class=\"sym\">∪</span>, <span class=\"sym\">∩</span>, <span class=\"sym\">−</span>, and <span class=\"sym\">⊕</span> (symmetric difference)."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 6 (composite).</b> Let <span class=\"sym\">R</span> be a relation from <span class=\"sym\">A</span> to <span class=\"sym\">B</span> and <span class=\"sym\">S</span> a relation from <span class=\"sym\">B</span> to <span class=\"sym\">C</span>. The composite <span class=\"sym\">S ∘ R</span> consists of the pairs <span class=\"sym\">(a, c)</span> for which there exists <span class=\"sym\">b ∈ B</span> with <span class=\"sym\">(a, b) ∈ R</span> and <span class=\"sym\">(b, c) ∈ S</span>."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 7 (powers).</b> The powers of a relation <span class=\"sym\">R</span> on <span class=\"sym\">A</span> are defined recursively by <span class=\"sym\">R¹ = R</span> and <span class=\"sym\">R^(n+1) = Rⁿ ∘ R</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Computing powers",
+          "body": "For <span class=\"sym\">R = {(1,1),(2,1),(3,2),(4,3)}</span>, we get <span class=\"sym\">R² = {(1,1),(2,1),(3,1),(4,2)}</span> and <span class=\"sym\">R³ = {(1,1),(2,1),(3,1),(4,1)}</span>."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "A binary relation from a set <span class=\"sym\">A</span> to a set <span class=\"sym\">B</span> is defined as:",
+      "options": [
+        "A subset of <span class=\"sym\">A × B</span>",
+        "A function from <span class=\"sym\">A</span> to <span class=\"sym\">B</span>",
+        "A subset of <span class=\"sym\">A ∪ B</span>",
+        "An element of <span class=\"sym\">A × B</span>"
+      ],
+      "answer": 0,
+      "explanation": "By Definition 1, a binary relation from <span class=\"sym\">A</span> to <span class=\"sym\">B</span> is exactly a subset of the Cartesian product <span class=\"sym\">A × B</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "The notation <span class=\"sym\">a R b</span> means that the ordered pair <span class=\"sym\">(a, b)</span> belongs to <span class=\"sym\">R</span>.",
+      "answer": true,
+      "explanation": "<span class=\"sym\">a R b</span> is shorthand for <span class=\"sym\">(a, b) ∈ R</span>."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "A relation <b>on</b> a set <span class=\"sym\">A</span> is a subset of:",
+      "options": [
+        "<span class=\"sym\">A × A</span>",
+        "<span class=\"sym\">A</span>",
+        "<span class=\"sym\">A ∪ A</span>",
+        "the power set of <span class=\"sym\">A</span>"
+      ],
+      "answer": 0,
+      "explanation": "A relation on <span class=\"sym\">A</span> is a relation from <span class=\"sym\">A</span> to <span class=\"sym\">A</span>, i.e. a subset of <span class=\"sym\">A × A</span> (Definition 2)."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "A relation <span class=\"sym\">R</span> on <span class=\"sym\">A</span> is reflexive if <span class=\"sym\">(a, a) ∈ R</span> for every element <span class=\"sym\">a ∈ A</span>.",
+      "answer": true,
+      "explanation": "That is precisely the definition of reflexivity: <span class=\"sym\">∀a ((a, a) ∈ R)</span>."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Name the three properties from their definitions.",
+      "template": "A relation is [[1]] if <span class=\"sym\">(a,b) ∈ R</span> always forces <span class=\"sym\">(b,a) ∈ R</span>. It is [[2]] if <span class=\"sym\">(a,b) ∈ R</span> and <span class=\"sym\">(b,a) ∈ R</span> together force <span class=\"sym\">a = b</span>. It is [[3]] if <span class=\"sym\">(a,b) ∈ R</span> and <span class=\"sym\">(b,c) ∈ R</span> force <span class=\"sym\">(a,c) ∈ R</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "symmetric",
+          "acceptable": [
+            "symmetric"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "antisymmetric",
+          "acceptable": [
+            "antisymmetric",
+            "anti-symmetric"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "transitive",
+          "acceptable": [
+            "transitive"
+          ]
+        }
+      ],
+      "explanation": "Symmetric ↔ mirror pairs; antisymmetric ↔ mirrors force equality; transitive ↔ chains close up."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "For the &#x27;divides&#x27; relation <span class=\"sym\">R = {(a,b) | a divides b}</span> on <span class=\"sym\">{1,2,3,4}</span>, which pair is <b>not</b> in <span class=\"sym\">R</span>?",
+      "options": [
+        "<span class=\"sym\">(2, 3)</span>",
+        "<span class=\"sym\">(2, 4)</span>",
+        "<span class=\"sym\">(1, 3)</span>",
+        "<span class=\"sym\">(3, 3)</span>"
+      ],
+      "answer": 0,
+      "explanation": "2 does not divide 3, so <span class=\"sym\">(2,3) ∉ R</span>. The others all satisfy <span class=\"sym\">a | b</span>."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "State the definition of the composite <span class=\"sym\">S ∘ R</span> of a relation <span class=\"sym\">R</span> from <span class=\"sym\">A</span> to <span class=\"sym\">B</span> and <span class=\"sym\">S</span> from <span class=\"sym\">B</span> to <span class=\"sym\">C</span>.",
+      "canonical": "S∘R is the set of pairs (a,c) with a in A and c in C such that there exists some b in B with (a,b) in R and (b,c) in S.",
+      "acceptable": [
+        "(a,c) such that there is b with (a,b) in R and (b,c) in S",
+        "pairs (a,c) where some b has (a,b) in R and (b,c) in S",
+        "there exists b with aRb and bSc"
+      ],
+      "explanation": "The composite chains the two relations through a common middle element <span class=\"sym\">b ∈ B</span>."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps for deciding whether a pair <span class=\"sym\">(a, c)</span> belongs to the composite <span class=\"sym\">S ∘ R</span>.",
+      "items": [
+        "Take <span class=\"sym\">a ∈ A</span> and <span class=\"sym\">c ∈ C</span>",
+        "Look for a middle element <span class=\"sym\">b ∈ B</span>",
+        "Check that <span class=\"sym\">(a, b) ∈ R</span>",
+        "Check that <span class=\"sym\">(b, c) ∈ S</span>",
+        "If both hold for some <span class=\"sym\">b</span>, put <span class=\"sym\">(a, c)</span> in <span class=\"sym\">S ∘ R</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "The composite requires a common middle element linking <span class=\"sym\">a</span> through <span class=\"sym\">R</span> then <span class=\"sym\">S</span> to <span class=\"sym\">c</span>."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "Let <span class=\"sym\">R = {(1,1),(1,4),(2,3),(3,1),(3,4)}</span> from <span class=\"sym\">{1,2,3}</span> to <span class=\"sym\">{1,2,3,4}</span> and <span class=\"sym\">S = {(1,0),(2,0),(3,1),(3,2),(4,1)}</span> from <span class=\"sym\">{1,2,3,4}</span> to <span class=\"sym\">{0,1,2}</span>. What is <span class=\"sym\">S ∘ R</span>?",
+      "options": [
+        "<span class=\"sym\">{(1,0),(1,1),(2,1),(2,2),(3,0),(3,1)}</span>",
+        "<span class=\"sym\">{(1,0),(2,0),(3,1)}</span>",
+        "<span class=\"sym\">{(1,1),(2,3),(3,4)}</span>",
+        "<span class=\"sym\">{(0,1),(1,2),(2,3)}</span>"
+      ],
+      "answer": 0,
+      "explanation": "Chaining each pair of <span class=\"sym\">R</span> through <span class=\"sym\">S</span> gives <span class=\"sym\">S ∘ R = {(1,0),(1,1),(2,1),(2,2),(3,0),(3,1)}</span>."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "For <span class=\"sym\">R = {(1,1),(2,1),(3,2),(4,3)}</span> on <span class=\"sym\">{1,2,3,4}</span>, compute <span class=\"sym\">R²</span>.",
+      "canonical": "R squared = {(1,1),(2,1),(3,1),(4,2)}.",
+      "acceptable": [
+        "{(1,1),(2,1),(3,1),(4,2)}",
+        "(1,1),(2,1),(3,1),(4,2)"
+      ],
+      "explanation": "<span class=\"sym\">R² = R ∘ R</span>: e.g. <span class=\"sym\">(3,2) ∈ R</span> and <span class=\"sym\">(2,1) ∈ R</span> give <span class=\"sym\">(3,1)</span>; <span class=\"sym\">(4,3),(3,2)</span> give <span class=\"sym\">(4,2)</span>."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "Combining relations with set operations.",
+      "template": "Let <span class=\"sym\">R₁ = {(1,1),(2,2),(3,3)}</span> and <span class=\"sym\">R₂ = {(1,1),(1,2),(1,3),(1,4)}</span>. Then <span class=\"sym\">R₁ ∩ R₂</span> = <span class=\"sym\">{</span>[[1]]<span class=\"sym\">}</span>, and <span class=\"sym\">R₁ − R₂</span> has [[2]] pairs. The recursive rule for powers is <span class=\"sym\">R^(n+1) =</span> [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "(1,1)",
+          "acceptable": [
+            "(1,1)",
+            "(1, 1)"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "2",
+          "options": [
+            "2",
+            "1",
+            "3"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "R^n ∘ R",
+          "acceptable": [
+            "R^n ∘ R",
+            "R^n o R",
+            "Rn ∘ R",
+            "R^n compose R"
+          ]
+        }
+      ],
+      "explanation": "<span class=\"sym\">R₁ ∩ R₂ = {(1,1)}</span>; <span class=\"sym\">R₁ − R₂ = {(2,2),(3,3)}</span> (2 pairs); and <span class=\"sym\">R^(n+1) = Rⁿ ∘ R</span>."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

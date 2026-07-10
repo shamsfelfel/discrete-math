@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>٩.٥ علاقات التكافؤ — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٩</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٩.٥</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.5.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "9.5",
+  "chapter": "9",
+  "title": "علاقات التكافؤ",
+  "lede": "العلاقة الانعكاسية التماثلية المتعدّية هي <b>علاقة تكافؤ</b>. وصفوف تكافؤها تقسّم المجموعة الأساسية إلى قطع منفصلة — تجزئة — وكلّ تجزئة تنشأ بهذه الطريقة.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "تعريف علاقة التكافؤ",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ١.</b> العلاقة على مجموعة <span class=\"sym\">A</span> هي <b>علاقة تكافؤ</b> إذا كانت انعكاسية وتماثلية ومتعدّية."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ٢.</b> يُسمّى العنصران <span class=\"sym\">a</span> و<span class=\"sym\">b</span> المرتبطان بعلاقة تكافؤ <b>متكافئين</b>، ويُكتب <span class=\"sym\">a ∼ b</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "الخصائص الثلاث معًا",
+          "body": "لإثبات أنّ علاقةً علاقةُ تكافؤ، تحقّق من الخصائص الثلاث تباعًا: انعكاسية ثمّ تماثلية ثمّ متعدّية."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "التطابق وعلاقة القيمة المطلقة",
+      "body": [
+        {
+          "type": "p",
+          "text": "على <span class=\"sym\">Z</span>، العلاقة <span class=\"sym\">a R b ⟺ a = b أو a = −b</span> علاقة تكافؤ — وقد تبيّن في القسم ٩.١ أنّها انعكاسية وتماثلية ومتعدّية."
+        },
+        {
+          "type": "p",
+          "text": "مثال محوري: لعدد ثابت <span class=\"sym\">m &gt; 1</span>، <b>التطابق تردادًا <span class=\"sym\">m</span></b> — <span class=\"sym\">a ≡ b (mod m)</span>، أي <span class=\"sym\">m</span> يقسم <span class=\"sym\">a − b</span> — علاقة تكافؤ على الأعداد الصحيحة."
+        }
+      ],
+      "examples": [
+        {
+          "label": "«يختلفان بعدد صحيح»",
+          "body": "على الأعداد الحقيقية، <span class=\"sym\">a R b ⟺ a − b ∈ Z</span> علاقة تكافؤ: <span class=\"sym\">a − a = 0 ∈ Z</span> (انعكاسية)، و<span class=\"sym\">a − b ∈ Z ⇒ b − a ∈ Z</span> (تماثلية)، ومجاميع الأعداد الصحيحة صحيحة (متعدّية)."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "علاقة ليست علاقة تكافؤ",
+      "body": [
+        {
+          "type": "p",
+          "text": "يكفي إخفاق خاصّية واحدة لكسر التكافؤ. فالعلاقة <span class=\"sym\">x R y ⟺ |x − y| &lt; 1</span> على الأعداد الحقيقية انعكاسية وتماثلية لكنّها <b>ليست</b> متعدّية، فليست علاقة تكافؤ."
+        },
+        {
+          "type": "p",
+          "text": "الدرس: افحص التعدّي دائمًا على حدة — فالانعكاسية والتماثلية وحدهما لا تكفيان."
+        }
+      ],
+      "examples": [
+        {
+          "label": "المثال المضادّ للتعدّي",
+          "body": "خذ <span class=\"sym\">x = 2.8, y = 1.9, z = 1.1</span>: <span class=\"sym\">|x − y| = 0.9 &lt; 1</span> و<span class=\"sym\">|y − z| = 0.8 &lt; 1</span>، لكن <span class=\"sym\">|x − z| = 1.7 &gt; 1</span> — إذًا <span class=\"sym\">x R y</span> و<span class=\"sym\">y R z</span> ومع ذلك <span class=\"sym\">x R̸ z</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "صفوف التكافؤ",
+      "body": [
+        {
+          "type": "def",
+          "text": "لتكن <span class=\"sym\">R</span> علاقة تكافؤ على <span class=\"sym\">A</span>. <b>صفّ تكافؤ</b> <span class=\"sym\">a</span> هو <span class=\"sym\">[a] = {s ∈ A | (a, s) ∈ R}</span> — كلّ العناصر المكافئة لـ <span class=\"sym\">a</span>. وأيّ عنصر من الصفّ <b>ممثّل</b> له."
+        },
+        {
+          "type": "p",
+          "text": "للتطابق تردادًا <span class=\"sym\">m</span>، يكون صفّ <span class=\"sym\">a</span> هو <b>صفّ تطابقه</b> <span class=\"sym\">[a]ₘ</span> — كلّ الأعداد الصحيحة ذات الباقي نفسه عند القسمة على <span class=\"sym\">m</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "الصفوف تردادًا ٤",
+          "body": "تردادًا ٤، <span class=\"sym\">[0] = {…, −4, 0, 4, 8, …}</span> و<span class=\"sym\">[1] = {…, −3, 1, 5, 9, …}</span>. وهناك أربعة صفوف بالضبط: <span class=\"sym\">[0], [1], [2], [3]</span>."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "الصفوف متساوية أو منفصلة",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>مبرهنة.</b> لعلاقة تكافؤ <span class=\"sym\">R</span> على <span class=\"sym\">A</span>، العبارات التالية متكافئة: <span class=\"sym\">(a, b) ∈ R</span>؛ <span class=\"sym\">[a] = [b]</span>؛ و<span class=\"sym\">[a] ∩ [b] ≠ ∅</span>."
+        },
+        {
+          "type": "p",
+          "text": "فأيّ صفَّي تكافؤ إمّا متطابقان وإمّا منفصلان تمامًا — لا يتداخلان جزئيًّا أبدًا."
+        }
+      ],
+      "examples": [
+        {
+          "label": "لا تداخل جزئي",
+          "body": "إن وقع عنصر في كلٍّ من <span class=\"sym\">[a]</span> و<span class=\"sym\">[b]</span>، فإنّ <span class=\"sym\">a ∼ b</span> ويتطابق الصفّان: <span class=\"sym\">[a] = [b]</span>."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "علاقات التكافؤ والتجزئات",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>التجزئة</b> لـ <span class=\"sym\">A</span> هي مجموعة من المجموعات الجزئية غير الخالية المنفصلة مثنى مثنى واتّحادها <span class=\"sym\">A</span>. وصفوف تكافؤ علاقة تكافؤ على <span class=\"sym\">A</span> تشكّل تجزئة لـ <span class=\"sym\">A</span>."
+        },
+        {
+          "type": "def",
+          "text": "وبالعكس، لأيّ تجزئة <span class=\"sym\">{Aᵢ}</span> لـ <span class=\"sym\">A</span>، تكون العلاقة «<span class=\"sym\">x</span> و<span class=\"sym\">y</span> في القطعة نفسها» علاقة تكافؤ صفوفها هي القطع بالضبط. فعلاقات التكافؤ والتجزئات وجهان للشيء نفسه."
+        }
+      ],
+      "examples": [
+        {
+          "label": "تجزئة من التطابق",
+          "body": "التطابق تردادًا ٤ يجزّئ <span class=\"sym\">Z</span> إلى الصفوف الأربعة <span class=\"sym\">[0], [1], [2], [3]</span> — منفصلة، غير خالية، ومعًا كلّ <span class=\"sym\">Z</span>."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "العلاقة علاقةُ تكافؤ إذا وفقط إذا كانت:",
+      "options": [
+        "انعكاسية وتماثلية ومتعدّية",
+        "انعكاسية وضدّ تماثلية",
+        "تماثلية ومتعدّية فقط",
+        "ضدّ تماثلية ومتعدّية"
+      ],
+      "answer": 0,
+      "explanation": "بحسب التعريف ١، علاقة التكافؤ هي بالضبط علاقة انعكاسية وتماثلية ومتعدّية."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "إذا ارتبط <span class=\"sym\">a</span> و<span class=\"sym\">b</span> بعلاقة تكافؤ، كتبنا <span class=\"sym\">a ∼ b</span> وسمّيناهما متكافئين.",
+      "answer": true,
+      "explanation": "هذا هو التعريف ٢ — الترميز والمصطلح للعنصرين المتكافئين."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "صفّ تكافؤ <span class=\"sym\">a</span> هو:",
+      "options": [
+        "<span class=\"sym\">[a] = {s | (a, s) ∈ R}</span>",
+        "<span class=\"sym\">{a}</span> فقط",
+        "<span class=\"sym\">A − {a}</span>",
+        "المجموعة الخالية"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">[a]</span> مجموعة كلّ العناصر المكافئة لـ <span class=\"sym\">a</span>."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "التطابق تردادًا <span class=\"sym\">m</span> — حيث <span class=\"sym\">a ≡ b (mod m)</span> يعني أنّ <span class=\"sym\">m</span> يقسم <span class=\"sym\">a − b</span> — علاقة تكافؤ على الأعداد الصحيحة.",
+      "answer": true,
+      "explanation": "التطابق تردادًا <span class=\"sym\">m</span> انعكاسي وتماثلي ومتعدٍّ."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "الخصائص الثلاث المعرِّفة.",
+      "template": "علاقة التكافؤ يجب أن تكون [[1]] (كلّ عنصر مرتبط بنفسه)، و[[2]] (الارتباط في الاتّجاهين)، و[[3]] (السلاسل تُغلَق).",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "انعكاسية",
+          "acceptable": [
+            "انعكاسية"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "تماثلية",
+          "acceptable": [
+            "تماثلية",
+            "متماثلة"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "متعدّية",
+          "acceptable": [
+            "متعدّية",
+            "متعدية"
+          ]
+        }
+      ],
+      "explanation": "الانعكاسية + التماثلية + التعدّي معًا تعرّف علاقة التكافؤ."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "لماذا ليست <span class=\"sym\">x R y ⟺ |x − y| &lt; 1</span> على الأعداد الحقيقية علاقةَ تكافؤ؟",
+      "options": [
+        "لأنّها تُخفق في التعدّي",
+        "لأنّها تُخفق في الانعكاسية",
+        "لأنّها تُخفق في التماثلية",
+        "لأنّها ضدّ تماثلية"
+      ],
+      "answer": 0,
+      "explanation": "هي انعكاسية وتماثلية، لكن <span class=\"sym\">2.8 R 1.9</span> و<span class=\"sym\">1.9 R 1.1</span> بينما <span class=\"sym\">2.8 R̸ 1.1</span> — فيخفق التعدّي."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "اذكر المبرهنة التي تصف كيف يمكن أن يترابط صفّا التكافؤ <span class=\"sym\">[a]</span> و<span class=\"sym\">[b]</span>.",
+      "canonical": "هما إمّا متساويان وإمّا منفصلان؛ [a] = [b] بالضبط عندما a ∼ b، وإلّا فإنّ [a] ∩ [b] = ∅.",
+      "acceptable": [
+        "متساويان أو منفصلان",
+        "[a]=[b] إذا وفقط إذا a~b وإلّا منفصلان",
+        "الصفّان متطابقان أو منفصلان تمامًا"
+      ],
+      "explanation": "<span class=\"sym\">(a,b) ∈ R</span> و<span class=\"sym\">[a] = [b]</span> و<span class=\"sym\">[a] ∩ [b] ≠ ∅</span> جميعها متكافئة، فلا تتداخل الصفوف جزئيًّا."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب خطوات إثبات أنّ علاقةً علاقةُ تكافؤ.",
+      "items": [
+        "أثبت <span class=\"sym\">(a, a) ∈ R</span> لكلّ <span class=\"sym\">a</span> (انعكاسية)",
+        "أثبت <span class=\"sym\">(a, b) ∈ R ⇒ (b, a) ∈ R</span> (تماثلية)",
+        "أثبت <span class=\"sym\">(a, b), (b, c) ∈ R ⇒ (a, c) ∈ R</span> (تعدّي)",
+        "استنتج أنّها علاقة تكافؤ"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "تحقّق من الانعكاسية والتماثلية والتعدّي، ثمّ استنتج."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "كم صفّ تكافؤ متمايزًا للتطابق تردادًا ٤ على <span class=\"sym\">Z</span>؟",
+      "options": [
+        "٤",
+        "٣",
+        "عدد لا نهائي",
+        "٢"
+      ],
+      "answer": 0,
+      "explanation": "الصفوف هي <span class=\"sym\">[0], [1], [2], [3]</span> — واحد لكلّ باقٍ ممكن عند القسمة على ٤."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "كيف ترتبط علاقات التكافؤ على <span class=\"sym\">A</span> بتجزئات <span class=\"sym\">A</span>؟",
+      "canonical": "صفوف تكافؤ علاقة التكافؤ تشكّل تجزئة لـ A، وبالعكس كلّ تجزئة لـ A تعطي علاقة تكافؤ صفوفها هي القطع — وجهان للشيء نفسه.",
+      "acceptable": [
+        "الصفوف تشكّل تجزئة وكلّ تجزئة تعطي علاقة تكافؤ",
+        "تقابل واحد لواحد بين علاقات التكافؤ والتجزئات",
+        "صفوف التكافؤ تجزّئ A والتجزئات تُحدث علاقات تكافؤ"
+      ],
+      "explanation": "هناك تقابل واحد لواحد: صفوف التكافؤ هي قطع تجزئة، وكلّ تجزئة تعرّف علاقة تكافؤ."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "الصفوف والتجزئات.",
+      "template": "أيّ صفَّي تكافؤ إمّا متساويان وإمّا [[1]]. وصفوف علاقة تكافؤ على <span class=\"sym\">A</span> تشكّل [[2]] لـ <span class=\"sym\">A</span>: مجموعات جزئية غير خالية منفصلة مثنى مثنى [[3]]ها كلّ <span class=\"sym\">A</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "منفصلان",
+          "acceptable": [
+            "منفصلان",
+            "منفصلين"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "تجزئة",
+          "acceptable": [
+            "تجزئة",
+            "تجزئةً"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "answer": "اتّحاد",
+          "options": [
+            "اتّحاد",
+            "تقاطع",
+            "فرق"
+          ]
+        }
+      ],
+      "explanation": "الصفوف متساوية أو منفصلة؛ وتشكّل تجزئة — قطعًا غير خالية منفصلة اتّحادها <span class=\"sym\">A</span>."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>٩.١ العلاقات وخصائصها — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ٩</a> &nbsp;›&nbsp;
+    <span id="crumb-current">٩.١</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-9.1.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "9.1",
+  "chapter": "9",
+  "title": "العلاقات وخصائصها",
+  "lede": "العلاقة الثنائية من مجموعة <span class=\"sym\">A</span> إلى مجموعة <span class=\"sym\">B</span> هي ببساطة مجموعة جزئية من الجداء الديكارتي <span class=\"sym\">A × B</span> — أي مجموعة أزواج مرتّبة. وهي أعمّ طريقة للربط بين عناصر المجموعات، ونصنّف العلاقة على مجموعة بحسب كونها انعكاسية أو تماثلية أو ضدّ تماثل أو متعدّية.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "العلاقات الثنائية والترميز",
+      "body": [
+        {
+          "type": "p",
+          "text": "أعمّ طريقة للتعبير عن علاقة بين عناصر مجموعتين هي استخدام الأزواج المرتّبة المكوّنة من عنصرين مرتبطين. وتُمثَّل العلاقات بين عناصر المجموعات بالبنية المسمّاة العلاقة الثنائية."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ١.</b> لتكن <span class=\"sym\">A</span> و<span class=\"sym\">B</span> مجموعتين. <b>العلاقة الثنائية من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span></b> هي مجموعة جزئية من <span class=\"sym\">A × B</span>. أي أنّها مجموعة <span class=\"sym\">R</span> من الأزواج المرتّبة يأتي أوّل كلّ زوج من <span class=\"sym\">A</span> وثانيه من <span class=\"sym\">B</span>."
+        },
+        {
+          "type": "p",
+          "text": "نستخدم الترميز <span class=\"sym\">a R b</span> للدلالة على أنّ <span class=\"sym\">(a, b) ∈ R</span>، و<span class=\"sym\">a R̸ b</span> للدلالة على أنّ <span class=\"sym\">(a, b) ∉ R</span>. وعندما <span class=\"sym\">(a, b) ∈ R</span> نقول إنّ <span class=\"sym\">a</span> مرتبط بـ <span class=\"sym\">b</span> بالعلاقة <span class=\"sym\">R</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "علاقة من A إلى B",
+          "body": "لتكن <span class=\"sym\">A = {0, 1, 2}</span> و<span class=\"sym\">B = {a, b}</span>. عندئذٍ <span class=\"sym\">{(0, a), (0, b), (1, a), (2, b)}</span> علاقة من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span> — فيتحقّق <span class=\"sym\">0 R a</span>، لكن <span class=\"sym\">1 R̸ b</span>."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "الدوال كعلاقات",
+      "body": [
+        {
+          "type": "p",
+          "text": "تذكّر أنّ الدالّة <span class=\"sym\">f</span> من مجموعة <span class=\"sym\">A</span> إلى مجموعة <span class=\"sym\">B</span> تُسند عنصرًا واحدًا بالضبط من <span class=\"sym\">B</span> لكلّ عنصر من <span class=\"sym\">A</span>. ورسمها البياني هو مجموعة الأزواج المرتّبة <span class=\"sym\">(a, b)</span> حيث <span class=\"sym\">b = f(a)</span>. ولأنّ هذا الرسم مجموعة جزئية من <span class=\"sym\">A × B</span> فهو علاقة من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span>."
+        },
+        {
+          "type": "def",
+          "text": "وبالعكس، إذا كانت <span class=\"sym\">R</span> علاقة من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span> بحيث يكون كلّ عنصر من <span class=\"sym\">A</span> أوّلَ عنصرٍ في زوج واحد بالضبط من <span class=\"sym\">R</span>، أمكن تعريف دالّة رسمها البياني <span class=\"sym\">R</span>."
+        },
+        {
+          "type": "p",
+          "text": "العلاقات تعميم لرسوم الدوال: فالعلاقة تستطيع التعبير عن ارتباط واحد-بكثير، حيث قد يرتبط عنصر من <span class=\"sym\">A</span> بأكثر من عنصر في <span class=\"sym\">B</span> — وهو ما لا تفعله الدالّة."
+        }
+      ],
+      "examples": [
+        {
+          "label": "واحد بكثير",
+          "body": "قد يكون الطالب مسجّلاً في عدّة مقرّرات، فعلاقة «مسجَّل في» تربط طالبًا واحدًا بمقرّرات كثيرة — ليست دالّة، لكنّها علاقة صحيحة تمامًا."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "العلاقات على مجموعة",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ٢.</b> <b>العلاقة على مجموعة <span class=\"sym\">A</span></b> هي علاقة من <span class=\"sym\">A</span> إلى <span class=\"sym\">A</span> — أي مجموعة جزئية من <span class=\"sym\">A × A</span>."
+        },
+        {
+          "type": "p",
+          "text": "مثلاً، على <span class=\"sym\">A = {1, 2, 3, 4}</span> تكون العلاقة <span class=\"sym\">R = {(a, b) | a divides b}</span> هي <span class=\"sym\">{(1,1), (1,2), (1,3), (1,4), (2,2), (2,4), (3,3), (4,4)}</span>."
+        },
+        {
+          "type": "p",
+          "text": "بما أنّ لمجموعة من <span class=\"sym\">n</span> عنصرًا <span class=\"sym\">n²</span> زوجًا مرتّبًا في <span class=\"sym\">A × A</span>، فإنّ عدد العلاقات المختلفة عليها <span class=\"sym\">2^(n²)</span> — فمجموعة من ٣ عناصر لها <span class=\"sym\">2⁹ = 512</span> علاقة."
+        }
+      ],
+      "examples": [
+        {
+          "label": "علاقات على الأعداد الصحيحة",
+          "body": "<span class=\"sym\">R₁ = {(a,b) | a ≤ b}</span> و<span class=\"sym\">R₂ = {(a,b) | a &gt; b}</span> و<span class=\"sym\">R₄ = {(a,b) | a = b}</span> و<span class=\"sym\">R₅ = {(a,b) | a = b + 1}</span> جميعها علاقات على <span class=\"sym\">Z</span>. والزوج <span class=\"sym\">(1, 1)</span> في <span class=\"sym\">R₁</span> و<span class=\"sym\">R₄</span> لكن ليس في <span class=\"sym\">R₂</span> أو <span class=\"sym\">R₅</span>."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "الانعكاسية والتماثلية وضدّ التماثل",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>انعكاسية:</b> تكون <span class=\"sym\">R</span> انعكاسية إذا كان <span class=\"sym\">(a, a) ∈ R</span> لكلّ عنصر <span class=\"sym\">a ∈ A</span> — أي <span class=\"sym\">∀a ((a, a) ∈ R)</span>."
+        },
+        {
+          "type": "def",
+          "text": "<b>تماثلية:</b> تكون <span class=\"sym\">R</span> تماثلية إذا كان <span class=\"sym\">(b, a) ∈ R</span> كلّما كان <span class=\"sym\">(a, b) ∈ R</span>: <span class=\"sym\">∀a∀b((a,b) ∈ R → (b,a) ∈ R)</span>. <b>ضدّ التماثل:</b> إذا كان <span class=\"sym\">(a, b) ∈ R</span> و<span class=\"sym\">(b, a) ∈ R</span> يستلزمان <span class=\"sym\">a = b</span>: <span class=\"sym\">∀a∀b(((a,b) ∈ R ∧ (b,a) ∈ R) → a = b)</span>."
+        },
+        {
+          "type": "p",
+          "text": "التماثلية وضدّ التماثل <b>ليستا</b> متضادّتين. فقد تكون العلاقة الاثنتين معًا (مثل علاقة المساواة)، وقد لا تكون أيًّا منهما."
+        }
+      ],
+      "examples": [
+        {
+          "label": "فحص الخصائص",
+          "body": "على <span class=\"sym\">{1,2,3,4}</span>، العلاقة <span class=\"sym\">R = {(1,1),(1,2),(2,1),(2,2)}</span> تماثلية (لكلّ <span class=\"sym\">(a,b)</span> مرآتها <span class=\"sym\">(b,a)</span>) لكنّها ليست انعكاسية لأنّ <span class=\"sym\">(3,3) ∉ R</span>."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "العلاقات المتعدّية",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ٥.</b> العلاقة <span class=\"sym\">R</span> على مجموعة <span class=\"sym\">A</span> <b>متعدّية</b> إذا كان كلّما تحقّق <span class=\"sym\">(a, b) ∈ R</span> و<span class=\"sym\">(b, c) ∈ R</span> تحقّق <span class=\"sym\">(a, c) ∈ R</span>، لكلّ <span class=\"sym\">a, b, c ∈ A</span>: <span class=\"sym\">∀a∀b∀c(((a,b) ∈ R ∧ (b,c) ∈ R) → (a,c) ∈ R)</span>."
+        },
+        {
+          "type": "p",
+          "text": "على الأعداد الصحيحة، العلاقات <span class=\"sym\">≤</span> و<span class=\"sym\">&gt;</span> و<span class=\"sym\">=</span> جميعها متعدّية؛ وعلاقة «القسمة» متعدّية أيضًا. لكن <span class=\"sym\">R₅ = {(a,b) | a = b + 1}</span> ليست متعدّية: فـ <span class=\"sym\">(2,1)</span> و<span class=\"sym\">(1,0)</span> في <span class=\"sym\">R₅</span> لكن <span class=\"sym\">(2,0)</span> ليست فيها."
+        },
+        {
+          "type": "p",
+          "text": "لإثبات أنّ علاقةً <b>ليست</b> متعدّية، يكفي مثال مضادّ واحد: زوجان <span class=\"sym\">(a,b)</span> و<span class=\"sym\">(b,c)</span> في <span class=\"sym\">R</span> مع <span class=\"sym\">(a,c) ∉ R</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "علاقة غير متعدّية",
+          "body": "لـ <span class=\"sym\">R = {(1,1),(1,2),(2,1),(2,2),(3,4),(4,1),(4,4)}</span> على <span class=\"sym\">{1,2,3,4}</span>: <span class=\"sym\">(3,4)</span> و<span class=\"sym\">(4,1)</span> في <span class=\"sym\">R</span> لكن <span class=\"sym\">(3,1)</span> ليست فيها — إذًا <span class=\"sym\">R</span> ليست متعدّية."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "دمج العلاقات: التركيب والقوى",
+      "body": [
+        {
+          "type": "p",
+          "text": "لأنّ العلاقات من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span> مجموعات من الأزواج، يمكن دمج أيّ علاقتين بعمليات المجموعات <span class=\"sym\">∪</span> و<span class=\"sym\">∩</span> و<span class=\"sym\">−</span> و<span class=\"sym\">⊕</span> (الفرق التماثلي)."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ٦ (التركيب).</b> لتكن <span class=\"sym\">R</span> علاقة من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span> و<span class=\"sym\">S</span> علاقة من <span class=\"sym\">B</span> إلى <span class=\"sym\">C</span>. المركّب <span class=\"sym\">S ∘ R</span> يتكوّن من الأزواج <span class=\"sym\">(a, c)</span> التي يوجد لأجلها <span class=\"sym\">b ∈ B</span> بحيث <span class=\"sym\">(a, b) ∈ R</span> و<span class=\"sym\">(b, c) ∈ S</span>."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ٧ (القوى).</b> تُعرَّف قوى العلاقة <span class=\"sym\">R</span> على <span class=\"sym\">A</span> استدعائيًّا بـ <span class=\"sym\">R¹ = R</span> و<span class=\"sym\">R^(n+1) = Rⁿ ∘ R</span>."
+        }
+      ],
+      "examples": [
+        {
+          "label": "حساب القوى",
+          "body": "لـ <span class=\"sym\">R = {(1,1),(2,1),(3,2),(4,3)}</span> نجد <span class=\"sym\">R² = {(1,1),(2,1),(3,1),(4,2)}</span> و<span class=\"sym\">R³ = {(1,1),(2,1),(3,1),(4,1)}</span>."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "تُعرَّف العلاقة الثنائية من مجموعة <span class=\"sym\">A</span> إلى مجموعة <span class=\"sym\">B</span> بأنّها:",
+      "options": [
+        "مجموعة جزئية من <span class=\"sym\">A × B</span>",
+        "دالّة من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span>",
+        "مجموعة جزئية من <span class=\"sym\">A ∪ B</span>",
+        "عنصر من <span class=\"sym\">A × B</span>"
+      ],
+      "answer": 0,
+      "explanation": "بحسب التعريف ١، العلاقة الثنائية من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span> هي بالضبط مجموعة جزئية من الجداء الديكارتي <span class=\"sym\">A × B</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "الترميز <span class=\"sym\">a R b</span> يعني أنّ الزوج المرتّب <span class=\"sym\">(a, b)</span> ينتمي إلى <span class=\"sym\">R</span>.",
+      "answer": true,
+      "explanation": "<span class=\"sym\">a R b</span> اختصار لـ <span class=\"sym\">(a, b) ∈ R</span>."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "العلاقة <b>على</b> مجموعة <span class=\"sym\">A</span> هي مجموعة جزئية من:",
+      "options": [
+        "<span class=\"sym\">A × A</span>",
+        "<span class=\"sym\">A</span>",
+        "<span class=\"sym\">A ∪ A</span>",
+        "مجموعة قوى <span class=\"sym\">A</span>"
+      ],
+      "answer": 0,
+      "explanation": "العلاقة على <span class=\"sym\">A</span> هي علاقة من <span class=\"sym\">A</span> إلى <span class=\"sym\">A</span>، أي مجموعة جزئية من <span class=\"sym\">A × A</span> (تعريف ٢)."
+    },
+    {
+      "id": "q4",
+      "type": "tf",
+      "level": 1,
+      "prompt": "العلاقة <span class=\"sym\">R</span> على <span class=\"sym\">A</span> انعكاسية إذا كان <span class=\"sym\">(a, a) ∈ R</span> لكلّ عنصر <span class=\"sym\">a ∈ A</span>.",
+      "answer": true,
+      "explanation": "هذا هو تعريف الانعكاسية تمامًا: <span class=\"sym\">∀a ((a, a) ∈ R)</span>."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "سمِّ الخصائص الثلاث من تعريفاتها.",
+      "template": "العلاقة [[1]] إذا كان <span class=\"sym\">(a,b) ∈ R</span> يفرض دائمًا <span class=\"sym\">(b,a) ∈ R</span>. وهي [[2]] إذا كان <span class=\"sym\">(a,b) ∈ R</span> و<span class=\"sym\">(b,a) ∈ R</span> معًا يفرضان <span class=\"sym\">a = b</span>. وهي [[3]] إذا كان <span class=\"sym\">(a,b) ∈ R</span> و<span class=\"sym\">(b,c) ∈ R</span> يفرضان <span class=\"sym\">(a,c) ∈ R</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "تماثلية",
+          "acceptable": [
+            "تماثلية",
+            "متماثلة"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "ضدّ تماثلية",
+          "acceptable": [
+            "ضدّ تماثلية",
+            "ضد تماثلية",
+            "ضدّ التماثل",
+            "ضد التماثل"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "متعدّية",
+          "acceptable": [
+            "متعدّية",
+            "متعدية"
+          ]
+        }
+      ],
+      "explanation": "التماثلية ↔ أزواج مرآتية؛ ضدّ التماثل ↔ المرايا تفرض المساواة؛ التعدّي ↔ السلاسل تُغلَق."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "لعلاقة «القسمة» <span class=\"sym\">R = {(a,b) | a divides b}</span> على <span class=\"sym\">{1,2,3,4}</span>، أيّ زوج <b>ليس</b> في <span class=\"sym\">R</span>؟",
+      "options": [
+        "<span class=\"sym\">(2, 3)</span>",
+        "<span class=\"sym\">(2, 4)</span>",
+        "<span class=\"sym\">(1, 3)</span>",
+        "<span class=\"sym\">(3, 3)</span>"
+      ],
+      "answer": 0,
+      "explanation": "٢ لا يقسم ٣، فـ <span class=\"sym\">(2,3) ∉ R</span>. أمّا البقية فتحقّق <span class=\"sym\">a | b</span>."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "اذكر تعريف المركّب <span class=\"sym\">S ∘ R</span> لعلاقة <span class=\"sym\">R</span> من <span class=\"sym\">A</span> إلى <span class=\"sym\">B</span> و<span class=\"sym\">S</span> من <span class=\"sym\">B</span> إلى <span class=\"sym\">C</span>.",
+      "canonical": "S∘R هو مجموعة الأزواج (a,c) حيث a في A و c في C ويوجد b في B بحيث (a,b) في R و (b,c) في S.",
+      "acceptable": [
+        "(a,c) بحيث يوجد b مع (a,b) في R و (b,c) في S",
+        "يوجد b بحيث aRb و bSc",
+        "الأزواج (a,c) التي لها عنصر وسيط b"
+      ],
+      "explanation": "المركّب يربط العلاقتين عبر عنصر وسيط مشترك <span class=\"sym\">b ∈ B</span>."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب خطوات تحديد ما إذا كان الزوج <span class=\"sym\">(a, c)</span> ينتمي إلى المركّب <span class=\"sym\">S ∘ R</span>.",
+      "items": [
+        "خذ <span class=\"sym\">a ∈ A</span> و<span class=\"sym\">c ∈ C</span>",
+        "ابحث عن عنصر وسيط <span class=\"sym\">b ∈ B</span>",
+        "تحقّق أنّ <span class=\"sym\">(a, b) ∈ R</span>",
+        "تحقّق أنّ <span class=\"sym\">(b, c) ∈ S</span>",
+        "إن تحقّق كلاهما لبعض <span class=\"sym\">b</span>، ضع <span class=\"sym\">(a, c)</span> في <span class=\"sym\">S ∘ R</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "يتطلّب المركّب عنصرًا وسيطًا مشتركًا يربط <span class=\"sym\">a</span> عبر <span class=\"sym\">R</span> ثمّ <span class=\"sym\">S</span> إلى <span class=\"sym\">c</span>."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "لتكن <span class=\"sym\">R = {(1,1),(1,4),(2,3),(3,1),(3,4)}</span> من <span class=\"sym\">{1,2,3}</span> إلى <span class=\"sym\">{1,2,3,4}</span> و<span class=\"sym\">S = {(1,0),(2,0),(3,1),(3,2),(4,1)}</span> من <span class=\"sym\">{1,2,3,4}</span> إلى <span class=\"sym\">{0,1,2}</span>. ما هو <span class=\"sym\">S ∘ R</span>؟",
+      "options": [
+        "<span class=\"sym\">{(1,0),(1,1),(2,1),(2,2),(3,0),(3,1)}</span>",
+        "<span class=\"sym\">{(1,0),(2,0),(3,1)}</span>",
+        "<span class=\"sym\">{(1,1),(2,3),(3,4)}</span>",
+        "<span class=\"sym\">{(0,1),(1,2),(2,3)}</span>"
+      ],
+      "answer": 0,
+      "explanation": "بربط كلّ زوج من <span class=\"sym\">R</span> عبر <span class=\"sym\">S</span> نحصل على <span class=\"sym\">S ∘ R = {(1,0),(1,1),(2,1),(2,2),(3,0),(3,1)}</span>."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "لـ <span class=\"sym\">R = {(1,1),(2,1),(3,2),(4,3)}</span> على <span class=\"sym\">{1,2,3,4}</span>، احسب <span class=\"sym\">R²</span>.",
+      "canonical": "R² = {(1,1),(2,1),(3,1),(4,2)}.",
+      "acceptable": [
+        "{(1,1),(2,1),(3,1),(4,2)}",
+        "(1,1),(2,1),(3,1),(4,2)"
+      ],
+      "explanation": "<span class=\"sym\">R² = R ∘ R</span>: مثلاً <span class=\"sym\">(3,2) ∈ R</span> و<span class=\"sym\">(2,1) ∈ R</span> يعطيان <span class=\"sym\">(3,1)</span>؛ و<span class=\"sym\">(4,3),(3,2)</span> يعطيان <span class=\"sym\">(4,2)</span>."
+    },
+    {
+      "id": "q11",
+      "type": "fillblank",
+      "level": 3,
+      "prompt": "دمج العلاقات بعمليات المجموعات.",
+      "template": "لتكن <span class=\"sym\">R₁ = {(1,1),(2,2),(3,3)}</span> و<span class=\"sym\">R₂ = {(1,1),(1,2),(1,3),(1,4)}</span>. عندئذٍ <span class=\"sym\">R₁ ∩ R₂</span> = <span class=\"sym\">{</span>[[1]]<span class=\"sym\">}</span>، و<span class=\"sym\">R₁ − R₂</span> فيها [[2]] زوجًا. والقاعدة الاستدعائية للقوى هي <span class=\"sym\">R^(n+1) =</span> [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "(1,1)",
+          "acceptable": [
+            "(1,1)",
+            "(1, 1)"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "٢",
+          "options": [
+            "٢",
+            "١",
+            "٣"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "R^n ∘ R",
+          "acceptable": [
+            "R^n ∘ R",
+            "R^n o R",
+            "Rn ∘ R"
+          ]
+        }
+      ],
+      "explanation": "<span class=\"sym\">R₁ ∩ R₂ = {(1,1)}</span>؛ <span class=\"sym\">R₁ − R₂ = {(2,2),(3,3)}</span> (زوجان)؛ و<span class=\"sym\">R^(n+1) = Rⁿ ∘ R</span>."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
