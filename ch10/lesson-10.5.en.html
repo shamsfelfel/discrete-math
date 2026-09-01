@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10.5 Connectivity: Paths and Circuits — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 10</a> &nbsp;›&nbsp;
+    <span id="crumb-current">10.5</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.5.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "10.5",
+  "chapter": "10",
+  "title": "Connectivity: Paths and Circuits",
+  "lede": "One of the most natural questions to ask about a graph is: can I get from here to there? This question is formalized through the notion of a <span class=\"sym\">path</span>, and paths give us another powerful tool — a circuit-length invariant — for telling graphs apart.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "What Is a Path?",
+      "body": [
+        {
+          "type": "p",
+          "text": "Informally, a path is a sequence of edges that begins at a vertex of a graph and travels from vertex to vertex along edges of that graph."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 1.</b> Let <span class=\"sym\">n</span> be a non-negative integer and <span class=\"sym\">G</span> an undirected graph. A <b>path</b> of length <span class=\"sym\">n</span> from <span class=\"sym\">u</span> to <span class=\"sym\">v</span> in <span class=\"sym\">G</span> is a sequence of <span class=\"sym\">n</span> edges <span class=\"sym\">e1, e2, …, en</span> of <span class=\"sym\">G</span> for which there exists a sequence of vertices <span class=\"sym\">x0 = u, x1, …, x(n−1), xn = v</span> such that <span class=\"sym\">ei</span> has, for <span class=\"sym\">i = 1, …, n</span>, the endpoints <span class=\"sym\">x(i−1)</span> and <span class=\"sym\">xi</span>. When the graph is simple, we denote this path by its vertex sequence <span class=\"sym\">x0, x1, …, xn</span>, because listing these vertices uniquely determines the path."
+        },
+        {
+          "type": "p",
+          "text": "The graph below has five vertices <span class=\"sym\">p, q, r, s, t</span> and edges <span class=\"sym\">p–q</span>, <span class=\"sym\">q–r</span>, <span class=\"sym\">r–s</span>, <span class=\"sym\">s–t</span>, and <span class=\"sym\">p–r</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  p((p)) --- q((q))\n  q --- r((r))\n  r --- s((s))\n  s --- t((t))\n  p --- r"
+        }
+      ],
+      "examples": [
+        {
+          "label": "A path from p to s",
+          "body": "The vertex sequence <span class=\"sym\">p, q, r, s</span> is a path of length 3 from <span class=\"sym\">p</span> to <span class=\"sym\">s</span>, using the edges <span class=\"sym\">p–q</span>, <span class=\"sym\">q–r</span>, and <span class=\"sym\">r–s</span> in that order."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Circuits and Simple Paths",
+      "body": [
+        {
+          "type": "def",
+          "text": "A path is a <b>circuit</b> if it begins and ends at the same vertex (<span class=\"sym\">u = v</span>) and has length greater than zero. The path or circuit is said to <b>pass through</b> the vertices <span class=\"sym\">x1, …, xn</span> or <b>traverse</b> the edges <span class=\"sym\">e1, …, en</span>."
+        },
+        {
+          "type": "def",
+          "text": "A path or circuit is <b>simple</b> if it does not contain the same edge more than once."
+        },
+        {
+          "type": "p",
+          "text": "In the illustrative graph from the previous card, the vertex sequence <span class=\"sym\">p, q, r, p</span> is a circuit: it begins and ends at <span class=\"sym\">p</span>, its length is greater than zero, and it uses the edges <span class=\"sym\">p–q</span>, <span class=\"sym\">q–r</span>, and <span class=\"sym\">r–p</span>. Because these three edges are distinct and none repeats, the circuit is simple and has length 3."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Paths as a Tool for Isomorphism",
+      "body": [
+        {
+          "type": "p",
+          "text": "Paths and circuits also help decide whether two graphs are isomorphic: the existence of a simple circuit of a particular length is a useful isomorphism invariant — if one graph has a simple circuit of length <span class=\"sym\">k</span> with <span class=\"sym\">k &gt; 2</span>, and the other graph has no simple circuit of that length, the two graphs cannot be isomorphic. This is one more invariant on top of the vertex-count, edge-count, and degree-sequence invariants from the previous lesson. Paths can also be used to construct a candidate correspondence between vertices that might turn out to be an isomorphism."
+        },
+        {
+          "type": "p",
+          "text": "Compare two graphs of our own construction, <span class=\"sym\">H₀</span> and <span class=\"sym\">G₀</span>, each with six vertices and eight edges, where four vertices have degree 3 and the remaining two vertices have degree 2. The degree sum <span class=\"sym\">4×3 + 2×2 = 16 = 2×8</span> matches twice the number of edges, as it must. So the two graphs agree in vertex count, edge count, and degree sequence — but that alone is not enough to prove they are isomorphic."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v2 --- v6((v6))\n  v6 --- v1\n  v1 --- v3((v3))\n  v2 --- v4((v4))\n  v3 --- v5((v5))\n  v4 --- v5\n  v3 --- v6"
+        },
+        {
+          "type": "p",
+          "text": "<span class=\"sym\">H₀</span> has a simple circuit of length 3, namely the vertex sequence <span class=\"sym\">v1, v2, v6, v1</span> (a triangle), using the edges <span class=\"sym\">v1–v2</span>, <span class=\"sym\">v2–v6</span>, and <span class=\"sym\">v6–v1</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  u1((u1)) --- u2((u2))\n  u2 --- u3((u3))\n  u3 --- u4((u4))\n  u4 --- u5((u5))\n  u5 --- u6((u6))\n  u6 --- u1\n  u1 --- u4\n  u2 --- u5"
+        },
+        {
+          "type": "p",
+          "text": "<span class=\"sym\">G₀</span>, on the other hand, has no simple circuit of length 3: one can check that the shortest simple circuit in <span class=\"sym\">G₀</span> has length 4 — for example the vertex sequence <span class=\"sym\">u1, u2, u5, u4, u1</span>."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "A simple circuit of length 3 exists in <span class=\"sym\">H₀</span> but not in <span class=\"sym\">G₀</span> ⇒ <span class=\"sym\">G₀</span> and <span class=\"sym\">H₀</span> are not isomorphic. This pair is an illustrative construction of our own that embodies the same teaching point; it is not a reproduction of the vertex or edge labels of any particular unseen figure."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Why This Matters",
+      "body": [
+        {
+          "type": "p",
+          "text": "Paths and circuits formalize the idea of reachability, and the circuit-length invariant is one more concrete, checkable tool — alongside vertex count, edge count, and degree sequence from the previous lesson — for proving that two graphs are <b>not</b> isomorphic."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "Recap from Lesson 10.4: two graphs agreeing on these invariants (vertex count, edge count, degree sequence, and now the existence of a simple circuit of a given length) is necessary but not sufficient to prove they are isomorphic — disagreeing on any of them is enough to prove they are not isomorphic, but agreeing on all of them never proves that they are."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "In the definition of a path, the vertex sequence <span class=\"sym\">x0, x1, …, xn</span> corresponds to a path of <span class=\"sym\">n</span> edges. What does <span class=\"sym\">n</span> represent?",
+      "options": [
+        "The length of the path (the number of edges used)",
+        "The number of vertices in the entire graph",
+        "The number of possible simple circuits",
+        "The degree of the vertex <span class=\"sym\">u</span>"
+      ],
+      "answer": 0,
+      "explanation": "By Definition 1, a path from <span class=\"sym\">u</span> to <span class=\"sym\">v</span> \"of length <span class=\"sym\">n</span>\" consists of exactly <span class=\"sym\">n</span> edges, so <span class=\"sym\">n</span> is the path's length."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "A circuit must have length greater than zero.",
+      "answer": true,
+      "explanation": "A path that begins and ends at the same vertex but has length zero (uses no edges at all) does not count as a circuit; the definition explicitly requires length greater than zero."
+    },
+    {
+      "id": "q3",
+      "type": "short",
+      "level": 1,
+      "prompt": "In the graph shown in the first card (vertices <span class=\"sym\">p, q, r, s, t</span> with edges <span class=\"sym\">p–q, q–r, r–s, s–t, p–r</span>), is the vertex sequence <span class=\"sym\">p, r, t</span> a path? Answer \"no\" with a short reason.",
+      "canonical": "No, because there is no edge directly connecting r and t",
+      "acceptable": [
+        "No",
+        "No there is no edge between r and t",
+        "No because there is no r-t edge",
+        "Not a path"
+      ],
+      "explanation": "The graph's edges are only <span class=\"sym\">p–q, q–r, r–s, s–t, p–r</span>, and there is no edge joining <span class=\"sym\">r</span> and <span class=\"sym\">t</span> directly, so no edge <span class=\"sym\">ei</span> has endpoints <span class=\"sym\">r</span> and <span class=\"sym\">t</span>. So <span class=\"sym\">p, r, t</span> is not a path."
+    },
+    {
+      "id": "q4",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Complete the definitions of a simple path/circuit and of a circuit.",
+      "template": "A path or circuit is [[1]] if no edge in it repeats more than once. The vertex sequence <span class=\"sym\">x0, x1, …, xn</span> is a circuit if <span class=\"sym\">xn</span> = [[2]] and the length of the sequence is greater than [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "simple",
+          "acceptable": [
+            "simple"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "x0",
+          "acceptable": [
+            "x0",
+            "x_0"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "zero",
+          "acceptable": [
+            "zero",
+            "0"
+          ]
+        }
+      ],
+      "explanation": "A path or circuit is simple if it never uses the same edge more than once, and a circuit is a path whose last vertex <span class=\"sym\">xn</span> returns to the starting vertex <span class=\"sym\">x0</span>, with length greater than zero."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "Two graphs agree in vertex count, edge count, and degree sequence. The shortest simple circuit in the first graph has length 5, while the second graph has a simple circuit of length 3. What can you conclude?",
+      "options": [
+        "They cannot be isomorphic, because the existence of a length-3 simple circuit is an invariant on which the graphs differ",
+        "They must be isomorphic, since the other invariants agree",
+        "Nothing at all can be concluded without checking every circuit in both graphs",
+        "They must be isomorphic, since both graphs contain simple circuits"
+      ],
+      "answer": 0,
+      "explanation": "The existence of a simple circuit of a given length is an isomorphism invariant. The first graph has no simple circuit of length 3 (its shortest is length 5), while the second graph does; disagreeing on this invariant is enough to conclude the graphs are not isomorphic."
+    },
+    {
+      "id": "q6",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps for using the length-3-circuit invariant to show that <span class=\"sym\">G₀</span> and <span class=\"sym\">H₀</span> (from the third card) are not isomorphic.",
+      "items": [
+        "Check that <span class=\"sym\">G₀</span> and <span class=\"sym\">H₀</span> agree on vertex count, edge count, and degree sequence",
+        "Search for a simple circuit of length 3 in <span class=\"sym\">H₀</span>; find <span class=\"sym\">v1, v2, v6, v1</span>",
+        "Verify that no simple circuit of length 3 exists in <span class=\"sym\">G₀</span>",
+        "Conclude that the existence of a length-3 circuit is an invariant on which the graphs differ",
+        "Conclude that <span class=\"sym\">G₀</span> and <span class=\"sym\">H₀</span> are not isomorphic"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "First confirm the basic invariants agree (otherwise that alone would settle it), then look for a length-3 circuit in one graph, verify its absence in the other, and use that disagreement to prove the graphs are not isomorphic."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "Why is agreement between two graphs on vertex count, edge count, and degree sequence not enough to prove they are isomorphic?",
+      "canonical": "Because these are necessary but not sufficient conditions; two graphs can agree on them while differing in deeper structure such as having a simple circuit of a particular length",
+      "acceptable": [
+        "Necessary but not sufficient",
+        "They are necessary not sufficient conditions",
+        "Graphs can agree on those and still differ in other invariants like circuit length"
+      ],
+      "explanation": "Agreement in vertex count, edge count, and degree sequence is a necessary but not sufficient condition for isomorphism; two graphs can match on all of these and still differ in deeper structure, such as whether a simple circuit of a particular length exists — as seen with <span class=\"sym\">G₀</span> and <span class=\"sym\">H₀</span>."
+    },
+    {
+      "id": "q8",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "What is the length of the shortest simple circuit in the graph <span class=\"sym\">G₀</span> shown in the third card?",
+      "options": [
+        "<span class=\"sym\">3</span>",
+        "<span class=\"sym\">4</span>",
+        "<span class=\"sym\">5</span>",
+        "<span class=\"sym\">6</span>"
+      ],
+      "answer": 1,
+      "explanation": "<span class=\"sym\">G₀</span> contains no triangle, so it has no simple circuit of length 3. It does contain a simple circuit of length 4, such as <span class=\"sym\">u1, u2, u5, u4, u1</span> (using edges <span class=\"sym\">u1–u2</span>, <span class=\"sym\">u2–u5</span>, <span class=\"sym\">u5–u4</span>, and <span class=\"sym\">u4–u1</span>)."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "What is the length of the shortest simple circuit in the graph <span class=\"sym\">H₀</span> shown in the third card?",
+      "options": [
+        "<span class=\"sym\">3</span>",
+        "<span class=\"sym\">4</span>",
+        "<span class=\"sym\">5</span>",
+        "<span class=\"sym\">6</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">H₀</span> contains the triangle <span class=\"sym\">v1, v2, v6, v1</span>, a simple circuit of length 3 — the shortest length a simple circuit can have in any simple graph."
+    },
+    {
+      "id": "q10",
+      "type": "tf",
+      "level": 1,
+      "prompt": "Every circuit in a graph must be simple.",
+      "answer": false,
+      "explanation": "Simplicity is an additional property, separate from being a circuit. A circuit only requires beginning and ending at the same vertex with length greater than zero; requiring that no edge repeat is what makes it a simple circuit specifically."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

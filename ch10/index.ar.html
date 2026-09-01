@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفصل ١٠: الرسوم البيانية — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .lesson-grid { display:grid; gap:14px; margin-top:8px;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); }
+  a.lesson-link { display:block; text-decoration:none; padding:18px 20px;
+    border:1px solid var(--border,#d9dee6); border-radius:14px;
+    background:var(--card,#fff); color:inherit;
+    transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
+  a.lesson-link:hover { transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(0,0,0,.08); border-color:var(--accent,#3b6ea5); }
+  a.lesson-link .ll-id { font-family:var(--mono,ui-monospace,monospace);
+    font-size:.82rem; color:var(--accent,#3b6ea5); font-weight:600;
+    letter-spacing:.04em; }
+  a.lesson-link .ll-title { font-family:var(--serif-ar,Georgia,serif);
+    font-size:1.18rem; font-weight:600; margin:4px 0 8px; line-height:1.3; }
+  a.lesson-link .ll-desc { font-size:.92rem; line-height:1.6;
+    color:var(--muted,#5c6672); }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <span id="crumb-current">الفصل ١٠</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="index.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker">الفصل ١٠</div>
+    <h1>الرسوم البيانية</h1>
+    <p class="lede">الرسم البياني يُنمذج علاقة ثنائية بين أشياء — رؤوس تربط
+      بينها حواف. يتناول هذا الفصل مصطلحات الرسوم البيانية، وعائلات الرسوم
+      الخاصة التي تتكرّر في كلّ مكان، وكيفية تمثيل الرسوم البيانية ومقارنتها،
+      والاتصال، ومسألة أقصر مسار.</p>
+  </header>
+
+  <section class="section">
+    <h2>الدروس</h2>
+    <div class="section-sub">اختر قسمًا لدراسته.</div>
+    <div class="lesson-grid">
+      <a class="lesson-link" href="lesson-10.1.ar.html">
+        <div class="ll-id">الدرس ١٠.١</div>
+        <div class="ll-title">الرسوم البيانية ونماذجها</div>
+        <div class="ll-desc">ما هو الرسم البياني، الرسوم البسيطة مقابل الرسوم المتعدّدة وشبه الرسوم، الرسوم الموجّهة، وملخّص لعائلة أنواع الرسوم البيانية.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.2.ar.html">
+        <div class="ll-id">الدرس ١٠.٢</div>
+        <div class="ll-title">مصطلحات الرسوم البيانية: الدرجة والمجاورة</div>
+        <div class="ll-desc">التجاور، المجاورة، درجة الرأس، مبرهنة المصافحة، ودرجة الدخول ودرجة الخروج في الرسوم الموجّهة.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.3.ar.html">
+        <div class="ll-id">الدرس ١٠.٣</div>
+        <div class="ll-title">أنواع خاصة من الرسوم البيانية</div>
+        <div class="ll-desc">الرسوم الكاملة، الدورات، العجلات، المكعّبات ن-البعدية، الرسوم ثنائية التجزئة، والرسوم الثنائية التجزئة الكاملة.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.4.ar.html">
+        <div class="ll-id">الدرس ١٠.٤</div>
+        <div class="ll-title">تمثيل الرسوم البيانية وتماثلها</div>
+        <div class="ll-desc">قوائم التجاور، مصفوفات التجاور، مصفوفات الوقوع، والمعنى الدقيق لكون رسمين بيانيين «نفس الرسم» — التماثل وثوابته.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.5.ar.html">
+        <div class="ll-id">الدرس ١٠.٥</div>
+        <div class="ll-title">الاتصال: المسارات والدارات</div>
+        <div class="ll-desc">المسارات والدارات، المسارات البسيطة، واستخدام ثابت طول الدارة للتمييز بين الرسوم البيانية.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.6.ar.html">
+        <div class="ll-id">الدرس ١٠.٦</div>
+        <div class="ll-title">مسائل أقصر مسار وخوارزمية ديكسترا</div>
+        <div class="ll-desc">الرسوم الموزونة، مسألة أقصر مسار، وتتبّع كامل خطوة بخطوة لخوارزمية ديكسترا على مثال محلول.</div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<script>
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const r = document.documentElement;
+  r.dataset.theme = r.dataset.theme === 'dark' ? 'light' : 'dark';
+});
+</script>
+</body>
+</html>

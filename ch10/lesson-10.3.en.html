@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10.3 Special Types of Graphs — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 10</a> &nbsp;›&nbsp;
+    <span id="crumb-current">10.3</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.3.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "10.3",
+  "chapter": "10",
+  "title": "Special Types of Graphs",
+  "lede": "Certain graph families show up so often — complete graphs, cycles, wheels, hypercubes, and bipartite graphs — that they have earned their own names and notation. Learning to recognize them on sight is a core graph-theory skill.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Complete graphs",
+      "body": [
+        {
+          "type": "p",
+          "text": "A complete graph on <span class=\"sym\">n</span> vertices, denoted <span class=\"sym\">K_n</span>, is a simple graph that contains exactly one edge between each pair of distinct vertices."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  A((A)) --- B((B))\n  A --- C((C))\n  A --- D((D))\n  B --- C\n  B --- D\n  C --- D"
+        },
+        {
+          "type": "p",
+          "text": "The first few complete graphs — <span class=\"sym\">K_1, K_2, K_3, K_4, K_5</span> — have 1, 2, 3, 4, and 5 vertices respectively, each drawn with every possible edge present. The diagram above is <span class=\"sym\">K_4</span>."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "Because each of the <span class=\"sym\">n</span> vertices is joined to every one of the other <span class=\"sym\">n − 1</span> vertices by a single edge, a complete graph <span class=\"sym\">K_n</span> has <span class=\"sym\">n(n − 1)/2</span> edges. For <span class=\"sym\">K_4</span> above, that's <span class=\"sym\">4·3/2 = 6</span> edges — count them in the diagram."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Cycles and wheels",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition.</b> A cycle <span class=\"sym\">C_n</span>, for <span class=\"sym\">n ≥ 3</span>, consists of <span class=\"sym\">n</span> vertices <span class=\"sym\">v_1, v_2, …, v_n</span> and the edges <span class=\"sym\">{v_1, v_2}, {v_2, v_3}, …, {v_{n-1}, v_n}</span>, and <span class=\"sym\">{v_n, v_1}</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v2 --- v3((v3))\n  v3 --- v4((v4))\n  v4 --- v5((v5))\n  v5 --- v1"
+        },
+        {
+          "type": "p",
+          "text": "The diagram above is the cycle <span class=\"sym\">C_5</span>: five vertices arranged in a ring, each joined to its two neighbors."
+        },
+        {
+          "type": "p",
+          "text": "We obtain a wheel <span class=\"sym\">W_n</span> when we add an additional vertex to a cycle <span class=\"sym\">C_n</span> (<span class=\"sym\">n ≥ 3</span>) and connect this new vertex — the <b>hub</b> — to each of the <span class=\"sym\">n</span> vertices in <span class=\"sym\">C_n</span> by new edges, called spokes."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v2 --- v3((v3))\n  v3 --- v4((v4))\n  v4 --- v5((v5))\n  v5 --- v1\n  hub((hub)) --- v1\n  hub --- v2\n  hub --- v3\n  hub --- v4\n  hub --- v5"
+        },
+        {
+          "type": "p",
+          "text": "The diagram above is the wheel <span class=\"sym\">W_5</span>, built from the <span class=\"sym\">C_5</span> above by adding the hub and its five spokes."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "n-cubes (hypercubes)",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition.</b> An <span class=\"sym\">n</span>-dimensional hypercube, or <span class=\"sym\">n</span>-cube, denoted <span class=\"sym\">Q_n</span>, is a graph that has vertices representing the <span class=\"sym\">2^n</span> bit strings of length <span class=\"sym\">n</span>. Two vertices are adjacent if and only if the bit strings they represent differ in exactly one bit position."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  b000((000)) --- b001((001))\n  b000 --- b010((010))\n  b000 --- b100((100))\n  b001 --- b011((011))\n  b001 --- b101((101))\n  b010 --- b011\n  b010 --- b110((110))\n  b011 --- b111((111))\n  b100 --- b101\n  b100 --- b110\n  b101 --- b111\n  b110 --- b111"
+        },
+        {
+          "type": "p",
+          "text": "The diagram above is <span class=\"sym\">Q_3</span>: its 8 vertices are the length-3 bit strings <span class=\"sym\">000</span> through <span class=\"sym\">111</span>, and an edge joins two of them exactly when they differ in one position — for example <span class=\"sym\">010</span> and <span class=\"sym\">011</span> are adjacent, but <span class=\"sym\">010</span> and <span class=\"sym\">101</span> are not (they differ in all three positions)."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "Each of the <span class=\"sym\">2^n</span> vertices of <span class=\"sym\">Q_n</span> is adjacent to exactly <span class=\"sym\">n</span> others — one neighbor for each bit position that can be flipped — so <span class=\"sym\">Q_n</span> has <span class=\"sym\">n · 2^{n-1}</span> edges. For <span class=\"sym\">Q_3</span> above that's <span class=\"sym\">3 · 4 = 12</span> edges, matching the 12 edges drawn."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Bipartite graphs",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition 6.</b> A simple graph <span class=\"sym\">G</span> is called <b>bipartite</b> if its vertex set <span class=\"sym\">V</span> can be partitioned into two disjoint sets <span class=\"sym\">V_1</span> and <span class=\"sym\">V_2</span> such that every edge in the graph connects a vertex in <span class=\"sym\">V_1</span> and a vertex in <span class=\"sym\">V_2</span> (no edge connects two vertices within <span class=\"sym\">V_1</span>, or two within <span class=\"sym\">V_2</span>). The pair <span class=\"sym\">(V_1, V_2)</span> is called a <b>bipartition</b> of <span class=\"sym\">V</span>."
+        },
+        {
+          "type": "example",
+          "title": "A bipartite graph",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Take the bipartition <span class=\"sym\">V_1 = {v_1, v_3, v_5}</span> and <span class=\"sym\">V_2 = {v_2, v_4, v_6}</span>. The diagram below shows one bipartite graph consistent with that bipartition — every edge runs between the two sets, never within one."
+            },
+            {
+              "type": "mermaid",
+              "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v1 --- v4((v4))\n  v3((v3)) --- v2\n  v3 --- v6((v6))\n  v5((v5)) --- v4\n  v5 --- v6"
+            },
+            {
+              "type": "note",
+              "kind": "tip",
+              "text": "This is simply <b>a</b> bipartite graph with bipartition <span class=\"sym\">{v_1, v_3, v_5}</span> / <span class=\"sym\">{v_2, v_4, v_6}</span> — the exact edge set of the original textbook figure is not reproduced here, only an illustration consistent with the stated bipartition."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Recognizing bipartite vs. non-bipartite",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Consider two graphs <span class=\"sym\">G</span> and <span class=\"sym\">H</span>. Graph <span class=\"sym\">G</span> is bipartite: its vertices split into <span class=\"sym\">{a, b, d}</span> and <span class=\"sym\">{c, e, f, g}</span>, and every edge of <span class=\"sym\">G</span> connects a vertex from the first set to a vertex from the second — no edge ever joins two vertices from the same set."
+            },
+            {
+              "type": "p",
+              "text": "Graph <span class=\"sym\">H</span>, however, is <b>not</b> bipartite: no way of splitting its vertices into two sets avoids putting some edge between two vertices of the same set — for instance, because <span class=\"sym\">H</span> contains a cycle of odd length, which can never be 2-colored properly."
+            }
+          ]
+        },
+        {
+          "type": "def",
+          "text": "<b>Theorem 4.</b> A simple graph is bipartite if and only if it is possible to assign one of two different colors to each vertex of the graph so that no two adjacent vertices are assigned the same color."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "This 2-coloring test is one of the most practical ways to check bipartiteness by hand: pick any vertex, color it, then walk the graph coloring every neighbor the opposite color. If you ever get stuck forcing two adjacent vertices to share a color, the graph is not bipartite."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Complete bipartite graphs",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition.</b> A complete bipartite graph <span class=\"sym\">K_{m,n}</span> is a graph whose vertex set is partitioned into two subsets of <span class=\"sym\">m</span> and <span class=\"sym\">n</span> vertices, respectively, with an edge between two vertices if and only if one vertex is in the first subset and the other is in the second subset."
+        },
+        {
+          "type": "p",
+          "text": "Commonly pictured complete bipartite graphs include <span class=\"sym\">K_{2,3}</span>, <span class=\"sym\">K_{3,3}</span>, <span class=\"sym\">K_{3,5}</span>, and <span class=\"sym\">K_{2,6}</span> — the subscripts giving the size of each side."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  x1((x1)) --- y1((y1))\n  x1 --- y2((y2))\n  x1 --- y3((y3))\n  x2((x2)) --- y1\n  x2 --- y2\n  x2 --- y3"
+        },
+        {
+          "type": "p",
+          "text": "The diagram above is <span class=\"sym\">K_{2,3}</span>: two vertices on one side, three on the other, and every possible cross edge present — but no edge within either side."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "A complete bipartite graph <span class=\"sym\">K_{m,n}</span> has <span class=\"sym\">m · n</span> edges — one for every pairing of a vertex from the <span class=\"sym\">m</span>-side with a vertex from the <span class=\"sym\">n</span>-side. So <span class=\"sym\">K_{2,3}</span> above has <span class=\"sym\">2 · 3 = 6</span> edges — count them in the diagram."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "A simple graph on <span class=\"sym\">n</span> vertices that contains exactly one edge between every pair of distinct vertices is called:",
+      "options": [
+        "the complete graph <span class=\"sym\">K_n</span>",
+        "the cycle <span class=\"sym\">C_n</span>",
+        "the wheel <span class=\"sym\">W_n</span>",
+        "the <span class=\"sym\">n</span>-cube <span class=\"sym\">Q_n</span>"
+      ],
+      "answer": 0,
+      "explanation": "This is exactly the definition of the complete graph <span class=\"sym\">K_n</span>: every pair of distinct vertices is joined by one edge."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "The wheel <span class=\"sym\">W_n</span> has the same number of vertices as the cycle <span class=\"sym\">C_n</span> it is built from.",
+      "answer": false,
+      "explanation": "A wheel <span class=\"sym\">W_n</span> is formed by adding one extra vertex (the hub) to <span class=\"sym\">C_n</span>, so <span class=\"sym\">W_n</span> has <span class=\"sym\">n + 1</span> vertices while <span class=\"sym\">C_n</span> has only <span class=\"sym\">n</span>."
+    },
+    {
+      "id": "q3",
+      "type": "short",
+      "level": 1,
+      "prompt": "How many vertices does the hypercube <span class=\"sym\">Q_3</span> have?",
+      "canonical": "8",
+      "acceptable": [
+        "8",
+        "eight"
+      ],
+      "explanation": "<span class=\"sym\">Q_n</span> has one vertex per length-<span class=\"sym\">n</span> bit string, so <span class=\"sym\">2^n</span> vertices in all. For <span class=\"sym\">n = 3</span>, that's <span class=\"sym\">2^3 = 8</span>."
+    },
+    {
+      "id": "q4",
+      "type": "fillblank",
+      "level": 1,
+      "prompt": "Complete the description of how a wheel is built.",
+      "template": "We obtain a wheel [[1]] when we add an additional vertex to a cycle <span class=\"sym\">C_n</span> (<span class=\"sym\">n ≥ 3</span>) and connect this new vertex — called the [[2]] — to each of the <span class=\"sym\">n</span> vertices in <span class=\"sym\">C_n</span> by new [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "W_n",
+          "acceptable": [
+            "W_n",
+            "Wn",
+            "W n"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "hub",
+          "acceptable": [
+            "hub",
+            "hub vertex",
+            "center",
+            "centre"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "edges",
+          "acceptable": [
+            "edges",
+            "edge",
+            "spokes"
+          ]
+        }
+      ],
+      "explanation": "A wheel <span class=\"sym\">W_n</span> takes a cycle <span class=\"sym\">C_n</span>, adds one hub vertex, and joins the hub to every cycle vertex with a new spoke edge."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "How many edges does the complete graph <span class=\"sym\">K_6</span> have?",
+      "options": [
+        "<span class=\"sym\">15</span>",
+        "<span class=\"sym\">30</span>",
+        "<span class=\"sym\">21</span>",
+        "<span class=\"sym\">12</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">K_n</span> has <span class=\"sym\">n(n − 1)/2</span> edges, so <span class=\"sym\">K_6</span> has <span class=\"sym\">6·5/2 = 15</span> edges."
+    },
+    {
+      "id": "q6",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Complete the definition of a bipartite graph.",
+      "template": "A simple graph <span class=\"sym\">G</span> is called [[1]] if <span class=\"sym\">V</span> can be partitioned into two disjoint sets <span class=\"sym\">V_1</span> and <span class=\"sym\">V_2</span> such that every edge connects a vertex in <span class=\"sym\">V_1</span> to a vertex in [[2]]. The pair <span class=\"sym\">(V_1, V_2)</span> is called a [[3]] of <span class=\"sym\">V</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "bipartite",
+          "acceptable": [
+            "bipartite"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "V_2",
+          "acceptable": [
+            "V_2",
+            "V2",
+            "V 2"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "bipartition",
+          "acceptable": [
+            "bipartition"
+          ]
+        }
+      ],
+      "explanation": "By Definition 6, a bipartite graph's vertex set splits into two disjoint sets <span class=\"sym\">V_1</span> and <span class=\"sym\">V_2</span> with every edge crossing between them; that pair is called its bipartition."
+    },
+    {
+      "id": "q7",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "By Theorem 4, a simple graph is bipartite if and only if:",
+      "options": [
+        "it is possible to 2-color its vertices so that no two adjacent vertices share a color",
+        "it has an even number of vertices",
+        "every vertex has even degree",
+        "it contains no cycles at all"
+      ],
+      "answer": 0,
+      "explanation": "Theorem 4 states that a simple graph is bipartite exactly when its vertices can be properly colored with two colors, i.e. no edge joins two same-colored vertices."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps for checking whether a graph is the complete bipartite graph <span class=\"sym\">K_{m,n}</span>.",
+      "items": [
+        "Partition the vertex set into two subsets, of sizes <span class=\"sym\">m</span> and <span class=\"sym\">n</span>",
+        "Check that every vertex in the first subset is joined to every vertex in the second subset",
+        "Check that no edge joins two vertices within the same subset",
+        "Confirm the total edge count equals <span class=\"sym\">m · n</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "A complete bipartite graph <span class=\"sym\">K_{m,n}</span> needs a two-part vertex split, every possible cross edge present, no within-part edges, and — as a consistency check — exactly <span class=\"sym\">m · n</span> edges total."
+    },
+    {
+      "id": "q9",
+      "type": "short",
+      "level": 3,
+      "prompt": "How many edges does the complete bipartite graph <span class=\"sym\">K_{3,5}</span> have?",
+      "canonical": "15",
+      "acceptable": [
+        "15",
+        "fifteen"
+      ],
+      "explanation": "<span class=\"sym\">K_{m,n}</span> has <span class=\"sym\">m · n</span> edges, one for every pairing across the two sides. Here <span class=\"sym\">3 · 5 = 15</span>."
+    },
+    {
+      "id": "q10",
+      "type": "tf",
+      "level": 3,
+      "prompt": "If a simple graph contains a cycle of odd length, then it cannot be bipartite.",
+      "answer": true,
+      "explanation": "A proper 2-coloring must alternate colors around any cycle; walking an odd cycle forces its first and last vertex — which are adjacent — to receive the same color, violating Theorem 4. This is exactly why a graph like <span class=\"sym\">H</span>, which contains an odd cycle, cannot be bipartite."
+    },
+    {
+      "id": "q11",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "In the hypercube <span class=\"sym\">Q_3</span>, which pair of bit strings is adjacent?",
+      "options": [
+        "<span class=\"sym\">000</span> and <span class=\"sym\">001</span>",
+        "<span class=\"sym\">000</span> and <span class=\"sym\">011</span>",
+        "<span class=\"sym\">000</span> and <span class=\"sym\">111</span>",
+        "<span class=\"sym\">010</span> and <span class=\"sym\">101</span>"
+      ],
+      "answer": 0,
+      "explanation": "Two vertices of <span class=\"sym\">Q_3</span> are adjacent exactly when their bit strings differ in one position. <span class=\"sym\">000</span> and <span class=\"sym\">001</span> differ only in the last bit. The other pairs differ in two or three positions, so they are not adjacent."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

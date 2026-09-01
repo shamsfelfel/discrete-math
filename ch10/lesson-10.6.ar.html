@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>١٠.٦ مسائل أقصر مسار وخوارزمية ديكسترا — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ١٠</a> &nbsp;›&nbsp;
+    <span id="crumb-current">١٠.٦</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.6.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "10.6",
+  "chapter": "10",
+  "title": "مسائل أقصر مسار وخوارزمية ديكسترا",
+  "lede": "تختزل كثير من المسائل الواقعية إلى إيجاد أرخص طريقة للعبور في رسم بياني موزون — وهي <b>مسألة أقصر مسار</b>. وتحلّها خوارزمية <span class=\"sym\">ديكسترا</span> الجشعة بكفاءة في الرسوم البيانية التي تكون فيها جميع أوزان الحوافّ موجبة.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "الرسوم الموزونة ومسألة أقصر مسار",
+      "body": [
+        {
+          "type": "p",
+          "text": "يمكن نمذجة كثير من المسائل باستخدام رسوم بيانية تُسنَد فيها أوزان إلى حوافّها. يُسمّى الرسم البياني الذي يُسنَد فيه عدد إلى كلّ حافة رسمًا بيانيًا موزونًا. ويُعَدّ تحديد مسار بأقلّ وزن إجمالي بين رأسين في شبكة ما من المسائل التي تنشأ كثيرًا في التطبيقات — مثل إيجاد أرخص طريق بين مدينتين في شبكة طرق، أو أسرع توجيه لرسالة عبر شبكة حاسوب."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف.</b> في رسم بياني موزون، <b>طول المسار</b> هو مجموع أوزان حوافّ ذلك المسار. و<b>أقصر مسار</b> بين رأسين معطيين هو مسار بينهما ذو أقلّ طول (أي أقلّ وزن إجمالي — وليس بالضرورة أقلّ عدد من الحوافّ)."
+        },
+        {
+          "type": "p",
+          "text": "يختلف هذا عن الرسم البياني غير الموزون، حيث يكون السؤال الطبيعي عن أقلّ عدد من الحوافّ بين رأسين. أمّا في الرسم الموزون، فقد يكون مسارٌ له عدد أكبر من الحوافّ أقصر إجمالًا إذا كانت حوافّه ذات أوزان أصغر."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "الرسم الموزون الذي تساوي فيه جميع الأوزان <span class=\"sym\">1</span> يختزل مسألة أقصر مسار إلى مسألة أقلّ عدد من الحوافّ العادية — فمسألة أقصر مسار تعميمٌ حقيقي لتلك المسألة الأبسط."
+        },
+        {
+          "type": "p",
+          "text": "من المسائل المرتبطة بهذا، وهي أصعب بكثير، مسألة البائع المتجول الشهيرة: بالنظر إلى رسم بياني تامّ يربط فيه كلّ زوج من الرؤوس بحافة موزونة، أوجد دارة ذات أقلّ وزن إجمالي تزور كلّ رأس مرّة واحدة بالضبط ثمّ تعود إلى نقطة البداية. وهذا يطلب تحديد الترتيب الذي ينبغي لبائع متجوّل زيارة كلّ مدينة فيه في جولته بحيث تكون المسافة الإجمالية المقطوعة أصغر ما يمكن. وخلافًا لمسألة أقصر مسار، لا تُعرف خوارزمية فعّالة لهذه المسألة بصورة عامّة."
+        }
+      ],
+      "examples": [
+        {
+          "label": "أرخص طريق",
+          "body": "في رسم بياني موزون يمثّل خريطة طرق، تكون الرؤوس مدنًا وأوزان الحوافّ مسافات (أو أزمنة قيادة). أقصر مسار من المدينة <span class=\"sym\">a</span> إلى المدينة <span class=\"sym\">z</span> هو أيّ طريق له أقلّ وزن إجمالي — حتى لو مرّ بعدد أكبر من المدن الوسيطة مقارنةً بطريق آخر."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "خوارزمية ديكسترا",
+      "body": [
+        {
+          "type": "p",
+          "text": "توجد عدّة خوارزميات لإيجاد أقصر مسار بين رأسين في رسم بياني موزون. نعرض هنا الخوارزمية الجشعة التي اكتشفها عالم الرياضيات الهولندي <span class=\"sym\">ديكسترا</span> عام <span class=\"sym\">1959</span>. والصيغة الموصوفة هنا تحلّ مسألة أقصر مسار في الرسوم البيانية غير الموجّهة الموزونة التي تكون فيها جميع الأوزان موجبة."
+        },
+        {
+          "type": "p",
+          "text": "الخوارزمية جشعة: في كلّ مرحلة تلتزم بأقرب رأس غير مزار دون إعادة النظر في هذا الاختيار لاحقًا، ولأنّ جميع الأوزان موجبة فإنّ هذا الاختيار المحلّي يكون دائمًا صحيحًا على مستوى الرسم كلّه."
+        },
+        {
+          "type": "ol",
+          "items": [
+            "<b>للبدء:</b> اختر رأس البداية. صنّف مسافة رأس البداية بـ <span class=\"sym\">0</span> وكلّ رأس آخر بـ <span class=\"sym\">∞</span> (لم يُصَل إليه بعد).",
+            "<b>الخطوة المتكرّرة — فحص الجيران:</b> افحص جيران الرأس الحالي (الذي زرته للتوّ) غير المزارين، واحسب لكلّ منهم مسافته من البداية عبر الرأس الحالي (مسافة الرأس الحالي زائد وزن الحافة الواصلة).",
+            "<b>الإرخاء إذا كانت أقصر:</b> إذا كانت هذه المسافة المحسوبة أقلّ من المسافة المعروفة حاليًا لذلك الجار، أعِد تصنيف الجار بالمسافة الأصغر وسجّل المسار الذي يحقّقها.",
+            "<b>الانتقال:</b> من بين جميع الرؤوس غير المزارة، زُر الرأس ذا أصغر مسافة معروفة من رأس البداية.",
+            "<b>التكرار:</b> كرّر الخطوات ٢–٤ حتى تُزار جميع الرؤوس. عندئذٍ يكون تصنيف كلّ رأس النهائي هو أقصر مسافة له من البداية."
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "warn",
+          "text": "تتطلّب هذه الصيغة من الخوارزمية أن تكون جميع أوزان الحوافّ موجبة. فمع أوزان سالبة قد يصبح الاختيار الجشع خاطئًا، ولا تعود التصنيفات مضمونة الصحّة كأقصر مسافات."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "id": "c3",
+      "title": "مثال محلول خطوة بخطوة",
+      "body": [
+        {
+          "type": "p",
+          "text": "لنعتبر الرسم البياني الموزون غير الموجّه على الرؤوس <span class=\"sym\">a, b, c, d, e, z</span> بالحوافّ <span class=\"sym\">a–b: 4</span>، <span class=\"sym\">a–c: 2</span>، <span class=\"sym\">b–c: 1</span>، <span class=\"sym\">b–d: 5</span>، <span class=\"sym\">c–d: 8</span>، <span class=\"sym\">c–e: 10</span>، <span class=\"sym\">d–e: 2</span>، <span class=\"sym\">d–z: 6</span>، <span class=\"sym\">e–z: 3</span>. نتتبّع خوارزمية <span class=\"sym\">ديكسترا</span> بدءًا من <span class=\"sym\">a</span> لإيجاد أقصر مسافة إلى كلّ رأس آخر، وخصوصًا إلى <span class=\"sym\">z</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  a((a)) -- 4 --- b((b))\n  a -- 2 --- c((c))\n  b -- 1 --- c\n  b -- 5 --- d((d))\n  c -- 8 --- d\n  c -- 10 --- e((e))\n  d -- 2 --- e\n  d -- 6 --- z((z))\n  e -- 3 --- z"
+        },
+        {
+          "type": "ol",
+          "items": [
+            "<b>البدء عند <span class=\"sym\">a</span>:</b> <span class=\"sym\">dist(a) = 0</span>، وكلّ رأس آخر مُصنَّف بـ <span class=\"sym\">∞</span>.",
+            "<b>زيارة <span class=\"sym\">a</span></b> (مسافة <span class=\"sym\">0</span>): إرخاء جيرانه <span class=\"sym\">b</span> و<span class=\"sym\">c</span> يعطي <span class=\"sym\">dist(b) = 4</span> (مسار <span class=\"sym\">a-b</span>)، <span class=\"sym\">dist(c) = 2</span> (مسار <span class=\"sym\">a-c</span>).",
+            "<b>زيارة <span class=\"sym\">c</span></b> (أصغر مسافة غير مزارة، <span class=\"sym\">2</span>): إرخاء جيرانه — <span class=\"sym\">b</span>: <span class=\"sym\">2 + 1 = 3 &lt; 4</span>، فيُحدَّث <span class=\"sym\">dist(b) = 3</span> (مسار <span class=\"sym\">a-c-b</span>)؛ <span class=\"sym\">d</span>: <span class=\"sym\">2 + 8 = 10</span> (مؤقّتة)؛ <span class=\"sym\">e</span>: <span class=\"sym\">2 + 10 = 12</span> (مؤقّتة).",
+            "<b>زيارة <span class=\"sym\">b</span></b> (مسافة <span class=\"sym\">3</span>): إرخاء جيرانه — <span class=\"sym\">d</span>: <span class=\"sym\">3 + 5 = 8 &lt; 10</span>، يُحدَّث <span class=\"sym\">dist(d) = 8</span> (مسار <span class=\"sym\">a-c-b-d</span>).",
+            "<b>زيارة <span class=\"sym\">d</span></b> (مسافة <span class=\"sym\">8</span>): إرخاء جيرانه — <span class=\"sym\">e</span>: <span class=\"sym\">8 + 2 = 10 &lt; 12</span>، يُحدَّث <span class=\"sym\">dist(e) = 10</span> (مسار <span class=\"sym\">a-c-b-d-e</span>)؛ <span class=\"sym\">z</span>: <span class=\"sym\">8 + 6 = 14</span> (مؤقّتة).",
+            "<b>زيارة <span class=\"sym\">e</span></b> (مسافة <span class=\"sym\">10</span>): إرخاء جاره — <span class=\"sym\">z</span>: <span class=\"sym\">10 + 3 = 13 &lt; 14</span>، يُحدَّث <span class=\"sym\">dist(z) = 13</span> (مسار <span class=\"sym\">a-c-b-d-e-z</span>).",
+            "<b>زيارة <span class=\"sym\">z</span></b> (مسافة <span class=\"sym\">13</span>): جميع الرؤوس مزارة الآن — تنتهي الخوارزمية."
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "الرأس",
+            "أقصر مسافة من <span class=\"sym\">a</span>",
+            "المسار"
+          ],
+          "rows": [
+            [
+              "<span class=\"sym\">a</span>",
+              "<span class=\"sym\">0</span>",
+              "<span class=\"sym\">a</span>"
+            ],
+            [
+              "<span class=\"sym\">c</span>",
+              "<span class=\"sym\">2</span>",
+              "<span class=\"sym\">a-c</span>"
+            ],
+            [
+              "<span class=\"sym\">b</span>",
+              "<span class=\"sym\">3</span>",
+              "<span class=\"sym\">a-c-b</span>"
+            ],
+            [
+              "<span class=\"sym\">d</span>",
+              "<span class=\"sym\">8</span>",
+              "<span class=\"sym\">a-c-b-d</span>"
+            ],
+            [
+              "<span class=\"sym\">e</span>",
+              "<span class=\"sym\">10</span>",
+              "<span class=\"sym\">a-c-b-d-e</span>"
+            ],
+            [
+              "<span class=\"sym\">z</span>",
+              "<span class=\"sym\">13</span>",
+              "<span class=\"sym\">a-c-b-d-e-z</span>"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "أقصر مسار من <span class=\"sym\">a</span> إلى <span class=\"sym\">z</span> طوله الإجمالي <span class=\"sym\">13</span>، ويتحقّق بالمسار <span class=\"sym\">a-c-b-d-e-z</span>."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "id": "c4",
+      "title": "رسم للتدريب",
+      "body": [
+        {
+          "type": "p",
+          "text": "إليك رسمًا بيانيًا موزونًا ثانيًا، على مجموعة الرؤوس نفسها <span class=\"sym\">a, b, c, d, e, z</span>، بأوزان مختلفة: <span class=\"sym\">a–b: 1</span>، <span class=\"sym\">a–c: 4</span>، <span class=\"sym\">b–c: 2</span>، <span class=\"sym\">b–d: 7</span>، <span class=\"sym\">c–d: 3</span>، <span class=\"sym\">c–e: 5</span>، <span class=\"sym\">d–e: 1</span>، <span class=\"sym\">d–z: 6</span>، <span class=\"sym\">e–z: 4</span>. استخدمه، مع الخوارزمية من البطاقات السابقة، للإجابة عن الأسئلة أدناه حول أقصر مسار من <span class=\"sym\">a</span> إلى <span class=\"sym\">z</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  a((a)) -- 1 --- b((b))\n  a -- 4 --- c((c))\n  b -- 2 --- c\n  b -- 7 --- d((d))\n  c -- 3 --- d\n  c -- 5 --- e((e))\n  d -- 1 --- e\n  d -- 6 --- z((z))\n  e -- 4 --- z"
+        }
+      ],
+      "examples": [
+        {
+          "label": "تلميح: تتبّعه بنفسك",
+          "body": "طبّق الخطوات نفسها كما في المثال المحلول: ابدأ عند <span class=\"sym\">a</span> بـ <span class=\"sym\">dist(a) = 0</span>، وزُر دائمًا بعد ذلك الرأس غير المزار ذا أصغر مسافة معروفة، وأرخِ كلّ جار للرأس الذي زرته للتوّ."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "عند بدء خوارزمية <span class=\"sym\">ديكسترا</span>، ما القيمة التي تُعطى ابتداءً لكلّ رأس عدا رأس البداية؟",
+      "options": [
+        "<span class=\"sym\">∞</span>",
+        "<span class=\"sym\">0</span>",
+        "<span class=\"sym\">1</span>",
+        "وزن أرخص حافة ملاصقة له"
+      ],
+      "answer": 0,
+      "explanation": "يُصنَّف كلّ رأس عدا البداية بـ <span class=\"sym\">∞</span> عند التهيئة، لأنّه لا يُعرف بعد أيّ مسار إليه؛ أمّا رأس البداية وحده فيُصنَّف بـ <span class=\"sym\">0</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "الصيغة المعروضة هنا من خوارزمية <span class=\"sym\">ديكسترا</span> تعمل بشكل صحيح حتى لو كانت بعض أوزان الحوافّ سالبة.",
+      "answer": false,
+      "explanation": "تتطلّب هذه الصيغة أن تكون جميع أوزان الحوافّ موجبة. فمع أوزان سالبة، قد يصبح ممكنًا الوصول لاحقًا إلى رأس سبق أن زُرته وثُبِّتت مسافته بتكلفة أقلّ عبر حافة سالبة الوزن، فلا يعود الاختيار الجشع — ولا التصنيفات الناتجة عنه — مضمون الصحّة."
+    },
+    {
+      "id": "q3",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "بالنسبة لرسم المثال المحلول (<span class=\"sym\">a–b:4, a–c:2, b–c:1, b–d:5, c–d:8, c–e:10, d–e:2, d–z:6, e–z:3</span>)، رتّب الرؤوس بحسب الترتيب الذي تزورها فيه خوارزمية <span class=\"sym\">ديكسترا</span> (أي تُثبّت مسافتها) بدءًا من <span class=\"sym\">a</span>.",
+      "items": [
+        "<span class=\"sym\">a</span>",
+        "<span class=\"sym\">c</span>",
+        "<span class=\"sym\">b</span>",
+        "<span class=\"sym\">d</span>",
+        "<span class=\"sym\">e</span>",
+        "<span class=\"sym\">z</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "explanation": "تزور الخوارزمية دائمًا الرأس غير المزار ذا أصغر مسافة معروفة، بالترتيب: <span class=\"sym\">a</span> (0)، ثمّ <span class=\"sym\">c</span> (2)، ثمّ <span class=\"sym\">b</span> (3)، ثمّ <span class=\"sym\">d</span> (8)، ثمّ <span class=\"sym\">e</span> (10)، ثمّ <span class=\"sym\">z</span> (13)."
+    },
+    {
+      "id": "q4",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "املأ أقصر المسافات النهائية من <span class=\"sym\">a</span> في رسم المثال المحلول.",
+      "template": "في رسم المثال المحلول، أقصر مسافة من <span class=\"sym\">a</span> إلى <span class=\"sym\">c</span> هي [[1]]، وإلى <span class=\"sym\">b</span> هي [[2]]، وإلى <span class=\"sym\">d</span> هي [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "2",
+          "acceptable": [
+            "2"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "3",
+          "acceptable": [
+            "3"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "8",
+          "acceptable": [
+            "8"
+          ]
+        }
+      ],
+      "explanation": "من جدول الحلّ: <span class=\"sym\">dist(c) = 2</span> (مسار <span class=\"sym\">a-c</span>)، و<span class=\"sym\">dist(b) = 3</span> (مسار <span class=\"sym\">a-c-b</span>، بعد التحديث من القيمة الأولية <span class=\"sym\">4</span>)، و<span class=\"sym\">dist(d) = 8</span> (مسار <span class=\"sym\">a-c-b-d</span>)."
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "level": 2,
+      "prompt": "في رسم المثال المحلول، ما قيمة <span class=\"sym\">dist(z)</span> — أقصر مسافة من <span class=\"sym\">a</span> إلى <span class=\"sym\">z</span>؟",
+      "canonical": "13",
+      "acceptable": [
+        "13",
+        "dist(z) = 13"
+      ],
+      "explanation": "تتبّع الخوارزمية يعطي المسار <span class=\"sym\">a-c-b-d-e-z</span> بوزن إجمالي <span class=\"sym\">2 + 1 + 5 + 2 + 3 = 13</span>، وهو الأصغر الممكن."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "في رسم المثال المحلول، أيّ رأس تزوره خوارزمية <span class=\"sym\">ديكسترا</span> ثالثًا (بعد <span class=\"sym\">a</span> و<span class=\"sym\">c</span>)؟",
+      "options": [
+        "<span class=\"sym\">b</span>",
+        "<span class=\"sym\">d</span>",
+        "<span class=\"sym\">e</span>",
+        "<span class=\"sym\">z</span>"
+      ],
+      "answer": 0,
+      "explanation": "بعد زيارة <span class=\"sym\">a</span> و<span class=\"sym\">c</span>، تكون المسافات المعروفة <span class=\"sym\">dist(b) = 3</span>، و<span class=\"sym\">dist(d) = 10</span> (مؤقّتة)، و<span class=\"sym\">dist(e) = 12</span> (مؤقّتة). أصغرها هي <span class=\"sym\">b</span> بقيمة <span class=\"sym\">3</span>، فتُزار <span class=\"sym\">b</span> تاليًا."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 3,
+      "prompt": "في رسم التدريب (<span class=\"sym\">a–b:1, a–c:4, b–c:2, b–d:7, c–d:3, c–e:5, d–e:1, d–z:6, e–z:4</span>)، ما أقصر مسافة من <span class=\"sym\">a</span> إلى <span class=\"sym\">z</span>؟",
+      "canonical": "11",
+      "acceptable": [
+        "11",
+        "a-b-c-d-e-z بوزن 11",
+        "dist(z) = 11"
+      ],
+      "explanation": "تتبّع خوارزمية <span class=\"sym\">ديكسترا</span> من <span class=\"sym\">a</span>: <span class=\"sym\">dist(b)=1</span>، <span class=\"sym\">dist(c)=3</span> (عبر <span class=\"sym\">a-b-c</span>، بعد التحديث من <span class=\"sym\">4</span>)، <span class=\"sym\">dist(d)=6</span> (عبر <span class=\"sym\">a-b-c-d</span>)، <span class=\"sym\">dist(e)=7</span> (عبر <span class=\"sym\">a-b-c-d-e</span>)، <span class=\"sym\">dist(z)=11</span> (عبر <span class=\"sym\">a-b-c-d-e-z</span>)."
+    },
+    {
+      "id": "q8",
+      "type": "short",
+      "level": 3,
+      "prompt": "في الرسم نفسه، اذكر أقصر مسار من <span class=\"sym\">a</span> إلى <span class=\"sym\">z</span> كسلسلة رؤوس.",
+      "canonical": "a-b-c-d-e-z",
+      "acceptable": [
+        "a-b-c-d-e-z",
+        "a, b, c, d, e, z",
+        "a-b-c-d-e-z بوزن 11"
+      ],
+      "explanation": "يزور التتبّع الرؤوس بالترتيب <span class=\"sym\">a, b, c, d, e, z</span>، وكلّ عملية إعادة تصنيف تسجّل السلف الذي يحقّق أقصر مسافة، فيكون أقصر مسار مُعاد بناؤه هو <span class=\"sym\">a-b-c-d-e-z</span> بوزن إجمالي <span class=\"sym\">1 + 2 + 3 + 1 + 4 = 11</span>."
+    },
+    {
+      "id": "q9",
+      "type": "tf",
+      "level": 3,
+      "prompt": "تعتمد صحّة خوارزمية <span class=\"sym\">ديكسترا</span> على أنّه بمجرّد زيارة رأس (تثبيت مسافته)، لا يمكن لأيّ إعادة تصنيف لاحقة أن تعطيه مسافة أصغر — وهذا يعتمد على كون جميع أوزان الحوافّ موجبة.",
+      "answer": true,
+      "explanation": "بما أنّ كلّ وزن حافة موجب، فإنّ أيّ مسار يمرّ عبر رأس غير مزار للوصول إلى رأس مزار لا يمكن إلّا أن يكون أطول من مسافة ذلك الرأس المزار النهائية، لذا لا يحتاج الاختيار الجشع في كلّ خطوة — تثبيت أقرب رأس غير مزار دائمًا — إلى إعادة نظر أبدًا. وهذه هي الفكرة الأساسية وراء صحّة الخوارزمية، وهي تنهار إن سُمح بأوزان سالبة."
+    },
+    {
+      "id": "q10",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "أيّ وصف يناسب أكثر الاستراتيجية التي تستخدمها خوارزمية <span class=\"sym\">ديكسترا</span> لإيجاد أقصر المسارات؟",
+      "options": [
+        "استراتيجية جشعة: تثبيت أقرب رأس غير مزار مرارًا وإرخاء جيرانه",
+        "استراتيجية القوة الغاشمة: تعداد كلّ مسار ممكن ومقارنة أوزانها الإجمالية",
+        "استراتيجية التراجع: تجربة مسار والتراجع عن الاختيارات كلّما وُصل إلى طريق مسدود",
+        "استراتيجية فرّق تسد: تقسيم الرسم إلى نصفين وحلّ كلّ نصف بشكل تكراري"
+      ],
+      "answer": 0,
+      "explanation": "خوارزمية <span class=\"sym\">ديكسترا</span> جشعة: في كلّ مرحلة تلتزم، دون إعادة نظر، بالرأس غير المزار الأقرب حاليًا إلى المصدر، وتحدّث (تُرخي) المسافات المؤقّتة لجيران ذلك الرأس قبل الانتقال."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

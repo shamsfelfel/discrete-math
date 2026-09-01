@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>١٠.٢ مصطلحات الرسوم البيانية: الدرجة والمجاورة — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ١٠</a> &nbsp;›&nbsp;
+    <span id="crumb-current">١٠.٢</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.2.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "10.2",
+  "chapter": "10",
+  "title": "مصطلحات الرسوم البيانية: الدرجة والمجاورة",
+  "lede": "بعد أن يكون لدينا رسم بياني، نحتاج إلى مفردات دقيقة تصف بنيته المحلّية — أيّ الرؤوس تلامس أيّ الحواف، وأيّ الرؤوس متجاورة، وكم حافّة تلتقي عند كلّ رأس. وتبلغ هذه المفردات ذروتها في <b>مبرهنة المصافحة</b>، وهي متطابقة بسيطة تربط النظرة المحلّية (درجة كلّ رأس) بالنظرة الكلّية (عدد الحواف الإجمالي).",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "التجاور والمجاورة",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ١.</b> يُقال إنّ رأسين <span class=\"sym\">u</span> و<span class=\"sym\">v</span> في رسم بياني غير موجّه <span class=\"sym\">G</span> <b>متجاوران</b> (أو <b>جاران</b>) في <span class=\"sym\">G</span> إذا كانا طرفَي حافة <span class=\"sym\">e</span> من <span class=\"sym\">G</span>. وتسمّى هذه الحافة <span class=\"sym\">e</span> <b>واقعة على</b> الرأسين <span class=\"sym\">u</span> و<span class=\"sym\">v</span>، ويقال إنّ <span class=\"sym\">e</span> <b>تصل</b> بين <span class=\"sym\">u</span> و<span class=\"sym\">v</span>."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ٢.</b> تسمّى مجموعة كلّ جيران الرأس <span class=\"sym\">v</span> في <span class=\"sym\">G = (V, E)</span>، والتي يُرمز لها بـ <span class=\"sym\">N(v)</span>، <b>مجاورة</b> <span class=\"sym\">v</span>. وإذا كانت <span class=\"sym\">A</span> مجموعة جزئية من <span class=\"sym\">V</span>، فإنّ <span class=\"sym\">N(A)</span> ترمز إلى مجموعة كلّ الرؤوس في <span class=\"sym\">G</span> المجاورة لرأس واحد على الأقلّ من <span class=\"sym\">A</span>: <span class=\"sym\">N(A) = ∪<sub>v∈A</sub> N(v)</span>."
+        },
+        {
+          "type": "p",
+          "text": "التجاور والمجاورة يعتمدان فقط على الحواف الموجودة فعلاً، لا على أيّ تسمية أو رسم معيّن للرسم البياني — فهما مفهومان بنيويّان بحتان."
+        }
+      ],
+      "examples": [
+        {
+          "label": "الجيران من قائمة حواف",
+          "body": "إذا كانت <span class=\"sym\">e = {u, v}</span> حافة من <span class=\"sym\">G</span>، فإنّ <span class=\"sym\">u ∈ N(v)</span> و<span class=\"sym\">v ∈ N(u)</span>: التجاور علاقة تماثلية لأنّ الحافة غير الموجّهة لا تفضّل أحد طرفيها على الآخر."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "الدرجة، الرأس المعزول والرأس المتدلّي",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ٣.</b> <b>درجة</b> الرأس في رسم بياني غير موجّه هي عدد الحواف الواقعة عليه، <b>ما عدا</b> أنّ الحلقة عند رأس ما تُسهم بمقدار <b>اثنين</b> في درجة ذلك الرأس. ويُرمز إلى درجة الرأس <span class=\"sym\">v</span> بـ <span class=\"sym\">deg(v)</span>."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "الرأس ذو الدرجة صفر يسمّى <b>معزولاً</b>. وبما أنّ درجته صفر، فالرأس المعزول غير مجاور لأيّ رأس.",
+            "يسمّى الرأس <b>متدلّيًا</b> إذا وفقط إذا كانت درجته واحدًا. والرأس المتدلّي مجاور لرأس واحد فقط."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "مثال محلول — درجات ومجاورات الرسم البياني G",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "ليكن <span class=\"sym\">G</span> الرسم البياني غير الموجّه على الرؤوس <span class=\"sym\">{a, b, c, d, e, f, g}</span> بمجموعة الحواف <span class=\"sym\">{a–b, a–f, b–c, b–e, b–f, c–d, c–e, c–f, e–f}</span> (مع كون <span class=\"sym\">g</span> معزولاً):"
+            },
+            {
+              "type": "mermaid",
+              "code": "graph LR\n  a((a)) --- b((b))\n  a --- f((f))\n  b --- c((c))\n  b --- e((e))\n  b --- f\n  c --- d((d))\n  c --- e\n  c --- f\n  e --- f\n  g((g))"
+            },
+            {
+              "type": "table",
+              "headers": ["الرأس", "deg(v)", "N(v)"],
+              "rows": [
+                ["<span class=\"sym\">a</span>", "<span class=\"sym\">2</span>", "<span class=\"sym\">{b, f}</span>"],
+                ["<span class=\"sym\">b</span>", "<span class=\"sym\">4</span>", "<span class=\"sym\">{a, c, e, f}</span>"],
+                ["<span class=\"sym\">c</span>", "<span class=\"sym\">4</span>", "<span class=\"sym\">{b, d, e, f}</span>"],
+                ["<span class=\"sym\">d</span>", "<span class=\"sym\">1</span>", "<span class=\"sym\">{c}</span>"],
+                ["<span class=\"sym\">e</span>", "<span class=\"sym\">3</span>", "<span class=\"sym\">{b, c, f}</span>"],
+                ["<span class=\"sym\">f</span>", "<span class=\"sym\">4</span>", "<span class=\"sym\">{a, b, c, e}</span>"],
+                ["<span class=\"sym\">g</span>", "<span class=\"sym\">0</span>", "<span class=\"sym\">∅</span>"]
+              ]
+            },
+            {
+              "type": "note",
+              "kind": "tip",
+              "text": "الرأس <span class=\"sym\">g</span> <b>معزول</b> (<span class=\"sym\">deg(g) = 0</span>، لا يلامس أيّ حافة)، والرأس <span class=\"sym\">d</span> <b>متدلٍّ</b> (<span class=\"sym\">deg(d) = 1</span>، مجاور فقط للرأس <span class=\"sym\">c</span>)."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "warn",
+          "text": "تُسهم <b>الحلقة</b> بمقدار <b>اثنين</b> في درجة الرأس الذي تلامسه. فمثلاً، رسم بياني زائف <span class=\"sym\">H</span> على الرؤوس <span class=\"sym\">{a, b, c, d, e}</span> يحتوي حلقة عند أحد رؤوسه يمكن أن يكون فيه <span class=\"sym\">deg(a) = 4</span>، و<span class=\"sym\">deg(b) = 6</span>، و<span class=\"sym\">deg(c) = 1</span>، و<span class=\"sym\">deg(d) = 5</span>، و<span class=\"sym\">deg(e) = 6</span> — فالحلقة هي ما يسمح لرأس مثل <span class=\"sym\">b</span> أو <span class=\"sym\">e</span> ببلوغ درجة أعلى ممّا يسمح به عدد جيرانه المتمايزين وحده."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "مبرهنة المصافحة",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>المبرهنة ١ (مبرهنة المصافحة).</b> لتكن <span class=\"sym\">G = (V, E)</span> رسمًا بيانيًّا غير موجّه بعدد حواف <span class=\"sym\">m</span>. عندئذٍ <span class=\"sym\">2m = Σ<sub>v∈V</sub> deg(v)</span>."
+        },
+        {
+          "type": "p",
+          "text": "يصحّ هذا حتى عندما يحتوي <span class=\"sym\">G</span> على حوافّ متعدّدة وحلقات، لأنّ كلّ حافة — بما فيها الحلقة التي تُحسب مرّتين عند رأسها الوحيد — تُسهم بمقدار <span class=\"sym\">2</span> بالضبط في مجموع الدرجات: مرّة واحدة لكلّ من \"طرفَيها\"."
+        },
+        {
+          "type": "example",
+          "title": "التحقّق من المبرهنة على الرسم البياني G",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "بجمع عمود الدرجات من جدول البطاقة السابقة: <span class=\"sym\">deg(a)+deg(b)+deg(c)+deg(d)+deg(e)+deg(f)+deg(g) = 2+4+4+1+3+4+0 = 18</span>."
+            },
+            {
+              "type": "p",
+              "text": "وعدّ الحواف المرسومة في مخطّط <span class=\"sym\">G</span> يعطي <span class=\"sym\">m = 9</span> (وهي a–b، a–f، b–c، b–e، b–f، c–d، c–e، c–f، e–f)، وبالفعل <span class=\"sym\">2m = 2 × 9 = 18</span>، مطابقًا مجموع الدرجات تمامًا."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "من النتائج البسيطة واللافتة لمبرهنة المصافحة: في <b>أيّ</b> رسم بياني غير موجّه، يكون عدد الرؤوس ذات الدرجة الفردية <b>زوجيًّا</b>. (فلو كان فرديًّا، لتعذّر أن يساوي مجموع درجات الرؤوس الفردية مضافًا إليه مجموع درجات الرؤوس الزوجية العدد الزوجي <span class=\"sym\">2m</span>.)"
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "الرسوم الموجّهة: درجة الدخول ودرجة الخروج",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ٤.</b> عندما تكون <span class=\"sym\">(u, v)</span> حافة من رسم بياني <span class=\"sym\">G</span> ذي حواف موجّهة، يقال إنّ <span class=\"sym\">u</span> <b>مجاور إلى</b> <span class=\"sym\">v</span>، وإنّ <span class=\"sym\">v</span> <b>مجاور من</b> <span class=\"sym\">u</span>. ويسمّى الرأس <span class=\"sym\">u</span> <b>الرأس المبدئي</b> للحافة <span class=\"sym\">(u, v)</span>، ويسمّى <span class=\"sym\">v</span> <b>الرأس النهائي</b> (أو رأس النهاية) للحافة <span class=\"sym\">(u, v)</span>. ويتطابق الرأس المبدئي والرأس النهائي للحلقة."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ٥.</b> في رسم بياني ذي حواف موجّهة، <b>درجة الدخول</b> للرأس <span class=\"sym\">v</span>، ويُرمز لها بـ <span class=\"sym\">deg⁻(v)</span>، هي عدد الحواف التي يكون <span class=\"sym\">v</span> رأسها النهائي. و<b>درجة الخروج</b> لـ <span class=\"sym\">v</span>، ويُرمز لها بـ <span class=\"sym\">deg⁺(v)</span>، هي عدد الحواف التي يكون <span class=\"sym\">v</span> رأسها المبدئي. (تضيف الحلقة عند رأس واحدًا لدرجة دخوله وواحدًا لدرجة خروجه.)"
+        },
+        {
+          "type": "def",
+          "text": "<b>المبرهنة ٣.</b> لتكن <span class=\"sym\">G = (V, E)</span> رسمًا بيانيًّا ذا حواف موجّهة. عندئذٍ <span class=\"sym\">Σ<sub>v∈V</sub> deg⁻(v) = Σ<sub>v∈V</sub> deg⁺(v) = |E|</span>."
+        },
+        {
+          "type": "example",
+          "title": "مثال محلول — جدول درجتَي الدخول والخروج",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "لرسم بياني موجّه <span class=\"sym\">G</span> على الرؤوس <span class=\"sym\">a, b, c, d, e, f</span>:"
+            },
+            {
+              "type": "table",
+              "headers": ["الرأس", "درجة الدخول deg⁻", "درجة الخروج deg⁺"],
+              "rows": [
+                ["<span class=\"sym\">a</span>", "<span class=\"sym\">2</span>", "<span class=\"sym\">4</span>"],
+                ["<span class=\"sym\">b</span>", "<span class=\"sym\">2</span>", "<span class=\"sym\">1</span>"],
+                ["<span class=\"sym\">c</span>", "<span class=\"sym\">3</span>", "<span class=\"sym\">2</span>"],
+                ["<span class=\"sym\">d</span>", "<span class=\"sym\">2</span>", "<span class=\"sym\">2</span>"],
+                ["<span class=\"sym\">e</span>", "<span class=\"sym\">3</span>", "<span class=\"sym\">3</span>"],
+                ["<span class=\"sym\">f</span>", "<span class=\"sym\">0</span>", "<span class=\"sym\">0</span>"]
+              ]
+            },
+            {
+              "type": "p",
+              "text": "مجموع عمود درجة الدخول ومجموع عمود درجة الخروج كلاهما <span class=\"sym\">2+2+3+2+3+0 = 12</span> و<span class=\"sym\">4+1+2+2+3+0 = 12</span> على التوالي، وهو ما يطابق <span class=\"sym\">|E| = 12</span> تمامًا كما تقتضي المبرهنة ٣."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "بحسب التعريف ٢، ما هي مجاورة <span class=\"sym\">N(v)</span> للرأس <span class=\"sym\">v</span>؟",
+      "options": [
+        "مجموعة كلّ الرؤوس المجاورة لـ <span class=\"sym\">v</span>",
+        "مجموعة كلّ الحواف الواقعة على <span class=\"sym\">v</span>",
+        "درجة الرأس <span class=\"sym\">v</span>",
+        "مجموعة كلّ رؤوس الرسم البياني"
+      ],
+      "answer": 0,
+      "explanation": "يُعرِّف التعريف ٢ <span class=\"sym\">N(v)</span> بأنّها مجموعة كلّ جيران <span class=\"sym\">v</span> — أي كلّ الرؤوس المجاورة لـ <span class=\"sym\">v</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "تُسهم الحلقة عند رأس ما بمقدار ١ فقط في درجة ذلك الرأس.",
+      "answer": false,
+      "explanation": "بحسب التعريف ٣، تُسهم الحلقة بمقدار <b>اثنين</b> في درجة الرأس الذي تلامسه، لا بمقدار واحد."
+    },
+    {
+      "id": "q3",
+      "type": "short",
+      "level": 1,
+      "prompt": "في الرسم البياني <span class=\"sym\">G</span> من البطاقة الثانية (الرؤوس <span class=\"sym\">a</span> إلى <span class=\"sym\">g</span>)، ما قيمة <span class=\"sym\">deg(g)</span>، وما المصطلح الذي يصف مثل هذا الرأس؟",
+      "canonical": "deg(g) = 0، وg يسمّى معزولاً.",
+      "acceptable": [
+        "0، معزول",
+        "deg(g)=0، رأس معزول",
+        "صفر، معزول"
+      ],
+      "explanation": "الرأس <span class=\"sym\">g</span> لا يلامس أيّ حافة، فـ <span class=\"sym\">deg(g) = 0</span>، وبحسب التعريف فإنّ الرأس ذا الدرجة صفر يسمّى <b>معزولاً</b>."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "في الرسم البياني <span class=\"sym\">G</span> من البطاقة الثانية، أيّ رأس هو الرأس المتدلّي؟",
+      "options": [
+        "<span class=\"sym\">d</span>",
+        "<span class=\"sym\">a</span>",
+        "<span class=\"sym\">g</span>",
+        "<span class=\"sym\">e</span>"
+      ],
+      "answer": 0,
+      "explanation": "الرأس المتدلّي درجته واحد بالضبط. وفي الجدول، <span class=\"sym\">deg(d) = 1</span> مع <span class=\"sym\">N(d) = {c}</span>، فالرأس <span class=\"sym\">d</span> هو المتدلّي."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "أكمل التحقّق من مبرهنة المصافحة للرسم البياني <span class=\"sym\">G</span> (الدرجات ٢، ٤، ٤، ١، ٣، ٤، ٠؛ وعدد الحواف <span class=\"sym\">m = 9</span>).",
+      "template": "مجموع درجات كلّ رؤوس <span class=\"sym\">G</span> يساوي [[1]]، وهو ما يساوي <span class=\"sym\">2m = 2 ×</span> [[2]] <span class=\"sym\">=</span> [[1]]، وهو ما يؤكّد المبرهنة ١.",
+      "blanks": [
+        { "id": "1", "type": "input", "answer": "18", "acceptable": ["18"] },
+        { "id": "2", "type": "input", "answer": "9", "acceptable": ["9"] }
+      ],
+      "explanation": "بجمع الدرجات نحصل على <span class=\"sym\">2+4+4+1+3+4+0 = 18</span>، وللرسم البياني <span class=\"sym\">G</span> عدد حواف <span class=\"sym\">m = 9</span>، فـ <span class=\"sym\">2m = 18</span> — يتطابق الطرفان تمامًا كما تضمنه مبرهنة المصافحة."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "بالنسبة إلى الرسم البياني الموجّه في جدول البطاقة الرابعة، تنصّ المبرهنة ٣ على أنّ مجموع كلّ درجات الدخول يساوي مجموع كلّ درجات الخروج يساوي <span class=\"sym\">|E|</span>. ما قيمة <span class=\"sym\">|E|</span>؟",
+      "options": [
+        "<span class=\"sym\">12</span>",
+        "<span class=\"sym\">6</span>",
+        "<span class=\"sym\">18</span>",
+        "<span class=\"sym\">24</span>"
+      ],
+      "answer": 0,
+      "explanation": "بجمع أيّ عمود من الجدول (2+2+3+2+3+0 أو 4+1+2+2+3+0) نحصل على <span class=\"sym\">12</span>، فـ <span class=\"sym\">|E| = 12</span>."
+    },
+    {
+      "id": "q7",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب خطوات التحقّق من مبرهنة المصافحة للرسم البياني <span class=\"sym\">G</span> بالترتيب الصحيح.",
+      "items": [
+        "دوّن درجة كلّ رأس من رؤوس <span class=\"sym\">G</span>",
+        "اجمع كلّ الدرجات معًا لتحصل على <span class=\"sym\">Σ deg(v) = 18</span>",
+        "عُدّ حواف <span class=\"sym\">G</span> لتحصل على <span class=\"sym\">m = 9</span>",
+        "احسب <span class=\"sym\">2m = 18</span>",
+        "تأكّد أنّ <span class=\"sym\">Σ deg(v) = 2m</span>"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explanation": "تُتحقَّق المبرهنة بحساب طرفَيها كلٍّ على حدة — مجموع الدرجات وضعف عدد الحواف — والتأكّد من تطابقهما، وهو ما يحدث هنا (كلاهما يساوي ١٨)."
+    },
+    {
+      "id": "q8",
+      "type": "short",
+      "level": 3,
+      "prompt": "لماذا يجب أن يكون عدد الرؤوس ذات الدرجة الفردية في أيّ رسم بياني غير موجّه زوجيًّا دائمًا؟",
+      "canonical": "لأنّ مجموع كلّ الدرجات يساوي 2m، وهو عدد زوجي؛ فلو كان عدد الرؤوس ذات الدرجة الفردية فرديًّا، لكان مجموع درجاتها الفردية فرديًّا، وإضافة مجموع الدرجات الزوجية (وهو زوجي دائمًا) يجعل المجموع الكلّي فرديًّا، وهذا يناقض كون 2m زوجيًّا. لذا يجب أن يكون عدد الرؤوس ذات الدرجة الفردية زوجيًّا.",
+      "acceptable": [
+        "مجموع الدرجات يساوي 2m وهو زوجي، فلا بدّ أن يكون عدد الرؤوس ذات الدرجة الفردية زوجيًّا",
+        "2m زوجي فلا بدّ أن تجمع الدرجات الفردية إلى عدد زوجي، وهذا يتطلّب عددًا زوجيًّا منها",
+        "مبرهنة المصافحة تفرض أن يكون المجموع زوجيًّا، فعدد الرؤوس ذات الدرجة الفردية زوجي"
+      ],
+      "explanation": "بحسب مبرهنة المصافحة، <span class=\"sym\">Σ deg(v) = 2m</span> زوجي دائمًا. والرؤوس ذات الدرجة الزوجية تُسهم بعدد زوجي في هذا المجموع مهما كان عددها. لذا يجب أن يكون مجموع درجات الرؤوس الفردية أيضًا زوجيًّا — ومجموع أعداد فردية لا يكون زوجيًّا إلّا إذا كان عددها زوجيًّا."
+    },
+    {
+      "id": "q9",
+      "type": "tf",
+      "level": 2,
+      "prompt": "في الرسم البياني الموجّه، الرأس المبدئي والرأس النهائي للحلقة هما دائمًا الرأس نفسه.",
+      "answer": true,
+      "explanation": "بحسب التعريف ٤، الحلقة هي حافة <span class=\"sym\">(u, u)</span> من رأس إلى نفسه، فيتطابق رأسها المبدئي والنهائي."
+    },
+    {
+      "id": "q10",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "في الرسم البياني <span class=\"sym\">G</span> من البطاقة الثانية، الرأس <span class=\"sym\">b</span> له <span class=\"sym\">deg(b) = 4</span> و<span class=\"sym\">N(b) = {a, c, e, f}</span>، أي أربعة جيران متمايزين. ماذا يعني لو كان <span class=\"sym\">deg(b) = 4</span> لكن <span class=\"sym\">b</span> له ثلاثة جيران متمايزين فقط؟",
+      "options": [
+        "إحدى الحواف عند <span class=\"sym\">b</span> حلقة، أو أنّ لـ <span class=\"sym\">b</span> حافّة مكرّرة إلى جار واحد",
+        "هذا مستحيل في أيّ رسم بياني",
+        "لا بدّ أن يكون <span class=\"sym\">b</span> معزولاً",
+        "لا بدّ أن يكون <span class=\"sym\">G</span> رسمًا بيانيًّا موجّهًا"
+      ],
+      "answer": 0,
+      "explanation": "الدرجة تحسب الحواف الواقعة على الرأس (مع حساب الحلقة مرّتين)، بينما <span class=\"sym\">N(v)</span> يحسب الرؤوس المجاورة المتمايزة فقط. ويمكن أن يختلفا عند وجود حلقة أو حواف متعدّدة — فالحلقة تضيف ٢ إلى الدرجة دون إضافة جار جديد، والحافّة المكرّرة إلى الجار نفسه تضيف إلى الدرجة دون إضافة عنصر جديد إلى <span class=\"sym\">N(v)</span>."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

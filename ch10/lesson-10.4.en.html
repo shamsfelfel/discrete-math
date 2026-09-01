@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10.4 Representing Graphs and Graph Isomorphism — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 10</a> &nbsp;›&nbsp;
+    <span id="crumb-current">10.4</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.4.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "10.4",
+  "chapter": "10",
+  "title": "Representing Graphs and Graph Isomorphism",
+  "lede": "To compute with a graph, we need a concrete representation — an adjacency list, an adjacency matrix, or an incidence matrix. And to tell whether two graphs that look different are secretly the &#x27;same&#x27; graph with relabeled vertices, we need the precise notion of graph isomorphism.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Adjacency lists",
+      "body": [
+        {
+          "type": "p",
+          "text": "One way to represent a graph that has no multiple edges is simply to list all of its edges. A second way, for a graph without multiple edges, is to use adjacency lists, which specify the vertices that are adjacent to each vertex of the graph."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v1 --- v3((v3))\n  v2 --- v3\n  v2 --- v4((v4))\n  v3 --- v5((v5))\n  v4 --- v5"
+        },
+        {
+          "type": "p",
+          "text": "The graph shown above has five vertices <span class=\"sym\">v1, v2, v3, v4, v5</span> and six edges. Reading the picture (or the edge list <span class=\"sym\">e1 = v1v2, e2 = v1v3, e3 = v2v3, e4 = v2v4, e5 = v3v5, e6 = v4v5</span>) gives the adjacency list below."
+        },
+        {
+          "type": "table",
+          "headers": ["Vertex", "Adjacent vertices"],
+          "rows": [
+            ["<span class=\"sym\">v1</span>", "<span class=\"sym\">v2, v3</span>"],
+            ["<span class=\"sym\">v2</span>", "<span class=\"sym\">v1, v3, v4</span>"],
+            ["<span class=\"sym\">v3</span>", "<span class=\"sym\">v1, v2, v5</span>"],
+            ["<span class=\"sym\">v4</span>", "<span class=\"sym\">v2, v5</span>"],
+            ["<span class=\"sym\">v5</span>", "<span class=\"sym\">v3, v4</span>"]
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "Reading degrees from the list",
+          "body": "The length of each row equals the degree of that vertex: <span class=\"sym\">deg(v2) = 3</span> because v2&#x27;s row lists three neighbors, matching the degree-sum count of <span class=\"sym\">12 = 2 × 6</span> for the graph&#x27;s six edges."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Adjacency matrices",
+      "body": [
+        {
+          "type": "p",
+          "text": "An adjacency list is convenient to read, but a matrix representation is often more convenient for computation — for example, when a graph is stored and processed by software."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 1.</b> Suppose <span class=\"sym\">G = (V, E)</span> is a simple graph with <span class=\"sym\">|V| = n</span>. List the vertices of <span class=\"sym\">G</span> in some arbitrary order as <span class=\"sym\">v1, v2, …, vn</span>. The <b>adjacency matrix</b> <span class=\"sym\">A</span> (or <span class=\"sym\">A_G</span>) of <span class=\"sym\">G</span>, with respect to this listing, is the <span class=\"sym\">n × n</span> zero–one matrix with 1 as its <span class=\"sym\">(i, j)</span> entry when <span class=\"sym\">vi</span> and <span class=\"sym\">vj</span> are adjacent, and 0 as its <span class=\"sym\">(i, j)</span> entry when they are not."
+        },
+        {
+          "type": "p",
+          "text": "For the graph shown above, listing the vertices in the order <span class=\"sym\">v1, v2, v3, v4, v5</span> gives the matrix below. Because the graph is simple and undirected, every diagonal entry is 0 (no loops), and the matrix is symmetric about the diagonal — <span class=\"sym\">vi</span> is adjacent to <span class=\"sym\">vj</span> exactly when <span class=\"sym\">vj</span> is adjacent to <span class=\"sym\">vi</span>."
+        },
+        {
+          "type": "table",
+          "headers": ["", "<span class=\"sym\">v1</span>", "<span class=\"sym\">v2</span>", "<span class=\"sym\">v3</span>", "<span class=\"sym\">v4</span>", "<span class=\"sym\">v5</span>"],
+          "rows": [
+            ["<span class=\"sym\">v1</span>", "0", "1", "1", "0", "0"],
+            ["<span class=\"sym\">v2</span>", "1", "0", "1", "1", "0"],
+            ["<span class=\"sym\">v3</span>", "1", "1", "0", "0", "1"],
+            ["<span class=\"sym\">v4</span>", "0", "1", "0", "0", "1"],
+            ["<span class=\"sym\">v5</span>", "0", "0", "1", "1", "0"]
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "Why the matrix is symmetric",
+          "body": "Row v2 and column v2 agree: <span class=\"sym\">v2</span> is adjacent to <span class=\"sym\">v1, v3, v4</span>, so both the v2-row and the v2-column carry a 1 in exactly those three positions."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Incidence matrices",
+      "body": [
+        {
+          "type": "p",
+          "text": "A third representation records how vertices meet edges, rather than how vertices relate to one another."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 2.</b> Let <span class=\"sym\">G = (V, E)</span> be an undirected graph with vertices <span class=\"sym\">v1, v2, …, vn</span> and edges <span class=\"sym\">e1, e2, …, em</span>. The <b>incidence matrix</b> with respect to this ordering of <span class=\"sym\">V</span> and <span class=\"sym\">E</span> is the <span class=\"sym\">n × m</span> matrix <span class=\"sym\">M = [mij]</span>, where <span class=\"sym\">mij = 1</span> if edge <span class=\"sym\">ej</span> is incident with vertex <span class=\"sym\">vi</span>, and <span class=\"sym\">mij = 0</span> otherwise."
+        },
+        {
+          "type": "p",
+          "text": "For the graph shown above, with edges <span class=\"sym\">e1 = v1v2, e2 = v1v3, e3 = v2v3, e4 = v2v4, e5 = v3v5, e6 = v4v5</span>, the incidence matrix is:"
+        },
+        {
+          "type": "table",
+          "headers": ["", "<span class=\"sym\">e1</span>", "<span class=\"sym\">e2</span>", "<span class=\"sym\">e3</span>", "<span class=\"sym\">e4</span>", "<span class=\"sym\">e5</span>", "<span class=\"sym\">e6</span>"],
+          "rows": [
+            ["<span class=\"sym\">v1</span>", "1", "1", "0", "0", "0", "0"],
+            ["<span class=\"sym\">v2</span>", "1", "0", "1", "1", "0", "0"],
+            ["<span class=\"sym\">v3</span>", "0", "1", "1", "0", "1", "0"],
+            ["<span class=\"sym\">v4</span>", "0", "0", "0", "1", "0", "1"],
+            ["<span class=\"sym\">v5</span>", "0", "0", "0", "0", "1", "1"]
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "Unlike an adjacency matrix, an incidence matrix need not be square — it is <span class=\"sym\">n × m</span>. Every column has exactly two 1s, one for each endpoint of that edge; every row sums to the degree of that vertex."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "Graph isomorphism",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition 3.</b> The simple graphs <span class=\"sym\">G1 = (V1, E1)</span> and <span class=\"sym\">G2 = (V2, E2)</span> are <b>isomorphic</b> if there is a one-to-one and onto function <span class=\"sym\">f</span> from <span class=\"sym\">V1</span> to <span class=\"sym\">V2</span> such that, for all <span class=\"sym\">a, b ∈ V1</span>, <span class=\"sym\">a</span> and <span class=\"sym\">b</span> are adjacent in <span class=\"sym\">G1</span> if and only if <span class=\"sym\">f(a)</span> and <span class=\"sym\">f(b)</span> are adjacent in <span class=\"sym\">G2</span>. Such an <span class=\"sym\">f</span> is called an <b>isomorphism</b>. Two simple graphs that are not isomorphic are called <b>non-isomorphic</b>."
+        },
+        {
+          "type": "p",
+          "text": "In other words, <span class=\"sym\">G1</span> and <span class=\"sym\">G2</span> are isomorphic exactly when there is a one-to-one correspondence between their vertices that preserves the adjacency relationship — relabel the vertices of one graph and it becomes identical to the other."
+        },
+        {
+          "type": "p",
+          "text": "Consider the graph <span class=\"sym\">G</span> below, with vertices <span class=\"sym\">u1, u2, u3, u4</span> and edges <span class=\"sym\">u1-u2, u1-u3, u2-u4, u3-u4</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  u1((u1)) --- u2((u2))\n  u1 --- u3((u3))\n  u2 --- u4((u4))\n  u3 --- u4"
+        },
+        {
+          "type": "p",
+          "text": "Now let <span class=\"sym\">H</span> be the graph on vertices <span class=\"sym\">v1, v2, v3, v4</span> that is the image of <span class=\"sym\">G</span> under the function <span class=\"sym\">f(u1) = v1, f(u2) = v4, f(u3) = v3, f(u4) = v2</span> — that is, <span class=\"sym\">H</span> has edges <span class=\"sym\">v1-v4, v1-v3, v4-v2, v3-v2</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v4((v4))\n  v1 --- v3((v3))\n  v4 --- v2((v2))\n  v3 --- v2"
+        },
+        {
+          "type": "example",
+          "title": "Checking that f is an isomorphism",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "<span class=\"sym\">f</span> is one-to-one and onto: it pairs each of the four vertices of <span class=\"sym\">G</span> with exactly one, distinct vertex of <span class=\"sym\">H</span>, and every vertex of <span class=\"sym\">H</span> is used."
+            },
+            {
+              "type": "ul",
+              "items": [
+                "<span class=\"sym\">(u1, u2) → (f(u1), f(u2)) = (v1, v4)</span>, an edge of H ✓",
+                "<span class=\"sym\">(u1, u3) → (v1, v3)</span>, an edge of H ✓",
+                "<span class=\"sym\">(u2, u4) → (v4, v2)</span>, an edge of H ✓",
+                "<span class=\"sym\">(u3, u4) → (v3, v2)</span>, an edge of H ✓"
+              ]
+            },
+            {
+              "type": "p",
+              "text": "Every edge of <span class=\"sym\">G</span> maps to an edge of <span class=\"sym\">H</span>, and <span class=\"sym\">G</span> and <span class=\"sym\">H</span> have the same number of edges, so <span class=\"sym\">f</span> preserves non-adjacency as well. Hence <span class=\"sym\">f</span> is an isomorphism, and <span class=\"sym\">G</span> and <span class=\"sym\">H</span> are isomorphic."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "Determining non-isomorphism: invariants",
+      "body": [
+        {
+          "type": "p",
+          "text": "Definition 3 says two graphs are isomorphic when some one-to-one, onto, adjacency-preserving function between their vertex sets exists — but the definition does not tell us how to search for that function, or when to give up. Often it is much easier to show that two graphs are NOT isomorphic."
+        },
+        {
+          "type": "def",
+          "text": "A property that every isomorphism must preserve — so that isomorphic graphs necessarily agree on it — is called a <b>graph invariant</b>. If two graphs disagree on any invariant, they cannot be isomorphic."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Isomorphic simple graphs have the same number of vertices, because an isomorphism sets up a one-to-one correspondence between the two vertex sets.",
+            "Isomorphic simple graphs have the same number of edges, because the vertex correspondence induces a correspondence between the edges of the two graphs.",
+            "Isomorphic simple graphs have the same degrees of vertices: if <span class=\"sym\">deg(v) = k</span> in <span class=\"sym\">G1</span>, then <span class=\"sym\">deg(f(v)) = k</span> in <span class=\"sym\">G2</span> — the two graphs must have the same degree sequence."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Example — a mismatched degree sequence",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Suppose <span class=\"sym\">G</span> and <span class=\"sym\">H</span> both have 5 vertices and 6 edges, so the vertex-count and edge-count invariants agree. But <span class=\"sym\">H</span> has a vertex <span class=\"sym\">e</span> of degree one, while no vertex of <span class=\"sym\">G</span> has degree one. Since degree sequence is an invariant and the two graphs disagree on it, <span class=\"sym\">G</span> and <span class=\"sym\">H</span> are not isomorphic."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "Example — matching invariants is not enough",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Now suppose <span class=\"sym\">G</span> and <span class=\"sym\">H</span> both have 8 vertices and 10 edges, and both have exactly four vertices of degree two and four vertices of degree three — every invariant above agrees. Yet <span class=\"sym\">G</span> and <span class=\"sym\">H</span> can still fail to be isomorphic. Suppose <span class=\"sym\">deg(a) = 2</span> in <span class=\"sym\">G</span>; if <span class=\"sym\">G</span> and <span class=\"sym\">H</span> were isomorphic, <span class=\"sym\">a</span> would have to correspond to one of the degree-two vertices of <span class=\"sym\">H</span>. But suppose every degree-two vertex of <span class=\"sym\">H</span> is adjacent to another degree-two vertex, while <span class=\"sym\">a</span> is not adjacent to any degree-two vertex of <span class=\"sym\">G</span>. Whichever degree-two vertex of <span class=\"sym\">H</span> we try to match <span class=\"sym\">a</span> to, adjacency fails to be preserved — so no isomorphism can exist, even though every invariant we checked agreed."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "Matching invariants can only ever be used to prove two graphs are <b>not</b> isomorphic — a single mismatch is conclusive. Matching invariants never proves, by itself, that two graphs ARE isomorphic; for that you need an actual isomorphism <span class=\"sym\">f</span>, as constructed in the example above."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Using the adjacency list of the graph shown above, which vertices are adjacent to <span class=\"sym\">v3</span>?",
+      "options": [
+        "<span class=\"sym\">v1, v2, v5</span>",
+        "<span class=\"sym\">v1, v2, v4</span>",
+        "<span class=\"sym\">v2, v4, v5</span>",
+        "<span class=\"sym\">v1, v4, v5</span>"
+      ],
+      "answer": 0,
+      "explanation": "The v3 row of the adjacency list is <span class=\"sym\">v1, v2, v5</span>, matching edges <span class=\"sym\">e2 = v1v3</span>, <span class=\"sym\">e3 = v2v3</span>, and <span class=\"sym\">e5 = v3v5</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "The incidence matrix of a graph with <span class=\"sym\">n</span> vertices and <span class=\"sym\">m</span> edges is always a square <span class=\"sym\">n × n</span> matrix.",
+      "answer": false,
+      "explanation": "By Definition 2, an incidence matrix is <span class=\"sym\">n × m</span> — it is square only when the graph happens to have exactly as many edges as vertices. The adjacency matrix, not the incidence matrix, is always square."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "In the adjacency matrix of the graph shown above (vertices listed as <span class=\"sym\">v1, v2, v3, v4, v5</span>), what is the <span class=\"sym\">(v1, v4)</span> entry?",
+      "options": [
+        "<span class=\"sym\">0</span>",
+        "<span class=\"sym\">1</span>",
+        "<span class=\"sym\">2</span>",
+        "Not defined — adjacency matrix entries are always 0 or 1"
+      ],
+      "answer": 0,
+      "explanation": "v1 and v4 are not adjacent (v1&#x27;s neighbors are only v2 and v3), so the <span class=\"sym\">(v1, v4)</span> entry of the adjacency matrix is 0."
+    },
+    {
+      "id": "q4",
+      "type": "short",
+      "level": 2,
+      "prompt": "Using the adjacency matrix of the graph shown above, what is <span class=\"sym\">deg(v3)</span>?",
+      "canonical": "3",
+      "acceptable": ["3", "three", "deg(v3) = 3", "deg(v3)=3"],
+      "explanation": "The v3 row of the adjacency matrix is <span class=\"sym\">1, 1, 0, 0, 1</span>, which sums to 3 — matching the three neighbors v1, v2, v5 in the adjacency list."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Complete the missing entries of the adjacency matrix.",
+      "template": "The adjacency-matrix row for <span class=\"sym\">v4</span> is <span class=\"sym\">[0, [[1]], 0, 0, [[2]]]</span> (columns v1, v2, v3, v4, v5).",
+      "blanks": [
+        { "id": "1", "type": "input", "answer": "1", "acceptable": ["1"] },
+        { "id": "2", "type": "input", "answer": "1", "acceptable": ["1"] }
+      ],
+      "explanation": "v4 is adjacent to v2 (edge e4) and v5 (edge e6), and adjacent to neither v1, v3, nor itself — giving row <span class=\"sym\">[0, 1, 0, 0, 1]</span>."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "In the incidence matrix of the graph shown above, which two vertices are the endpoints of edge <span class=\"sym\">e5</span>?",
+      "options": [
+        "<span class=\"sym\">v3, v5</span>",
+        "<span class=\"sym\">v2, v4</span>",
+        "<span class=\"sym\">v1, v3</span>",
+        "<span class=\"sym\">v4, v5</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">e5 = v3v5</span>, so the e5 column of the incidence matrix has 1s in the v3 row and the v5 row, and 0s elsewhere."
+    },
+    {
+      "id": "q7",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps used to check that a function <span class=\"sym\">f: V1 → V2</span> is a graph isomorphism between <span class=\"sym\">G1</span> and <span class=\"sym\">G2</span>.",
+      "items": [
+        "Confirm f is one-to-one: no two vertices of G1 map to the same vertex of G2",
+        "Confirm f is onto: every vertex of G2 is the image of some vertex of G1",
+        "List every adjacent pair {a, b} in G1",
+        "Check that f(a) and f(b) are adjacent in G2 for every such pair",
+        "If every pair checks out (in both directions), conclude f is an isomorphism"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explanation": "Definition 3 requires f to be one-to-one and onto, and to preserve adjacency both ways — these steps verify exactly that, as done for the f between G and H above."
+    },
+    {
+      "id": "q8",
+      "type": "short",
+      "level": 2,
+      "prompt": "In the isomorphism example above, <span class=\"sym\">f(u1) = v1</span>. What is <span class=\"sym\">f(u2)</span>?",
+      "canonical": "v4",
+      "acceptable": ["v4", "f(u2) = v4", "f(u2)=v4"],
+      "explanation": "The mapping is given as <span class=\"sym\">f(u1) = v1, f(u2) = v4, f(u3) = v3, f(u4) = v2</span>, so <span class=\"sym\">f(u2) = v4</span>."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "Under the isomorphism <span class=\"sym\">f</span> from <span class=\"sym\">G</span> to <span class=\"sym\">H</span>, which edge of <span class=\"sym\">H</span> corresponds to the edge <span class=\"sym\">u3-u4</span> of <span class=\"sym\">G</span>?",
+      "options": [
+        "<span class=\"sym\">v3-v2</span>",
+        "<span class=\"sym\">v1-v4</span>",
+        "<span class=\"sym\">v1-v3</span>",
+        "<span class=\"sym\">v4-v2</span>"
+      ],
+      "answer": 0,
+      "explanation": "Since <span class=\"sym\">f(u3) = v3</span> and <span class=\"sym\">f(u4) = v2</span>, the edge <span class=\"sym\">u3-u4</span> maps to <span class=\"sym\">v3-v2</span>, which is indeed an edge of H."
+    },
+    {
+      "id": "q10",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "Graphs <span class=\"sym\">G</span> and <span class=\"sym\">H</span> each have 5 vertices and 6 edges. <span class=\"sym\">G</span> has no vertex of degree 1, but <span class=\"sym\">H</span> has one. What follows?",
+      "options": [
+        "<span class=\"sym\">G</span> and <span class=\"sym\">H</span> are not isomorphic, since degree sequence is a graph invariant",
+        "G and H must be isomorphic, since their vertex and edge counts agree",
+        "There is not enough information to decide",
+        "H must have more edges than G"
+      ],
+      "answer": 0,
+      "explanation": "Vertex count and edge count agree, but the degree sequences do not — G has no degree-1 vertex while H does. Since degree sequence is preserved by every isomorphism, a mismatch there is conclusive: G and H are not isomorphic."
+    },
+    {
+      "id": "q11",
+      "type": "tf",
+      "level": 3,
+      "prompt": "If two simple graphs have the same number of vertices, the same number of edges, and the same degree sequence, they must be isomorphic.",
+      "answer": false,
+      "explanation": "Matching invariants never proves two graphs are isomorphic. The 8-vertex, 10-edge example above has graphs with identical vertex counts, edge counts, and degree sequences that are still not isomorphic, because of how their degree-two vertices connect to each other."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

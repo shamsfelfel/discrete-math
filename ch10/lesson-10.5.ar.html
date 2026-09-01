@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>١٠.٥ الاتصال: المسارات والدارات — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ١٠</a> &nbsp;›&nbsp;
+    <span id="crumb-current">١٠.٥</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.5.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "10.5",
+  "chapter": "10",
+  "title": "الاتصال: المسارات والدارات",
+  "lede": "أحد أكثر الأسئلة طبيعيةً حول أيّ رسم بياني هو: هل يمكنني الانتقال من هنا إلى هناك؟ نُصيغ هذا السؤال رياضيًّا بمفهوم <span class=\"sym\">المسار</span>. والمسارات تمنحنا أيضًا أداة قوية أخرى — ثابت طول الدارة — للتمييز بين الرسوم البيانية.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "ما هو المسار؟",
+      "body": [
+        {
+          "type": "p",
+          "text": "بشكل غير رسمي، المسار متتالية من الحوافّ تبدأ من رأس في الرسم البياني وتتنقّل من رأس إلى رأس عبر حوافّ ذلك الرسم."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ١.</b> لتكن <span class=\"sym\">n</span> عددًا صحيحًا غير سالب و<span class=\"sym\">G</span> رسمًا بيانيًّا غير موجّه. <b>المسار</b> ذو الطول <span class=\"sym\">n</span> من <span class=\"sym\">u</span> إلى <span class=\"sym\">v</span> في <span class=\"sym\">G</span> هو متتالية من <span class=\"sym\">n</span> حافّة <span class=\"sym\">e1, e2, …, en</span> من <span class=\"sym\">G</span>، بحيث توجد متتالية من الرؤوس <span class=\"sym\">x0 = u, x1, …, x(n−1), xn = v</span> يكون فيها طرفا <span class=\"sym\">ei</span>، لكلّ <span class=\"sym\">i = 1, …, n</span>، هما <span class=\"sym\">x(i−1)</span> و<span class=\"sym\">xi</span>. وعندما يكون الرسم بسيطًا، نرمز لهذا المسار بمتتالية رؤوسه <span class=\"sym\">x0, x1, …, xn</span>، لأنّ سرد هذه الرؤوس يحدّد المسار على نحو وحيد."
+        },
+        {
+          "type": "p",
+          "text": "الرسم البياني أدناه يضمّ خمسة رؤوس <span class=\"sym\">p, q, r, s, t</span> وحوافّ <span class=\"sym\">p–q</span> و<span class=\"sym\">q–r</span> و<span class=\"sym\">r–s</span> و<span class=\"sym\">s–t</span> و<span class=\"sym\">p–r</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  p((p)) --- q((q))\n  q --- r((r))\n  r --- s((s))\n  s --- t((t))\n  p --- r"
+        }
+      ],
+      "examples": [
+        {
+          "label": "مسار من p إلى s",
+          "body": "متتالية الرؤوس <span class=\"sym\">p, q, r, s</span> مسار طوله ٣ من <span class=\"sym\">p</span> إلى <span class=\"sym\">s</span>، باستخدام الحوافّ <span class=\"sym\">p–q</span> و<span class=\"sym\">q–r</span> و<span class=\"sym\">r–s</span> بهذا الترتيب."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "الدارات والمسارات البسيطة",
+      "body": [
+        {
+          "type": "def",
+          "text": "يكون المسار <b>دارة</b> إذا بدأ وانتهى عند الرأس نفسه (<span class=\"sym\">u = v</span>) وكان طوله أكبر من صفر. ويُقال إنّ المسار أو الدارة يمرّ بالرؤوس <span class=\"sym\">x1, …, xn</span> أو يجتاز الحوافّ <span class=\"sym\">e1, …, en</span>."
+        },
+        {
+          "type": "def",
+          "text": "يكون المسار أو الدارة <b>بسيطًا</b> إذا لم يتضمّن الحافّة نفسها أكثر من مرّة واحدة."
+        },
+        {
+          "type": "p",
+          "text": "في الرسم التوضيحي من البطاقة السابقة، متتالية الرؤوس <span class=\"sym\">p, q, r, p</span> دارة: فهي تبدأ وتنتهي عند <span class=\"sym\">p</span>، وطولها أكبر من صفر، وتستخدم الحوافّ <span class=\"sym\">p–q</span> و<span class=\"sym\">q–r</span> و<span class=\"sym\">r–p</span>. وبما أنّ هذه الحوافّ الثلاث متمايزة ولا يتكرّر أيّ منها، فالدارة بسيطة وطولها ٣."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "المسارات أداة لإثبات عدم التماثل",
+      "body": [
+        {
+          "type": "p",
+          "text": "تساعد المسارات والدارات أيضًا في تحديد ما إذا كان رسمان بيانيّان متماثلين: فوجود دارة بسيطة بطول معيّن ثابتُ تماثل مفيد — إذا كان لأحد الرسمين دارة بسيطة طولها <span class=\"sym\">k</span> حيث <span class=\"sym\">k &gt; 2</span>، ولم يكن للرسم الآخر دارة بسيطة بهذا الطول، فلا يمكن أن يكونا متماثلين. وهذا ثابتٌ إضافي يُضاف إلى ثوابت عدد الرؤوس وعدد الحوافّ ومتتالية الدرجات التي رأيناها في الدرس السابق. كما يمكن استخدام المسارات لبناء تخمين لتقابل بين الرؤوس قد يكون تماثلاً."
+        },
+        {
+          "type": "p",
+          "text": "لنقارن رسمين توضيحيّين من تأليفنا، <span class=\"sym\">H₀</span> و<span class=\"sym\">G₀</span>، لكلّ منهما ستّة رؤوس وثماني حوافّ، بحيث تكون درجة أربعة من الرؤوس تساوي ٣ ودرجة الرأسين الباقيين تساوي ٢. ومجموع الدرجات <span class=\"sym\">4×3 + 2×2 = 16 = 2×8</span> يطابق ضعف عدد الحوافّ، كما يجب. إذًا يتّفق الرسمان في عدد الرؤوس وعدد الحوافّ ومتتالية الدرجات — لكنّ هذا لا يكفي لإثبات التماثل."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v2 --- v6((v6))\n  v6 --- v1\n  v1 --- v3((v3))\n  v2 --- v4((v4))\n  v3 --- v5((v5))\n  v4 --- v5\n  v3 --- v6"
+        },
+        {
+          "type": "p",
+          "text": "يضمّ <span class=\"sym\">H₀</span> دارة بسيطة طولها ٣، وهي متتالية الرؤوس <span class=\"sym\">v1, v2, v6, v1</span> (مثلّث)، باستخدام الحوافّ <span class=\"sym\">v1–v2</span> و<span class=\"sym\">v2–v6</span> و<span class=\"sym\">v6–v1</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  u1((u1)) --- u2((u2))\n  u2 --- u3((u3))\n  u3 --- u4((u4))\n  u4 --- u5((u5))\n  u5 --- u6((u6))\n  u6 --- u1\n  u1 --- u4\n  u2 --- u5"
+        },
+        {
+          "type": "p",
+          "text": "أمّا <span class=\"sym\">G₀</span> فلا يضمّ أيّ دارة بسيطة طولها ٣: يمكن التحقّق من أنّ أقصر دارة بسيطة فيه طولها ٤ — مثل متتالية الرؤوس <span class=\"sym\">u1, u2, u5, u4, u1</span>."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "دارة بسيطة طولها ٣ موجودة في <span class=\"sym\">H₀</span> ومفقودة في <span class=\"sym\">G₀</span> ⇐ الرسمان <span class=\"sym\">G₀</span> و<span class=\"sym\">H₀</span> ليسا متماثلين. هذا الزوج توضيحيّ من تأليفنا يجسّد الفكرة نفسها، وليس نسخة عن أرقام رؤوس أو حوافّ رسم بعينه لم نطّلع عليه."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "لماذا يهمّنا هذا",
+      "body": [
+        {
+          "type": "p",
+          "text": "المسارات والدارات تصوغ فكرة «إمكانية الوصول» صياغة رياضية دقيقة، وثابت طول الدارة أداة أخرى ملموسة وقابلة للفحص — إلى جانب عدد الرؤوس وعدد الحوافّ ومتتالية الدرجات من الدرس السابق — لإثبات أنّ رسمين بيانيّين <b>ليسا</b> متماثلين."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "تذكير من الدرس ١٠.٤: اتفاق رسمين بيانيّين في هذه الثوابت (عدد الرؤوس، عدد الحوافّ، متتالية الدرجات، ووجود دارة بسيطة بطول معيّن) شرط ضروري لكنه غير كافٍ لإثبات التماثل — فاختلافهما في أيٍّ منها يكفي لإثبات عدم التماثل، لكن اتفاقهما فيها جميعًا لا يثبت أنّهما متماثلان."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "بحسب تعريف المسار، متتالية الرؤوس <span class=\"sym\">x0, x1, …, xn</span> تتوافق مع مسار من <span class=\"sym\">n</span> حافّة. ما الذي يمثّله <span class=\"sym\">n</span>؟",
+      "options": [
+        "طول المسار (عدد الحوافّ المستخدمة)",
+        "عدد الرؤوس في الرسم البياني بأكمله",
+        "عدد الدارات البسيطة الممكنة",
+        "درجة الرأس <span class=\"sym\">u</span>"
+      ],
+      "answer": 0,
+      "explanation": "بحسب تعريف ١، مسار من <span class=\"sym\">u</span> إلى <span class=\"sym\">v</span> «ذو الطول <span class=\"sym\">n</span>» يتكوّن من <span class=\"sym\">n</span> حافّة بالضبط، فـ<span class=\"sym\">n</span> يمثّل طول المسار."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "يجب أن يكون طول الدارة أكبر من صفر.",
+      "answer": true,
+      "explanation": "المسار الذي يبدأ وينتهي عند الرأس نفسه لكن طوله صفر (لا يستخدم أيّ حافّة) لا يُعدّ دارة؛ فالتعريف يشترط طولاً أكبر من صفر صراحةً."
+    },
+    {
+      "id": "q3",
+      "type": "short",
+      "level": 1,
+      "prompt": "في الرسم الموضّح في البطاقة الأولى (رؤوس <span class=\"sym\">p, q, r, s, t</span> وحوافّ <span class=\"sym\">p–q, q–r, r–s, s–t, p–r</span>)، هل متتالية الرؤوس <span class=\"sym\">p, r, t</span> مسار؟ اكتب «لا» مع سبب مختصر.",
+      "canonical": "لا، لأنه لا توجد حافة تصل r بـ t مباشرة",
+      "acceptable": [
+        "لا",
+        "لا لعدم وجود حافة بين r و t",
+        "لا لأنه لا توجد حافة r-t",
+        "ليست مسارا"
+      ],
+      "explanation": "حوافّ الرسم هي <span class=\"sym\">p–q, q–r, r–s, s–t, p–r</span> فقط، ولا توجد حافّة تصل <span class=\"sym\">r</span> بـ<span class=\"sym\">t</span> مباشرة، فلا وجود لحافّة <span class=\"sym\">ei</span> طرفاها <span class=\"sym\">r</span> و<span class=\"sym\">t</span>. لذا <span class=\"sym\">p, r, t</span> ليست مسارًا."
+    },
+    {
+      "id": "q4",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "أكمل تعريف المسار/الدارة البسيطة وتعريف الدارة.",
+      "template": "يكون المسار أو الدارة [[1]] إذا لم تتكرّر فيه أيّ حافّة أكثر من مرّة واحدة. وتكون متتالية الرؤوس <span class=\"sym\">x0, x1, …, xn</span> دارة إذا كانت <span class=\"sym\">xn</span> = [[2]] وكان طول المتتالية أكبر من [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "بسيطة",
+          "acceptable": [
+            "بسيطة",
+            "بسيط",
+            "بسيطًا"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "x0",
+          "acceptable": [
+            "x0",
+            "x_0"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "صفر",
+          "acceptable": [
+            "صفر",
+            "0",
+            "٠"
+          ]
+        }
+      ],
+      "explanation": "المسار أو الدارة بسيط إذا لم يستخدم أيّ حافّة أكثر من مرّة، والدارة مسار يعود فيه <span class=\"sym\">xn</span> إلى نقطة البداية <span class=\"sym\">x0</span> بطول أكبر من صفر."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "رسمان بيانيّان يتّفقان في عدد الرؤوس وعدد الحوافّ ومتتالية الدرجات. أقصر دارة بسيطة في الأول طولها ٥، بينما يملك الثاني دارة بسيطة طولها ٣. ماذا تستنتج؟",
+      "options": [
+        "لا يمكن أن يكونا متماثلين، لأنّ وجود دارة بسيطة طولها ٣ ثابتُ تماثل يختلف بين الرسمين",
+        "لا بدّ أنّهما متماثلان لاتفاقهما في الثوابت الأخرى",
+        "لا يمكن الحكم إطلاقًا دون فحص كلّ دارة فيهما",
+        "متماثلان بالضرورة لأنّ كليهما يحتوي دوارات بسيطة"
+      ],
+      "answer": 0,
+      "explanation": "وجود دارة بسيطة بطول معيّن ثابتُ تماثل. فالرسم الأول لا يملك دارة بسيطة طولها ٣ (أقصر دارة فيه طولها ٥)، بينما يملكها الرسم الثاني؛ اختلافهما في هذا الثابت كافٍ لإثبات أنّهما ليسا متماثلين."
+    },
+    {
+      "id": "q6",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب خطوات استخدام ثابت الدارة بطول ٣ لإثبات أنّ <span class=\"sym\">G₀</span> و<span class=\"sym\">H₀</span> (من البطاقة الثالثة) ليسا متماثلين.",
+      "items": [
+        "تحقّق أنّ <span class=\"sym\">G₀</span> و<span class=\"sym\">H₀</span> يتّفقان في عدد الرؤوس وعدد الحوافّ ومتتالية الدرجات",
+        "ابحث عن دارة بسيطة طولها ٣ في <span class=\"sym\">H₀</span>؛ جِد <span class=\"sym\">v1, v2, v6, v1</span>",
+        "تحقّق من عدم وجود دارة بسيطة طولها ٣ في <span class=\"sym\">G₀</span>",
+        "استنتج أنّ وجود دارة بطول ٣ ثابتُ تماثل يختلف بين الرسمين",
+        "اخلص إلى أنّ <span class=\"sym\">G₀</span> و<span class=\"sym\">H₀</span> ليسا متماثلين"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "explanation": "أولاً نتأكّد من أنّ الثوابت الأساسية متساوية (وإلا لكفى ذلك وحده)، ثمّ نبحث عن دارة بطول ٣ في أحد الرسمين، ونتحقّق من غيابها في الآخر، فنستخدم اختلاف هذا الثابت لإثبات عدم التماثل."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 2,
+      "prompt": "لماذا لا يكفي اتفاق رسمين بيانيّين في عدد الرؤوس وعدد الحوافّ ومتتالية الدرجات لإثبات أنّهما متماثلان؟",
+      "canonical": "لأن هذه شروط ضرورية لكنها غير كافية، فقد يتفق رسمان فيها رغم اختلاف بنيتهما الداخلية كوجود دارة بسيطة بطول معين",
+      "acceptable": [
+        "لانها ضرورية وليست كافية",
+        "شروط ضرورية غير كافية",
+        "قد يتفقان فيها ويختلفان في ثوابت اخرى مثل طول الدارة"
+      ],
+      "explanation": "اتفاق عدد الرؤوس وعدد الحوافّ ومتتالية الدرجات شرط ضروريّ لكنه غير كافٍ للتماثل؛ فرسمان قد يتّفقان في كلّ هذه الثوابت ومع ذلك يختلفان في بنية أعمق، مثل وجود دارة بسيطة بطول معيّن — كما رأينا مع <span class=\"sym\">G₀</span> و<span class=\"sym\">H₀</span>."
+    },
+    {
+      "id": "q8",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "ما طول أقصر دارة بسيطة في الرسم <span class=\"sym\">G₀</span> الموضّح في البطاقة الثالثة؟",
+      "options": [
+        "<span class=\"sym\">3</span>",
+        "<span class=\"sym\">4</span>",
+        "<span class=\"sym\">5</span>",
+        "<span class=\"sym\">6</span>"
+      ],
+      "answer": 1,
+      "explanation": "<span class=\"sym\">G₀</span> خالٍ من أيّ مثلّث، فلا توجد فيه دارة بسيطة طولها ٣. لكن توجد دارة بسيطة طولها ٤، مثل <span class=\"sym\">u1, u2, u5, u4, u1</span> (باستخدام الحوافّ <span class=\"sym\">u1–u2</span> و<span class=\"sym\">u2–u5</span> و<span class=\"sym\">u5–u4</span> و<span class=\"sym\">u4–u1</span>)."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "ما طول أقصر دارة بسيطة في الرسم <span class=\"sym\">H₀</span> الموضّح في البطاقة الثالثة؟",
+      "options": [
+        "<span class=\"sym\">3</span>",
+        "<span class=\"sym\">4</span>",
+        "<span class=\"sym\">5</span>",
+        "<span class=\"sym\">6</span>"
+      ],
+      "answer": 0,
+      "explanation": "<span class=\"sym\">H₀</span> يضمّ المثلّث <span class=\"sym\">v1, v2, v6, v1</span>، وهو دارة بسيطة طولها ٣ — وهذا أقصر طول ممكن لدارة بسيطة في رسم بسيط أصلاً."
+    },
+    {
+      "id": "q10",
+      "type": "tf",
+      "level": 1,
+      "prompt": "كلّ دارة في رسم بياني لا بدّ أن تكون بسيطة.",
+      "answer": false,
+      "explanation": "البساطة خاصية إضافية منفصلة عن كون المسار دارة. فالدارة تشترط فقط أنّها تبدأ وتنتهي عند الرأس نفسه بطول أكبر من صفر؛ أمّا اشتراط عدم تكرار أيّ حافّة فهو ما يجعلها دارة بسيطة تحديدًا."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
