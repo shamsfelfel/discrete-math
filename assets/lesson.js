@@ -264,7 +264,10 @@
       });
       item.append(el('span', { class: 'grip' }, '⋮⋮'));
       item.append(el('span', { class: 'step-num' }, (T.step || 'Step') + ' ' + (pos + 1)));
-      item.append(el('span', {}, t));
+      // Item text may contain inline markup (e.g. <span class="sym">) just like
+      // question prompts and table cells. Render it as HTML (via fmtInline),
+      // not a plain text node, or the tags leak onto the page as literal text.
+      item.append(el('span', { html: fmtInline(t) }));
       list.append(item);
     });
     attachDnD(list);
@@ -330,8 +333,12 @@
               'data-blank': blank.id
             }));
           }
-        } else {
-          wrap.append(document.createTextNode(part));
+        } else if (part) {
+          // Non-blank template text may contain inline markup (e.g. <span
+          // class="sym">) just like question prompts. Render as HTML (via
+          // fmtInline) instead of a plain text node, or the tags leak onto
+          // the page as literal text.
+          wrap.append(el('span', { html: fmtInline(part) }));
         }
       });
       if (idx < lines.length - 1) wrap.append(el('br'));

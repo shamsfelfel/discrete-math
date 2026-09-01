@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>١٠.٣ أنواع خاصة من الرسوم البيانية — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ١٠</a> &nbsp;›&nbsp;
+    <span id="crumb-current">١٠.٣</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.3.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "10.3",
+  "chapter": "10",
+  "title": "أنواع خاصة من الرسوم البيانية",
+  "lede": "بعض عائلات الرسوم البيانية تتكرّر كثيرًا — الرسوم الكاملة، والدورات، والعجلات، والمكعّبات ن-البعدية، والرسوم ثنائية التجزئة — لدرجة أنّها اكتسبت أسماءً ورموزًا خاصة بها. والقدرة على التعرّف عليها بسرعة مهارة أساسية في نظرية الرسوم البيانية.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "الرسوم الكاملة",
+      "body": [
+        {
+          "type": "p",
+          "text": "الرسم الكامل على <span class=\"sym\">n</span> رأسًا، ويُرمز له بـ <span class=\"sym\">K_n</span>، هو رسم بسيط يحتوي على حافة واحدة بالضبط بين كلّ زوج من الرؤوس المتمايزة."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  A((A)) --- B((B))\n  A --- C((C))\n  A --- D((D))\n  B --- C\n  B --- D\n  C --- D"
+        },
+        {
+          "type": "p",
+          "text": "أوّل عدّة رسوم كاملة — <span class=\"sym\">K_1, K_2, K_3, K_4, K_5</span> — تحتوي على ١، ٢، ٣، ٤، ٥ رؤوس على التوالي، وكلّ منها مرسوم بجميع الحواف الممكنة. والرسم أعلاه هو <span class=\"sym\">K_4</span>."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "بما أنّ كلّ رأس من الرؤوس الـ<span class=\"sym\">n</span> متّصل بكلّ رأس من الرؤوس الـ<span class=\"sym\">n − 1</span> الأخرى بحافة واحدة، فإنّ الرسم الكامل <span class=\"sym\">K_n</span> يحتوي على <span class=\"sym\">n(n − 1)/2</span> حافة. فمثلاً <span class=\"sym\">K_4</span> أعلاه لها <span class=\"sym\">4·3/2 = 6</span> حواف — عدّها في الرسم."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "الدورات والعجلات",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف.</b> الدورة <span class=\"sym\">C_n</span>، حيث <span class=\"sym\">n ≥ 3</span>، تتكوّن من <span class=\"sym\">n</span> رأسًا <span class=\"sym\">v_1, v_2, …, v_n</span> والحواف <span class=\"sym\">{v_1, v_2}, {v_2, v_3}, …, {v_{n-1}, v_n}</span>، و<span class=\"sym\">{v_n, v_1}</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v2 --- v3((v3))\n  v3 --- v4((v4))\n  v4 --- v5((v5))\n  v5 --- v1"
+        },
+        {
+          "type": "p",
+          "text": "الرسم أعلاه هو الدورة <span class=\"sym\">C_5</span>: خمسة رؤوس مرتّبة على شكل حلقة، وكلّ رأس متّصل بجاريه."
+        },
+        {
+          "type": "p",
+          "text": "نحصل على العجلة <span class=\"sym\">W_n</span> عندما نضيف رأسًا إضافيًا إلى الدورة <span class=\"sym\">C_n</span> (حيث <span class=\"sym\">n ≥ 3</span>) ونصل هذا الرأس الجديد — ويُسمّى <b>المحور</b> — بكلّ رأس من رؤوس <span class=\"sym\">C_n</span> الـ<span class=\"sym\">n</span> بحواف جديدة تُسمّى الأضلاع الشعاعية."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v2 --- v3((v3))\n  v3 --- v4((v4))\n  v4 --- v5((v5))\n  v5 --- v1\n  hub((hub)) --- v1\n  hub --- v2\n  hub --- v3\n  hub --- v4\n  hub --- v5"
+        },
+        {
+          "type": "p",
+          "text": "الرسم أعلاه هو العجلة <span class=\"sym\">W_5</span>، وقد بُنيت من <span class=\"sym\">C_5</span> أعلاه بإضافة المحور وأضلاعه الشعاعية الخمسة."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "المكعّبات ن-البعدية",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف.</b> المكعّب ن-البعدي، أو المكعّب-<span class=\"sym\">n</span>، ويُرمز له بـ <span class=\"sym\">Q_n</span>، هو رسم بياني رؤوسه تمثّل السلاسل البتّية الـ<span class=\"sym\">2^n</span> ذات الطول <span class=\"sym\">n</span>. ويكون رأسان متجاورين إذا وفقط إذا اختلفت السلسلتان البتّيتان اللتان يمثّلانهما في موضع بت واحد بالضبط."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  b000((000)) --- b001((001))\n  b000 --- b010((010))\n  b000 --- b100((100))\n  b001 --- b011((011))\n  b001 --- b101((101))\n  b010 --- b011\n  b010 --- b110((110))\n  b011 --- b111((111))\n  b100 --- b101\n  b100 --- b110\n  b101 --- b111\n  b110 --- b111"
+        },
+        {
+          "type": "p",
+          "text": "الرسم أعلاه هو <span class=\"sym\">Q_3</span>: رؤوسه الثمانية هي السلاسل البتّية ذات الطول ٣ من <span class=\"sym\">000</span> إلى <span class=\"sym\">111</span>، وتصل حافة بين اثنتين منها فقط عندما تختلفان في موضع واحد — فمثلاً <span class=\"sym\">010</span> و<span class=\"sym\">011</span> متجاوران، لكنّ <span class=\"sym\">010</span> و<span class=\"sym\">101</span> ليسا كذلك (يختلفان في المواضع الثلاثة جميعًا)."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "كلّ رأس من رؤوس <span class=\"sym\">Q_n</span> الـ<span class=\"sym\">2^n</span> مجاور لـ<span class=\"sym\">n</span> رأسًا بالضبط — جار واحد لكلّ موضع بت يمكن قلبه — لذا يحتوي <span class=\"sym\">Q_n</span> على <span class=\"sym\">n · 2^{n-1}</span> حافة. ولـ<span class=\"sym\">Q_3</span> أعلاه، هذا يعطي <span class=\"sym\">3 · 4 = 12</span> حافة، وهو ما يطابق الحواف الاثنتي عشرة المرسومة."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "الرسوم البيانية ثنائية التجزئة",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ٦.</b> يُسمّى الرسم البسيط <span class=\"sym\">G</span> <b>ثنائي التجزئة</b> إذا أمكن تقسيم مجموعة رؤوسه <span class=\"sym\">V</span> إلى مجموعتين منفصلتين <span class=\"sym\">V_1</span> و<span class=\"sym\">V_2</span> بحيث تصل كلّ حافة في الرسم بين رأس في <span class=\"sym\">V_1</span> ورأس في <span class=\"sym\">V_2</span> (فلا توجد حافة تصل بين رأسين داخل <span class=\"sym\">V_1</span>، ولا بين رأسين داخل <span class=\"sym\">V_2</span>). ويُسمّى الزوج <span class=\"sym\">(V_1, V_2)</span> <b>تجزئة ثنائية</b> لـ<span class=\"sym\">V</span>."
+        },
+        {
+          "type": "example",
+          "title": "رسم بياني ثنائي التجزئة",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "لتكن التجزئة الثنائية <span class=\"sym\">V_1 = {v_1, v_3, v_5}</span> و<span class=\"sym\">V_2 = {v_2, v_4, v_6}</span>. يوضّح الرسم أدناه رسمًا بيانيًا ثنائي التجزئة متوافقًا مع هذه التجزئة — كلّ حافة تصل بين المجموعتين، ولا حافة تقع داخل إحداهما."
+            },
+            {
+              "type": "mermaid",
+              "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v1 --- v4((v4))\n  v3((v3)) --- v2\n  v3 --- v6((v6))\n  v5((v5)) --- v4\n  v5 --- v6"
+            },
+            {
+              "type": "note",
+              "kind": "tip",
+              "text": "هذا مجرّد مثال لرسم بياني ثنائي التجزئة بالتجزئة <span class=\"sym\">{v_1, v_3, v_5}</span> / <span class=\"sym\">{v_2, v_4, v_6}</span> — مجموعة حواف الشكل الأصلي في الكتاب غير معروضة هنا بدقّتها، بل هذا توضيح متوافق مع التجزئة المذكورة فقط."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "التمييز بين الثنائي التجزئة وغير الثنائي التجزئة",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "لنأخذ رسمين بيانيين <span class=\"sym\">G</span> و<span class=\"sym\">H</span>. الرسم <span class=\"sym\">G</span> ثنائي التجزئة: تنقسم رؤوسه إلى <span class=\"sym\">{a, b, d}</span> و<span class=\"sym\">{c, e, f, g}</span>، وكلّ حافة في <span class=\"sym\">G</span> تصل رأسًا من المجموعة الأولى برأس من المجموعة الثانية — ولا حافة تصل بين رأسين من المجموعة نفسها أبدًا."
+            },
+            {
+              "type": "p",
+              "text": "أمّا الرسم <span class=\"sym\">H</span> فليس ثنائي التجزئة: لا توجد طريقة لتقسيم رؤوسه إلى مجموعتين تتجنّب وجود حافة بين رأسين من المجموعة نفسها — وذلك مثلاً لأنّ <span class=\"sym\">H</span> يحتوي على دورة ذات طول فردي، وهذه لا يمكن تلوينها بلونين بشكل صحيح أبدًا."
+            }
+          ]
+        },
+        {
+          "type": "def",
+          "text": "<b>مبرهنة ٤.</b> يكون الرسم البسيط ثنائي التجزئة إذا وفقط إذا أمكن إسناد أحد لونين مختلفين لكلّ رأس من رؤوس الرسم بحيث لا يُسند اللون نفسه لرأسين متجاورين."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "اختبار التلوين بلونين هذا من أكثر الطرق عمليةً لفحص كون الرسم ثنائي التجزئة يدويًا: اختر أيّ رأس ولوّنه، ثمّ تجوّل في الرسم ولوّن كلّ جار باللون الآخر. فإن تعذّر عليك ذلك — أي اضطُررت لإسناد اللون نفسه لرأسين متجاورين — فالرسم ليس ثنائي التجزئة."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "الرسوم الثنائية التجزئة الكاملة",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف.</b> الرسم الثنائي التجزئة الكامل <span class=\"sym\">K_{m,n}</span> هو رسم بياني تُقسَّم مجموعة رؤوسه إلى مجموعتين جزئيتين من <span class=\"sym\">m</span> و<span class=\"sym\">n</span> رأسًا على التوالي، وتوجد حافة بين رأسين إذا وفقط إذا كان أحدهما في المجموعة الأولى والآخر في المجموعة الثانية."
+        },
+        {
+          "type": "p",
+          "text": "من الرسوم الثنائية التجزئة الكاملة الشائع تصويرها <span class=\"sym\">K_{2,3}</span> و<span class=\"sym\">K_{3,3}</span> و<span class=\"sym\">K_{3,5}</span> و<span class=\"sym\">K_{2,6}</span> — حيث يحدّد الرمزان السفليّان حجم كلّ جانب."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  x1((x1)) --- y1((y1))\n  x1 --- y2((y2))\n  x1 --- y3((y3))\n  x2((x2)) --- y1\n  x2 --- y2\n  x2 --- y3"
+        },
+        {
+          "type": "p",
+          "text": "الرسم أعلاه هو <span class=\"sym\">K_{2,3}</span>: رأسان في جانب وثلاثة في الجانب الآخر، وكلّ حافة عابرة ممكنة موجودة — ولا حافة داخل أيّ من الجانبين."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "الرسم الثنائي التجزئة الكامل <span class=\"sym\">K_{m,n}</span> يحتوي على <span class=\"sym\">m · n</span> حافة — حافة واحدة لكلّ إقران بين رأس من جانب <span class=\"sym\">m</span> ورأس من جانب <span class=\"sym\">n</span>. فـ<span class=\"sym\">K_{2,3}</span> أعلاه لها <span class=\"sym\">2 · 3 = 6</span> حواف — عدّها في الرسم."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "الرسم البسيط على <span class=\"sym\">n</span> رأسًا الذي يحتوي على حافة واحدة بالضبط بين كلّ زوج من الرؤوس المتمايزة يُسمّى:",
+      "options": [
+        "الرسم الكامل <span class=\"sym\">K_n</span>",
+        "الدورة <span class=\"sym\">C_n</span>",
+        "العجلة <span class=\"sym\">W_n</span>",
+        "المكعّب-<span class=\"sym\">n</span> <span class=\"sym\">Q_n</span>"
+      ],
+      "answer": 0,
+      "explanation": "هذا هو تعريف الرسم الكامل <span class=\"sym\">K_n</span> بالضبط: كلّ زوج من الرؤوس المتمايزة متّصل بحافة واحدة."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "تحتوي العجلة <span class=\"sym\">W_n</span> على نفس عدد رؤوس الدورة <span class=\"sym\">C_n</span> التي بُنيت منها.",
+      "answer": false,
+      "explanation": "تُبنى العجلة <span class=\"sym\">W_n</span> بإضافة رأس واحد إضافي (المحور) إلى <span class=\"sym\">C_n</span>، فتحتوي <span class=\"sym\">W_n</span> على <span class=\"sym\">n + 1</span> رأسًا بينما تحتوي <span class=\"sym\">C_n</span> على <span class=\"sym\">n</span> فقط."
+    },
+    {
+      "id": "q3",
+      "type": "short",
+      "level": 1,
+      "prompt": "كم عدد رؤوس المكعّب <span class=\"sym\">Q_3</span>؟",
+      "canonical": "٨",
+      "acceptable": [
+        "٨",
+        "8",
+        "ثمانية"
+      ],
+      "explanation": "يحتوي <span class=\"sym\">Q_n</span> على رأس واحد لكلّ سلسلة بتّية طولها <span class=\"sym\">n</span>، أي <span class=\"sym\">2^n</span> رأسًا. وعند <span class=\"sym\">n = 3</span>، هذا يساوي <span class=\"sym\">2^3 = 8</span>."
+    },
+    {
+      "id": "q4",
+      "type": "fillblank",
+      "level": 1,
+      "prompt": "أكمل وصف كيفية بناء العجلة.",
+      "template": "نحصل على العجلة [[1]] عندما نضيف رأسًا إضافيًا إلى الدورة <span class=\"sym\">C_n</span> (حيث <span class=\"sym\">n ≥ 3</span>) ونصل هذا الرأس الجديد — ويُسمّى [[2]] — بكلّ رأس من رؤوس <span class=\"sym\">C_n</span> الـ<span class=\"sym\">n</span> بـ[[3]] جديدة.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "W_n",
+          "acceptable": [
+            "W_n",
+            "Wn",
+            "W n"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "المحور",
+          "acceptable": [
+            "المحور",
+            "محور"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "حواف",
+          "acceptable": [
+            "حواف",
+            "حافات",
+            "أضلاع"
+          ]
+        }
+      ],
+      "explanation": "تُبنى العجلة <span class=\"sym\">W_n</span> من الدورة <span class=\"sym\">C_n</span> بإضافة رأس محور واحد، ووصل المحور بكلّ رأس من رؤوس الدورة بحافة شعاعية جديدة."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "كم عدد حواف الرسم الكامل <span class=\"sym\">K_6</span>؟",
+      "options": [
+        "<span class=\"sym\">15</span>",
+        "<span class=\"sym\">30</span>",
+        "<span class=\"sym\">21</span>",
+        "<span class=\"sym\">12</span>"
+      ],
+      "answer": 0,
+      "explanation": "يحتوي <span class=\"sym\">K_n</span> على <span class=\"sym\">n(n − 1)/2</span> حافة، لذا يحتوي <span class=\"sym\">K_6</span> على <span class=\"sym\">6·5/2 = 15</span> حافة."
+    },
+    {
+      "id": "q6",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "أكمل تعريف الرسم البياني ثنائي التجزئة.",
+      "template": "يُسمّى الرسم البسيط <span class=\"sym\">G</span> [[1]] إذا أمكن تقسيم <span class=\"sym\">V</span> إلى مجموعتين منفصلتين <span class=\"sym\">V_1</span> و<span class=\"sym\">V_2</span> بحيث تصل كلّ حافة بين رأس في <span class=\"sym\">V_1</span> ورأس في [[2]]. ويُسمّى الزوج <span class=\"sym\">(V_1, V_2)</span> [[3]] لـ<span class=\"sym\">V</span>.",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "ثنائي التجزئة",
+          "acceptable": [
+            "ثنائي التجزئة",
+            "ثنائي تجزئة"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "V_2",
+          "acceptable": [
+            "V_2",
+            "V2",
+            "V 2"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "تجزئة ثنائية",
+          "acceptable": [
+            "تجزئة ثنائية",
+            "التجزئة الثنائية"
+          ]
+        }
+      ],
+      "explanation": "بحسب التعريف ٦، تنقسم مجموعة رؤوس الرسم ثنائي التجزئة إلى مجموعتين منفصلتين <span class=\"sym\">V_1</span> و<span class=\"sym\">V_2</span> تصل كلّ حافة بينهما؛ ويُسمّى هذا الزوج تجزئته الثنائية."
+    },
+    {
+      "id": "q7",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "بحسب المبرهنة ٤، يكون الرسم البسيط ثنائي التجزئة إذا وفقط إذا:",
+      "options": [
+        "أمكن تلوين رؤوسه بلونين بحيث لا يشترك رأسان متجاوران في اللون نفسه",
+        "كان عدد رؤوسه زوجيًا",
+        "كانت درجة كلّ رأس فيه زوجية",
+        "لم يحتوِ على أيّ دورة إطلاقًا"
+      ],
+      "answer": 0,
+      "explanation": "تنصّ المبرهنة ٤ على أنّ الرسم البسيط ثنائي التجزئة تمامًا عندما يمكن تلوين رؤوسه بلونين تلوينًا صحيحًا، أي لا تصل أيّ حافة بين رأسين بنفس اللون."
+    },
+    {
+      "id": "q8",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب خطوات التحقّق من أنّ رسمًا بيانيًا هو الرسم الثنائي التجزئة الكامل <span class=\"sym\">K_{m,n}</span>.",
+      "items": [
+        "قسّم مجموعة الرؤوس إلى مجموعتين جزئيتين، بحجمي <span class=\"sym\">m</span> و<span class=\"sym\">n</span>",
+        "تحقّق من أنّ كلّ رأس في المجموعة الأولى متّصل بكلّ رأس في المجموعة الثانية",
+        "تحقّق من عدم وجود حافة تصل بين رأسين داخل المجموعة نفسها",
+        "تأكّد من أنّ إجمالي عدد الحواف يساوي <span class=\"sym\">m · n</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "الرسم الثنائي التجزئة الكامل <span class=\"sym\">K_{m,n}</span> يتطلّب تقسيمًا ثنائيًا للرؤوس، وكلّ حافة عابرة ممكنة موجودة، ولا حواف داخل أيّ مجموعة، وكخطوة تحقّق أخيرة، عدد الحواف الإجمالي يساوي بالضبط <span class=\"sym\">m · n</span>."
+    },
+    {
+      "id": "q9",
+      "type": "short",
+      "level": 3,
+      "prompt": "كم عدد حواف الرسم الثنائي التجزئة الكامل <span class=\"sym\">K_{3,5}</span>؟",
+      "canonical": "١٥",
+      "acceptable": [
+        "١٥",
+        "15",
+        "خمسة عشر"
+      ],
+      "explanation": "يحتوي <span class=\"sym\">K_{m,n}</span> على <span class=\"sym\">m · n</span> حافة، حافة واحدة لكلّ إقران بين الجانبين. هنا <span class=\"sym\">3 · 5 = 15</span>."
+    },
+    {
+      "id": "q10",
+      "type": "tf",
+      "level": 3,
+      "prompt": "إذا احتوى رسم بياني بسيط على دورة ذات طول فردي، فلا يمكن أن يكون ثنائي التجزئة.",
+      "answer": true,
+      "explanation": "يجب أن يتبادل التلوين الصحيح بلونين على طول أيّ دورة؛ والسير حول دورة فردية الطول يفرض حصول أوّل رأس فيها وآخر رأس — وهما متجاوران — على اللون نفسه، وهذا يخالف المبرهنة ٤. ولهذا بالضبط لا يمكن أن يكون رسم مثل <span class=\"sym\">H</span>، الذي يحتوي على دورة فردية، ثنائي التجزئة."
+    },
+    {
+      "id": "q11",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "في المكعّب <span class=\"sym\">Q_3</span>، أيّ زوج من السلاسل البتّية متجاور؟",
+      "options": [
+        "<span class=\"sym\">000</span> و<span class=\"sym\">001</span>",
+        "<span class=\"sym\">000</span> و<span class=\"sym\">011</span>",
+        "<span class=\"sym\">000</span> و<span class=\"sym\">111</span>",
+        "<span class=\"sym\">010</span> و<span class=\"sym\">101</span>"
+      ],
+      "answer": 0,
+      "explanation": "يتجاور رأسان في <span class=\"sym\">Q_3</span> إذا وفقط إذا اختلفت سلسلتاهما البتّيتان في موضع واحد. <span class=\"sym\">000</span> و<span class=\"sym\">001</span> يختلفان في البت الأخير فقط. أمّا الأزواج الأخرى فتختلف في موضعين أو ثلاثة، فليست متجاورة."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

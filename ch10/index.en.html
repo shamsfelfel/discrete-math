@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 10: Graphs — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .lesson-grid { display:grid; gap:14px; margin-top:8px;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); }
+  a.lesson-link { display:block; text-decoration:none; padding:18px 20px;
+    border:1px solid var(--border,#d9dee6); border-radius:14px;
+    background:var(--card,#fff); color:inherit;
+    transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
+  a.lesson-link:hover { transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(0,0,0,.08); border-color:var(--accent,#3b6ea5); }
+  a.lesson-link .ll-id { font-family:var(--mono,ui-monospace,monospace);
+    font-size:.82rem; color:var(--accent,#3b6ea5); font-weight:600;
+    letter-spacing:.04em; }
+  a.lesson-link .ll-title { font-family:var(--serif,Georgia,serif);
+    font-size:1.18rem; font-weight:600; margin:4px 0 8px; line-height:1.25; }
+  a.lesson-link .ll-desc { font-size:.92rem; line-height:1.5;
+    color:var(--muted,#5c6672); }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <span id="crumb-current">Ch. 10</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="index.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker">Chapter 10</div>
+    <h1>Graphs</h1>
+    <p class="lede">A graph models pairwise relations between objects —
+      vertices connected by edges. This chapter covers graph terminology,
+      the special graph families that recur everywhere, how to represent
+      and compare graphs, connectivity, and the shortest-path problem.</p>
+  </header>
+
+  <section class="section">
+    <h2>Lessons</h2>
+    <div class="section-sub">Choose a section to study.</div>
+    <div class="lesson-grid">
+      <a class="lesson-link" href="lesson-10.1.en.html">
+        <div class="ll-id">Lesson 10.1</div>
+        <div class="ll-title">Graphs and Graph Models</div>
+        <div class="ll-desc">What a graph is, simple graphs vs. multigraphs and pseudographs, directed graphs, and a summary of the graph-type family.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.2.en.html">
+        <div class="ll-id">Lesson 10.2</div>
+        <div class="ll-title">Graph Terminology: Degree and Neighborhoods</div>
+        <div class="ll-desc">Adjacency, neighborhoods, vertex degree, the Handshaking Theorem, and in-degree/out-degree for directed graphs.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.3.en.html">
+        <div class="ll-id">Lesson 10.3</div>
+        <div class="ll-title">Special Types of Graphs</div>
+        <div class="ll-desc">Complete graphs, cycles, wheels, n-cubes, bipartite graphs, and complete bipartite graphs.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.4.en.html">
+        <div class="ll-id">Lesson 10.4</div>
+        <div class="ll-title">Representing Graphs and Graph Isomorphism</div>
+        <div class="ll-desc">Adjacency lists, adjacency matrices, incidence matrices, and the precise meaning of two graphs being "the same" — isomorphism and its invariants.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.5.en.html">
+        <div class="ll-id">Lesson 10.5</div>
+        <div class="ll-title">Connectivity: Paths and Circuits</div>
+        <div class="ll-desc">Paths and circuits, simple paths, and using the circuit-length invariant to tell graphs apart.</div>
+      </a>
+      <a class="lesson-link" href="lesson-10.6.en.html">
+        <div class="ll-id">Lesson 10.6</div>
+        <div class="ll-title">Shortest-Path Problems and Dijkstra's Algorithm</div>
+        <div class="ll-desc">Weighted graphs, the shortest-path problem, and a full step-by-step trace of Dijkstra's algorithm on a worked example.</div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<script>
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const r = document.documentElement;
+  r.dataset.theme = r.dataset.theme === 'dark' ? 'light' : 'dark';
+});
+</script>
+</body>
+</html>

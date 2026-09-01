@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10.1 Graphs and Graph Models — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 10</a> &nbsp;›&nbsp;
+    <span id="crumb-current">10.1</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.1.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "10.1",
+  "chapter": "10",
+  "title": "Graphs and Graph Models",
+  "lede": "A graph models a pairwise relationship between objects: a set of vertices connected by edges. Graphs are used to model computer networks, social networks, transportation systems, scheduling conflicts, and countless other structures where the question is simply which pairs of objects are related.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Graphs and their models",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>Definition 1.</b> A graph <span class=\"sym\">G = (V, E)</span> consists of <span class=\"sym\">V</span>, a nonempty set of vertices (also called nodes), and <span class=\"sym\">E</span>, a set of edges. Each edge has either one or two vertices associated with it, called its <b>endpoints</b>. An edge is said to <b>connect</b> its endpoints."
+        },
+        {
+          "type": "p",
+          "text": "A graph is called a <b>simple graph</b> when it satisfies two conditions:"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Each edge connects two <i>different</i> vertices (no edge connects a vertex to itself).",
+            "No two edges connect the same pair of vertices (at most one edge between any two vertices)."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Simple graphs are the most restrictive — and most common — starting point for graph models; the sections below relax each of these two conditions in turn."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  A((A)) --- B((B))\n  B --- C((C))\n  C --- D((D))\n  D --- A\n  A --- C"
+        }
+      ],
+      "examples": [
+        {
+          "label": "A simple graph on A, B, C, D",
+          "body": "The vertices <span class=\"sym\">A, B, C, D</span> are joined by the edges <span class=\"sym\">{A,B}, {B,C}, {C,D}, {D,A}, {A,C}</span> — no vertex is joined to itself, and no pair of vertices is joined twice, so this is a simple graph. (This is only an illustrative example graph on four vertices, not a reproduction of any particular textbook figure.)"
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Multigraphs and pseudographs",
+      "body": [
+        {
+          "type": "p",
+          "text": "Graph models sometimes need more than a simple graph can offer. A computer network, for instance, may have several parallel links between the same two data centers — for extra bandwidth or redundancy — so the model needs to allow more than one edge between the same pair of vertices. A communications link might even connect a data center to itself, such as a feedback loop used for self-diagnostics — so the model needs to allow an edge whose two endpoints are the same vertex."
+        },
+        {
+          "type": "def",
+          "text": "<b>Multigraph.</b> A <b>multigraph</b> is a graph that may have multiple edges connecting the same pair of vertices (but no loops)."
+        },
+        {
+          "type": "def",
+          "text": "<b>Pseudograph.</b> A <b>pseudograph</b> is a graph that may include <b>loops</b> — edges that connect a vertex to itself — and possibly also multiple edges connecting the same pair of vertices, or the same vertex to itself."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "Every simple graph is automatically a multigraph, and every multigraph is automatically a pseudograph — the three terms describe progressively looser rules on the same underlying idea of vertices and edges."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Redundant network links",
+          "body": "If data centers <span class=\"sym\">A</span> and <span class=\"sym\">B</span> are joined by two independent cables for redundancy, the model needs <i>two</i> edges between <span class=\"sym\">A</span> and <span class=\"sym\">B</span> — this graph is a multigraph, not a simple graph."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Directed graphs",
+      "body": [
+        {
+          "type": "p",
+          "text": "All of the graphs described above are <b>undirected</b> — an edge <span class=\"sym\">{u, v}</span> simply connects <span class=\"sym\">u</span> and <span class=\"sym\">v</span>, with no sense of direction. To build a graph model of a relationship that does have a direction — a one-way street, a link that only sends data one way, a course prerequisite — we assign a direction to each edge."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition 2.</b> A <b>directed graph</b> (or <b>digraph</b>) <span class=\"sym\">(V, E)</span> consists of a nonempty set of vertices <span class=\"sym\">V</span> and a set of directed edges (or <b>arcs</b>) <span class=\"sym\">E</span>. Each directed edge is associated with an ordered pair of vertices. The directed edge associated with the ordered pair <span class=\"sym\">(u, v)</span> is said to <b>start</b> at <span class=\"sym\">u</span> and <b>end</b> at <span class=\"sym\">v</span>."
+        },
+        {
+          "type": "p",
+          "text": "The vertex <span class=\"sym\">u</span> is called the edge's <b>initial vertex</b> and <span class=\"sym\">v</span> its <b>terminal vertex</b>; when <span class=\"sym\">u = v</span> the arc is a loop, just as in the undirected case."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  N1((1)) --> N2((2))\n  N2 --> N3((3))\n  N3 --> N1\n  N1 --> N3"
+        }
+      ],
+      "examples": [
+        {
+          "label": "A digraph on 1, 2, 3",
+          "body": "The vertices <span class=\"sym\">1, 2, 3</span> are joined by the directed edges <span class=\"sym\">(1,2), (2,3), (3,1), (1,3)</span> — the arc <span class=\"sym\">(1,3)</span> starts at <span class=\"sym\">1</span> and ends at <span class=\"sym\">3</span>. (This is only an illustrative example digraph, not a reproduction of any particular textbook figure.)"
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "A summary of graph types",
+      "body": [
+        {
+          "type": "p",
+          "text": "The table below collects the six kinds of graphs introduced in this section, organized by whether their edges are directed, and whether multiple edges or loops are allowed."
+        },
+        {
+          "type": "table",
+          "headers": ["Type", "Edges", "Multiple edges allowed?", "Loops allowed?"],
+          "rows": [
+            ["Simple graph", "Undirected", "No", "No"],
+            ["Multigraph", "Undirected", "Yes", "No"],
+            ["Pseudograph", "Undirected", "Yes", "Yes"],
+            ["Simple directed graph", "Directed", "No", "No"],
+            ["Directed multigraph", "Directed", "Yes", "Yes"],
+            ["Mixed graph", "Directed and undirected", "Yes", "Yes"]
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "To classify an unfamiliar graph, ask two yes/no questions — are the edges directed, and does any vertex or pair of vertices repeat an edge — then match the answers to a row above."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Which condition is <b>not</b> required for a graph to be a <b>simple graph</b>?",
+      "options": [
+        "Every edge connects two different vertices",
+        "No two edges connect the same pair of vertices",
+        "Every edge is assigned a direction",
+        "The vertex set <span class=\"sym\">V</span> is nonempty"
+      ],
+      "answer": 2,
+      "explanation": "A simple graph is undirected — its edges do not carry directions. The other three statements are all requirements: no loops, no repeated edge between the same pair, and <span class=\"sym\">V</span> must be nonempty by Definition 1."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "A pseudograph may include loops — edges whose two endpoints are the same vertex.",
+      "answer": true,
+      "explanation": "That is exactly the definition of a pseudograph: it allows loops, and possibly multiple edges between the same pair of vertices as well."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "Which term describes an undirected graph that may have multiple edges connecting the same two vertices, but no loops?",
+      "options": [
+        "Multigraph",
+        "Simple graph",
+        "Pseudograph",
+        "Directed multigraph"
+      ],
+      "answer": 0,
+      "explanation": "By definition, a multigraph allows multiple edges between the same vertices but does not allow loops; allowing loops as well would make it a pseudograph."
+    },
+    {
+      "id": "q4",
+      "type": "short",
+      "level": 2,
+      "prompt": "In your own words, define a <b>directed graph</b> (digraph).",
+      "canonical": "A directed graph consists of a nonempty set of vertices V and a set of directed edges (arcs) E, where each edge is associated with an ordered pair of vertices, going from an initial vertex to a terminal vertex.",
+      "acceptable": [
+        "vertices and directed edges where each edge is an ordered pair of vertices",
+        "a set of vertices with arcs that each go from one vertex to another in a specific direction",
+        "V and E where E is directed edges as ordered pairs (u,v)"
+      ],
+      "explanation": "Definition 2 phrases this precisely: a digraph is <span class=\"sym\">(V, E)</span> where every edge in <span class=\"sym\">E</span> is an ordered pair of vertices, so it has a starting (initial) vertex and an ending (terminal) vertex."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Complete the classification using the summary table.",
+      "template": "A multigraph allows multiple edges: [[1]]. A simple graph allows loops: [[2]]. A pseudograph allows loops: [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "select",
+          "answer": "Yes",
+          "options": ["Yes", "No"]
+        },
+        {
+          "id": "2",
+          "type": "select",
+          "answer": "No",
+          "options": ["Yes", "No"]
+        },
+        {
+          "id": "3",
+          "type": "select",
+          "answer": "Yes",
+          "options": ["Yes", "No"]
+        }
+      ],
+      "explanation": "Straight from the summary table: multigraphs allow multiple edges but no loops; simple graphs allow neither; pseudographs allow both."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "What is the key feature that distinguishes a <b>pseudograph</b> from a <b>multigraph</b>?",
+      "options": [
+        "A pseudograph may have loops; a multigraph may not",
+        "A pseudograph's edges are directed; a multigraph's are not",
+        "A pseudograph cannot have multiple edges; a multigraph can",
+        "There is no difference — the terms are interchangeable"
+      ],
+      "answer": 0,
+      "explanation": "Both allow multiple edges between the same pair of vertices, but only a pseudograph is allowed to include loops — edges from a vertex to itself."
+    },
+    {
+      "id": "q7",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "Order the steps for classifying a graph using the summary table.",
+      "items": [
+        "Check whether every edge is associated with an ordered pair of vertices (i.e. the edges are directed)",
+        "Check whether more than one edge can connect the same pair of vertices",
+        "Check whether any edge can connect a vertex to itself (a loop)",
+        "Match the three answers to the matching row of the summary table"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explanation": "The table is organized by exactly these three yes/no questions — direction, multiple edges, loops — so working through them in order pins down the graph's row."
+    },
+    {
+      "id": "q8",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "A campus network has two independent fiber cables between building <span class=\"sym\">A</span> and building <span class=\"sym\">B</span> for redundancy, and a diagnostic feedback link that connects building <span class=\"sym\">A</span> to itself. Which graph type is needed to model this network?",
+      "options": [
+        "Pseudograph",
+        "Simple graph",
+        "Simple directed graph",
+        "Multigraph"
+      ],
+      "answer": 0,
+      "explanation": "The two parallel cables need multiple edges between the same pair of vertices, and the self-diagnostic link needs a loop — a pseudograph is the only type in the summary table that allows both."
+    },
+    {
+      "id": "q9",
+      "type": "tf",
+      "level": 3,
+      "prompt": "A mixed graph may contain both directed and undirected edges at the same time.",
+      "answer": true,
+      "explanation": "The summary table's last row, 'mixed graph', is exactly this case — some edges directed, some undirected, with both multiple edges and loops allowed."
+    },
+    {
+      "id": "q10",
+      "type": "short",
+      "level": 3,
+      "prompt": "For a directed edge associated with the ordered pair <span class=\"sym\">(u, v)</span>, which vertex is the <b>initial</b> vertex and which is the <b>terminal</b> vertex?",
+      "canonical": "u is the initial vertex (where the edge starts) and v is the terminal vertex (where the edge ends).",
+      "acceptable": [
+        "u is initial, v is terminal",
+        "u starts it, v ends it",
+        "the first vertex u is initial and the second vertex v is terminal"
+      ],
+      "explanation": "By Definition 2, the directed edge for the ordered pair <span class=\"sym\">(u, v)</span> starts at <span class=\"sym\">u</span> (the initial vertex) and ends at <span class=\"sym\">v</span> (the terminal vertex)."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

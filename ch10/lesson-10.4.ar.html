@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>١٠.٤ تمثيل الرسوم البيانية وتماثلها — الرياضيات المتقطعة</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.ar.html">الرياضيات المتقطعة</a> &nbsp;›&nbsp;
+    <a href="index.ar.html">الفصل ١٠</a> &nbsp;›&nbsp;
+    <span id="crumb-current">١٠.٤</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.4.en.html">English</a>
+  <button class="tbtn" id="theme-toggle">◐ السمة</button>
+  <button class="tbtn" id="print-btn">⎙ طباعة</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>المفاهيم</h2>
+    <div class="section-sub">اقرأ كل بطاقة، ثمّ حاول حل الأسئلة في الأسفل.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>أسئلة التدريب</h2>
+    <div class="section-sub">الإجابات مخفية — أرسل كل إجابة ثمّ اكشف التغذية الراجعة.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "الرياضيات المتقطعة",
+  "kickerPrefix": "الفصل",
+  "lesson": "الدرس",
+  "q": "س",
+  "step": "خطوة",
+  "symbols": "الرموز",
+  "concepts": "المفاهيم",
+  "practice": "أسئلة التدريب",
+  "qTypes": {
+    "mcq": "اختيار من متعدد",
+    "tf": "صح / خطأ",
+    "short": "إجابة قصيرة",
+    "reorder": "إعادة ترتيب",
+    "fillblank": "إكمال الفراغ"
+  },
+  "qLevels": [
+    "أساسي",
+    "تطبيقي",
+    "تحدٍّ"
+  ],
+  "btnCheck": "تحقّق من الإجابة",
+  "btnReveal": "أظهر الإجابة",
+  "btnHint": "تلميح",
+  "btnMore": "أمثلة إضافية",
+  "btnReset": "إعادة",
+  "true": "صح",
+  "false": "خطأ",
+  "correct": "إجابة صحيحة.",
+  "wrong": "ليست صحيحة تمامًا.",
+  "expected": "المتوقّع:",
+  "answer": "الإجابة",
+  "hint": "تلميح:",
+  "selectFirst": "اختر خيارًا أولاً.",
+  "typeFirst": "اكتب إجابة أولاً.",
+  "typeAnswer": "اكتب إجابتك…",
+  "dragHint": "اسحب العناصر إلى الترتيب الصحيح."
+};
+window.LESSON_DATA = {
+  "id": "10.4",
+  "chapter": "10",
+  "title": "تمثيل الرسوم البيانية وتماثلها",
+  "lede": "لكي نحسب بالرسم البياني نحتاج إلى تمثيل عملي محدّد له — قائمة تجاور، أو مصفوفة تجاور، أو مصفوفة وقوع. ولكي نحدّد ما إذا كان رسمان بيانيان مختلفا الشكل هما في الحقيقة الرسم نفسه بعد إعادة تسمية رؤوسه، نحتاج إلى المفهوم الدقيق لتماثل الرسوم البيانية.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "قوائم التجاور",
+      "body": [
+        {
+          "type": "p",
+          "text": "من طرائق تمثيل رسم بياني لا يحوي حوافّ متعدّدة أن نسرد جميع حوافّه ببساطة. وثمّة طريقة أخرى، لرسمٍ بلا حوافّ متعدّدة، هي استخدام قوائم التجاور، التي تحدّد الرؤوس المجاورة لكلّ رأس من رؤوس الرسم."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v2((v2))\n  v1 --- v3((v3))\n  v2 --- v3\n  v2 --- v4((v4))\n  v3 --- v5((v5))\n  v4 --- v5"
+        },
+        {
+          "type": "p",
+          "text": "يضمّ الرسم الموضّح أعلاه خمسة رؤوس <span class=\"sym\">v1, v2, v3, v4, v5</span> وستّ حوافّ. وبقراءة الشكل (أو قائمة الحوافّ <span class=\"sym\">e1 = v1v2, e2 = v1v3, e3 = v2v3, e4 = v2v4, e5 = v3v5, e6 = v4v5</span>) نحصل على قائمة التجاور التالية:"
+        },
+        {
+          "type": "table",
+          "headers": ["الرأس", "الرؤوس المجاورة"],
+          "rows": [
+            ["<span class=\"sym\">v1</span>", "<span class=\"sym\">v2, v3</span>"],
+            ["<span class=\"sym\">v2</span>", "<span class=\"sym\">v1, v3, v4</span>"],
+            ["<span class=\"sym\">v3</span>", "<span class=\"sym\">v1, v2, v5</span>"],
+            ["<span class=\"sym\">v4</span>", "<span class=\"sym\">v2, v5</span>"],
+            ["<span class=\"sym\">v5</span>", "<span class=\"sym\">v3, v4</span>"]
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "قراءة الدرجات من القائمة",
+          "body": "طول كلّ صفّ يساوي درجة ذلك الرأس: <span class=\"sym\">deg(v2) = 3</span> لأنّ صفّ v2 يسرد ثلاثة رؤوس مجاورة، بما يوافق مجموع الدرجات <span class=\"sym\">12 = 2 × 6</span> لحوافّ الرسم الستّ."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "مصفوفات التجاور",
+      "body": [
+        {
+          "type": "p",
+          "text": "قائمة التجاور سهلة القراءة، لكنّ التمثيل المصفوفي غالبًا ما يكون أنسب للحوسبة — كما يحدث عند تخزين رسم بياني ومعالجته ببرمجية ما."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ١.</b> لنفرض أنّ <span class=\"sym\">G = (V, E)</span> رسم بياني بسيط بحيث <span class=\"sym\">|V| = n</span>. لنُدرِج رؤوس <span class=\"sym\">G</span> بترتيب اعتباطي كـ <span class=\"sym\">v1, v2, …, vn</span>. عندئذٍ <b>مصفوفة التجاور</b> <span class=\"sym\">A</span> (أو <span class=\"sym\">A_G</span>) لـ <span class=\"sym\">G</span>، بالنسبة لهذا الترتيب، هي المصفوفة الصفرية-الواحدية <span class=\"sym\">n × n</span> التي تكون فيها القيمة <span class=\"sym\">1</span> مدخلًا لـ <span class=\"sym\">(i, j)</span> عندما يكون <span class=\"sym\">vi</span> و<span class=\"sym\">vj</span> متجاورين، والقيمة <span class=\"sym\">0</span> عندما لا يكونان كذلك."
+        },
+        {
+          "type": "p",
+          "text": "بالنسبة إلى الرسم الموضّح أعلاه، إذا رتّبنا الرؤوس بالترتيب <span class=\"sym\">v1, v2, v3, v4, v5</span> نحصل على المصفوفة أدناه. ولأنّ الرسم بسيط وغير موجّه، فإنّ كلّ مدخل قطري يساوي <span class=\"sym\">0</span> (لا حلقات)، والمصفوفة متماثلة حول القطر — إذ يكون <span class=\"sym\">vi</span> مجاورًا لـ <span class=\"sym\">vj</span> تمامًا عندما يكون <span class=\"sym\">vj</span> مجاورًا لـ <span class=\"sym\">vi</span>."
+        },
+        {
+          "type": "table",
+          "headers": ["", "<span class=\"sym\">v1</span>", "<span class=\"sym\">v2</span>", "<span class=\"sym\">v3</span>", "<span class=\"sym\">v4</span>", "<span class=\"sym\">v5</span>"],
+          "rows": [
+            ["<span class=\"sym\">v1</span>", "0", "1", "1", "0", "0"],
+            ["<span class=\"sym\">v2</span>", "1", "0", "1", "1", "0"],
+            ["<span class=\"sym\">v3</span>", "1", "1", "0", "0", "1"],
+            ["<span class=\"sym\">v4</span>", "0", "1", "0", "0", "1"],
+            ["<span class=\"sym\">v5</span>", "0", "0", "1", "1", "0"]
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "label": "لماذا المصفوفة متماثلة",
+          "body": "صفّ v2 وعمود v2 متطابقان: <span class=\"sym\">v2</span> مجاور لـ <span class=\"sym\">v1, v3, v4</span>، فيحمل كلّ من صفّ v2 وعمود v2 القيمة <span class=\"sym\">1</span> في هذه المواضع الثلاثة بالضبط."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "مصفوفات الوقوع",
+      "body": [
+        {
+          "type": "p",
+          "text": "هناك تمثيل ثالث يسجّل كيفية وقوع الرؤوس على الحوافّ، بدلًا من علاقتها ببعضها بعضًا."
+        },
+        {
+          "type": "def",
+          "text": "<b>تعريف ٢.</b> لتكن <span class=\"sym\">G = (V, E)</span> رسمًا بيانيًّا غير موجّه برؤوس <span class=\"sym\">v1, v2, …, vn</span> وحوافّ <span class=\"sym\">e1, e2, …, em</span>. <b>مصفوفة الوقوع</b> بالنسبة لهذا الترتيب لـ <span class=\"sym\">V</span> و<span class=\"sym\">E</span> هي المصفوفة <span class=\"sym\">n × m</span>، أي <span class=\"sym\">M = [mij]</span>، حيث <span class=\"sym\">mij = 1</span> إذا كانت الحافة <span class=\"sym\">ej</span> واقعة على الرأس <span class=\"sym\">vi</span>، و<span class=\"sym\">mij = 0</span> في غير ذلك."
+        },
+        {
+          "type": "p",
+          "text": "بالنسبة إلى الرسم الموضّح أعلاه، وحوافّه <span class=\"sym\">e1 = v1v2, e2 = v1v3, e3 = v2v3, e4 = v2v4, e5 = v3v5, e6 = v4v5</span>، تكون مصفوفة الوقوع كالتالي:"
+        },
+        {
+          "type": "table",
+          "headers": ["", "<span class=\"sym\">e1</span>", "<span class=\"sym\">e2</span>", "<span class=\"sym\">e3</span>", "<span class=\"sym\">e4</span>", "<span class=\"sym\">e5</span>", "<span class=\"sym\">e6</span>"],
+          "rows": [
+            ["<span class=\"sym\">v1</span>", "1", "1", "0", "0", "0", "0"],
+            ["<span class=\"sym\">v2</span>", "1", "0", "1", "1", "0", "0"],
+            ["<span class=\"sym\">v3</span>", "0", "1", "1", "0", "1", "0"],
+            ["<span class=\"sym\">v4</span>", "0", "0", "0", "1", "0", "1"],
+            ["<span class=\"sym\">v5</span>", "0", "0", "0", "0", "1", "1"]
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "خلافًا لمصفوفة التجاور، لا يلزم أن تكون مصفوفة الوقوع مربّعة — فهي <span class=\"sym\">n × m</span>. كلّ عمود يحوي قيمتين <span class=\"sym\">1</span> بالضبط، لكلّ طرف من طرفَي تلك الحافة؛ ومجموع كلّ صفّ يساوي درجة ذلك الرأس."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "تماثل الرسوم البيانية",
+      "body": [
+        {
+          "type": "def",
+          "text": "<b>تعريف ٣.</b> يكون الرسمان البيانيّان البسيطان <span class=\"sym\">G1 = (V1, E1)</span> و<span class=\"sym\">G2 = (V2, E2)</span> <b>متماثلين</b> إذا وُجدت دالة تقابلية (واحد لواحد وشاملة) <span class=\"sym\">f</span> من <span class=\"sym\">V1</span> إلى <span class=\"sym\">V2</span> بحيث يكون، لكلّ <span class=\"sym\">a, b ∈ V1</span>، الرأسان <span class=\"sym\">a</span> و<span class=\"sym\">b</span> متجاورين في <span class=\"sym\">G1</span> إذا وفقط إذا كان <span class=\"sym\">f(a)</span> و<span class=\"sym\">f(b)</span> متجاورين في <span class=\"sym\">G2</span>. وتُسمّى هذه الدالّة <span class=\"sym\">f</span> <b>تماثلًا</b>. أمّا الرسمان البيانيّان البسيطان غير المتماثلين فيُسمّيان <b>غير متماثلين</b>."
+        },
+        {
+          "type": "p",
+          "text": "بعبارة أخرى: يكون الرسمان متماثلين تمامًا عندما توجد مطابقة واحد-لواحد بين رؤوسهما تحافظ على علاقة التجاور — أي أنّه بإعادة تسمية رؤوس أحد الرسمين يصبح مطابقًا تمامًا للآخر."
+        },
+        {
+          "type": "p",
+          "text": "لنتأمّل الرسم <span class=\"sym\">G</span> أدناه، برؤوس <span class=\"sym\">u1, u2, u3, u4</span> وحوافّ <span class=\"sym\">u1-u2, u1-u3, u2-u4, u3-u4</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  u1((u1)) --- u2((u2))\n  u1 --- u3((u3))\n  u2 --- u4((u4))\n  u3 --- u4"
+        },
+        {
+          "type": "p",
+          "text": "والآن لنعرّف <span class=\"sym\">H</span> رسمًا برؤوس <span class=\"sym\">v1, v2, v3, v4</span> بوصفه صورة <span class=\"sym\">G</span> تحت الدالّة <span class=\"sym\">f(u1) = v1, f(u2) = v4, f(u3) = v3, f(u4) = v2</span> — أي أنّ حوافّ <span class=\"sym\">H</span> هي <span class=\"sym\">v1-v4, v1-v3, v4-v2, v3-v2</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  v1((v1)) --- v4((v4))\n  v1 --- v3((v3))\n  v4 --- v2((v2))\n  v3 --- v2"
+        },
+        {
+          "type": "example",
+          "title": "التحقّق من أنّ f تماثل",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "الدالّة <span class=\"sym\">f</span> تقابلية: فهي تربط كلّ رأس من رؤوس <span class=\"sym\">G</span> الأربعة برأس واحد مميّز من رؤوس <span class=\"sym\">H</span>، وكلّ رأس من رؤوس <span class=\"sym\">H</span> مستخدَم."
+            },
+            {
+              "type": "ul",
+              "items": [
+                "<span class=\"sym\">(u1, u2) → (f(u1), f(u2)) = (v1, v4)</span>، وهي حافة في H ✓",
+                "<span class=\"sym\">(u1, u3) → (v1, v3)</span>، وهي حافة في H ✓",
+                "<span class=\"sym\">(u2, u4) → (v4, v2)</span>، وهي حافة في H ✓",
+                "<span class=\"sym\">(u3, u4) → (v3, v2)</span>، وهي حافة في H ✓"
+              ]
+            },
+            {
+              "type": "p",
+              "text": "كلّ حافة من حوافّ <span class=\"sym\">G</span> تُصوَّر إلى حافة في <span class=\"sym\">H</span>، ولـ <span class=\"sym\">G</span> و<span class=\"sym\">H</span> العدد نفسه من الحوافّ، فتحافظ <span class=\"sym\">f</span> على عدم التجاور أيضًا. إذًا <span class=\"sym\">f</span> تماثل، والرسمان <span class=\"sym\">G</span> و<span class=\"sym\">H</span> متماثلان."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "تحديد عدم التماثل: الثوابت",
+      "body": [
+        {
+          "type": "p",
+          "text": "ينصّ التعريف ٣ على أنّ رسمين متماثلان إذا وُجدت دالّة تقابلية بينهما تحافظ على التجاور — لكنّ التعريف لا يخبرنا كيف نبحث عن هذه الدالّة، ولا متى نتوقّف عن البحث. وغالبًا ما يكون إثبات أنّ رسمين غير متماثلين أسهل بكثير."
+        },
+        {
+          "type": "def",
+          "text": "الخاصّية التي يحافظ عليها كلّ تماثل — بحيث يتّفق الرسمان المتماثلان عليها حتمًا — تسمّى <b>ثابت تماثل</b>. فإذا اختلف رسمان في أيّ ثابت، استحال أن يكونا متماثلين."
+        },
+        {
+          "type": "ul",
+          "items": [
+            "للرسمين البيانيّين المتماثلين العدد نفسه من الرؤوس، لأنّ التماثل يقيم مطابقة واحد-لواحد بين مجموعتَي رؤوسهما.",
+            "للرسمين البيانيّين المتماثلين العدد نفسه من الحوافّ، لأنّ مطابقة الرؤوس تستحدث مطابقة بين حوافّ الرسمين.",
+            "للرسمين البيانيّين المتماثلين درجات الرؤوس نفسها: فإذا كان <span class=\"sym\">deg(v) = k</span> في <span class=\"sym\">G1</span>، فإنّ <span class=\"sym\">deg(f(v)) = k</span> في <span class=\"sym\">G2</span> — أي أنّ متتالية الدرجات يجب أن تتطابق."
+          ]
+        },
+        {
+          "type": "example",
+          "title": "مثال — عدم تطابق متتالية الدرجات",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "لنفرض أنّ لكلّ من <span class=\"sym\">G</span> و<span class=\"sym\">H</span> خمسة رؤوس وستّ حوافّ، فتتّفق ثابتا عدد الرؤوس وعدد الحوافّ. لكنّ <span class=\"sym\">H</span> له رأس <span class=\"sym\">e</span> من الدرجة واحد، بينما لا يوجد في <span class=\"sym\">G</span> أيّ رأس من الدرجة واحد. وبما أنّ متتالية الدرجات ثابت تماثل، واختلف الرسمان فيها، فإنّ <span class=\"sym\">G</span> و<span class=\"sym\">H</span> غير متماثلين."
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": "مثال — تطابق الثوابت لا يكفي",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "لنفرض الآن أنّ لكلّ من <span class=\"sym\">G</span> و<span class=\"sym\">H</span> ثمانية رؤوس وعشر حوافّ، ولكلٍّ منهما بالضبط أربعة رؤوس من الدرجة اثنين وأربعة رؤوس من الدرجة ثلاثة — فتتّفق جميع الثوابت السابقة. ومع ذلك قد يظلّان غير متماثلين. لنفرض أنّ <span class=\"sym\">deg(a) = 2</span> في <span class=\"sym\">G</span>؛ فلو كان <span class=\"sym\">G</span> و<span class=\"sym\">H</span> متماثلين للزِم أن يقابل <span class=\"sym\">a</span> أحد رؤوس <span class=\"sym\">H</span> من الدرجة اثنين. لكن لنفرض أنّ كلّ رأس من الدرجة اثنين في <span class=\"sym\">H</span> مجاور لرأس آخر من الدرجة اثنين، في حين أنّ <span class=\"sym\">a</span> ليس مجاورًا لأيّ رأس من الدرجة اثنين في <span class=\"sym\">G</span>. أيًّا كان رأس <span class=\"sym\">H</span> من الدرجة اثنين الذي نحاول مقابلة <span class=\"sym\">a</span> به، يفشل حفظ التجاور — فلا يمكن أن يوجد تماثل، رغم اتّفاق كلّ الثوابت التي فحصناها."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "عدم تطابق ثابتٍ واحد ⇐ الرسمان غير متماثلين — وهذا استدلال حاسم. أمّا تطابق الثوابت فلا يثبت أبدًا بمفرده أنّ رسمين متماثلان؛ فذلك يتطلّب تماثلًا فعليًّا <span class=\"sym\">f</span>، كما بُني في المثال أعلاه."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "بالاستعانة بقائمة تجاور الرسم الموضّح أعلاه، ما الرؤوس المجاورة لـ <span class=\"sym\">v3</span>؟",
+      "options": [
+        "<span class=\"sym\">v1, v2, v5</span>",
+        "<span class=\"sym\">v1, v2, v4</span>",
+        "<span class=\"sym\">v2, v4, v5</span>",
+        "<span class=\"sym\">v1, v4, v5</span>"
+      ],
+      "answer": 0,
+      "explanation": "صفّ v3 في قائمة التجاور هو <span class=\"sym\">v1, v2, v5</span>، بما يوافق الحوافّ <span class=\"sym\">e2 = v1v3</span> و<span class=\"sym\">e3 = v2v3</span> و<span class=\"sym\">e5 = v3v5</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "مصفوفة الوقوع لرسم بياني له <span class=\"sym\">n</span> رأسًا و<span class=\"sym\">m</span> حافة هي دائمًا مصفوفة مربّعة <span class=\"sym\">n × n</span>.",
+      "answer": false,
+      "explanation": "بحسب التعريف ٢، أبعاد مصفوفة الوقوع <span class=\"sym\">n × m</span> — ولا تكون مربّعة إلّا إذا تساوى عدد الرؤوس مع عدد الحوافّ صدفة. مصفوفة التجاور، لا مصفوفة الوقوع، هي التي تكون مربّعة دائمًا."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "في مصفوفة تجاور الرسم الموضّح أعلاه (بترتيب الرؤوس <span class=\"sym\">v1, v2, v3, v4, v5</span>)، ما قيمة المدخل <span class=\"sym\">(v1, v4)</span>؟",
+      "options": [
+        "<span class=\"sym\">0</span>",
+        "<span class=\"sym\">1</span>",
+        "<span class=\"sym\">2</span>",
+        "غير معرَّف"
+      ],
+      "answer": 0,
+      "explanation": "v1 وv4 غير متجاورين (جيران v1 هما v2 وv3 فقط)، فمدخل <span class=\"sym\">(v1, v4)</span> في مصفوفة التجاور يساوي <span class=\"sym\">0</span>."
+    },
+    {
+      "id": "q4",
+      "type": "short",
+      "level": 2,
+      "prompt": "بالاستعانة بمصفوفة تجاور الرسم الموضّح أعلاه، ما قيمة <span class=\"sym\">deg(v3)</span>؟",
+      "canonical": "٣",
+      "acceptable": ["٣", "3", "three", "ثلاثة", "deg(v3) = 3", "deg(v3)=3"],
+      "explanation": "صفّ v3 في مصفوفة التجاور هو <span class=\"sym\">1, 1, 0, 0, 1</span>، ومجموعه <span class=\"sym\">3</span> — بما يوافق الجيران الثلاثة v1 وv2 وv5 في قائمة التجاور."
+    },
+    {
+      "id": "q5",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "أكمل المدخلات الناقصة في مصفوفة التجاور.",
+      "template": "صفّ <span class=\"sym\">v4</span> في مصفوفة التجاور هو <span class=\"sym\">[0, [[1]], 0, 0, [[2]]]</span> (بترتيب الأعمدة v1، v2، v3، v4، v5).",
+      "blanks": [
+        { "id": "1", "type": "input", "answer": "1", "acceptable": ["1", "١"] },
+        { "id": "2", "type": "input", "answer": "1", "acceptable": ["1", "١"] }
+      ],
+      "explanation": "v4 مجاور لـ v2 (الحافة e4) ولـ v5 (الحافة e6)، وغير مجاور لـ v1 ولا v3 ولا لنفسه — فيكون الصفّ <span class=\"sym\">[0, 1, 0, 0, 1]</span>."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "في مصفوفة وقوع الرسم الموضّح أعلاه، ما الرأسان اللذان يمثّلان طرفَي الحافة <span class=\"sym\">e5</span>؟",
+      "options": [
+        "<span class=\"sym\">v3, v5</span>",
+        "<span class=\"sym\">v2, v4</span>",
+        "<span class=\"sym\">v1, v3</span>",
+        "<span class=\"sym\">v4, v5</span>"
+      ],
+      "answer": 0,
+      "explanation": "الحافة <span class=\"sym\">e5 = v3v5</span>، فعمود e5 في مصفوفة الوقوع يحمل القيمة <span class=\"sym\">1</span> في صفّ v3 وصفّ v5، و<span class=\"sym\">0</span> في البقية."
+    },
+    {
+      "id": "q7",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "رتّب خطوات التحقّق من أنّ الدالّة <span class=\"sym\">f: V1 → V2</span> تماثل بين <span class=\"sym\">G1</span> و<span class=\"sym\">G2</span>.",
+      "items": [
+        "تأكّد أنّ f واحد لواحد: لا يرتبط رأسان من G1 بالرأس نفسه في G2",
+        "تأكّد أنّ f شاملة: كلّ رأس من G2 هو صورة رأسٍ ما من G1",
+        "اسرد كلّ زوج متجاور <span class=\"sym\">{a, b}</span> في G1",
+        "تحقّق أنّ <span class=\"sym\">f(a)</span> و<span class=\"sym\">f(b)</span> متجاوران في G2 لكلّ زوج كهذا",
+        "إن تحقّق كلّ زوج (في الاتّجاهين)، استنتج أنّ f تماثل"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explanation": "يتطلّب التعريف ٣ أن تكون f واحدًا لواحد وشاملة، وأن تحافظ على التجاور في الاتّجاهين — وهذه الخطوات هي بالضبط ما جرى التحقّق منه بين G وH أعلاه."
+    },
+    {
+      "id": "q8",
+      "type": "short",
+      "level": 2,
+      "prompt": "في مثال التماثل أعلاه، <span class=\"sym\">f(u1) = v1</span>. ما قيمة <span class=\"sym\">f(u2)</span>؟",
+      "canonical": "v4",
+      "acceptable": ["v4", "f(u2) = v4", "f(u2)=v4"],
+      "explanation": "المطابقة معطاة بـ <span class=\"sym\">f(u1) = v1, f(u2) = v4, f(u3) = v3, f(u4) = v2</span>، إذًا <span class=\"sym\">f(u2) = v4</span>."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "بحسب التماثل <span class=\"sym\">f</span> من <span class=\"sym\">G</span> إلى <span class=\"sym\">H</span>، أيّ حافة في <span class=\"sym\">H</span> تقابل الحافة <span class=\"sym\">u3-u4</span> في <span class=\"sym\">G</span>؟",
+      "options": [
+        "<span class=\"sym\">v3-v2</span>",
+        "<span class=\"sym\">v1-v4</span>",
+        "<span class=\"sym\">v1-v3</span>",
+        "<span class=\"sym\">v4-v2</span>"
+      ],
+      "answer": 0,
+      "explanation": "بما أنّ <span class=\"sym\">f(u3) = v3</span> و<span class=\"sym\">f(u4) = v2</span>، فإنّ الحافة <span class=\"sym\">u3-u4</span> تقابل <span class=\"sym\">v3-v2</span>، وهي حافة موجودة فعلًا في H."
+    },
+    {
+      "id": "q10",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "للرسمين <span class=\"sym\">G</span> و<span class=\"sym\">H</span> خمسة رؤوس وستّ حوافّ لكلٍّ منهما. ليس في <span class=\"sym\">G</span> أيّ رأس من الدرجة ١، لكنّ <span class=\"sym\">H</span> يحوي رأسًا كهذا. ماذا نستنتج؟",
+      "options": [
+        "<span class=\"sym\">G</span> و<span class=\"sym\">H</span> غير متماثلين، لأنّ متتالية الدرجات ثابت تماثل",
+        "G وH متماثلان حتمًا لأنّ عدد رؤوسهما وحوافّهما متساوٍ",
+        "المعطيات غير كافية للحسم",
+        "لا بدّ أنّ H له حوافّ أكثر من G"
+      ],
+      "answer": 0,
+      "explanation": "عددا الرؤوس والحوافّ متطابقان، لكنّ متتاليتَي الدرجات مختلفتان — فـ G لا يحوي رأسًا من الدرجة ١ بينما H يحويه. وبما أنّ متتالية الدرجات ثابت يحافظ عليه كلّ تماثل، فعدم التطابق فيها حاسم: G وH غير متماثلين."
+    },
+    {
+      "id": "q11",
+      "type": "tf",
+      "level": 3,
+      "prompt": "إذا تساوى رسمان بسيطان في عدد الرؤوس وعدد الحوافّ ومتتالية الدرجات، فلا بدّ أن يكونا متماثلين.",
+      "answer": false,
+      "explanation": "تطابق الثوابت لا يثبت أبدًا أنّ رسمين متماثلان. المثال ذو الثمانية رؤوس والعشر حوافّ أعلاه فيه رسمان متطابقا عدد الرؤوس والحوافّ ومتتالية الدرجات، ومع ذلك غير متماثلين، بسبب طريقة اتّصال الرؤوس من الدرجة اثنين ببعضها."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

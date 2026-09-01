@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10.6 Shortest-Path Problems and Dijkstra's Algorithm — Discrete Mathematics</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="crumbs">
+    <a href="../index.en.html">Discrete Math</a> &nbsp;›&nbsp;
+    <a href="index.en.html">Ch. 10</a> &nbsp;›&nbsp;
+    <span id="crumb-current">10.6</span>
+  </div>
+  <div class="spacer"></div>
+  <a class="tbtn" href="lesson-10.6.ar.html">العربية</a>
+  <button class="tbtn" id="theme-toggle">◐ Theme</button>
+  <button class="tbtn" id="print-btn">⎙ Print</button>
+</div>
+
+<main class="page">
+  <header class="lesson-head">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section class="section">
+    <h2>Concepts</h2>
+    <div class="section-sub">Read each card, then attempt the questions below.</div>
+    <div id="concepts"></div>
+  </section>
+
+  <section class="section">
+    <h2>Practice questions</h2>
+    <div class="section-sub">Answers are hidden — submit each, then reveal feedback.</div>
+    <div id="questions"></div>
+  </section>
+</main>
+
+<script>
+window.UI_STRINGS = {
+  "siteTitle": "Discrete Mathematics",
+  "kickerPrefix": "Chapter",
+  "lesson": "Lesson",
+  "q": "Q",
+  "step": "Step",
+  "symbols": "Symbols",
+  "concepts": "Concepts",
+  "practice": "Practice questions",
+  "qTypes": {
+    "mcq": "MCQ",
+    "tf": "True / False",
+    "short": "Short Answer",
+    "reorder": "Reorder",
+    "fillblank": "Fill in Blank"
+  },
+  "qLevels": [
+    "Basic",
+    "Applied",
+    "Challenge"
+  ],
+  "btnCheck": "Check answer",
+  "btnReveal": "Show answer",
+  "btnHint": "Hint",
+  "btnMore": "More examples",
+  "btnReset": "Reset",
+  "true": "True",
+  "false": "False",
+  "correct": "Correct.",
+  "wrong": "Not quite.",
+  "expected": "Expected:",
+  "answer": "Answer",
+  "hint": "Hint:",
+  "selectFirst": "Select an option first.",
+  "typeFirst": "Type an answer first.",
+  "typeAnswer": "Type your answer…",
+  "dragHint": "Drag the items into the correct order."
+};
+window.LESSON_DATA = {
+  "id": "10.6",
+  "chapter": "10",
+  "title": "Shortest-Path Problems and Dijkstra's Algorithm",
+  "lede": "Many real problems reduce to finding the cheapest way through a weighted graph — the <b>shortest-path problem</b>. <span class=\"sym\">Dijkstra</span>'s greedy algorithm solves it efficiently for graphs whose edge weights are all positive.",
+  "concepts": [
+    {
+      "id": "c1",
+      "title": "Weighted graphs and the shortest-path problem",
+      "body": [
+        {
+          "type": "p",
+          "text": "Many problems can be modeled using graphs with weights assigned to their edges. A graph that has a number assigned to each of its edges is called a <b>weighted graph</b>. Determining a path of least total weight between two vertices in a network is one of the problems that arises frequently in applications — for instance, finding the cheapest route between two cities in a road network, or the fastest routing of a message through a computer network."
+        },
+        {
+          "type": "def",
+          "text": "<b>Definition.</b> In a weighted graph, the <b>length of a path</b> is the sum of the weights of the edges of that path. A <b>shortest path</b> between two given vertices is a path between them of least length (that is, of least total weight — not necessarily the fewest edges)."
+        },
+        {
+          "type": "p",
+          "text": "This is different from an unweighted graph, where the natural question is the fewest edges between two vertices. In a weighted graph, a path with more edges can still be shorter overall if its edges carry smaller weights."
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "A weighted graph with all weights equal to <span class=\"sym\">1</span> reduces the shortest-path problem to the ordinary fewest-edges problem — so shortest-path is a genuine generalization of that simpler question."
+        },
+        {
+          "type": "p",
+          "text": "A related, much harder problem is the famous <b>traveling salesperson problem</b>: given a complete graph in which every pair of vertices is joined by a weighted edge, find a circuit of least total weight that visits every vertex exactly once and returns to the start. This asks for the order in which a salesperson should visit each city on a route so that the total distance traveled is as small as possible. Unlike the shortest-path problem, no efficient algorithm is known for it in general."
+        }
+      ],
+      "examples": [
+        {
+          "label": "Cheapest route",
+          "body": "In a weighted graph modeling a road map, the vertices are cities and the edge weights are distances (or driving times). The shortest path from city <span class=\"sym\">a</span> to city <span class=\"sym\">z</span> is whichever route has the smallest total weight — even if it passes through more intermediate cities than some other route."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Dijkstra's Algorithm",
+      "body": [
+        {
+          "type": "p",
+          "text": "There are several algorithms for finding a shortest path between two vertices in a weighted graph. Here we present the greedy algorithm discovered by the Dutch mathematician <span class=\"sym\">Edsger Dijkstra</span> in 1959. The version described here solves the shortest-path problem in undirected weighted graphs where all weights are positive."
+        },
+        {
+          "type": "p",
+          "text": "The algorithm is <b>greedy</b>: at every stage it commits to the closest unvisited vertex without ever revisiting that choice, and (because all weights are positive) that local choice turns out to always be globally correct."
+        },
+        {
+          "type": "ol",
+          "items": [
+            "<b>To start:</b> choose the starting vertex. Label the starting vertex's distance <span class=\"sym\">0</span> and every other vertex's distance <span class=\"sym\">∞</span> (it has not been reached yet).",
+            "<b>Repeating step — examine neighbors:</b> look at the unvisited neighbors of the current (just-visited) vertex, and for each one compute its distance from the start through the current vertex (the current vertex's distance plus the connecting edge's weight).",
+            "<b>Relax if shorter:</b> if that calculated distance is less than the neighbor's currently known distance, relabel the neighbor with the smaller distance and record the path that achieves it.",
+            "<b>Move on:</b> among all unvisited vertices, visit the one with the smallest known distance from the start vertex.",
+            "<b>Repeat:</b> repeat steps 2–4 until every vertex has been visited. Each vertex's final label is then its shortest distance from the start."
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "warn",
+          "text": "This version of the algorithm requires every edge weight to be <b>positive</b>. With negative weights the greedy choice can be wrong, and the labels are no longer guaranteed to be correct shortest distances."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "id": "c3",
+      "title": "Worked example, step by step",
+      "body": [
+        {
+          "type": "p",
+          "text": "Consider the weighted undirected graph on vertices <span class=\"sym\">a, b, c, d, e, z</span> with edges <span class=\"sym\">a–b: 4</span>, <span class=\"sym\">a–c: 2</span>, <span class=\"sym\">b–c: 1</span>, <span class=\"sym\">b–d: 5</span>, <span class=\"sym\">c–d: 8</span>, <span class=\"sym\">c–e: 10</span>, <span class=\"sym\">d–e: 2</span>, <span class=\"sym\">d–z: 6</span>, <span class=\"sym\">e–z: 3</span>. We trace <span class=\"sym\">Dijkstra</span>'s algorithm starting at <span class=\"sym\">a</span> to find the shortest distance to every other vertex, and in particular to <span class=\"sym\">z</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  a((a)) -- 4 --- b((b))\n  a -- 2 --- c((c))\n  b -- 1 --- c\n  b -- 5 --- d((d))\n  c -- 8 --- d\n  c -- 10 --- e((e))\n  d -- 2 --- e\n  d -- 6 --- z((z))\n  e -- 3 --- z"
+        },
+        {
+          "type": "ol",
+          "items": [
+            "<b>Start at <span class=\"sym\">a</span>:</b> <span class=\"sym\">dist(a) = 0</span>, and every other vertex is labeled <span class=\"sym\">∞</span>.",
+            "<b>Visit <span class=\"sym\">a</span></b> (distance <span class=\"sym\">0</span>): relax its neighbors <span class=\"sym\">b</span> and <span class=\"sym\">c</span> → <span class=\"sym\">dist(b) = 4</span> (path <span class=\"sym\">a-b</span>), <span class=\"sym\">dist(c) = 2</span> (path <span class=\"sym\">a-c</span>).",
+            "<b>Visit <span class=\"sym\">c</span></b> (smallest unvisited distance, <span class=\"sym\">2</span>): relax its neighbors — <span class=\"sym\">b</span>: <span class=\"sym\">2 + 1 = 3 &lt; 4</span>, so update <span class=\"sym\">dist(b) = 3</span> (path <span class=\"sym\">a-c-b</span>); <span class=\"sym\">d</span>: <span class=\"sym\">2 + 8 = 10</span> (tentative); <span class=\"sym\">e</span>: <span class=\"sym\">2 + 10 = 12</span> (tentative).",
+            "<b>Visit <span class=\"sym\">b</span></b> (distance <span class=\"sym\">3</span>): relax its neighbors — <span class=\"sym\">d</span>: <span class=\"sym\">3 + 5 = 8 &lt; 10</span>, update <span class=\"sym\">dist(d) = 8</span> (path <span class=\"sym\">a-c-b-d</span>).",
+            "<b>Visit <span class=\"sym\">d</span></b> (distance <span class=\"sym\">8</span>): relax its neighbors — <span class=\"sym\">e</span>: <span class=\"sym\">8 + 2 = 10 &lt; 12</span>, update <span class=\"sym\">dist(e) = 10</span> (path <span class=\"sym\">a-c-b-d-e</span>); <span class=\"sym\">z</span>: <span class=\"sym\">8 + 6 = 14</span> (tentative).",
+            "<b>Visit <span class=\"sym\">e</span></b> (distance <span class=\"sym\">10</span>): relax its neighbor — <span class=\"sym\">z</span>: <span class=\"sym\">10 + 3 = 13 &lt; 14</span>, update <span class=\"sym\">dist(z) = 13</span> (path <span class=\"sym\">a-c-b-d-e-z</span>).",
+            "<b>Visit <span class=\"sym\">z</span></b> (distance <span class=\"sym\">13</span>): every vertex has now been visited — the algorithm terminates."
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Vertex",
+            "Shortest distance from <span class=\"sym\">a</span>",
+            "Path"
+          ],
+          "rows": [
+            [
+              "<span class=\"sym\">a</span>",
+              "<span class=\"sym\">0</span>",
+              "<span class=\"sym\">a</span>"
+            ],
+            [
+              "<span class=\"sym\">c</span>",
+              "<span class=\"sym\">2</span>",
+              "<span class=\"sym\">a-c</span>"
+            ],
+            [
+              "<span class=\"sym\">b</span>",
+              "<span class=\"sym\">3</span>",
+              "<span class=\"sym\">a-c-b</span>"
+            ],
+            [
+              "<span class=\"sym\">d</span>",
+              "<span class=\"sym\">8</span>",
+              "<span class=\"sym\">a-c-b-d</span>"
+            ],
+            [
+              "<span class=\"sym\">e</span>",
+              "<span class=\"sym\">10</span>",
+              "<span class=\"sym\">a-c-b-d-e</span>"
+            ],
+            [
+              "<span class=\"sym\">z</span>",
+              "<span class=\"sym\">13</span>",
+              "<span class=\"sym\">a-c-b-d-e-z</span>"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "kind": "tip",
+          "text": "The shortest path from <span class=\"sym\">a</span> to <span class=\"sym\">z</span> has total length <span class=\"sym\">13</span>, achieved by the path <span class=\"sym\">a-c-b-d-e-z</span>."
+        }
+      ],
+      "examples": []
+    },
+    {
+      "id": "c4",
+      "title": "Practice graph",
+      "body": [
+        {
+          "type": "p",
+          "text": "Here is a second weighted graph, on the same vertex set <span class=\"sym\">a, b, c, d, e, z</span>, with different weights: <span class=\"sym\">a–b: 1</span>, <span class=\"sym\">a–c: 4</span>, <span class=\"sym\">b–c: 2</span>, <span class=\"sym\">b–d: 7</span>, <span class=\"sym\">c–d: 3</span>, <span class=\"sym\">c–e: 5</span>, <span class=\"sym\">d–e: 1</span>, <span class=\"sym\">d–z: 6</span>, <span class=\"sym\">e–z: 4</span>. Use it, and the algorithm from the previous cards, to answer the questions below about the shortest path from <span class=\"sym\">a</span> to <span class=\"sym\">z</span>."
+        },
+        {
+          "type": "mermaid",
+          "code": "graph LR\n  a((a)) -- 1 --- b((b))\n  a -- 4 --- c((c))\n  b -- 2 --- c\n  b -- 7 --- d((d))\n  c -- 3 --- d\n  c -- 5 --- e((e))\n  d -- 1 --- e\n  d -- 6 --- z((z))\n  e -- 4 --- z"
+        }
+      ],
+      "examples": [
+        {
+          "label": "Hint: trace it yourself",
+          "body": "Run the same steps as in the worked example: start at <span class=\"sym\">a</span> with <span class=\"sym\">dist(a) = 0</span>, always visit next the unvisited vertex with the smallest known distance, and relax every neighbor of the vertex you just visited."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "level": 1,
+      "prompt": "When <span class=\"sym\">Dijkstra</span>'s algorithm starts, what distance value is every vertex other than the starting vertex initially given?",
+      "options": [
+        "<span class=\"sym\">∞</span>",
+        "<span class=\"sym\">0</span>",
+        "<span class=\"sym\">1</span>",
+        "The weight of its cheapest incident edge"
+      ],
+      "answer": 0,
+      "explanation": "Every vertex except the start is labeled <span class=\"sym\">∞</span> at initialization, since no path to it is known yet; the start vertex alone is labeled <span class=\"sym\">0</span>."
+    },
+    {
+      "id": "q2",
+      "type": "tf",
+      "level": 1,
+      "prompt": "The version of <span class=\"sym\">Dijkstra</span>'s algorithm presented here works correctly even when some edge weights are negative.",
+      "answer": false,
+      "explanation": "This version requires all edge weights to be positive. With negative weights, a vertex the algorithm has already visited and finalized could later be reached more cheaply through an edge with a negative weight, so the greedy choice — and the resulting distance labels — is no longer guaranteed correct."
+    },
+    {
+      "id": "q3",
+      "type": "reorder",
+      "level": 2,
+      "prompt": "For the worked-example graph (<span class=\"sym\">a–b:4, a–c:2, b–c:1, b–d:5, c–d:8, c–e:10, d–e:2, d–z:6, e–z:3</span>), put the vertices in the order <span class=\"sym\">Dijkstra</span>'s algorithm visits (finalizes) them, starting from <span class=\"sym\">a</span>.",
+      "items": [
+        "<span class=\"sym\">a</span>",
+        "<span class=\"sym\">c</span>",
+        "<span class=\"sym\">b</span>",
+        "<span class=\"sym\">d</span>",
+        "<span class=\"sym\">e</span>",
+        "<span class=\"sym\">z</span>"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "explanation": "The algorithm always visits the unvisited vertex with the smallest known distance next: <span class=\"sym\">a</span>(0) → <span class=\"sym\">c</span>(2) → <span class=\"sym\">b</span>(3) → <span class=\"sym\">d</span>(8) → <span class=\"sym\">e</span>(10) → <span class=\"sym\">z</span>(13)."
+    },
+    {
+      "id": "q4",
+      "type": "fillblank",
+      "level": 2,
+      "prompt": "Fill in the final shortest distances from <span class=\"sym\">a</span> found in the worked-example graph.",
+      "template": "In the worked-example graph, the shortest distance from <span class=\"sym\">a</span> to <span class=\"sym\">c</span> is [[1]], to <span class=\"sym\">b</span> is [[2]], and to <span class=\"sym\">d</span> is [[3]].",
+      "blanks": [
+        {
+          "id": "1",
+          "type": "input",
+          "answer": "2",
+          "acceptable": [
+            "2"
+          ]
+        },
+        {
+          "id": "2",
+          "type": "input",
+          "answer": "3",
+          "acceptable": [
+            "3"
+          ]
+        },
+        {
+          "id": "3",
+          "type": "input",
+          "answer": "8",
+          "acceptable": [
+            "8"
+          ]
+        }
+      ],
+      "explanation": "From the worksheet table: <span class=\"sym\">dist(c) = 2</span> (path <span class=\"sym\">a-c</span>), <span class=\"sym\">dist(b) = 3</span> (path <span class=\"sym\">a-c-b</span>, updated from the initial <span class=\"sym\">4</span>), and <span class=\"sym\">dist(d) = 8</span> (path <span class=\"sym\">a-c-b-d</span>)."
+    },
+    {
+      "id": "q5",
+      "type": "short",
+      "level": 2,
+      "prompt": "In the worked-example graph, what is <span class=\"sym\">dist(z)</span> — the shortest distance from <span class=\"sym\">a</span> to <span class=\"sym\">z</span>?",
+      "canonical": "13",
+      "acceptable": [
+        "13",
+        "dist(z) = 13"
+      ],
+      "explanation": "Tracing the algorithm gives the path <span class=\"sym\">a-c-b-d-e-z</span> with total weight <span class=\"sym\">2 + 1 + 5 + 2 + 3 = 13</span>, which is the smallest possible."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "level": 2,
+      "prompt": "In the worked-example graph, which vertex does <span class=\"sym\">Dijkstra</span>'s algorithm visit third (after <span class=\"sym\">a</span> and <span class=\"sym\">c</span>)?",
+      "options": [
+        "<span class=\"sym\">b</span>",
+        "<span class=\"sym\">d</span>",
+        "<span class=\"sym\">e</span>",
+        "<span class=\"sym\">z</span>"
+      ],
+      "answer": 0,
+      "explanation": "After visiting <span class=\"sym\">a</span> and <span class=\"sym\">c</span>, the known distances are <span class=\"sym\">dist(b) = 3</span>, <span class=\"sym\">dist(d) = 10</span> (tentative), <span class=\"sym\">dist(e) = 12</span> (tentative). The smallest is <span class=\"sym\">b</span> at <span class=\"sym\">3</span>, so <span class=\"sym\">b</span> is visited next."
+    },
+    {
+      "id": "q7",
+      "type": "short",
+      "level": 3,
+      "prompt": "In the practice graph (<span class=\"sym\">a–b:1, a–c:4, b–c:2, b–d:7, c–d:3, c–e:5, d–e:1, d–z:6, e–z:4</span>), what is the shortest distance from <span class=\"sym\">a</span> to <span class=\"sym\">z</span>?",
+      "canonical": "11",
+      "acceptable": [
+        "11",
+        "a-b-c-d-e-z, weight 11",
+        "dist(z) = 11"
+      ],
+      "explanation": "Tracing <span class=\"sym\">Dijkstra</span>'s algorithm from <span class=\"sym\">a</span>: <span class=\"sym\">dist(b)=1</span>, <span class=\"sym\">dist(c)=3</span> (via <span class=\"sym\">a-b-c</span>, updated from <span class=\"sym\">4</span>), <span class=\"sym\">dist(d)=6</span> (via <span class=\"sym\">a-b-c-d</span>), <span class=\"sym\">dist(e)=7</span> (via <span class=\"sym\">a-b-c-d-e</span>), <span class=\"sym\">dist(z)=11</span> (via <span class=\"sym\">a-b-c-d-e-z</span>)."
+    },
+    {
+      "id": "q8",
+      "type": "short",
+      "level": 3,
+      "prompt": "In the same practice graph, give the shortest path from <span class=\"sym\">a</span> to <span class=\"sym\">z</span> as a sequence of vertices.",
+      "canonical": "a-b-c-d-e-z",
+      "acceptable": [
+        "a-b-c-d-e-z",
+        "a, b, c, d, e, z",
+        "a→b→c→d→e→z",
+        "a-b-c-d-e-z with weight 11"
+      ],
+      "explanation": "The trace visits vertices in the order <span class=\"sym\">a, b, c, d, e, z</span>, and each relabeling records the predecessor giving the shortest distance, so the reconstructed shortest path is <span class=\"sym\">a-b-c-d-e-z</span> with total weight <span class=\"sym\">1 + 2 + 3 + 1 + 4 = 11</span>."
+    },
+    {
+      "id": "q9",
+      "type": "tf",
+      "level": 3,
+      "prompt": "The correctness of <span class=\"sym\">Dijkstra</span>'s algorithm relies on the fact that once a vertex is visited (finalized), no later relabeling can ever give it a smaller distance — and this depends on all edge weights being positive.",
+      "answer": true,
+      "explanation": "Because every edge weight is positive, any path through an unvisited vertex to a visited one can only be longer than the visited vertex's already-final distance, so the greedy choice at each step — always finalize the closest unvisited vertex — never needs to be revisited. This is the key idea behind the algorithm's correctness, and it breaks down if negative weights are allowed."
+    },
+    {
+      "id": "q10",
+      "type": "mcq",
+      "level": 3,
+      "prompt": "Which best describes the strategy <span class=\"sym\">Dijkstra</span>'s algorithm uses to find shortest paths?",
+      "options": [
+        "A greedy strategy: repeatedly finalize the closest unvisited vertex and relax its neighbors",
+        "A brute-force strategy: enumerate every possible path and compare their total weights",
+        "A backtracking strategy: try a path, and undo choices whenever a dead end is reached",
+        "A divide-and-conquer strategy: split the graph in half and solve each half recursively"
+      ],
+      "answer": 0,
+      "explanation": "Dijkstra's algorithm is greedy: at each stage it commits, without reconsidering, to the unvisited vertex currently closest to the source, and it updates (relaxes) the tentative distances of that vertex's neighbors before moving on."
+    }
+  ]
+};
+</script>
+
+<script src="../assets/mermaid.min.js"></script>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
